@@ -81,38 +81,40 @@
                     </div>
                 </a>
                 <div class="group-items rs-open">
-                    <div class="rs-item rs-active">
-                        <div class="fa fa-file-text-o rs-icon"></div>
-                        <div class="rs-tool-title">مطالب</div>
-                    </div>
-                    <div class="sub-item">
-                        <a href="#">
-                            <div class="rs-item">
-                                <div class="fa fa fa-plus rs-icon"></div>
-                                <div class="rs-tool-title">مطلب جدید</div>
-                            </div>
+                    <a href="~/Content/myContents">
+                        <div class="rs-item rs-active">
+                            <div class="fa fa-file-text-o rs-icon"></div>
+                            <div class="rs-tool-title">مطالب</div>
+                        </div>
                         </a>
-                        <a href="#">
-                            <div class="rs-item">
-                                <div class="fa fa fa-list rs-icon"></div>
-                                <div class="rs-tool-title">لیست مطالب</div>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="rs-item">
-                                <div class="fa fa fa-clone rs-icon"></div>
-                                <div class="rs-tool-title">پیش نویس</div>
-                            </div>
-                        </a>
-                    </div>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <a href="/Admin/AdminPanel">
-                            <div class="rs-item">
-                                <div class="fa fa fa-book rs-icon"></div>
-                                <div class="rs-tool-title">پنل مدیریت</div>
-                            </div>
-                        </a>}
+                        <div class="sub-item">
+                            <a href="#">
+                                <div class="rs-item">
+                                    <div class="fa fa fa-plus rs-icon"></div>
+                                    <div class="rs-tool-title">مطلب جدید</div>
+                                </div>
+                            </a>
+                            <a href="#">
+                                <div class="rs-item">
+                                    <div class="fa fa fa-list rs-icon"></div>
+                                    <div class="rs-tool-title">لیست مطالب</div>
+                                </div>
+                            </a>
+                            <a href="#">
+                                <div class="rs-item">
+                                    <div class="fa fa fa-clone rs-icon"></div>
+                                    <div class="rs-tool-title">پیش نویس</div>
+                                </div>
+                            </a>
+                        </div>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a href="/Admin/AdminPanel">
+                                <div class="rs-item">
+                                    <div class="fa fa fa-book rs-icon"></div>
+                                    <div class="rs-tool-title">پنل مدیریت</div>
+                                </div>
+                            </a>}
                 </div>
 
                 <div class="rs-item">

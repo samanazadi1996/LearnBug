@@ -27,7 +27,7 @@
                                                 <span class="fa fa-clock-o"></span>@item.Datetime
                                             </span>
                                             <span class="last-visitors-item">
-                                                <span class="fa fa-remove"></span><button class="delContent" itemId=@item.Id>حذف کردن مطلب</button>
+                                                <span class="fa fa-remove"></span><a class="delContent" style="cursor:pointer;color:red;" itemId=@item.Id>حذف کردن مطلب</a>
                                             </span>
                                         </div>
                                         <div class="clear"></div>
@@ -48,19 +48,20 @@
     <script>
         $(function () {
             $(".delContent").click(function (e) {
-                        $(this).parent().parent().parent().parent().parent().parent().hide();
-                $.ajax({
-                    url: "/Comment/DeleteContent",
-                    data: { id: $(this).attr("itemId") },
-                    type: "Post",
-                    datatype: "Json",
-                    success: function (a) {
+                if (confirm('مطلب حذف شود؟') == true) {
+                    $(this).parent().parent().parent().parent().parent().parent().hide();
+                    $.ajax({
+                        url: "/Content/DeleteContent",
+                        data: { id: $(this).attr("itemId") },
+                        type: "Post",
+                        datatype: "Json",
+                        success: function (a) {
 
-                        eval(a.Script);
-                    },
-                    error: function () { alert("خظا!"); }
-                });
-
+                            eval(a.Script);
+                        },
+                        error: function () { alert("خظا!"); }
+                    });
+                }
             });
         });
     </script>
