@@ -1,0 +1,97 @@
+﻿@model LearnBug.ViewModels.viewcontentViewModel
+@{
+}
+<div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><a href="~/Content/myContents">مطالب من</a>/<a href="/Content/ViewContent/?id=@Model.Content.Id">نمایش مطلب</a></div>
+            <div class="panel-body">
+                <div id="w1" class="grid-view">
+                    <!-- -->
+                    <!-- -->
+                    <center>
+                        <table>
+                            <tr>
+                                <td>
+                                    <button class="btn btn-default" id="btnsnd" style="float:right;">ارسال نظر</button>
+                                    @Html.TextBox("Cmnt", null, new { Cid = Model.Content.Id, @class = "form-control", style = "width:230px;margin-left:20px;" })
+                                    <div id="mfrm" style="margin-left:20px;background-color:silver;width:300px;height:100%;float:left;" class="last-visitors">
+                                        @*@Html.Partial("_SeeComments", @Model)*@
+                                    </div>
+                                </td>
+                                <td>
+                                    <table width="700" style="background-color:silver;">
+                                        <tr>
+                                            <td><center> @Model.Content.Subject</center></td>
+                                        </tr>
+                                        @if (!string.IsNullOrEmpty(Model.Content.Image))
+                                        {
+                                            <tr>
+                                                <td><center><img src="~/Files/UploadImage/@Model.Content.Image" /></center></td>
+                                            </tr>
+                                        }
+                                        <tr>
+                                            <td><div style="background-color:azure;margin:10px;">@Html.Raw(Model.Content.Description)</div></td>
+                                        </tr>
+                                    </table>
+                                </td>
+
+                            </tr>
+                        </table>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                url: "/Comment/SetparialviewComment",
+                data: { id: @Model.Content.Id },
+                type: "Post",
+                datatype: "Json",
+                success: function (result) {
+                    $("#mfrm").html(result.Html)
+                },
+            });
+            $(".delcmnt").click(function (e) {
+                $.ajax({
+                    url: "/Comment/deleteCmnt",
+                    data: { id: $(this).attr("Cmntid").trim() },
+                    type: "Post",
+                    datatype: "Json",
+                    success: function (result) {
+                        if (result.Success) {
+                            $("#mfrm").html(result.Html)
+                        }
+                        eval(result.Script);
+                    },
+                    error: function () { alert("خظا!"); }
+
+                });
+            });
+
+
+            $("#btnsnd").click(function (e) {
+                $.ajax({
+                    url: "/Comment/SendComment",
+                    data: { text: $("#Cmnt").val().trim(), id: $("#Cmnt").attr("Cid").trim() },
+                    type: "Post",
+                    datatype: "JavaScript",
+                    success: function (a) {
+                        if (a.Success) {
+                            $("#Cmnt").val("");
+                            $("#mfrm").html(a.Html)
+                        }
+                        eval(a.Script);
+                    },
+                    error: function () { alert("خظا!"); }
+                });
+            });
+        });
+    </script>
+}

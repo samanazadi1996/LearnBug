@@ -1,0 +1,67 @@
+﻿@model LearnBug.ViewModels.myContentsViewModel
+
+@{
+    ViewBag.Title = "myContents";
+}
+<div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><a href="/Content/myContents">مطالب من</a></div>
+            <div class="panel-body">
+                <div id="w1" class="grid-view">
+                    <!-- -->
+                    @foreach (var item in Model.contents)
+                    {
+                        <table class="table table-striped table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <span class="last-visitors-item">
+                                                <span class="fa fa-tablet"></span>@item.Subject
+                                            </span>
+                                            <span class="last-visitors-item">
+                                                <span class="fa fa-cubes"></span>@Model.groups.FirstOrDefault(p => p.Id == item.groupId).Name
+                                            </span>
+                                            <span class="last-visitors-item">
+                                                <span class="fa fa-clock-o"></span>@item.Datetime
+                                            </span>
+                                            <span class="last-visitors-item">
+                                                <span class="fa fa-remove"></span><button class="delContent" itemId=@item.Id>حذف کردن مطلب</button>
+                                            </span>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <span>مشاهده مطالب</span>: <a href="/Content/ViewContent/?id=@item.Id">View</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                    <!-- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script>
+        $(function () {
+            $(".delContent").click(function (e) {
+                        $(this).parent().parent().parent().parent().parent().parent().hide();
+                $.ajax({
+                    url: "/Comment/DeleteContent",
+                    data: { id: $(this).attr("itemId") },
+                    type: "Post",
+                    datatype: "Json",
+                    success: function (a) {
+
+                        eval(a.Script);
+                    },
+                    error: function () { alert("خظا!"); }
+                });
+
+            });
+        });
+    </script>
+}

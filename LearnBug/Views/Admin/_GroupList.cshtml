@@ -1,0 +1,8 @@
+﻿@model IEnumerable<LearnBug.Models.DomainModels.Group>
+
+    <select size="10" class="MyGroupList" style="width:300px;font-size:16px;">
+        @foreach (var item in Model)
+        {
+            <option value=@item.Id>@item.Name</option>
+        }
+    </select>

@@ -1,0 +1,34 @@
+﻿@model LearnBug.ViewModels.viewcontentViewModel
+
+
+<div class="fa fa-user">@Model.Users.Where(p => p.Id == Model.Content.userId).Single().Username</div>
+<br />
+<div class="fa fa-cubes">@Model.Group.Name</div>
+<br />
+<div class="fa fa-clock-o">@Model.Content.Datetime</div>
+<br />
+<div class="fa fa-comment">@Model.Comments.Count() Comments</div>
+<br />
+<div class="fa" style=" padding:5px;">
+    @foreach (var item in Model.Comments)
+    {
+        <div style="padding:5px 0px 5px 0px;">
+            <span style="color:darkblue;">
+                @{
+                    string s = Model.Users.Where(p => p.Id == item.userId).Single().Username;
+                    <a href="/User/Profile/?username=@s">@s</a>
+                }
+            </span>
+            : @item.Text <br />
+            <span style="font-size:12PX;"> @item.Datetime</span>
+            @{ 
+                if (item.userId ==Convert.ToInt32( Session["Log"]) || Model.Content.userId==Convert.ToInt32( Session["Log"]))
+                {
+                   <button class="delcmnt" Cmntid="@item.Id">حذف</button>
+                }
+
+
+            }
+        </div>
+    }
+</div>

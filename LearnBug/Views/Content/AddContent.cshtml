@@ -1,0 +1,76 @@
+﻿@model LearnBug.ViewModels.AddContentViewModel
+
+@{
+    ViewBag.Title = "AddContent";
+}
+
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div>
+
+
+    <div class="col-md-12" >
+        <div class="panel panel-default">
+            <div class="panel-heading">اضافه کردن مطالب</div>
+            <div class="panel-body">
+                <!-- -->
+                <div id="w1" class="grid-view">
+                    <!-- -->
+                    @using (Html.BeginForm("AddContent","Content",FormMethod.Post,new { enctype = "multipart/form-data" }))
+                    {
+                    <div class="grid-view">
+
+                        <div style="color:@ViewBag.style">
+                            <h1>@ViewBag.message</h1>
+                        </div>
+                        <div class="form-group" style="width:200px;">
+                            <span class="mytxt">موضوع مطلب</span><br />
+                            @Html.TextBoxFor(model => model.Content.Subject, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Content.Subject)
+                        </div>
+                        <div class="form-group" style="width:200px;">
+                            <span class="mytxt">عکس</span><br />
+                            <input type="file" name="Myfile" class="form-control" />
+                        </div>
+                        <div class="form-group" style="width:200px;">
+                            <span class="mytxt">گروه مطلب</span><br />
+                            <select name="Content.groupId" id="Content_groupId" class="form-control">
+                                <option value="0">نا مشخص</option>
+                                @foreach (var item in Model.Groups)
+                                {
+                                    <option value=@item.Id>@item.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="width:90%;">
+                            <span class="mytxt">توضیحات</span><br />
+                            @Html.TextAreaFor(model => model.Content.Description, new {id="aaa", @class = "form-control", style = "height:150px;" })
+                        </div>
+
+                        <div>
+                            <button class="btn btn-info"><div class="fa fa-2x fa-plus"> اضافه کردن مطلب</div></button>
+                        </div>
+                    </div>
+                     }
+                    <!-- -->
+                </div>
+                <!-- -->
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+@section Scripts {
+    @Html.CKEditorHeaderScripts()
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(function () {
+        $("#aaa").ckeditor();
+    });
+</script>
+}

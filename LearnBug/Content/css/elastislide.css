@@ -1,0 +1,117 @@
+/* Elastislide Style */
+
+.elastislide-list {
+	list-style-type: none;
+	display: none;
+}
+
+.no-js .elastislide-list {
+	display: block;
+}
+
+.elastislide-carousel ul li {
+	min-width: 20px; /* minimum width of the image (min width + border) */
+}
+
+.elastislide-wrapper {
+	position: relative;
+	margin: 0 auto;
+	min-height: 60px;
+	box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+.elastislide-horizontal {
+	padding: 20px 45px;
+}
+.elastislide-carousel {
+	overflow: hidden;
+	position: relative;
+}
+
+.elastislide-carousel ul {
+	position: relative;
+	display: block;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translateX(0px);
+	-moz-transform: translateX(0px);
+	-ms-transform: translateX(0px);
+	-o-transform: translateX(0px);
+	transform: translateX(0px);
+}
+
+.elastislide-horizontal ul {
+	white-space: nowrap;
+}
+
+.elastislide-carousel ul li {
+	margin: 0;
+	-webkit-backface-visibility: hidden;
+}
+
+.elastislide-horizontal ul li {
+	height: 100%;
+	display: inline-block;
+}
+
+.elastislide-carousel ul li a {
+	display: inline-block;
+	width: 100%;
+}
+
+.elastislide-carousel ul li a img {
+	display: block;
+	max-width: 100%;
+	margin: 0 10px;
+}
+
+/* Navigation Arrows */
+
+.elastislide-wrapper nav span {
+	position: absolute;
+	width: 25px;
+	height: 80px;
+	text-indent: -9000px;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset;
+	cursor: pointer;
+}
+.elastislide-wrapper nav span:hover {
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, .25) inset, 0 1px 1px rgba(0, 0, 0, .1);
+}
+.elastislide-wrapper nav span:active {
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, .25) inset, 0 1px 2px rgba(0, 0, 0, .3) inset;
+}
+.elastislide-wrapper nav span:after {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -4px;
+	margin-left: -1px;
+	display: block;	
+	content: '\00a0';
+	width: 0;
+	height: 0;
+	border: 4px solid transparent;
+	border-left-color: #737373;
+}
+.elastislide-wrapper nav span.elastislide-prev:after {
+	margin-left: -6px;
+	border: 4px solid transparent;
+	border-right-color: #737373;
+}
+
+.elastislide-wrapper nav span:hover {
+	opacity: 1.0
+}
+
+.elastislide-horizontal nav span {
+	top: 50%;
+	left: 15px;
+	margin-top: -40px;
+}
+
+.elastislide-horizontal nav span.elastislide-next {
+	right: 15px;
+	left: auto;
+}

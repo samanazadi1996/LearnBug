@@ -1,0 +1,91 @@
+﻿@model IEnumerable<LearnBug.Models.DomainModels.Group>
+
+@{
+    ViewBag.Title = "AddGroup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div>
+        
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><a href="/Admin/AdminPanel">پنل مدیریتی</a>/<a href="/Admin/ManagementGroups">مدیریت گروه ها</a></div>
+                <div class="panel-body">
+                    <!-- -->
+                        <!-- -->
+                        <div id="w1" class="grid-view">
+                            <div class="form-group mygrops">
+                                @Html.Partial("_GroupList", Model)
+                            </div>
+                            <hr />
+                            @using (Html.BeginForm("ManagementGroups", "Admin", FormMethod.Post, new { @Id = "frm" }))
+                            {
+                                <div class="form-group" style="width:200px;">
+                                    @Html.Label("نام گروه را وارد کنید")<br />
+                                    @Html.TextBox("Name", null, new { @class = "form-control " })
+                                </div>
+                                <div>
+                                    <button class="btn btn-info addgroup"><div class="fa fa-2x fa-plus"> آضافه کردن به لیست گروه ها</div></button>
+                                    &nbsp;
+
+                                    <button class="btn btn-info delgroup"><div class="fa fa-2x fa-remove"> حذف گروه انتخواب شده</div></button>
+                                </div>
+                            }
+                        </div>
+                        <!-- -->
+                    <!-- -->
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script>
+        $(function () {
+            $(".addgroup").click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/Admin/ManagementGroups",
+                    data: $("#frm").serialize(),
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+                        if (result.Success) {
+                            $(".mygrops").html(result.Html);
+                            $("#Name").val("");
+                        }
+                        eval(result.Scripts);
+                    },
+                    error: function () {alert("خطا!")}
+                });
+            });
+
+            $(".delgroup").click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/Admin/DeleteGroup",
+                    data: { Id: $(".MyGroupList").find(":selected").val() },
+                    type: "Post",
+                    dataType: "Json",
+                    success: function (result) {
+                        if (result.Success) {
+                            $(".mygrops").html(result.Html);
+                        }
+                        eval(result.Scripts);
+                    },
+                    error: function () {alert("خطا!")}
+                });
+            });
+
+        });
+
+    </script>
+}

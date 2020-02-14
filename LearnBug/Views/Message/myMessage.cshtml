@@ -1,0 +1,124 @@
+﻿@model LearnBug.ViewModels.myMessageViewModel
+
+@{
+    ViewBag.Title = "";
+}
+<div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><a href="/Message/myMessage">پیام های من</a></div>
+            <div class="panel-body">
+                <div id="w1" class="grid-view">
+                    <!-- -->
+                    <div class="col-md-2" style="float:right;">
+                        <button id="tabr" class="btn btn-default" style="width:100%;">صندوق ورودی</button>
+                        <br /><button id="tabs" class="btn btn-default" style="width:100%;">صندوق ارسالی</button>
+                    </div>
+                    <div class="col-md-10" style="float:right;">
+                        <div id="tebrr">
+
+                            <div class="panel-heading">صندوق ورودی</div>
+                            <div class="panel-body">
+                                <div id="w1" class="grid-view">
+                                    <!-- -->
+                                    @foreach (var item in Model.messages)
+                                    {
+                                        if (item.TouserId == Convert.ToInt32(Session["Log"]))
+                                        {
+                                            <table class="table table-striped table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div>
+                                                                <span class="last-visitors-item">
+                                                                    <span class="fa fa-user"></span>@{
+                                                                        string s = Model.Users.FirstOrDefault(p => p.Id == item.FromuserId).Username;
+                                                                        <a href="/User/Profile/?username=@s">@s</a>
+                                                                        }
+                                                                </span>
+                                                                <span class="last-visitors-item">
+                                                                    <span class="fa fa-ticket"></span>@item.Status
+                                                                </span>
+                                                                <span class="last-visitors-item">
+                                                                    <span class="fa fa-clock-o"></span>@item.Datetime
+                                                                </span>
+                                                            </div>
+                                                            <div class="clear"></div>
+                                                            <span>@item.Text</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        }
+                                    }
+                                    <!-- -->
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="tebss" style="display:none;">
+                            <div class="panel-heading">صندوق ارسالی</div>
+                            <div class="panel-body">
+                                <div id="w1" class="grid-view">
+                                    <!-- -->
+                                    @foreach (var item in Model.messages)
+                                    {
+                                        if (item.FromuserId == Convert.ToInt32(Session["Log"]))
+                                        {
+                                            <table class="table table-striped table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div>
+                                                                <span class="last-visitors-item">
+                                                                    <span class="fa fa-user"></span>@{
+                                                                        string s = Model.Users.FirstOrDefault(p => p.Id == item.TouserId).Username;
+                                                                        <a href="/User/Profile/?username=@s">@s</a>
+                                                                    }
+                                                                </span>
+                                                                <span class="last-visitors-item">
+                                                                    <span class="fa fa-ticket"></span>@item.Status
+                                                                </span>
+                                                                <span class="last-visitors-item">
+                                                                    <span class="fa fa-clock-o"></span>@item.Datetime
+                                                                </span>
+                                                            </div>
+                                                            <div class="clear"></div>
+                                                            <span>@item.Text</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        }
+                                    }
+                                    <!-- -->
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!-- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+
+            $("#tabs").click(function () {
+
+                $("#tebrr").hide();
+                $("#tebss").show();
+            });
+            $("#tabr").click(function () {
+
+                $("#tebss").hide();
+                $("#tebrr").show();
+            });
+        });
+    </script>
+}
+

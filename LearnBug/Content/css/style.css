@@ -1,0 +1,231 @@
+/*
+-------------------------------------
+Background Color and Pattern
+--------------------------------------
+*/
+	html{
+		width:100%;
+		height:auto;
+		display:table;
+	}
+
+	
+	@font-face {
+    font-family: 'yekan';
+    src: url('fonts/BYekan.eot');
+    src: url('fonts/BYekan.eot@#iefix') format('embedded-opentype'),
+         url('fonts/BYekan.woff') format('woff'),
+         url('fonts/BYekan.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+	}
+	/* Body */
+	body {
+		background: #ffd2a6 url('../images/header-background.png');	
+		width:100%;
+		display:table;
+		font-family: 'yekan';
+	}
+	
+	.button:hover{
+		cursor:pointer;
+	}
+	
+	.review{
+		width:95%;
+		height:auto;
+		display:table;
+		margin:2px auto;
+	}
+	
+	#error{
+		padding:0 2px;
+		color:red;
+	}
+	
+	.noaccess{
+		width:900px;
+		height:400px;
+		background:#d7d7d7 url('../images/adminbger.png') ;
+		color:#303030;
+		font-weight:bold;
+		font-size:42px;
+		margin:10px auto;
+		text-align:center;
+		line-height:400px;
+	}
+	
+	/* Header */
+	.header {
+		background: #cccccc url('../images/gbg.gif');	
+	}
+	/* Header 
+	.wrapper{
+		width:100px;
+		height:auto;
+		margin: 0 auto;
+		display:table;
+	}*/
+	.sampleheader{
+		background: #cccccc url('../images/header-background.png');
+		width:100%;
+		height:200px;
+		margin:0;
+		padding:0;
+	}
+	
+	.navnav{
+		width:auto;
+		display:table;
+		margin: 10px -15px 20px auto;
+	}
+	
+	/* Menu */
+	.menu {
+		background: #4c4c4c url('../images/menu-background.png');
+	}
+	.menu .link:hover,
+	.menu .item:hover,
+	.menu .item-open {
+		background: #ffffff url('../images/menu-background-hover.png');
+	}
+	
+	/* Navigation */
+	.nav {
+		background: url('../images/nav-separator.png') 15px center repeat-y, #555555 url('../images/nav-background.png');
+	}
+	.nav-item:hover .nav-item-link {
+		background: #ffffff url('../images/nav-hover-background.png');
+	}
+	
+	
+	/* Footer */
+	.footer {
+		background-color: <?php echo $color10; ?>;
+		background-image: url('../images/footer-shadow.png'), url('../images/footer-background.png');	
+		background-repeat: repeat-x, repeat;
+	}
+	.footer .social {
+		background: url('../images/footer-social-background.png');
+	}
+	
+	/* Search */
+	.search-body, .search-input {
+		background-color: #404040;	
+	}
+	.search-field {
+		background-color: #808080;
+	}
+	
+	/* Cart */
+	.cart-body {
+		background-color: #404040;
+		display:none;
+	}
+	
+	#textboxc{
+		width:90%;margin-right:5px;border:1px #d7d7d7 solid;height:25px;line-height:25px;font-family:'arial';padding:0 3px;margin-top:3px;color:#565656;
+	}
+	
+	#textareac{width:90%;margin-right:5px;border:1px #d7d7d7 solid;height:75px;line-height:25px;font-family:'arial';padding:0 3px;margin-top:3px;color:#565656;font-weight:lighter;}
+	
+	#textboxadmin{
+		width:150px;
+		border:1px #d4d4d4 solid;
+		height:25px;
+		margin:5px 0;
+		font-family: 'yekan';
+		color:#606060;
+	}
+	#textboxadmin:focus{
+		border-color:#89B1D9;
+		color:#303030;
+	}
+	#subcatlist{
+		width:100px;
+		float:right;
+		text-align:center;
+	}
+	
+/*
+-------------------------------------
+Text Color and Font
+--------------------------------------
+*/
+	/* Menu */
+	.menu .link,
+	.menu .item {
+		color: #ffffff;
+		font-family: 'yekan';
+		font-size: 12px;
+	}
+	.menu .item:hover,
+	.menu .item-open,
+	.menu .link:hover {
+		color: #4c4c4c;
+	}
+	.menu .item .value {
+		color: #8ccfff;
+	}
+	.menu .item-open .value,
+	.menu .item:hover .value {
+		color: #59acff;	
+	}
+	
+	/* Cart */
+	.cart-body {
+		color: #fff;
+		display:none;
+	}
+	
+	.toptext{
+		width:580px;
+		float:right;
+		height:80px;
+		padding:5px 15px;
+		color:#f9f9f9;
+		font-size:14px;
+		direction:rtl;
+		line-height:22px;
+		text-align:justify;
+	}
+	.toptext .title{
+		width:100%;
+		height:25px;
+		font-size:18px;
+		font-weight:bold;
+		color:#5AACBB;
+	}
+	.toptext a{
+		color:#5AACBB;
+		text-decoration:none;
+		font-weight:bold;
+		text-decoration: blink;
+	}
+	.toptext a:hover{
+		color:#142367;
+	}
+	/* Navigation */
+	.nav-item-link {
+		color: #fff;
+	}
+	.nav-item:hover .nav-item-link {
+		color: #4c4c4c;
+	}
+	
+	/* Footer */
+	.footer {
+		color: #fff;
+	}
+	.footer .copyright a,
+	.footer .columns span,
+	.footer .social-twitter a {
+		color: #8ccfff;	
+	}
+	.footer .social-twitter .about {
+		color: #828c99;	
+	}
+
+.field-validation-error {
+    color:red;
+}

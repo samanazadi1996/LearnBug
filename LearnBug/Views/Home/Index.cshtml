@@ -1,0 +1,164 @@
+﻿@model LearnBug.ViewModels.IndexViewModel
+@using MvcPager
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Home Page";
+}
+<div class="col-md-3">
+    <div class="panel-body top-info-box">
+        <div class="fa fa-bookmark-o"></div>
+        <div class="desc">
+            <span style="font-size: 24px; font-weight: bold">0</span>
+            <br>
+            <span style="font-size: 12px;font-weight: bold">نشانه گذاری شده ها</span>
+        </div>
+    </div>
+</div>
+
+<a href="~/Content/myContents">
+    <div class="col-md-3">
+        <div class="panel-body top-info-box">
+            <div class="fa fa-book"></div>
+            <div class="desc">
+                <span style="font-size: 24px; font-weight: bold">@Model.MyContent</span>
+                <br>
+                <span style="font-size: 12px; font-weight: bold">مطالب من</span>
+            </div>
+        </div>
+    </div>
+</a>
+
+<div class="col-md-3">
+    <div class="panel-body top-info-box">
+        <div class="fa fa-users"></div>
+        <div class="desc">
+            <span style="font-size: 24px; font-weight: bold">@Model.Users.Count()</span>
+            <br>
+            <span style="font-size: 12px; font-weight: bold">کاربرهای سایت</span>
+        </div>
+    </div>
+</div>
+<a href="/Home/Index">
+    <div class="col-md-3">
+        <div class="panel-body top-info-box">
+            <div class="fa fa-file-text-o"></div>
+            <div class="desc">
+                <span style="font-size: 24px; font-weight: bold">@Model.TotalItemCount</span>
+                <br>
+                <span style="font-size: 12px; font-weight: bold">مطالب سایت</span>
+            </div>
+        </div>
+    </div>
+</a>
+
+
+    <div class="col-md-3 right-box">
+
+        <div class="panel panel-default" style="border-top: 3px solid #008c9e">
+            <div class="panel-body" style="padding-top: 0px; padding-left: 0px; padding-right: 0px; padding-bottom: 0px;">
+                <div class="user-box-bg">
+                    <img src="~/Content/RSadmin/img/user-box-bg.jpg" width="100%">
+                </div>
+                <div class="clear"></div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <img class="user-avatar" style="" src=@{
+                    if (!string.IsNullOrEmpty(Model.User.Image))
+                    {@Model.User.Image;
+                    }
+                    else
+                    {@Url.Content("~/Content/RSadmin/img/avatar.jpg");
+                    }
+                }>
+                    <div class="user-detail">
+                        <div>نام : @Model.User.name</div><br />
+                        <div>نام کاربری : @Model.User.Username</div><br />
+                        <div>ایمیل : @Model.User.Email</div><br />
+                        <div>جنسیت : @Model.User.Gender.ToString().GenderToText()</div><br />
+                        <div>شماره تلفن : @Model.User.Phone</div><br />
+                        <div>آدرس : @Model.User.Location</div><br />
+                        <div>بیوگرافی : @Model.User.Biography</div><br />
+                        <div>تاریخ تولد: @Model.User.Dateofbirth</div><br />
+                        <div>دسترسی: @Model.User.Roles</div>
+
+                    </div>
+                }
+                else
+                {
+                    <img class="user-avatar" style="" src=@Url.Content("~/Content/RSadmin/img/avatar.jpg") />
+                }
+                <div class="clear"></div>
+                <hr style="margin: 10px 0px 0px 0px;">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <div class="col-md-6" style="padding: 10px 10px 0px 10px; margin-bottom: 0px;">
+                        <a href="/Home/Login" class="btn btn-default" role="button" style="float: left; font-size: 11px; width: 100%; margin-bottom: 10px;">ورود</a>
+                    </div>
+                    <div class="col-md-6" style="padding: 10px 10px 0px 10px; margin-bottom: 0px;">
+                        <a href="/User/RegisterUser" class="btn btn-default" role="button" style="float: right; font-size: 11px; width: 100%;margin-bottom: 10px;">ثبت نام</a>
+                    </div>
+                }
+                <div class="clear"></div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div>
+
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">آخرین مطالب</div>
+                <div class="panel-body last-visited">
+                    <!-- -->
+                    <div>
+
+                        @*class="last-visitors"*@
+                        <div class="block-pagination" style="direction:ltr;">
+                            @Html.Pager(10, Model.CurrentPage, Model.TotalItemCount)
+                        </div>
+                        <!-- -->
+                        @foreach (var item in Model.Contents)
+                        {
+
+
+                            <div id="w0" class="grid-view">
+                                <table class="table table-striped table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <span class="last-visitors-item">
+                                                        <span class="fa fa-user"></span>
+                                                        @{
+                                                            string s = Model.Users.FirstOrDefault(p => p.Id == item.userId).Username;
+                                                            <a href="/User/Profile/?username=@s">@s</a>
+                                                        }
+                                                    </span>
+                                                    <span class="last-visitors-item">
+                                                        <span class="fa fa-clock-o"></span>@item.Datetime
+                                                    </span>
+                                                    <span class="last-visitors-item">
+                                                        <span class="fa fa-cubes"></span>@Model.Groups.FirstOrDefault(p => p.Id == item.groupId).Name
+                                                    </span>
+                                                    <span class="last-visitors-item">
+                                                        <span class="fa fa-tablet"></span>@item.Subject
+                                                    </span>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <span>مشاهده مطالب</span>: <a href="/Content/ViewContent/?id=@item.Id">View</a>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        <!-- -->
+                    </div>
+                    <!-- -->
+                </div>
+            </div>
+        </div>
+    </div>

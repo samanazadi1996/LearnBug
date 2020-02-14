@@ -1,0 +1,170 @@
+<html>
+<head>
+<title><-BlogAndPostTitle-></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="author" content="<-BlogAuthor->">
+<meta name="language" content="Farsi">
+<meta name="description" content="<-BlogAndPostTitle-> - <-BlogDescription-> - <-BlogTitle->">
+<meta name="keywords" content="<-BlogAndPostTitle->,<-BlogId->, Blog, Weblog, Persian,Iran, Iranian, Farsi, Weblogs">
+<link rel="alternate" type="application/rss+xml" title="<-BlogTitle->" href="<-BlogXmlLink->" />
+<link href="http://pichak.net/template/pichak/245/style.css" type="text/css" rel="stylesheet">
+
+<script  language="javascript">
+  function GetBC(lngPostid)
+   {
+       intTimeZone=<-BlogTimeZone->;
+       strBlogId="<-BlogId->";
+       intCount=-1;
+       strResult="";
+       try {
+	  for (i=0;i<BlogComments.length;i+=2)
+	  {
+	       if (BlogComments[i]==lngPostid)
+	       intCount=BlogComments[i+1] ;
+	  }
+           }  catch( e) {
+           }
+    if ( intCount==-1)  strResult="آرشیو نظرات";
+    if ( intCount==0)  strResult="نظر بدهید";
+    if ( intCount>0)  strResult=intCount + " نظر" ;
+  
+  strUrl="http://commenting.blogfa.com/?blogid=" +strBlogId + "&postid=" + lngPostid + "&timezone=" + intTimeZone ;
+  strResult ="<a href=\"javascript:void(0)\" onclick=\"javascript:window.open('" + strUrl + "','blogfa_comments','status=yes,scrollbars=yes,Twolbar=no,menubar=no,location=no ,width=500px,height=500px')\" >" +  strResult + " </a>" ;
+  document.write ( strResult ) ;
+ }
+ function OpenLD()
+{
+  window.open('LinkDump.aspx','blogfa_ld','status=yes,scrollbars=yes,Twolbar=no,menubar=no,location=no ,width=500px,height=500px');
+  return true;
+}
+</script>
+
+</head><body>
+
+<div align=center><div id=RMweb><div id=main-back><div id=header>
+<div class=wellcome><marquee onmouseover="this.stop()" onmouseout="this.start()" direction="right" scrollamount="2" scrolldelay="1">به وبلاگ <-BlogTitle-> خوش آمدید ، امیدوارم مطالب وبلاگ من برای شما مفید باشد</marquee></div>
+<div class=TopBlogTitle><div class=BlogTitle><-BlogTitle-></div><div class=Description><-BlogDescription-></div></div>
+<div style="display:none"><h1><-BlogTitle-></h1></div>
+
+<div class=menu>
+<a href="<-BlogUrl->">صفحه اصلی</a> |
+<a href="/posts">عناوین مطالب</a> |
+<a target="_blank"  href="http://pichak.net/blogcod/email-tools/mail/?email=<-BlogEmail->">تماس با من</a> |
+<a title="پیچک" href="http://pichak.net/" target="_blank" >قالب وبلاگ</a> |
+<a href="<-BlogProfileLink->" target="_blank" >پروفایل</a>
+</div>
+
+</div>
+
+<div id=TopSidebar>
+
+<div class="TopSid-Top">
+<div class="TopSidBack-Top"><div class=TopSidFont-Top>جدیدترین مطالب</div></div><div class=CenterSid-Top><marquee onmouseover="this.stop()" onmouseout="this.start()" direction="up" scrollamount="1" scrolldelay="1" style="height:130;">
+<BlogPreviousItems items="10">
+<div class=li-Sid-Top><a href="<-PostLink->" title="<-PostDate->"><-PostTitle-></a></div>
+</BlogPreviousItems></marquee>
+</div><div class=LowSid-Top></div></div>
+
+<div class="TopSid-Top">
+<div class="TopSidBack-Top"><div class=TopSidFont-Top>لینک های وب</div></div><div class=CenterSid-Top><marquee onmouseover="this.stop()" onmouseout="this.start()" direction="up" scrollamount="1" scrolldelay="1" style="height:130;">
+<div class=li-Sid-Top><a target="_blank" title="قالب وبلاگ" href="https://pichak.net">قالب های حرفه ای وبلاگ</a></div>
+<BlogLinksBlock><BlogLinks>
+<div class=li-Sid-Top><a target="_blank" href="<-LinkUrl->"><-LinkTitle-></a></div>
+</BlogLinks></BlogLinksBlock></marquee>
+</div><div class=LowSid-Top></div></div>
+
+<div class="TopSid-Top">
+<div class="TopSidBack-Top"><div class=TopSidFont-Top>آرشیو وبلاگ</div></div><div class=CenterSid-Top><marquee onmouseover="this.stop()" onmouseout="this.start()" direction="up" scrollamount="1" scrolldelay="1" style="height:130;">
+<BlogArchive maxitems="8" archivetitle="آرشیو " ><BlogArchive>
+<div class=li-Sid-Top><a href="<-ArchiveLink->"><-ArchiveTitle-></a></div>
+</BlogArchive></marquee>
+</div><div class=LowSid-Top></div></div>
+
+</div>
+
+<div class=Sid><div id=Sidebar> 
+
+<BlogProfile><div class="TopSid"><div class=TopSid2>درباره وب</div></div>
+<div class=CenterSid><div class=About><BlogPhoto><center><img src="<-BlogPhotoLink->"></center></BlogPhoto><br> <-BlogAbout-></div>
+</div><div class=LowSid></div></BlogProfile>
+
+<BlogAuthorsBlock><div class="TopSid"><div class=TopSid2>نويسندگان</div></div><div class=CenterSid><BlogAuthors>
+<div class=li-Sid><a href="<-AuthorLink->"><-AuthorName-></a></div>
+</BlogAuthors></div><div class=LowSid></div></BlogAuthorsBlock>
+
+<div class="TopSid"><div class=TopSid2>جستجوی وب</div></div><div class=CenterSid>
+<center><script type="text/javascript" src="http://pichak.net//blogcod/google/new/searchs.php?url=<-BlogUrl->&img=01&bc=C4CB19&bg=F3F0ED&tc=000000&bgi=E19D00&sc=FFFFFF&sb=C4CB19&urlweb=pichak.net" ></script></center>
+</div><div class=LowSid></div>
+<BlogCategoriesBlock><div class=TopSid><div class=TopSid2>موضوعات وب</div></div><div class=CenterSid><BlogCategories>
+<div class=li-Sid><a href="<-CategoryLink->"><-CategoryName-></a></div>
+</BlogCategories></div><div class=LowSid></div></BlogCategoriesBlock>
+
+
+<BlogTagsBlock><div class="TopSid"><div class=TopSid2>برچسب ها وب</div></div><div class=CenterSid><BlogTags>
+<div class=li-Sid><a href="<-TagLink->"><-TagName-></a> <span dir="rtl">(<-TagCount->)</span></a></div>
+</BlogTags></div><div class=LowSid></div></BlogTagsBlock>
+
+
+<div class="TopSid"><div class=TopSid2>لینک های مفید</div></div><div class=CenterSid>
+<div class=li-Sid><a target="_blank" rel="nofollow" href="https://www.radgostarnovin.com/articles/best-water-purifier">بهترین دستگاه تصفیه آب خانگی</a>
+</div>
+<div class=li-Sid></div>
+<div class=li-Sid>﻿﻿<a href="http://goof.ir/" title="وب گوف" target="_blank">وب گوف</a></div>
+<div class=li-Sid>﻿<a target="_blank" href="http://www.linetext.ir/category/%D9%85%D8%AA%D9%86-%D8%A2%D9%87%D9%86%DA%AF">متن آهنگ</a></div>
+<div class=li-Sid><a target="_blank" href=" https://idat.ir/@idat/175_ساخت_وبلاگ_ایجاد_وبلاگ_ثبت_سایت_همکاری_در_فروش_فایل">سیستم فروشگاه ساز فایل</a>
+</div>
+</div><div class=LowSid></div>
+
+</div></div>
+
+<div class=main><div id=Post>
+
+<BLOGFA>
+<div class=TopPost><div class=TopPost2><div class=Post-title><a href="<-PostLink->"><-PostTitle-></a></div></div></div>		
+<div style="display:none"><h2><a href="<-PostLink->"><-PostTitle-></a></h2></div>
+<div class=C-post><div class=CenterPost><-PostContent-><BlogPostCategoriesBlock><br>موضوعات مرتبط: <BlogPostCategories separator=" ، " ><a href="<-CategoryLink->"><-CategoryName-></a></BlogPostCategories></BlogPostCategoriesBlock><BlogPostTagsBlock><br>برچسب ها: <BlogPostTags separator=" , "><a href="<-TagLink->"><-TagName-></a></BlogPostTags></BlogPostTagsBlock><br><br><BlogExtendedPost><b><a href="<-PostLink->">ادامه مطلب</a></b><br></BlogExtendedPost></div></div><div class=LowPost><div class=Comment>تاريخ : <-PostDate-> | <-PostTime-> | نویسنده : <-PostAuthor-> | <BlogComment><script type="text/javascript">GetBC(<-PostId->);</script></BlogComment></div></div>
+</BLOGFA>
+
+<BlogNextAndPreviousBlock>
+<style>.pging {    direction:rtl;    font-size:1.2em;    height:30px;    margin:40px 0 0;    color:#d7dede;    padding-bottom: 20px;    text-align: center;}
+.pging a:link, .pging a:visited {border:1px solid #d7dede;    display:inline-block;    margin:0 3px;    padding:1px 5px;    text-decoration:none;}
+.pging a:hover, .pging a:active {    color:#d7dede;}.pging a.current:link, .pging a.current:visited {    background-color:#d7dede;    border:1px solid #d7dede;    color:red;    cursor:text;}</style> <div class=pging>
+<font face="Tahoma" style="font-size: 9pt">
+<BlogPreviousPageBlock><a href="<-BlogPreviousPageLink->"><font color="#d7dede">
+<< مطالب جدیدتر</font></a></BlogPreviousPageBlock>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BlogNextPageBlock><a href="<-BlogNextPageLink->"><font color="#d7dede">مطالب 
+قدیمی تر >></font></a></BlogNextPageBlock>
+<br></font></font><br></div></BlogNextAndPreviousBlock>
+
+<div style="width:100%;text-align:center;font-size:8pt;color:#d7dede;height:30;"><br>
+<b><font size="1">.:</font></b>	<a title="قالب وبلاگ" href="http://pichak.net" target="_blank"><font color="#d7dede"> Weblog Themes By <b>Pichak </b></font></a><b><font size="1">:.</font></b></div>
+
+</div></div>
+
+<div class=Sid><div id=Sidebar>
+
+<BlogLinkDumpBlock><div class="TopSid"><div class=TopSid2>پيوندهای روزانه</div></div><div class=CenterSid><BlogLinkDump>
+<div class=li-Sid><a target="_blank" href="<-LinkUrl->" title="<-LinkDescription->"><-LinkTitle-></a></div></BlogLinkDump>
+<div class=li-Sid><a href="javascript:void(0)" onclick ="OpenLD();">آرشیو لینکها</a></div>
+</div><div class=LowSid></div></BlogLinkDumpBlock>
+
+
+
+<div class="TopSid"><div class=TopSid2>لینک های مفید</div></div><div class=CenterSid>
+<div class=li-Sid>﻿<a href="https://bazaremina.ir">میناکاری</a>
+</div>
+<div class=li-Sid>﻿﻿<a href="http://shhid.ir/" title="وب شهید" target="_blank">وب شهید</a></div>
+<div class=li-Sid></div>
+<div class=li-Sid>﻿﻿<a href="http://hamkelasi-uk.ir/" title="وب هم کلاسی" target="_blank">وب هم کلاسی</a></div>
+<div class=li-Sid>﻿<a href="http://max-dl.ir/" title="وب مکس دی ال" target="_blank">وب مکس دی ال</a>﻿<a href="http://selfpnu.ir"><img border="0" src=""></a></div>
+</div><div class=LowSid></div>
+
+<div class="TopSid"><div class=TopSid2>امکانات وب</div></div><div class=CenterSid>
+<div class=About><div style="text-align:center"><-BlogCustomHtml-><br></div></div>
+</div><div class=LowSid></div>
+
+</div></div>
+
+<div class=footer><div class=Fo1>
+<a href="http://pichak.net"target="_blank"> طراح قالب </a> : <a href="http://pichak.net"target="_blank"> پیچک </a> | Weblog Themes By : <a href="https://pichak.net"target="_blank"> Pichak.net </a>
+</div></div></div></body></html>
