@@ -34,17 +34,27 @@
                                                                     <span class="fa fa-user"></span>@{
                                                                         string s = Model.Users.FirstOrDefault(p => p.Id == item.FromuserId).Username;
                                                                         <a href="/User/Profile/?username=@s">@s</a>
-                                                                        }
+                                                                    }
                                                                 </span>
                                                                 <span class="last-visitors-item">
-                                                                    <span class="fa fa-ticket"></span>@item.Status
+                                                                    @{
+                                                                        if (item.Status == 0)
+                                                                        {<span>✓</span>}
+                                                                        if (item.Status == 1)
+                                                                        {<span style="color:darkgreen;">✓✓</span>}
+                                                                        if (item.Status == 2)
+                                                                        {<span style="color:red;">❤</span>}
+                                                                        if (item.Status == 3)
+                                                                        {<span style="color:red;" class="fa fa-remove"></span>}
+                                                                    }
                                                                 </span>
                                                                 <span class="last-visitors-item">
                                                                     <span class="fa fa-clock-o"></span>@item.Datetime
                                                                 </span>
+                                                                <span class="last-visitors-item">
+                                                                    <span style="color:green;cursor:pointer">View</span>
+                                                                </span>
                                                             </div>
-                                                            <div class="clear"></div>
-                                                            <span>@item.Text</span>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -77,14 +87,24 @@
                                                                     }
                                                                 </span>
                                                                 <span class="last-visitors-item">
-                                                                    <span class="fa fa-ticket"></span>@item.Status
+                                                                    @{
+                                                                        if (item.Status == 0)
+                                                                        {<span>✓</span>}
+                                                                        if (item.Status == 1)
+                                                                        {<span style="color:darkgreen;">✓✓</span>}
+                                                                        if (item.Status == 2)
+                                                                        {<span style="color:red;">❤</span>}
+                                                                        if (item.Status == 3)
+                                                                        {<span style="color:red;" class="fa fa-remove"></span>}
+                                                                    }
                                                                 </span>
                                                                 <span class="last-visitors-item">
                                                                     <span class="fa fa-clock-o"></span>@item.Datetime
+                                                                </span><span class="last-visitors-item">
+                                                                    <span style="color:green;cursor:pointer">View</span>
                                                                 </span>
+
                                                             </div>
-                                                            <div class="clear"></div>
-                                                            <span>@item.Text</span>
                                                         </td>
                                                     </tr>
                                                 </tbody>

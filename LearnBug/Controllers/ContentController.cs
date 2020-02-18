@@ -68,8 +68,8 @@ namespace LearnBug.Controllers
         {
             AddContentViewModel a = new AddContentViewModel();
             Content content = new Content();
-            a.Groups = db.Groups.ToList();
             a.Content = content;
+            ViewBag.Groups  = new SelectList(db.Groups); 
             return View(a);
         }
         [HttpPost]
