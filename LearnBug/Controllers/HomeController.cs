@@ -20,7 +20,6 @@ namespace LearnBug.Controllers
             var a = db.Contents.ToList();
             var model = new IndexViewModel
             {
-
                 User = db.Users.Find(u),
                 Users = db.Users.ToList(),
                 Contents = a.OrderByDescending(p => p.Id).Skip((page - 1) * 10).Take(10).ToList(),

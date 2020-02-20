@@ -374,6 +374,7 @@
     <Content Include="Models\DomainModels\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Scripts\Bootstrap4\popper.min.js" />
     <Content Include="Scripts\CkEditor\CHANGES.md" />
     <Content Include="Scripts\CkEditor\LICENSE.md" />
     <Content Include="Scripts\CkEditor\plugins\base64image\LICENSE.md" />
@@ -1136,6 +1137,7 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Views\Message\_viewfullMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

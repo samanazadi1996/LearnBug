@@ -1,0 +1,54 @@
+﻿
+@model LearnBug.ViewModels.myMessageViewModel
+<div class="panel-heading">@ViewBag.Typemessage <input id="inputTyp" type="hidden" value="@ViewBag.Typ" /> </div>
+<div class="panel-body">
+    <div id="w1" class="grid-view">
+        <!-- -->
+        @foreach (var item in Model.messages)
+        {
+            <table class="table table-striped table-bordered">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>
+                                <span class="last-visitors-item">
+                                    <span class="fa fa-user"></span>@{
+                                        if (item.FromuserId == Convert.ToInt32(Session["Log"]))
+                                        {
+                                            string s = Model.Users.FirstOrDefault(p => p.Id == item.TouserId).Username;
+                                            <a href="/User/Profile/?username=@s">@s</a>
+                                        }
+                                        else
+                                        {
+                                            string s = Model.Users.FirstOrDefault(p => p.Id == item.FromuserId).Username;
+                                            <a href="/User/Profile/?username=@s">@s</a>
+
+                                        }
+                                    }
+                                </span>
+                                <span class="last-visitors-item">
+                                    @{
+                                        if (item.Status == 0)
+                                        {<span style="color:silver;"><b>✓</b></span>}
+                                        if (item.Status == 1)
+                                        {<span style="color:silver;"><b>✓✓</b></span>}
+                                        if (item.Status == 2)
+                                        {<span style="color:lawngreen;"><b>✓✓</b></span>}
+                                    }
+                                </span>
+                                <span class="last-visitors-item">
+                                    <span class="fa fa-clock-o"></span>@item.Datetime
+                                </span>
+                                <span class="last-visitors-item">
+                                    <span onclick="viewmmessage(@item.Id);" style="color:green;cursor:pointer" data-toggle="modal" data-target="#myModal">View</span>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        }
+        <!-- -->
+    </div>
+</div>
