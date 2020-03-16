@@ -1,5 +1,4 @@
-﻿using LearnBug.Models.Repositories;
-using LearnBug.Models.DomainModels;
+﻿using LearnBug.Models.DomainModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,7 @@ namespace LearnBug.Controllers
     [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
-
+        LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
         public ActionResult AdminPanel()
         {
 
@@ -21,9 +20,8 @@ namespace LearnBug.Controllers
         [HttpGet]
         public ActionResult ManagementGroups()
         {
-            GroupRepository db = new GroupRepository();
 
-            return View(db.Select());
+            return View(db.Groups);
         }
         [HttpPost]
         public ActionResult ManagementGroups(Group group)
@@ -31,13 +29,12 @@ namespace LearnBug.Controllers
          
             if (ModelState.IsValid && !string.IsNullOrEmpty(group.Name.Trim()))
             {
-                
-            GroupRepository db = new GroupRepository();
-                if (db.Add(group))
+                db.Groups.Add(group);
+                if (db.SaveChanges()>0)
                 {
                     return Json(new JsonData()
                     {
-                        Html = this.RenderPartialToString("_GroupList", db.Select()),
+                        Html = this.RenderPartialToString("_GroupList", db.Groups),
                         Success = true,
                         Script = "alert('گروه اضافه شد')"
                     });
@@ -70,13 +67,13 @@ namespace LearnBug.Controllers
             if (!string.IsNullOrEmpty(Id.ToString()))
             {
 
-                GroupRepository db = new GroupRepository();
-                Group group = db.Find(Id);
-                if (db.Delete(group))
+                Group group = db.Groups.Find(Id);
+                db.Groups.Remove(group);
+                if (db.SaveChanges()>0)
                 {
                     return Json(new JsonData()
                     {
-                        Html = this.RenderPartialToString("_GroupList", db.Select()),
+                        Html = this.RenderPartialToString("_GroupList", db.Groups),
                         Success = true,
                         Script = "alert('گروه حذف شد')"
                     });

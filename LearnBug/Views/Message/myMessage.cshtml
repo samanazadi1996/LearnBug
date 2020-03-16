@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<LearnBug.Models.DomainModels.User>
 @{
     ViewBag.Title = "";
 }
@@ -7,15 +7,50 @@
         <div class="panel panel-default">
             <div class="panel-heading"><a href="/Message/myMessage">پیام های من</a></div>
             <div class="panel-body">
-                <div id="w1" class="grid-view">
+                <div class="grid-view">
                     <!-- -->
-                    <div class="col-md-2" style="float:right;">
-                        <button onclick="renderPartialViewMessage('To');" id="tabr" class="btn btn-default" style="width:100%;">صندوق ورودی</button>
-                        <br />
-                        <button onclick="renderPartialViewMessage('From');" id="tabs" class="btn btn-default" style="width:100%;">صندوق ارسالی</button>
-                    </div>
-                    <div class="col-md-10" style="float:right;" id="body">
-                        @Html.Action("_viewfullMessage")
+                    <div class="panel-body">
+                        <div id="w1" class="grid-view">
+                            <!-- -->
+                            @foreach (var item in Model)
+                            {
+
+                                <table class="table table-striped table-bordered"> 
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <span class="last-visitors-item">
+                                                        <span class="fa fa-clock-o"></span>@item.Username
+                                                    </span>
+                                                    <span class="last-visitors-item">
+                                                        <span class="fa fa-clock-o"></span>
+                                                        @{
+                                                            int a = Convert.ToInt32(item.Messages.LastOrDefault().Status);
+                                                            if (a == 0)
+                                                            {<span style="color:silver;"><b>✓</b></span>}
+                                                            if (a == 1)
+                                                            {<span style="color:silver;"><b>✓✓</b></span>}
+                                                            if (a == 2)
+                                                            {<span style="color:darkblue;"><b>✓✓</b></span>}
+                                                        }
+
+                                                    </span>
+                                                    <span class="last-visitors-item">
+                                                        <span class="fa fa-clock-o"></span>@item.Messages.LastOrDefault().Datetime
+                                                    </span>
+                                                    <span class="last-visitors-item">
+                                                        <a style="color:darkblue;cursor:pointer" data-toggle="modal" data-target="#myModal" onclick="renderPartialViewMessage(@item.Id);">visit</a>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            }
+                            <!-- -->
+                        </div>
                     </div>
                     <!-- -->
                 </div>
@@ -29,37 +64,7 @@
 
 
 
-<div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content" style="padding:10px;">
-
-            <div>
-                <b style="font-size:18px;float:left;" id="modal-title"></b>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <hr />
-            <div id="modal-body"></div>
-
-            <hr />
-            <div id="modal-footer">
-                <table width="100%">
-                    <tr>
-                        <td>
-                            <span id="viewmsgdt"></span>
-                        </td>
-                        <td>
-                            <span id="viewmsghrt"></span>
-                        </td>
-                        <td></td>
-                    </tr>
-                </table>
-
-            </div>
-
-        </div>
-    </div>
-</div>
+<div class="modal fade" id="myModal"></div>
 
 
 
@@ -68,38 +73,43 @@
     <script src="~/Scripts/Bootstrap4/popper.min.js"></script>
 
     <script>
-        setInterval( "renderPartialViewMessage('')", 7000);
-        function renderPartialViewMessage(Typ) {
-            if (Typ=="") {
-                Typ = $("#inputTyp").val();
-            }
+        setInterval( "aa('')", 1000);
+        function renderPartialViewMessage(id) {
             $.ajax({
                 url: "/message/_viewfullMessage",
-                data: { type:Typ},
+                data: { id: id },
                 type: "post",
                 datatype: "json",
                 success: function (resulet) {
                     if (resulet) {
-                        $('#body').html(resulet);
+                        $('#myModal').html(resulet);
+
                     }
                 }
             });
+        } 
+        function aa() {
+            var t = $("#myModal").css('display');
+            if (t != 'none') {
+                var s = $("#IdForuser").val();                
+                renderPartialViewMessage(s);
+            }
         }
-        function viewmmessage(messageid) {
-            $.ajax({
-                url: "/message/viewmessage",
-                data: { id: messageid },
-                type: "post",
-                datatype: "json",
-                success: function (resulet) {
-                    if (resulet.success) {
-                        $('#modal-title').html(resulet.username);
-                        $('#modal-body').html(resulet.text);
-                        $('#viewmsgdt').html(resulet.datetime);
-                    }
-                }
-            });
-        }
+                //function viewmmessage(messageid) {
+                //    $.ajax({
+                //        url: "/message/viewmessage",
+                //        data: { id: messageid },
+                //        type: "post",
+                //        datatype: "json",
+                //        success: function (resulet) {
+                //            if (resulet.success) {
+                //                $('#modal-title').html(resulet.username);
+                //                $('#modal-body').html(resulet.text);
+                //                $('#viewmsgdt').html(resulet.datetime);
+                //            }
+                //        }
+                //    });
+                //}
     </script>
 }
 

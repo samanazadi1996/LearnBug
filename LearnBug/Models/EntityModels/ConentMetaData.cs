@@ -13,14 +13,10 @@ namespace LearnBug.Models.EntityModels
        [ScaffoldColumn(false)]
        [Required]
         public int Id { get; set; }
-
         [DisplayName("موضوع مطلب")]
         [Display(Name = "موضوع مطلب")]
         [Required(ErrorMessage ="موضوع را مشخص کنید")]
         public string Subject { get; set; }
-        [DisplayName("عکس")]
-        [Display(Name = "عکس")]
-        public string Image { get; set; }
         [ScaffoldColumn(false)]
         public string Datetime { get; set; }
         [DisplayName("توضیحات مطلب")]

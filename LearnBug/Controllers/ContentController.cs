@@ -16,26 +16,15 @@ namespace LearnBug.Controllers
         [Authorize]
         public ActionResult myContents()
         {
-            int q = Convert.ToInt32(Session["Log"]);
-            var model = new myContentsViewModel
-            {
-                contents = db.Contents.Where(p => p.userId == q).OrderByDescending(p => p.Id).ToList(),
-                comments = db.Comments.OrderBy(p => p.Id).ToList(),
-                groups = db.Groups.OrderBy(p => p.Id).ToList()
-        };
-
-            return View(model);
+            var contents = db.Contents.Where(p => p.User.Username == User.Identity.Name).OrderByDescending(o=>o.Datetime);
+            return View(contents);
         }
         [HttpGet]
         [ValidateInput(false)]
         public ActionResult ViewContent(int id)
         {
-            viewcontentViewModel a = new viewcontentViewModel();
-            a.Content = db.Contents.Find(id);
-            a.Users = db.Users.ToList();
-            a.Group = db.Groups.Find(a.Content.groupId);
-            a.Comments = db.Comments.Where(p => p.contentId == id).OrderByDescending(p => p.Id);
-            return View(a);
+            var Content = db.Contents.Find(id);
+            return View(Content);
         }
 
 
@@ -45,8 +34,7 @@ namespace LearnBug.Controllers
         public ActionResult DeleteContent(int id)
         {
             var cntnt = db.Contents.Find(id);
-            var cmnt = db.Comments.Where(p => p.contentId == id).ToList();
-            foreach (var item in cmnt)
+            foreach (var item in cntnt.Comments)
             {
                 db.Comments.Remove(item);
             }
@@ -66,55 +54,30 @@ namespace LearnBug.Controllers
 
         public ActionResult AddContent()
         {
-            AddContentViewModel a = new AddContentViewModel();
-            Content content = new Content();
-            a.Content = content;
-            ViewBag.Groups  = new SelectList(db.Groups); 
-            return View(a);
+            ViewBag.Groups = new SelectList(db.Groups.ToList(), "Id", "Name");
+            return View();
         }
         [HttpPost]
         [Authorize]
 
-        public ActionResult AddContent(Content content, HttpPostedFileBase Myfile)
+        public ActionResult AddContent(Content content)
         {
-            AddContentViewModel a = new AddContentViewModel();
-            a.Groups = db.Groups.ToList();
-            a.Content = content;
-
-            content.userId = Convert.ToInt32(Session["Log"]);
             content.Datetime = DateTime.Now.ToPersianDate().ToString();
             content.Status = 0;
-
-            if (ModelState.IsValid)
+            db.Users.Single(p => p.Username == User.Identity.Name).Contents.Add(content);
+            if (db.SaveChanges() > 0)
             {
-                if (!string.IsNullOrEmpty(Myfile.FileName.ToString()))
-                {
-                    //UploadImage
-                    content.Image = Myfile.FileName;
-                    string path = Server.MapPath("~") + "Files\\UploadImage\\" + Myfile.FileName;
-                    Myfile.SaveAs(path);
-                    Myfile.InputStream.ResizeImageByWidth(700, path, Utilty.ImageComperssion.Normal);
-                }
-                db.Contents.Add(content);
-                if (db.SaveChanges()>0)
-                {
-                    return RedirectToAction("myContents");
-                }
-                else
-                {
-                    ViewBag.message = "ثبت مطلب انجام نشد";
-                    ViewBag.style = "red";
-                    return View(a);
-                }
-
+                return RedirectToAction("myContents");
             }
             else
             {
-
-                ViewBag.message = "مقادیر ورودی صحیح نمی باشد";
-                ViewBag.style = "blue";
-                return View(a);
+                ViewBag.Groups = new SelectList(db.Groups.ToList(), "Id", "Name");
+                ViewBag.message = "ثبت مطلب انجام نشد";
+                ViewBag.style = "red";
+                return View(content);
             }
+
+
         }
 
 

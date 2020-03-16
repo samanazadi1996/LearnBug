@@ -134,6 +134,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
+    <Compile Include="Controllers\BookmarkController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -195,11 +196,7 @@
     <Compile Include="Models\Repositories\CommentRepository.cs" />
     <Compile Include="Models\Repositories\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\myMessageViewModel.cs" />
-    <Compile Include="ViewModels\myContentsViewModel.cs" />
-    <Compile Include="ViewModels\viewcontentViewModel.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />
-    <Compile Include="ViewModels\AddContentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -1138,6 +1135,8 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Views\Message\_viewfullMessage.cshtml" />
+    <Content Include="Views\User\AllUsers.cshtml" />
+    <Content Include="Views\Bookmark\MyBookMarks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

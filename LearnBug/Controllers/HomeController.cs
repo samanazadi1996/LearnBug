@@ -16,21 +16,20 @@ namespace LearnBug.Controllers
 
         public ActionResult Index(int page = 1)
         {
-            int u = Convert.ToInt32(Session["Log"]);
-            var a = db.Contents.ToList();
+            var a = db.Contents;
             var model = new IndexViewModel
             {
-                User = db.Users.Find(u),
-                Users = db.Users.ToList(),
-                Contents = a.OrderByDescending(p => p.Id).Skip((page - 1) * 10).Take(10).ToList(),
-                Groups = db.Groups.ToList(),
+                Contents = a.OrderByDescending(p => p.Id).Skip((page - 1) * 10).Take(10),
+                UsersCount = db.Users.Count(),
                 CurrentPage = page,
-                TotalItemCount = a.Count(),
-                MyContent = a.Count(p => p.userId == u)
+                TotalItemCount = a.Count()
             };
+            if (User.Identity.IsAuthenticated)
+                model.User = db.Users.Single(p => p.Username == User.Identity.Name);
+
             return View(model);
         }
-        
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -41,23 +40,20 @@ namespace LearnBug.Controllers
         public ActionResult Login(string Username, string Password, string Rememberme)
         {
 
-            if (db.Users.Where(p => p.Username == Username && p.Password == Password).Any())
+            if (db.Users.Where(p => p.Username == Username.ToLower() && p.Password == Password).Any())
             {
-                FormsAuthentication.SetAuthCookie(Username,Convert.ToBoolean(Rememberme));
-                Session["Log"] = db.Users.FirstOrDefault(p=>p.Username==Username && p.Password==Password).Id;
-
+                FormsAuthentication.SetAuthCookie(Username.ToLower(), Convert.ToBoolean(Rememberme));
                 return RedirectToAction("Index");
             }
             else
             {
-                ViewBag.Message = "نام کاربری یا پسورد اشتباه است";  
+                ViewBag.Message = "نام کاربری یا رمز عبور اشتباه است";
                 return View();
             }
         }
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            Session["log"] = null;
             return RedirectToAction("Index");
         }
 

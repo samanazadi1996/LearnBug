@@ -20,7 +20,7 @@ namespace LearnBug.Models.DomainModels
         public string Text { get; set; }
         public string Datetime { get; set; }
     
-        public virtual Content Content { get; set; }
         public virtual User User { get; set; }
+        public virtual Content Content { get; set; }
     }
 }

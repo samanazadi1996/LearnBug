@@ -1,0 +1,48 @@
+﻿@model IEnumerable<LearnBug.Models.DomainModels.User>
+
+@{
+    ViewBag.Title = "myContents";
+}
+<div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><a href="/Home/Index">صفحه اصلی</a></div>
+            <div class="panel-body">
+                <div class="grid-view">
+                    <!-- -->
+                    @foreach (var item in Model)
+                    {
+                        <table class="table table-striped table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <span class="last-visitors-item">
+                                                <a href="/User/Profile/?username=@item.Username">
+                                                    <span class="fa fa-user"></span>
+                                                    @item.Username
+                                                </a><br />
+
+                                            </span>
+                                            <span class="last-visitors-item">
+                                                <span class="fa fa-genderless"></span>@item.Gender.ToString().GenderToText()
+                                            </span>
+                                            <span class="last-visitors-item">
+                                                <span class="fa fa-navicon"></span>@item.name
+                                            </span>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                    <!-- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script></script>
+}

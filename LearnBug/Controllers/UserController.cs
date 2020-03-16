@@ -23,10 +23,11 @@ namespace LearnBug.Controllers
         {
             user.Status = 1;
             user.Roles = "user";
+            user.Username = user.Username.ToLower();
             if (ModelState.IsValid)
             {
                 db.Users.Add(user);
-                if (db.SaveChanges()>0)
+                if (db.SaveChanges() > 0)
                 {
                     ViewBag.message = "ثبت نام انجام شد";
                     ViewBag.style = "green";
@@ -50,15 +51,8 @@ namespace LearnBug.Controllers
         }
         public ActionResult Profile(string username)
         {
-            var u = db.Users.FirstOrDefault(p => p.Username.Trim().ToLower() == username.Trim().ToLower());
-            var model = new IndexViewModel
-            {
-                Comments = db.Comments.ToList(),
-                User = u,
-                Groups = db.Groups.ToList(),
-                Contents = db.Contents.Where(p => p.userId == u.Id).ToList()
-            };
-            return View(model);
+            var user = db.Users.Single(p => p.Username.Trim().ToLower() == username.Trim().ToLower());
+            return View(user);
         }
         [Authorize]
         public ActionResult SendMessage(string text, int to)
@@ -91,7 +85,11 @@ namespace LearnBug.Controllers
             }
         }
 
+        public ActionResult AllUsers()
+        {
 
+            return View(db.Users);
+        }
 
     }
 }

@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<LearnBug.Models.DomainModels.Content>
 
 @{
-    ViewBag.Title = "myContents";
+    ViewBag.Title = "myBookMarks";
 }
 <div>
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading"><a href="/Content/myContents">مطالب من</a></div>
+            <div class="panel-heading"><a href="/Bookmark/MyBookMarks">نشانه گذاری شده ها</a></div>
             <div class="panel-body">
                 <div id="w1" class="grid-view">
                     <!-- -->
@@ -27,11 +27,11 @@
                                                 <span class="fa fa-clock-o"></span>@item.Datetime
                                             </span>
                                             <span class="last-visitors-item">
-                                                <span class="fa fa-remove"></span><a class="delContent" style="cursor:pointer;color:red;" itemId=@item.Id>حذف کردن مطلب</a>
+                                                <span id="" class="fa fa-bookmark"></span>@item.Bookmarks.FirstOrDefault(p => p.User.Username == User.Identity.Name).Datetime.ToPersianDate()
                                             </span>
                                         </div>
                                         <div class="clear"></div>
-                                        <span>مشاهده مطالب</span>: <a href="/Content/ViewContent/?id=@item.Id">View</a>
+                                        <span>مشاهده مطلب</span>: <a href="/Content/ViewContent/?id=@item.Id">View</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -44,25 +44,25 @@
     </div>
 </div>
 @section scripts{
-    <script src="~/Scripts/jquery-3.4.1.js"></script>
-    <script>
-        $(function () {
-            $(".delContent").click(function (e) {
-                if (confirm('مطلب حذف شود؟') == true) {
-                    $(this).parent().parent().parent().parent().parent().parent().hide();
-                    $.ajax({
-                        url: "/Content/DeleteContent",
-                        data: { id: $(this).attr("itemId") },
-                        type: "Post",
-                        datatype: "Json",
-                        success: function (a) {
+    @*<script>
+        function AddBookMark() {
+            var w = document.getElementById("BtnBookmark").classList['value']
+            var typ = true
+            if (w == "fa fa-bookmark") {
+                document.getElementById("BtnBookmark").classList['value'] = "fa fa-bookmark-o"
+                typ = false
+            } else {
+                document.getElementById("BtnBookmark").classList['value'] = "fa fa-bookmark"
+                typ = true
+            }
+            $.ajax({
+                url: "/Bookmark/AddBookmark",
+                data: { ContentId: $("#Id").val(), type: typ },
+                type: "Post",
+                datatype: "Json",
+                error: function () { alert("خظا!") }
+            })
+        }
+    </script>*@
 
-                            eval(a.Script);
-                        },
-                        error: function () { alert("خظا!"); }
-                    });
-                }
-            });
-        });
-    </script>
 }

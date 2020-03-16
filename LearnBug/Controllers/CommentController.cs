@@ -12,30 +12,25 @@ namespace LearnBug.Controllers
     public class CommentController : Controller
     {
         LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
-        public ActionResult _SeeComments()
+        public ActionResult _SeeComments(int Id)
         {
-            return PartialView();
+            var model = db.Contents.Find(Id);
+            return PartialView(model);
         }
         [HttpPost]
         [Authorize]
-        public ActionResult deleteCmnt(int id)
+        public ActionResult deleteComment(int id)
         {
             var cmnt = db.Comments.Find(id);
-            var cntnt = db.Contents.Find(cmnt.contentId);
-            if (cmnt.userId == Convert.ToInt32(Session["Log"]) || cntnt.userId == Convert.ToInt32(Session["Log"]))
+            var user = db.Users.Single(p => p.Username.ToLower() == User.Identity.Name.ToLower());
+            if (cmnt.userId==user.Id || cmnt.Content.userId==user.Id || User.IsInRole("Admin"))
             {
                 db.Comments.Remove(cmnt);
                 if (db.SaveChanges() > 0)
                 {
-                    viewcontentViewModel a = new viewcontentViewModel();
-                    var cid = cmnt.contentId;
-                    a.Content = db.Contents.Find(cid);
-                    a.Users = db.Users.ToList();
-                    a.Group = db.Groups.Find(a.Content.groupId);
-                    a.Comments = db.Comments.Where(p => p.contentId == cid).OrderByDescending(p => p.Id);
                     return Json(new JsonData()
                     {
-                        Html = this.RenderPartialToString("_SeeComments", a),
+                        Html = this.RenderPartialToString("_SeeComments", cmnt.Content),
                         Success = true,
                         Script = "alert('!کامنت شما حذف شد')"
 
@@ -73,27 +68,21 @@ namespace LearnBug.Controllers
         [Authorize]
         public ActionResult SendComment(int id, string text)
         {
-            if (!string.IsNullOrEmpty(Session["Log"].ToString()))
+            if (User.Identity.IsAuthenticated)
             {
                 if (!string.IsNullOrEmpty(text))
                 {
                     Comment comment = new Comment();
-                    comment.contentId = id;
                     comment.Text = text;
-                    comment.userId = Convert.ToInt32(Session["Log"]);
+                    comment.userId =db.Users.Single(p=>p.Username.ToLower()==User.Identity.Name.ToLower()).Id;
                     comment.Datetime = DateTime.Now.ToPersianDate().ToString();
-                    db.Comments.Add(comment);
+                    db.Contents.Find(id).Comments.Add(comment);
                     if (db.SaveChanges() > 0)
                     {
-                        viewcontentViewModel a = new viewcontentViewModel();
-                        a.Content = db.Contents.Find(id);
-                        a.Users = db.Users.ToList();
-                        a.Group = db.Groups.Find(a.Content.groupId);
-                        a.Comments = db.Comments.Where(p => p.contentId == id).OrderByDescending(p => p.Id);
-
+                        var model = db.Contents.Find(id);
                         return Json(new JsonData()
                         {
-                            Html = this.RenderPartialToString("_SeeComments", a),
+                            Html = this.RenderPartialToString("_SeeComments", model),
                             Success = true,
                             Script = "alert('!کامنت شما ثبت شد')"
                         });
@@ -129,18 +118,18 @@ namespace LearnBug.Controllers
                 });
             }
         }
-        public ActionResult SetparialviewComment(int id)
-        {
-            viewcontentViewModel a = new viewcontentViewModel();
-            a.Content = db.Contents.Find(id);
-            a.Users = db.Users.ToList();
-            a.Group = db.Groups.Find(a.Content.groupId);
-            a.Comments = db.Comments.Where(p => p.contentId == id).OrderByDescending(p => p.Id);
+        //public ActionResult SetparialviewComment(int id)
+        //{
+        //    viewcontentViewModel a = new viewcontentViewModel();
+        //    a.Content = db.Contents.Find(id);
+        //    a.Users = db.Users.ToList();
+        //    a.Group = db.Groups.Find(a.Content.groupId);
+        //    a.Comments = db.Comments.Where(p => p.contentId == id).OrderByDescending(p => p.Id);
 
-            return Json(new JsonData()
-            {
-                Html = this.RenderPartialToString("_SeeComments", a),
-            });
-        }
+        //    return Json(new JsonData()
+        //    {
+        //        Html = this.RenderPartialToString("_SeeComments", a),
+        //    });
+        //}
     }
 }

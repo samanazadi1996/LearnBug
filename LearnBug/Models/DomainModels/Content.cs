@@ -18,11 +18,11 @@ namespace LearnBug.Models.DomainModels
         public Content()
         {
             this.Comments = new HashSet<Comment>();
+            this.Bookmarks = new HashSet<Bookmark>();
         }
     
         public int Id { get; set; }
         public string Subject { get; set; }
-        public string Image { get; set; }
         public string Datetime { get; set; }
         public string Description { get; set; }
         public Nullable<byte> Status { get; set; }
@@ -33,5 +33,7 @@ namespace LearnBug.Models.DomainModels
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual Group Group { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bookmark> Bookmarks { get; set; }
     }
 }

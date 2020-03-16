@@ -12,12 +12,6 @@
     <link href="~/Content/css/markup.css" rel="stylesheet" />
 
     <style>
-        .form-control {
-            border-color: silver;
-            font-size: 16px;
-            box-shadow: 0px 4px 16px -3px silver;
-        }
-
         .mytxt {
             font-size: 18px;
             color: #008c9e;
@@ -86,35 +80,36 @@
                             <div class="fa fa-file-text-o rs-icon"></div>
                             <div class="rs-tool-title">مطالب</div>
                         </div>
+                    </a>
+                    <div class="sub-item">
+                        <a href="#">
+                            <div class="rs-item">
+                                <div class="fa fa fa-plus rs-icon"></div>
+                                <div class="rs-tool-title">مطلب جدید</div>
+                            </div>
                         </a>
-                        <div class="sub-item">
-                            <a href="#">
-                                <div class="rs-item">
-                                    <div class="fa fa fa-plus rs-icon"></div>
-                                    <div class="rs-tool-title">مطلب جدید</div>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="rs-item">
-                                    <div class="fa fa fa-list rs-icon"></div>
-                                    <div class="rs-tool-title">لیست مطالب</div>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="rs-item">
-                                    <div class="fa fa fa-clone rs-icon"></div>
-                                    <div class="rs-tool-title">پیش نویس</div>
-                                </div>
-                            </a>
-                        </div>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a href="/Admin/AdminPanel">
-                                <div class="rs-item">
-                                    <div class="fa fa fa-book rs-icon"></div>
-                                    <div class="rs-tool-title">پنل مدیریت</div>
-                                </div>
-                            </a>}
+                        <a href="#">
+                            <div class="rs-item">
+                                <div class="fa fa fa-list rs-icon"></div>
+                                <div class="rs-tool-title">لیست مطالب</div>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="rs-item">
+                                <div class="fa fa fa-clone rs-icon"></div>
+                                <div class="rs-tool-title">پیش نویس</div>
+                            </div>
+                        </a>
+                    </div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a href="/Admin/AdminPanel">
+                            <div class="rs-item">
+                                <div class="fa fa fa-book rs-icon"></div>
+                                <div class="rs-tool-title">پنل مدیریت</div>
+                            </div>
+                        </a>
+                    }
                 </div>
 
                 <div class="rs-item">

@@ -16,5 +16,10 @@ namespace LearnBug.Models.DomainModels
     {
         public int Id { get; set; }
         public int contentId { get; set; }
+        public int userId { get; set; }
+        public System.DateTime Datetime { get; set; }
+    
+        public virtual Content Content { get; set; }
+        public virtual User User { get; set; }
     }
 }

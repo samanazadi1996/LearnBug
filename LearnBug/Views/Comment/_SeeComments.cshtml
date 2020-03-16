@@ -1,33 +1,29 @@
-﻿@model LearnBug.ViewModels.viewcontentViewModel
+﻿@model LearnBug.Models.DomainModels.Content
 
 
-<div class="fa fa-user">@Model.Users.Where(p => p.Id == Model.Content.userId).Single().Username</div>
+<div class="fa fa-user">@Model.User.Username</div>
 <br />
 <div class="fa fa-cubes">@Model.Group.Name</div>
 <br />
-<div class="fa fa-clock-o">@Model.Content.Datetime</div>
+<div class="fa fa-clock-o">@Model.Datetime</div>
 <br />
 <div class="fa fa-comment">@Model.Comments.Count() Comments</div>
 <br />
 <div class="fa" style=" padding:5px;">
-    @foreach (var item in Model.Comments)
+    @foreach (var item in Model.Comments.OrderByDescending(P => P.Datetime))
     {
         <div style="padding:5px 0px 5px 0px;">
             <span style="color:darkblue;">
                 @{
-                    string s = Model.Users.Where(p => p.Id == item.userId).Single().Username;
-                    <a href="/User/Profile/?username=@s">@s</a>
+                    string s = item.User.Username;
+                    <a href="/User/Profile/?username=@s">@s</a><br />
                 }
             </span>
-            : @item.Text <br />
+            @item.Text <br />
             <span style="font-size:12PX;"> @item.Datetime</span>
-            @{ 
-                if (item.userId ==Convert.ToInt32( Session["Log"]) || Model.Content.userId==Convert.ToInt32( Session["Log"]))
-                {
-                   <button class="delcmnt" Cmntid="@item.Id">حذف</button>
-                }
-
-
+            @if (item.User.Username.ToLower() == User.Identity.Name.ToLower() || Model.User.Username.ToLower() == User.Identity.Name.ToLower() || User.IsInRole("Admin"))
+            {
+                <a style="cursor:pointer;color:red" onclick="deleteComment(@item.Id)">حذف</a>
             }
         </div>
     }

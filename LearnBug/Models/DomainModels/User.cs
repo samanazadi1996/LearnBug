@@ -18,9 +18,10 @@ namespace LearnBug.Models.DomainModels
         public User()
         {
             this.Comments = new HashSet<Comment>();
-            this.Contents = new HashSet<Content>();
             this.Messages = new HashSet<Message>();
             this.Messages1 = new HashSet<Message>();
+            this.Contents = new HashSet<Content>();
+            this.Bookmarks = new HashSet<Bookmark>();
         }
     
         public int Id { get; set; }
@@ -40,10 +41,12 @@ namespace LearnBug.Models.DomainModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Content> Contents { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Content> Contents { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bookmark> Bookmarks { get; set; }
     }
 }
