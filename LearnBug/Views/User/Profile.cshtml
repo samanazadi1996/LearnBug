@@ -12,13 +12,27 @@
                     <!-- -->
                     <div class="col-md-3" style="float:right;">
                         <div>
-                            <img style="width:200px;height:200px;border-radius:100%;" src=@{if (!string.IsNullOrEmpty(Model.Image)){@Model.Image;}else{@Url.Content("~/Content/RSadmin/img/avatar.jpg");}}>
+                            <center>
+                                <img style="width:200px;height:200px;border-radius:100%;" src="@Model.Image.ImgProfile()">
+                            </center>
                         </div>
-                        @if (User.Identity.IsAuthenticated)
+                        <div>
+                            <div class="col-md-4"><center>Posts<br />@Model.Contents.Count()</center></div>
+                            <div class="col-md-4"><center>Followers<br /><span id="Flwer">@Model.Follows.Count()</span></center></div>
+                            <div class="col-md-4"><center>Following<br />@Model.Follows1.Count()</center></div>
+                        </div><br />
+                        @if (User.Identity.IsAuthenticated && User.Identity.Name!=Model.Username)
                         {
                             <div>
-                                <button id="sndmsg" class="btn btn-default">ارسال پیام به کاربر</button>
-                                <button class="btn btn-default">گذارش کردن کاربر</button>
+                                <button id="sndmsg" class="btn btn-success col-md-6">ارسال پیام به کاربر</button>
+                                @if (Model.Follows.Any(p => p.User1.Username == User.Identity.Name))
+                                {
+                                    <input onclick="Follow(@Model.Id);" id="btnFollow" class="btn btn-info col-md-6" flw="true" value="UnFollow"/>
+                                }
+                                else
+                                {
+                                    <input onclick="Follow(@Model.Id);" id="btnFollow" class="btn btn-info col-md-6" flw="false" value="Follow"/>
+                                }
                             </div>
                         }
 
@@ -98,12 +112,34 @@
             var t = prompt("پیغام خود را وارد کنید");
             if (t!='' && t!=null) {
                 $.ajax({
-                    url: "/User/SendMessage",
+                    url: "/Message/SendMessage",
                     data: { text: t, to:@Model.Id},
                     type: "Post",
                     dataType: "JavaScript",
                 });
             }
         });
+
+
+
+
+        function Follow(id) {
+                        var w = $("#btnFollow").val()
+            var typ = true
+                if (w == "UnFollow") {
+                $("#btnFollow").val( "Follow")
+                typ = false
+            } else {
+                $("#btnFollow").val( "UnFollow")
+                typ = true
+            }
+            $.ajax({
+                url: "/Follow/Follow",
+                data: { userId:id , type: typ },
+                type: "Post",
+                datatype: "Json"
+            })
+        }
+
     </script>
 }

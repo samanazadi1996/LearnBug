@@ -17,11 +17,13 @@ namespace LearnBug.Models.DomainModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.Bookmarks = new HashSet<Bookmark>();
             this.Comments = new HashSet<Comment>();
+            this.Contents = new HashSet<Content>();
+            this.Follows = new HashSet<Follow>();
+            this.Follows1 = new HashSet<Follow>();
             this.Messages = new HashSet<Message>();
             this.Messages1 = new HashSet<Message>();
-            this.Contents = new HashSet<Content>();
-            this.Bookmarks = new HashSet<Bookmark>();
         }
     
         public int Id { get; set; }
@@ -29,7 +31,7 @@ namespace LearnBug.Models.DomainModels
         public string name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Dateofbirth { get; set; }
+        public System.DateTime Dateofbirth { get; set; }
         public byte Gender { get; set; }
         public string Biography { get; set; }
         public string Phone { get; set; }
@@ -39,14 +41,18 @@ namespace LearnBug.Models.DomainModels
         public Nullable<byte> Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bookmark> Bookmarks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Content> Contents { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Follow> Follows { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Follow> Follows1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Content> Contents { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bookmark> Bookmarks { get; set; }
     }
 }

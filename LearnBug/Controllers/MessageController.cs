@@ -1,4 +1,5 @@
-﻿using LearnBug.ViewModels;
+﻿using LearnBug.Models.DomainModels;
+using LearnBug.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,10 @@ using System.Web.Mvc;
 
 namespace LearnBug.Controllers
 {
+    [Authorize]
     public class MessageController : Controller
     {
         LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
-        [Authorize]
         public ActionResult myMessage()
         {
             int userId = db.Users.Single(P=>P.Username==User.Identity.Name).Id;
@@ -38,6 +39,35 @@ namespace LearnBug.Controllers
 
             return PartialView(model);
         }
+        public ActionResult SendMessage(string text, int to)
+        {
+            var message = new Message
+            {
+                Datetime = DateTime.Now,
+                Text = text,
+                TouserId = to,
+                Status = 0
+
+            };
+            if (ModelState.IsValid)
+            {
+                db.Users.Single(p=>p.Username==User.Identity.Name).Messages.Add(message);
+                if (db.SaveChanges() > 0)
+                {
+                    return JavaScript("alert('پیغام ارسال شد')");
+                }
+                else
+                {
+                    return JavaScript("alert('پیغام ارسال نشد')");
+                }
+            }
+            else
+            {
+                return JavaScript("alert('مقادیر نامعتبر')");
+
+            }
+        }
+
         public JsonResult Viewmessage(int id)
         {
             var msg = db.Messages.Find(id);
@@ -64,29 +94,6 @@ namespace LearnBug.Controllers
             }
 
         }
-        //public JsonResult likemsg(int id)
-        //{
-        //    var msg = db.Messages.Find(id);
-        //    var user = Convert.ToInt32(Session["Log"]);
-        //    if (user == msg.TouserId)
-        //    {
-        //        if (msg.Status == 2)
-        //            msg.Status = 1;
-        //        else
-        //            msg.Status = 2;
-
-        //        db.SaveChanges();
-
-        //        return Json(new {heart = "red" });
-        //     }
-        //    else
-        //    {
-        //        return Json(new { heart = "black" });
-        //    }
-
-        //}
-
 
     }
-
 }

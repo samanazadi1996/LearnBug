@@ -224,6 +224,17 @@ public static class Utilty
         return new string(decoded_char);
     }
 
+    public static string ImgProfile(this string src)
+    {
+        if (string.IsNullOrEmpty(src))
+        {
+            return "/Files/ProfilePicture/BugPicture/default.jpg";
+        }
+        else
+        {
+            return src;
+        }
+    }
 
 
 

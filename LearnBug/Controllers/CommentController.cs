@@ -75,7 +75,7 @@ namespace LearnBug.Controllers
                     Comment comment = new Comment();
                     comment.Text = text;
                     comment.userId =db.Users.Single(p=>p.Username.ToLower()==User.Identity.Name.ToLower()).Id;
-                    comment.Datetime = DateTime.Now.ToPersianDate().ToString();
+                    comment.Datetime = DateTime.Now;
                     db.Contents.Find(id).Comments.Add(comment);
                     if (db.SaveChanges() > 0)
                     {

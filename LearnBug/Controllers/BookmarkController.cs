@@ -12,12 +12,10 @@ namespace LearnBug.Controllers
     public class BookmarkController : Controller
     {
         LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
-
+        [Authorize]
         // GET: Bookmark
         public void AddBookmark(int ContentId, bool type)
         {
-            if (User.Identity.IsAuthenticated)
-            {
                 var myUser = db.Users.Single(p => p.Username == User.Identity.Name);
                 if (type)
                 {
@@ -35,13 +33,10 @@ namespace LearnBug.Controllers
                     }
                 }
                 db.SaveChanges();
-            }
         }
         public ActionResult MyBookMarks()
         {
             var contents = db.Users.Single(p => p.Username == User.Identity.Name).Bookmarks.Select(o => o.Content).OrderByDescending(i=>i.Datetime);
-
-
             return View(contents);
         }
     }

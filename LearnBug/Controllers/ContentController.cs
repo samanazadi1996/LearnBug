@@ -62,7 +62,7 @@ namespace LearnBug.Controllers
 
         public ActionResult AddContent(Content content)
         {
-            content.Datetime = DateTime.Now.ToPersianDate().ToString();
+            content.Datetime = DateTime.Now;
             content.Status = 0;
             db.Users.Single(p => p.Username == User.Identity.Name).Contents.Add(content);
             if (db.SaveChanges() > 0)
@@ -78,6 +78,14 @@ namespace LearnBug.Controllers
             }
 
 
+        }
+        [Authorize]
+
+        public ActionResult ContentOfFollowing()
+        {
+            var user = db.Users.Single(p => p.Username == User.Identity.Name);
+            var model = user.Follows1.SelectMany(p => p.User.Contents).OrderByDescending(O=>O.Datetime);
+                return View(model);
         }
 
 

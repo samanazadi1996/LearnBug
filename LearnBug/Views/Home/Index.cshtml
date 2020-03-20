@@ -61,14 +61,24 @@
         </div>
     </div>
 </a>
-<a href="/Home/Index">
+<a href="/Content/ContentOfFollowing">
     <div class="col-md-3">
         <div class="panel-body top-info-box">
             <div class="fa fa-file-text"></div>
             <div class="desc">
-                <span style="font-size: 24px; font-weight: bold">@Model.TotalItemCount</span>
+                <span style="font-size: 24px; font-weight: bold">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @Model.User.Follows1.Sum(p => p.User.Contents.Count)
+                    }
+                    else
+                    {
+                        <span>0</span>
+                    }
+
+                </span>
                 <br>
-                <span style="font-size: 12px; font-weight: bold">مطالب سایت</span>
+                <span style="font-size: 12px; font-weight: bold">مطالب دوستان</span>
             </div>
         </div>
     </div>
@@ -85,30 +95,34 @@
             <div class="clear"></div>
             @if (User.Identity.IsAuthenticated)
             {
-                <img class="user-avatar" style="" src=@{
-                    if (!string.IsNullOrEmpty(Model.User.Image))
-                    {@Model.User.Image;
-                    }
-                    else
-                    {@Url.Content("~/Content/RSadmin/img/avatar.jpg");
-                    }
-                }>
+                <img class="user-avatar" style="" src=@Model.User.Image.ImgProfile() />
+                <div style="color:darkblue;margin:5px;">
+                    @Model.User.Username
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-md-4"><center>Posts<br />@Model.Contents.Count()</center></div>
+                    <div class="col-md-4"><center>Followers<br />@Model.User.Follows.Count()</center></div>
+                    <div class="col-md-4"><center>Following<br />@Model.User.Follows1.Count()</center></div>
+                    <br />
+                    <div class="col-md-12">
+                        <center>
+                            <a href="@Url.Action("Edit","User")" class="btn btn-info" style="width:80%">Edit Profile </a>
+                        </center>
+                    </div>
+                </div>
+                <br />
+                <br />
                 <div class="user-detail">
                     <div>نام : @Model.User.name</div><br />
-                    <div>نام کاربری : @Model.User.Username</div><br />
                     <div>ایمیل : @Model.User.Email</div><br />
                     <div>جنسیت : @Model.User.Gender.ToString().GenderToText()</div><br />
                     <div>شماره تلفن : @Model.User.Phone</div><br />
                     <div>آدرس : @Model.User.Location</div><br />
                     <div>بیوگرافی : @Model.User.Biography</div><br />
-                    <div>تاریخ تولد: @Model.User.Dateofbirth</div><br />
+                    <div>تاریخ تولد: @Model.User.Dateofbirth.ToPersianDate()</div><br />
                     <div>دسترسی: @Model.User.Roles</div>
 
                 </div>
-            }
-            else
-            {
-                <img class="user-avatar" style="" src=@Url.Content("~/Content/RSadmin/img/avatar.jpg") />
             }
             <div class="clear"></div>
             <hr style="margin: 10px 0px 0px 0px;">
@@ -150,16 +164,21 @@
                             <table class="table table-striped table-bordered">
                                 <tbody>
                                     <tr>
+                                        <td style="width:48px;">
+                                            <a href="/User/Profile/?username=@item.User.Username">
+                                                <img src="@item.User.Image.ImgProfile()" style="width:100%;height:auto;border-radius:100%;box-shadow:0px 3px 4px 0px rgb(0, 0, 54)" />
+                                                </a>
+                                        </td>
                                         <td>
+
                                             <div>
+
                                                 <span class="last-visitors-item">
                                                     <span class="fa fa-user"></span>
-                                                    @{
-                                                        <a href="/User/Profile/?username=@item.User.Username">@item.User.Username</a>
-                                                    }
+                                                    <a href="/User/Profile/?username=@item.User.Username">@item.User.Username</a>
                                                 </span>
                                                 <span class="last-visitors-item">
-                                                    <span class="fa fa-clock-o"></span>@item.Datetime
+                                                    <span class="fa fa-clock-o"></span>@item.Datetime.ToPersianDate()
                                                 </span>
                                                 <span class="last-visitors-item">
                                                     <span class="fa fa-cubes"></span>@item.Group.Name

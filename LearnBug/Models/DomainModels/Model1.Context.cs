@@ -25,13 +25,14 @@ namespace LearnBug.Models.DomainModels
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Bookmark> Bookmarks { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Content> Contents { get; set; }
+        public virtual DbSet<Follow> Follows { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Link> Links { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Content> Contents { get; set; }
-        public virtual DbSet<Bookmark> Bookmarks { get; set; }
     }
 }

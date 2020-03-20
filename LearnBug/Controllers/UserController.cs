@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace LearnBug.Controllers
 {
@@ -24,6 +25,7 @@ namespace LearnBug.Controllers
             user.Status = 1;
             user.Roles = "user";
             user.Username = user.Username.ToLower();
+            user.Dateofbirth = user.Dateofbirth.ToMiladiDate();
             if (ModelState.IsValid)
             {
                 db.Users.Add(user);
@@ -51,45 +53,84 @@ namespace LearnBug.Controllers
         }
         public ActionResult Profile(string username)
         {
-            var user = db.Users.Single(p => p.Username.Trim().ToLower() == username.Trim().ToLower());
+            var user = db.Users.Single(p => p.Username.Trim() == username.Trim());
             return View(user);
-        }
-        [Authorize]
-        public ActionResult SendMessage(string text, int to)
-        {
-            var message = new Message
-            {
-                Datetime = DateTime.Now.ToPersianDate().ToString(),
-                FromuserId = Convert.ToInt32(Session["Log"]),
-                Text = text,
-                TouserId = to,
-                Status = 0
-
-            };
-            if (ModelState.IsValid)
-            {
-                db.Messages.Add(message);
-                if (db.SaveChanges() > 0)
-                {
-                    return JavaScript("alert('پیغام ارسال شد')");
-                }
-                else
-                {
-                    return JavaScript("alert('پیغام ارسال نشد')");
-                }
-            }
-            else
-            {
-                return JavaScript("alert('مقادیر نامعتبر')");
-
-            }
         }
 
         public ActionResult AllUsers()
         {
-
             return View(db.Users);
         }
+        [Authorize]
+        public ActionResult Edit()
+        {
+            var user = db.Users.Single(p => p.Username == User.Identity.Name);
+            return View(user);
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult Edit(User user)
+        {
+            var myuser = db.Users.Single(p => p.Username == User.Identity.Name);
+            //myuser.Username = user.Username.ToLower();
+            myuser.name = user.name;
+            myuser.Email = user.Email;
+            myuser.Dateofbirth = user.Dateofbirth.ToMiladiDate();
+            myuser.Gender = user.Gender;
+            myuser.Biography = user.Biography;
+            myuser.Phone = user.Phone;
+            myuser.Location = user.Location;
+
+            db.SaveChanges();
+            return View();
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult ChangePassword(string oldPassword, string newPassword, string confirmPassword)
+        {
+            var myuser = db.Users.FirstOrDefault(p => p.Username == User.Identity.Name && p.Password == oldPassword);
+            if (myuser == null)
+            {
+
+                return Json(new
+                {
+                    js = "document.getElementById('oldPassword').focus();document.querySelector('#oldPassword').value=''",
+                    msg = "رمز عبور شما اشتباه است",
+                    ss = false
+                });
+            }
+            else
+            {
+                if (confirmPassword == newPassword)
+                {
+                    myuser.Password = newPassword;
+                    db.SaveChanges();
+                    return Json(new
+                    {
+                        ss = true
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        js = "document.getElementById('confirmPassword').focus();document.querySelector('#confirmPassword').value=''",
+                        msg = "تکرار رمز عبور اشتباه است",
+                        ss = false
+                    });
+                }
+            }
+        }
+        public ActionResult _editPassword()
+        {
+            return PartialView();
+        }
+        public ActionResult _editPicture()
+        {
+            ViewBag.pic = db.Users.Single(p => p.Username == User.Identity.Name).Image.ImgProfile();
+            return PartialView();
+        }
+
 
     }
 }

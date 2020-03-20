@@ -22,7 +22,7 @@
           <Property Name="userId" Type="int" Nullable="false" />
           <Property Name="contentId" Type="int" Nullable="false" />
           <Property Name="Text" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="Datetime" Type="nvarchar" MaxLength="50" />
+          <Property Name="Datetime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Contents">
           <Key>
@@ -30,11 +30,20 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Subject" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Datetime" Type="nvarchar" MaxLength="50" />
+          <Property Name="Datetime" Type="datetime" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Status" Type="tinyint" />
           <Property Name="groupId" Type="int" Nullable="false" />
           <Property Name="userId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Follow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MyUserId" Type="int" Nullable="false" />
+          <Property Name="followUserId" Type="int" Nullable="false" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Groups">
           <Key>
@@ -61,7 +70,7 @@
           <Property Name="FromuserId" Type="int" Nullable="false" />
           <Property Name="TouserId" Type="int" Nullable="false" />
           <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Datetime" Type="nvarchar" MaxLength="50" />
+          <Property Name="Datetime" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="bigint" />
         </EntityType>
         <EntityType Name="Setting">
@@ -90,7 +99,7 @@
           <Property Name="name" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="Dateofbirth" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dateofbirth" Type="datetime" Nullable="false" />
           <Property Name="Gender" Type="tinyint" Nullable="false" />
           <Property Name="Biography" Type="nvarchar" MaxLength="300" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" Nullable="false" />
@@ -147,7 +156,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Contents_Groups1">
+        <Association Name="FK_Contents_Groups">
           <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
           <End Role="Contents" Type="Self.Contents" Multiplicity="*" />
           <ReferentialConstraint>
@@ -171,7 +180,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Messages_Users">
+        <Association Name="FK_Follow_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Follow" Type="Self.Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Follow">
+              <PropertyRef Name="followUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Me">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Follow" Type="Self.Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Follow">
+              <PropertyRef Name="MyUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ReceivedMessage">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
           <ReferentialConstraint>
@@ -183,7 +216,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Messages_Users1">
+        <Association Name="SendedMessage">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
           <ReferentialConstraint>
@@ -199,6 +232,7 @@
           <EntitySet Name="Bookmarks" EntityType="Self.Bookmarks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contents" EntityType="Self.Contents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Follow" EntityType="Self.Follow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Links" EntityType="Self.Links" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
@@ -220,7 +254,7 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
-          <AssociationSet Name="FK_Contents_Groups1" Association="Self.FK_Contents_Groups1">
+          <AssociationSet Name="FK_Contents_Groups" Association="Self.FK_Contents_Groups">
             <End Role="Groups" EntitySet="Groups" />
             <End Role="Contents" EntitySet="Contents" />
           </AssociationSet>
@@ -228,11 +262,19 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Contents" EntitySet="Contents" />
           </AssociationSet>
-          <AssociationSet Name="FK_Messages_Users" Association="Self.FK_Messages_Users">
+          <AssociationSet Name="FK_Follow_Users" Association="Self.FK_Follow_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Follow" EntitySet="Follow" />
+          </AssociationSet>
+          <AssociationSet Name="Me" Association="Self.Me">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Follow" EntitySet="Follow" />
+          </AssociationSet>
+          <AssociationSet Name="ReceivedMessage" Association="Self.ReceivedMessage">
             <End Role="Users" EntitySet="Users" />
             <End Role="Messages" EntitySet="Messages" />
           </AssociationSet>
-          <AssociationSet Name="FK_Messages_Users1" Association="Self.FK_Messages_Users1">
+          <AssociationSet Name="SendedMessage" Association="Self.SendedMessage">
             <End Role="Users" EntitySet="Users" />
             <End Role="Messages" EntitySet="Messages" />
           </AssociationSet>
@@ -242,38 +284,15 @@
     <edmx:ConceptualModels>
       <Schema Namespace="LearnBugDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="LearnBugDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bookmarks" EntityType="LearnBugDBModel.Bookmark" />
           <EntitySet Name="Comments" EntityType="LearnBugDBModel.Comment" />
+          <EntitySet Name="Contents" EntityType="LearnBugDBModel.Content" />
+          <EntitySet Name="Follows" EntityType="LearnBugDBModel.Follow" />
           <EntitySet Name="Groups" EntityType="LearnBugDBModel.Group" />
           <EntitySet Name="Links" EntityType="LearnBugDBModel.Link" />
           <EntitySet Name="Messages" EntityType="LearnBugDBModel.Message" />
           <EntitySet Name="Settings" EntityType="LearnBugDBModel.Setting" />
           <EntitySet Name="Users" EntityType="LearnBugDBModel.User" />
-          <AssociationSet Name="FK_Comments_Users" Association="LearnBugDBModel.FK_Comments_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Messages_Users" Association="LearnBugDBModel.FK_Messages_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Message" EntitySet="Messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Messages_Users1" Association="LearnBugDBModel.FK_Messages_Users1">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Message" EntitySet="Messages" />
-          </AssociationSet>
-          <EntitySet Name="Contents" EntityType="LearnBugDBModel.Content" />
-          <AssociationSet Name="FK_Comments_Contents" Association="LearnBugDBModel.FK_Comments_Contents">
-            <End Role="Content" EntitySet="Contents" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Contents_Groups1" Association="LearnBugDBModel.FK_Contents_Groups1">
-            <End Role="Group" EntitySet="Groups" />
-            <End Role="Content" EntitySet="Contents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Contents_Users" Association="LearnBugDBModel.FK_Contents_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Content" EntitySet="Contents" />
-          </AssociationSet>
-          <EntitySet Name="Bookmarks" EntityType="LearnBugDBModel.Bookmark" />
           <AssociationSet Name="FK_Bookmarks_Contents" Association="LearnBugDBModel.FK_Bookmarks_Contents">
             <End Role="Content" EntitySet="Contents" />
             <End Role="Bookmark" EntitySet="Bookmarks" />
@@ -282,7 +301,50 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Bookmark" EntitySet="Bookmarks" />
           </AssociationSet>
+          <AssociationSet Name="FK_Comments_Contents" Association="LearnBugDBModel.FK_Comments_Contents">
+            <End Role="Content" EntitySet="Contents" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Users" Association="LearnBugDBModel.FK_Comments_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contents_Groups" Association="LearnBugDBModel.FK_Contents_Groups">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="Content" EntitySet="Contents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contents_Users" Association="LearnBugDBModel.FK_Contents_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Content" EntitySet="Contents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Follow_Users" Association="LearnBugDBModel.FK_Follow_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Follow" EntitySet="Follows" />
+          </AssociationSet>
+          <AssociationSet Name="Me" Association="LearnBugDBModel.Me">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Follow" EntitySet="Follows" />
+          </AssociationSet>
+          <AssociationSet Name="ReceivedMessage" Association="LearnBugDBModel.ReceivedMessage">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="SendedMessage" Association="LearnBugDBModel.SendedMessage">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Bookmark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contentId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="Datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Content" Relationship="LearnBugDBModel.FK_Bookmarks_Contents" FromRole="Bookmark" ToRole="Content" />
+          <NavigationProperty Name="User" Relationship="LearnBugDBModel.FK_Bookmarks_Users" FromRole="Bookmark" ToRole="User" />
+        </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="Id" />
@@ -291,9 +353,36 @@
           <Property Name="userId" Type="Int32" Nullable="false" />
           <Property Name="contentId" Type="Int32" Nullable="false" />
           <Property Name="Text" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Datetime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="LearnBugDBModel.FK_Comments_Users" FromRole="Comment" ToRole="User" />
+          <Property Name="Datetime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Content" Relationship="LearnBugDBModel.FK_Comments_Contents" FromRole="Comment" ToRole="Content" />
+          <NavigationProperty Name="User" Relationship="LearnBugDBModel.FK_Comments_Users" FromRole="Comment" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Content">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Byte" />
+          <Property Name="groupId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bookmarks" Relationship="LearnBugDBModel.FK_Bookmarks_Contents" FromRole="Content" ToRole="Bookmark" />
+          <NavigationProperty Name="Comments" Relationship="LearnBugDBModel.FK_Comments_Contents" FromRole="Content" ToRole="Comment" />
+          <NavigationProperty Name="Group" Relationship="LearnBugDBModel.FK_Contents_Groups" FromRole="Content" ToRole="Group" />
+          <NavigationProperty Name="User" Relationship="LearnBugDBModel.FK_Contents_Users" FromRole="Content" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Follow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MyUserId" Type="Int32" Nullable="false" />
+          <Property Name="followUserId" Type="Int32" Nullable="false" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="LearnBugDBModel.FK_Follow_Users" FromRole="Follow" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="LearnBugDBModel.Me" FromRole="Follow" ToRole="User" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -302,7 +391,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="targetId" Type="Int32" />
-          <NavigationProperty Name="Contents" Relationship="LearnBugDBModel.FK_Contents_Groups1" FromRole="Group" ToRole="Content" />
+          <NavigationProperty Name="Contents" Relationship="LearnBugDBModel.FK_Contents_Groups" FromRole="Group" ToRole="Content" />
         </EntityType>
         <EntityType Name="Link">
           <Key>
@@ -321,10 +410,10 @@
           <Property Name="FromuserId" Type="Int32" Nullable="false" />
           <Property Name="TouserId" Type="Int32" Nullable="false" />
           <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Datetime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Int64" />
-          <NavigationProperty Name="User" Relationship="LearnBugDBModel.FK_Messages_Users" FromRole="Message" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="LearnBugDBModel.FK_Messages_Users1" FromRole="Message" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="LearnBugDBModel.ReceivedMessage" FromRole="Message" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="LearnBugDBModel.SendedMessage" FromRole="Message" ToRole="User" />
         </EntityType>
         <EntityType Name="Setting">
           <Key>
@@ -352,7 +441,7 @@
           <Property Name="name" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Dateofbirth" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dateofbirth" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Gender" Type="Byte" Nullable="false" />
           <Property Name="Biography" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
@@ -360,110 +449,13 @@
           <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Roles" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Byte" />
-          <NavigationProperty Name="Comments" Relationship="LearnBugDBModel.FK_Comments_Users" FromRole="User" ToRole="Comment" />
-          <NavigationProperty Name="Messages" Relationship="LearnBugDBModel.FK_Messages_Users" FromRole="User" ToRole="Message" />
-          <NavigationProperty Name="Messages1" Relationship="LearnBugDBModel.FK_Messages_Users1" FromRole="User" ToRole="Message" />
-          <NavigationProperty Name="Contents" Relationship="LearnBugDBModel.FK_Contents_Users" FromRole="User" ToRole="Content" />
           <NavigationProperty Name="Bookmarks" Relationship="LearnBugDBModel.FK_Bookmarks_Users" FromRole="User" ToRole="Bookmark" />
-        </EntityType>
-        <Association Name="FK_Comments_Users">
-          <End Type="LearnBugDBModel.User" Role="User" Multiplicity="1" />
-          <End Type="LearnBugDBModel.Comment" Role="Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="userId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Messages_Users">
-          <End Type="LearnBugDBModel.User" Role="User" Multiplicity="1" />
-          <End Type="LearnBugDBModel.Message" Role="Message" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Message">
-              <PropertyRef Name="FromuserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Messages_Users1">
-          <End Type="LearnBugDBModel.User" Role="User" Multiplicity="1" />
-          <End Type="LearnBugDBModel.Message" Role="Message" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Message">
-              <PropertyRef Name="TouserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Content">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Subject" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Datetime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Byte" />
-          <Property Name="groupId" Type="Int32" Nullable="false" />
-          <Property Name="userId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Comments" Relationship="LearnBugDBModel.FK_Comments_Contents" FromRole="Content" ToRole="Comment" />
-          <NavigationProperty Name="Group" Relationship="LearnBugDBModel.FK_Contents_Groups1" FromRole="Content" ToRole="Group" />
-          <NavigationProperty Name="User" Relationship="LearnBugDBModel.FK_Contents_Users" FromRole="Content" ToRole="User" />
-          <NavigationProperty Name="Bookmarks" Relationship="LearnBugDBModel.FK_Bookmarks_Contents" FromRole="Content" ToRole="Bookmark" />
-        </EntityType>
-        <Association Name="FK_Comments_Contents">
-          <End Type="LearnBugDBModel.Content" Role="Content" Multiplicity="1" />
-          <End Type="LearnBugDBModel.Comment" Role="Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Content">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="contentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Contents_Groups1">
-          <End Type="LearnBugDBModel.Group" Role="Group" Multiplicity="1" />
-          <End Type="LearnBugDBModel.Content" Role="Content" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Group">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Content">
-              <PropertyRef Name="groupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Contents_Users">
-          <End Type="LearnBugDBModel.User" Role="User" Multiplicity="1" />
-          <End Type="LearnBugDBModel.Content" Role="Content" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Content">
-              <PropertyRef Name="userId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Bookmark">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="contentId" Type="Int32" Nullable="false" />
-          <Property Name="userId" Type="Int32" Nullable="false" />
-          <Property Name="Datetime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Content" Relationship="LearnBugDBModel.FK_Bookmarks_Contents" FromRole="Bookmark" ToRole="Content" />
-          <NavigationProperty Name="User" Relationship="LearnBugDBModel.FK_Bookmarks_Users" FromRole="Bookmark" ToRole="User" />
+          <NavigationProperty Name="Comments" Relationship="LearnBugDBModel.FK_Comments_Users" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="Contents" Relationship="LearnBugDBModel.FK_Contents_Users" FromRole="User" ToRole="Content" />
+          <NavigationProperty Name="Follows" Relationship="LearnBugDBModel.FK_Follow_Users" FromRole="User" ToRole="Follow" />
+          <NavigationProperty Name="Follows1" Relationship="LearnBugDBModel.Me" FromRole="User" ToRole="Follow" />
+          <NavigationProperty Name="Messages" Relationship="LearnBugDBModel.ReceivedMessage" FromRole="User" ToRole="Message" />
+          <NavigationProperty Name="Messages1" Relationship="LearnBugDBModel.SendedMessage" FromRole="User" ToRole="Message" />
         </EntityType>
         <Association Name="FK_Bookmarks_Contents">
           <End Type="LearnBugDBModel.Content" Role="Content" Multiplicity="1" />
@@ -489,12 +481,118 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Comments_Contents">
+          <End Type="LearnBugDBModel.Content" Role="Content" Multiplicity="1" />
+          <End Type="LearnBugDBModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Content">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="contentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Users">
+          <End Type="LearnBugDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="LearnBugDBModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contents_Groups">
+          <End Type="LearnBugDBModel.Group" Role="Group" Multiplicity="1" />
+          <End Type="LearnBugDBModel.Content" Role="Content" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Content">
+              <PropertyRef Name="groupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contents_Users">
+          <End Type="LearnBugDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="LearnBugDBModel.Content" Role="Content" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Content">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Follow_Users">
+          <End Type="LearnBugDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="LearnBugDBModel.Follow" Role="Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Follow">
+              <PropertyRef Name="followUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Me">
+          <End Type="LearnBugDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="LearnBugDBModel.Follow" Role="Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Follow">
+              <PropertyRef Name="MyUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ReceivedMessage">
+          <End Type="LearnBugDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="LearnBugDBModel.Message" Role="Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="FromuserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SendedMessage">
+          <End Type="LearnBugDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="LearnBugDBModel.Message" Role="Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="TouserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="LearnBugDBModelStoreContainer" CdmEntityContainer="LearnBugDBEntities1">
+          <EntitySetMapping Name="Bookmarks">
+            <EntityTypeMapping TypeName="LearnBugDBModel.Bookmark">
+              <MappingFragment StoreEntitySet="Bookmarks">
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="contentId" ColumnName="contentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="LearnBugDBModel.Comment">
               <MappingFragment StoreEntitySet="Comments">
@@ -502,6 +600,29 @@
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="contentId" ColumnName="contentId" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contents">
+            <EntityTypeMapping TypeName="LearnBugDBModel.Content">
+              <MappingFragment StoreEntitySet="Contents">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Follows">
+            <EntityTypeMapping TypeName="LearnBugDBModel.Follow">
+              <MappingFragment StoreEntitySet="Follow">
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="followUserId" ColumnName="followUserId" />
+                <ScalarProperty Name="MyUserId" ColumnName="MyUserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -570,29 +691,6 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Contents">
-            <EntityTypeMapping TypeName="LearnBugDBModel.Content">
-              <MappingFragment StoreEntitySet="Contents">
-                <ScalarProperty Name="userId" ColumnName="userId" />
-                <ScalarProperty Name="groupId" ColumnName="groupId" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Bookmarks">
-            <EntityTypeMapping TypeName="LearnBugDBModel.Bookmark">
-              <MappingFragment StoreEntitySet="Bookmarks">
-                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
-                <ScalarProperty Name="userId" ColumnName="userId" />
-                <ScalarProperty Name="contentId" ColumnName="contentId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
