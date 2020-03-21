@@ -13,12 +13,12 @@
         <EntityTypeShape EntityType="LearnBugDBModel.Link" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="LearnBugDBModel.Message" Width="1.5" PointX="3" PointY="16.5" />
         <EntityTypeShape EntityType="LearnBugDBModel.Setting" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="LearnBugDBModel.User" Width="1.5" PointX="0.75" PointY="6.875" />
         <AssociationConnector Association="LearnBugDBModel.FK_Bookmarks_Contents" />
-        <AssociationConnector Association="LearnBugDBModel.FK_Bookmarks_Users" />
         <AssociationConnector Association="LearnBugDBModel.FK_Comments_Contents" />
-        <AssociationConnector Association="LearnBugDBModel.FK_Comments_Users" />
         <AssociationConnector Association="LearnBugDBModel.FK_Contents_Groups" />
+        <EntityTypeShape EntityType="LearnBugDBModel.User" Width="1.5" PointX="0.75" PointY="12.375" />
+        <AssociationConnector Association="LearnBugDBModel.FK_Bookmarks_Users" />
+        <AssociationConnector Association="LearnBugDBModel.FK_Comments_Users" />
         <AssociationConnector Association="LearnBugDBModel.FK_Contents_Users" />
         <AssociationConnector Association="LearnBugDBModel.FK_Follow_Users" />
         <AssociationConnector Association="LearnBugDBModel.Me" />

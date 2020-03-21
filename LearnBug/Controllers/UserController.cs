@@ -130,6 +130,23 @@ namespace LearnBug.Controllers
             ViewBag.pic = db.Users.Single(p => p.Username == User.Identity.Name).Image.ImgProfile();
             return PartialView();
         }
+        [HttpPost]
+        public JavaScriptResult changeProfilePicture(string newPicture, string type)
+        {
+            var user = db.Users.Single(p => p.Username == User.Identity.Name);
+            if (type == "update")
+            {
+                user.Image = newPicture;
+                db.SaveChanges();
+                return JavaScript("alert('عکس پروفایل شما با موفقیت بروزرسانی شد')");
+            }
+            else
+            {
+                user.Image = null;
+                db.SaveChanges();
+                return JavaScript("alert('عکس پروفایل شما با موفقیت حذف شد')");
+            }
+        }
 
 
     }

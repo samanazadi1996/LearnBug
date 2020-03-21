@@ -228,7 +228,7 @@ public static class Utilty
     {
         if (string.IsNullOrEmpty(src))
         {
-            return "/Files/ProfilePicture/BugPicture/default.jpg";
+            return "/Files/Picture/default.jpg";
         }
         else
         {

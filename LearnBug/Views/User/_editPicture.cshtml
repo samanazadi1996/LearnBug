@@ -4,21 +4,23 @@
 </div>
 
 <hr />
-<div id="modal-body" class="pre-scrollable mce-arrow-down ">
+<div  class="pre-scrollable mce-arrow-down ">
     <center>
-        <img style="width:200px;height:200px;border:solid 1px silver" src="@ViewBag.pic"/>
+        <img style="width:200px;height:200px;border:solid 1px silver" src="@ViewBag.pic" id="upload-Preview" />
+        <img style="display:none"  id="original-Img" />
+
         <br />
         <br />
         <br />
-        <input type="file" name="" style="width:200px" />
+        <input id="upload-Image" type="file" onchange="loadImageFile();" style="width:200px"/>
     </center>
 </div>
 <hr />
 <div>
     <center>
-        <input type="submit" class="btn btn-success" onclick="EditPassword()" value="تغییر عکس" />
-        <input type="submit" class="btn btn-warning" onclick="" value="حذف عکس" />
+        <input type="submit" class="btn btn-success" onclick="changeProfilePicture('update')" value="تغییر عکس" />
+        <input type="submit" class="btn btn-warning" onclick="changeProfilePicture('delete')" value="حذف عکس" />
         <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel">انصراف</button>
     </center>
-
+     
 </div>

@@ -312,7 +312,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="Files\ProfilePicture\admin.jpg" />
+    <Content Include="Files\Picture\default.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\DomainModels\Model1.Context.tt">
@@ -1262,7 +1262,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\BU\" />
-    <Folder Include="Files\ProfilePicture\BugPicture\" />
     <Folder Include="Models\Enums\" />
     <Folder Include="Views\BaseAdmin\" />
     <Folder Include="Views\Follow\" />
