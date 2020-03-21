@@ -61,27 +61,8 @@ namespace LearnBug.Controllers
         {
             return View(db.Users);
         }
-        [Authorize]
         public ActionResult Edit()
         {
-            var user = db.Users.Single(p => p.Username == User.Identity.Name);
-            return View(user);
-        }
-        [HttpPost]
-        [Authorize]
-        public ActionResult Edit(User user)
-        {
-            var myuser = db.Users.Single(p => p.Username == User.Identity.Name);
-            //myuser.Username = user.Username.ToLower();
-            myuser.name = user.name;
-            myuser.Email = user.Email;
-            myuser.Dateofbirth = user.Dateofbirth.ToMiladiDate();
-            myuser.Gender = user.Gender;
-            myuser.Biography = user.Biography;
-            myuser.Phone = user.Phone;
-            myuser.Location = user.Location;
-
-            db.SaveChanges();
             return View();
         }
         [HttpPost]
@@ -129,6 +110,27 @@ namespace LearnBug.Controllers
         {
             ViewBag.pic = db.Users.Single(p => p.Username == User.Identity.Name).Image.ImgProfile();
             return PartialView();
+        }
+        public ActionResult _editProfile()
+        {
+            var user = db.Users.Single(p => p.Username == User.Identity.Name);
+            return PartialView(user);
+        }
+        [HttpPost]
+        public ActionResult _editProfile(User user)
+        {
+            var myuser = db.Users.Single(p => p.Username == User.Identity.Name);
+            //myuser.Username = user.Username.ToLower();
+            myuser.name = user.name;
+            myuser.Email = user.Email;
+            myuser.Dateofbirth = user.Dateofbirth.ToMiladiDate();
+            myuser.Gender = user.Gender;
+            myuser.Biography = user.Biography;
+            myuser.Phone = user.Phone;
+            myuser.Location = user.Location;
+
+            db.SaveChanges();
+            return View("Edit");
         }
         [HttpPost]
         public JavaScriptResult changeProfilePicture(string newPicture, string type)

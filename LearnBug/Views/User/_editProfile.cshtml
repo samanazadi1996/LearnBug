@@ -1,0 +1,65 @@
+﻿@model LearnBug.Models.DomainModels.User
+<div>
+    <center><b style="font-size:18px;" id="modal-title">ویرایش اطلاعات کاربری</b></center>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<hr />
+<div class="pre-scrollable mce-arrow-down ">
+    @using (Html.BeginForm(""))
+    {
+
+        @Html.AntiForgeryToken()
+
+        <div class="col-md-12">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="col-md-12">: نام کاربری</div>
+            <div class="col-md-12">@Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })</div>
+            <div class="col-md-12">@Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })</div>
+
+
+            <div class="col-md-12">: نام</div>
+            <div class="col-md-12">@Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })</div>
+            <div class="col-md-12">@Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })</div>
+
+            <div class="col-md-12">: ایمیل</div>
+            <div class="col-md-12">@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })</div>
+            <div class="col-md-12">@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })</div>
+
+            <div class="col-md-12">: تاریخ تولد</div>
+            <div class="col-md-12"><input class="form-control text-box single-line hasDatepicker" onfocus="renderDatepicker()" name="Dateofbirth" id="Dateofbirth" type="datetime" value="@Model.Dateofbirth.ToPersianDate()" /></div>
+            <div class="col-md-12">@Html.ValidationMessageFor(model => model.Dateofbirth, "", new { @class = "text-danger" })</div>
+
+            <div class="col-md-12">: جنسیت</div>
+            <div class="col-md-12"><select name="Gender" class=" form-control" id="Gender"><option value="0">نا مشخص</option><option value="1">مرد</option><option value="2">زن</option></select></div>
+            <div class="col-md-12">@Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })</div>
+
+            <div class="col-md-12">: تلفن</div>
+            <div class="col-md-12">@Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })</div>
+            <div class="col-md-12">@Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })</div>
+
+            <div class="col-md-12">: محل سکونت</div>
+            <div class="col-md-12">@Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })</div>
+            <div class="col-md-12">@Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })</div>
+
+            <div class="col-md-12">: بیوگرافی</div>
+            <div class="col-md-12">@Html.EditorFor(model => model.Biography, new { htmlAttributes = new { @class = "form-control" } })</div>
+            <div class="col-md-12">@Html.ValidationMessageFor(model => model.Biography, "", new { @class = "text-danger" })</div>
+
+        </div>
+        <hr />
+        <div class=" col-md-12" style="padding-top:40px">
+            <center>
+                <input type="submit" class="btn btn-success" value="ذخیره" />
+            </center>
+        </div>
+
+    }
+</div>
+
+
+
+
+
