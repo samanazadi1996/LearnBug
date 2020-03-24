@@ -53,7 +53,7 @@
                         </div>
 
                         <div>
-                            <span>تاریخ تولد : </span> @Model.Dateofbirth
+                            <span>تاریخ تولد : </span> @Model.Dateofbirth.ToPersianDate().ToShortDateString()
                         </div>
                         <div>
                             <span>محل سکونت : </span> @Model.Location

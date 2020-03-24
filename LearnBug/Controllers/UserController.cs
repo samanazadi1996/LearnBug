@@ -10,16 +10,19 @@ using System.Web.Security;
 
 namespace LearnBug.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult RegisterUser()
         {
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult RegisterUser(User user)
         {
             user.Status = 1;
@@ -51,12 +54,13 @@ namespace LearnBug.Controllers
 
             }
         }
+        [AllowAnonymous]
         public ActionResult Profile(string username)
         {
             var user = db.Users.Single(p => p.Username.Trim() == username.Trim());
             return View(user);
         }
-
+        [AllowAnonymous]
         public ActionResult AllUsers()
         {
             return View(db.Users);

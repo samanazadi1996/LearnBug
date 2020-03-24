@@ -206,10 +206,6 @@
     <Compile Include="ViewModels\IndexViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\elastislide.css" />
@@ -217,12 +213,6 @@
     <Content Include="Content\css\jquery.jqzoom.css" />
     <Content Include="Content\css\markup.css" />
     <Content Include="Content\css\style.css" />
-    <Content Include="Content\js\bootstrap.min.js" />
-    <Content Include="Content\js\chart.bundle.min.js" />
-    <Content Include="Content\js\chart_config.js" />
-    <Content Include="Content\js\info.txt" />
-    <Content Include="Content\js\jquery-2.2.3.min.js" />
-    <Content Include="Content\js\mycode.js" />
     <Content Include="Content\markup.css" />
     <Content Include="Content\RSadmin\css\bootstrap-rtl.min.css" />
     <Content Include="Content\RSadmin\css\bootstrap.min.css" />
@@ -407,10 +397,6 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -1263,6 +1249,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\BU\" />
+    <Folder Include="Content\js\" />
     <Folder Include="Models\Enums\" />
     <Folder Include="Views\BaseAdmin\" />
     <Folder Include="Views\Follow\" />
