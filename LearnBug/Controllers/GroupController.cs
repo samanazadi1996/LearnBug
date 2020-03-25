@@ -8,29 +8,23 @@ using static Utilty;
 
 namespace LearnBug.Controllers
 {
-    [Authorize(Roles ="Admin")]
-    public class AdminController : Controller
+    [Authorize(Roles = "Admin")]
+    public class GroupController : Controller
     {
         LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
-        public ActionResult AdminPanel()
-        {
-
-            return View();
-        }
         [HttpGet]
         public ActionResult ManagementGroups()
         {
-
             return View(db.Groups);
         }
         [HttpPost]
         public ActionResult ManagementGroups(Group group)
         {
-         
+
             if (ModelState.IsValid && !string.IsNullOrEmpty(group.Name.Trim()))
             {
                 db.Groups.Add(group);
-                if (db.SaveChanges()>0)
+                if (db.SaveChanges() > 0)
                 {
                     return Json(new JsonData()
                     {
@@ -69,7 +63,7 @@ namespace LearnBug.Controllers
 
                 Group group = db.Groups.Find(Id);
                 db.Groups.Remove(group);
-                if (db.SaveChanges()>0)
+                if (db.SaveChanges() > 0)
                 {
                     return Json(new JsonData()
                     {
@@ -105,6 +99,5 @@ namespace LearnBug.Controllers
         {
             return PartialView();
         }
-
     }
 }

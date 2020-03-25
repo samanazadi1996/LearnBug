@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "AddGroup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div>
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><a href="/Admin/AdminPanel">پنل مدیریتی</a></div>
+                <div class="panel-body">
+                    <!-- -->
+                    <!-- -->
+                    <div style="float:right">
+
+                        <div style="margin:20px;width:100px">
+                            <a href="/Setting/Index">
+                                <center>
+                                    <span class="fa fa-5x fa-object-group"></span>
+                                    <br />
+                                    مدیریت سایت
+                                </center>
+                            </a>
+                        </div>
+                        <div  style="margin:20px;width:100px">
+                                <a href="/Group/ManagementGroups">
+
+                                    <center>
+                                        <span class="fa fa-5x fa-group"></span>
+                                        <br />
+                                        مدیریت گروهها
+                                    </center>
+                                </a>
+</div>
+
+
+                    </div>
+
+                    <!-- -->
+                    <!-- -->
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

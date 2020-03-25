@@ -15,16 +15,8 @@ namespace LearnBug.Models.DomainModels
     public partial class Setting
     {
         public int Id { get; set; }
-        public string Title { get; set; }
-        public string About { get; set; }
-        public string Help { get; set; }
-        public string smtpServer { get; set; }
-        public Nullable<int> Port { get; set; }
-        public string Picture0 { get; set; }
-        public string Picture1 { get; set; }
-        public string Picture2 { get; set; }
-        public string Picture3 { get; set; }
-        public string Picture4 { get; set; }
-        public string Picture5 { get; set; }
+        public string Name { get; set; }
+        public string Value { get; set; }
+        public bool Single { get; set; }
     }
 }

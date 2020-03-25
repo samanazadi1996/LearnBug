@@ -136,13 +136,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\BookmarkController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Controllers\FollowController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1210,9 +1211,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Content\AddContent.cshtml" />
-    <Content Include="Views\Admin\ManagementGroups.cshtml" />
-    <Content Include="Views\Admin\AdminPanel.cshtml" />
-    <Content Include="Views\Admin\_GroupList.cshtml" />
+    <Content Include="Views\Group\ManagementGroups.cshtml" />
+    <Content Include="Views\Home\AdminPanel.cshtml" />
+    <Content Include="Views\Group\_GroupList.cshtml" />
     <Content Include="Views\User\RegisterUser.cshtml" />
     <Content Include="Views\Content\ViewContent.cshtml" />
     <Content Include="Views\Comment\_SeeComments.cshtml" />
@@ -1246,13 +1247,13 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\User\_editProfile.cshtml" />
+    <Content Include="Views\Setting\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\BU\" />
     <Folder Include="Content\js\" />
     <Folder Include="Models\Enums\" />
-    <Folder Include="Views\BaseAdmin\" />
     <Folder Include="Views\Follow\" />
     <Folder Include="Views\Post\" />
   </ItemGroup>

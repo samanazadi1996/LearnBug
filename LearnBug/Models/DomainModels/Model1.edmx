@@ -77,18 +77,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="50" />
-          <Property Name="About" Type="nvarchar(max)" />
-          <Property Name="Help" Type="nvarchar(max)" />
-          <Property Name="smtpServer" Type="nchar" MaxLength="50" />
-          <Property Name="Port" Type="int" />
-          <Property Name="Picture0" Type="nvarchar" MaxLength="300" />
-          <Property Name="Picture1" Type="nvarchar" MaxLength="300" />
-          <Property Name="Picture2" Type="nvarchar" MaxLength="300" />
-          <Property Name="Picture3" Type="nvarchar" MaxLength="300" />
-          <Property Name="Picture4" Type="nvarchar" MaxLength="300" />
-          <Property Name="Picture5" Type="nvarchar" MaxLength="300" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Single" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -291,7 +283,6 @@
           <EntitySet Name="Groups" EntityType="LearnBugDBModel.Group" />
           <EntitySet Name="Links" EntityType="LearnBugDBModel.Link" />
           <EntitySet Name="Messages" EntityType="LearnBugDBModel.Message" />
-          <EntitySet Name="Settings" EntityType="LearnBugDBModel.Setting" />
           <AssociationSet Name="FK_Bookmarks_Contents" Association="LearnBugDBModel.FK_Bookmarks_Contents">
             <End Role="Content" EntitySet="Contents" />
             <End Role="Bookmark" EntitySet="Bookmarks" />
@@ -333,6 +324,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
+          <EntitySet Name="Settings" EntityType="LearnBugDBModel.Setting" />
           </EntityContainer>
         <EntityType Name="Bookmark">
           <Key>
@@ -415,23 +407,6 @@
           <NavigationProperty Name="User" Relationship="LearnBugDBModel.ReceivedMessage" FromRole="Message" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="LearnBugDBModel.SendedMessage" FromRole="Message" ToRole="User" />
           </EntityType>
-        <EntityType Name="Setting">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="About" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Help" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="smtpServer" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Port" Type="Int32" />
-          <Property Name="Picture0" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Picture1" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Picture2" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Picture3" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Picture4" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Picture5" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-        </EntityType>
         <Association Name="FK_Bookmarks_Contents">
           <End Type="LearnBugDBModel.Content" Role="Content" Multiplicity="1" />
           <End Type="LearnBugDBModel.Bookmark" Role="Bookmark" Multiplicity="*" />
@@ -577,6 +552,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Single" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -658,24 +642,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Settings">
-            <EntityTypeMapping TypeName="LearnBugDBModel.Setting">
-              <MappingFragment StoreEntitySet="Setting">
-                <ScalarProperty Name="Picture5" ColumnName="Picture5" />
-                <ScalarProperty Name="Picture4" ColumnName="Picture4" />
-                <ScalarProperty Name="Picture3" ColumnName="Picture3" />
-                <ScalarProperty Name="Picture2" ColumnName="Picture2" />
-                <ScalarProperty Name="Picture1" ColumnName="Picture1" />
-                <ScalarProperty Name="Picture0" ColumnName="Picture0" />
-                <ScalarProperty Name="Port" ColumnName="Port" />
-                <ScalarProperty Name="smtpServer" ColumnName="smtpServer" />
-                <ScalarProperty Name="Help" ColumnName="Help" />
-                <ScalarProperty Name="About" ColumnName="About" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="LearnBugDBModel.User">
               <MappingFragment StoreEntitySet="Users">
@@ -691,6 +657,16 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="LearnBugDBModel.Setting">
+              <MappingFragment StoreEntitySet="Setting">
+                <ScalarProperty Name="Single" ColumnName="Single" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

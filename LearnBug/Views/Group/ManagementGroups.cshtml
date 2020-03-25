@@ -11,7 +11,7 @@
         
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="/Admin/AdminPanel">پنل مدیریتی</a>/<a href="/Admin/ManagementGroups">مدیریت گروه ها</a></div>
+                <div class="panel-heading"><a href="/Home/AdminPanel">پنل مدیریتی</a>/<a href="/Group/ManagementGroups">مدیریت گروه ها</a></div>
                 <div class="panel-body">
                     <!-- -->
                         <!-- -->
@@ -20,7 +20,7 @@
                                 @Html.Partial("_GroupList", Model)
                             </div>
                             <hr />
-                            @using (Html.BeginForm("ManagementGroups", "Admin", FormMethod.Post, new { @Id = "frm" }))
+                            @using (Html.BeginForm("ManagementGroups", "Group", FormMethod.Post, new { @Id = "frm" }))
                             {
                                 <div class="form-group" style="width:200px;">
                                     @Html.Label("نام گروه را وارد کنید")<br />
@@ -53,7 +53,7 @@
             $(".addgroup").click(function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "/Admin/ManagementGroups",
+                    url: "/Group/ManagementGroups",
                     data: $("#frm").serialize(),
                     type: "Post",
                     dataType: "Json",
@@ -71,7 +71,7 @@
             $(".delgroup").click(function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "/Admin/DeleteGroup",
+                    url: "/Group/DeleteGroup",
                     data: { Id: $(".MyGroupList").find(":selected").val() },
                     type: "Post",
                     dataType: "Json",

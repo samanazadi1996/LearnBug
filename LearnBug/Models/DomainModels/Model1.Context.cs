@@ -32,7 +32,7 @@ namespace LearnBug.Models.DomainModels
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Link> Links { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
-        public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Setting> Settings { get; set; }
     }
 }

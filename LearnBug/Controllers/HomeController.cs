@@ -13,7 +13,11 @@ namespace LearnBug.Controllers
     public class HomeController : Controller
     {
         LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
+        public ActionResult AdminPanel()
+        {
 
+            return View();
+        }
         public ActionResult Index(int page = 1)
         {
             var a = db.Contents;

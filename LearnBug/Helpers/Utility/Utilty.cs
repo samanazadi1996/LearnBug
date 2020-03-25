@@ -226,9 +226,11 @@ public static class Utilty
 
     public static string ImgProfile(this string src)
     {
+        LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new LearnBug.Models.DomainModels.LearnBugDBEntities1();
+
         if (string.IsNullOrEmpty(src))
         {
-            return "/Files/Picture/default.jpg";
+            return db.Settings.Single(p=>p.Name == "DefultProfilePicture").Value;
         }
         else
         {

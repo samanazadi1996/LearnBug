@@ -12,7 +12,6 @@
         <EntityTypeShape EntityType="LearnBugDBModel.Group" Width="1.5" PointX="3.75" PointY="5.375" />
         <EntityTypeShape EntityType="LearnBugDBModel.Link" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="LearnBugDBModel.Message" Width="1.5" PointX="3" PointY="16.5" />
-        <EntityTypeShape EntityType="LearnBugDBModel.Setting" Width="1.5" PointX="2.75" PointY="0.75" />
         <AssociationConnector Association="LearnBugDBModel.FK_Bookmarks_Contents" />
         <AssociationConnector Association="LearnBugDBModel.FK_Comments_Contents" />
         <AssociationConnector Association="LearnBugDBModel.FK_Contents_Groups" />
@@ -24,6 +23,7 @@
         <AssociationConnector Association="LearnBugDBModel.Me" />
         <AssociationConnector Association="LearnBugDBModel.ReceivedMessage" />
         <AssociationConnector Association="LearnBugDBModel.SendedMessage" />
+        <EntityTypeShape EntityType="LearnBugDBModel.Setting" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
