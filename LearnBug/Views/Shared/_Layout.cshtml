@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="shortcut icon" href="~/Files/Picture/Logo.png" />
     <meta charset="utf-8">
     @Styles.Render("~/Content/themes/base/css")
     <link href="~/Content/RSadmin/css/bootstrap-rtl.min.css" rel="stylesheet" />
@@ -10,14 +11,6 @@
     <link href="~/Content/RSadmin/css/index.css" rel="stylesheet" />
     <link href="~/Content/RSadmin/css/reset.css" rel="stylesheet" />
     <link href="~/Content/css/markup.css" rel="stylesheet" />
-
-    <style>
-        .mytxt {
-            font-size: 18px;
-            color: #008c9e;
-            font-family: 'Comic Sans MS';
-        }
-    </style>
     @RenderSection("styles", required: false)
     <title>LearnBug</title>
 </head>
@@ -50,7 +43,7 @@
                 <div class="fa fa-users"></div>
                 <div class="item-notification">5</div>
             </li>
-            
+
             <li>
                 <div class="fa fa-newspaper-o"></div>
                 <div class="item-notification">5</div>
@@ -136,8 +129,7 @@
             <!-- tools end -->
             <!-- main start -->
             <div class="pull-left main-content">
-                <div class="clear" style="        padding-bottom: 20px;
-"></div>
+                <div class="clear" style="padding-bottom: 20px;"></div>
 
                 <div>
                     @RenderBody()
@@ -165,11 +157,6 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-<script>
-    var a=Event.s
-</script>
-
-
 </body>
 
 </html>

@@ -302,6 +302,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Files\Picture\Logo.png" />
     <Content Include="Files\Picture\default.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
