@@ -95,12 +95,13 @@
             <div class="clear"></div>
             @if (User.Identity.IsAuthenticated)
             {
-                <img class="user-avatar" style="" src=@Model.User.Image.ImgProfile() />
+                <img class="user-avatar" style="" src=@Model.User.ImgProfile() />
                 <div style="color:darkblue;margin:5px;">
                     @Model.User.Username
                 </div>
+                <br /><br />
                 <div class="col-lg-12">
-                    <div class="col-md-4"><center>Posts<br />@Model.Contents.Count()</center></div>
+                    <div class="col-md-4"><center>Posts<br />@Model.User.Contents.Count()</center></div>
                     <div class="col-md-4"><center>Followers<br />@Model.User.Follows.Count()</center></div>
                     <div class="col-md-4"><center>Following<br />@Model.User.Follows1.Count()</center></div>
                     <br />
@@ -166,7 +167,7 @@
                                     <tr>
                                         <td style="width:48px;">
                                             <a href="/User/Profile/?username=@item.User.Username">
-                                                <img src="@item.User.Image.ImgProfile()" style="width:100%;height:auto;border-radius:100%;box-shadow:0px 3px 4px 0px rgb(0, 0, 54)" />
+                                                <img src="@item.User.ImgProfile()" style="width:100%;height:auto;border-radius:100%;box-shadow:0px 3px 4px 0px rgb(0, 0, 54)" />
                                                 </a>
                                         </td>
                                         <td>

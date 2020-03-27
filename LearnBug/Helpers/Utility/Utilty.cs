@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LearnBug.Models.DomainModels;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -224,17 +225,33 @@ public static class Utilty
         return new string(decoded_char);
     }
 
-    public static string ImgProfile(this string src)
+    public static string ImgProfile(this User user)
     {
         LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new LearnBug.Models.DomainModels.LearnBugDBEntities1();
 
-        if (string.IsNullOrEmpty(src))
+        if (string.IsNullOrEmpty(user.Image))
         {
-            return db.Settings.Single(p=>p.Name == "DefultProfilePicture").Value;
+
+            if (user.Gender==1)
+            {
+                return db.Settings.Single(p => p.Name == "DefultProfilePictureMale").Value;
+
+            }
+            else if (user.Gender==2)
+            {
+                return db.Settings.Single(p => p.Name == "DefultProfilePictureFemale").Value;
+
+            }
+            else
+            {
+                return db.Settings.Single(p => p.Name == "DefultProfilePicture").Value;
+
+            }
+
         }
         else
         {
-            return src;
+            return user.Image;
         }
     }
 

@@ -13,9 +13,10 @@
                     <div class="col-md-3" style="float:right;">
                         <div>
                             <center>
-                                <img style="width:200px;height:200px;border-radius:100%;" src="@Model.Image.ImgProfile()">
+                                <img style="width:200px;height:200px;border-radius:100%;" src="@Model.ImgProfile()">
                             </center>
                         </div>
+
                         <div>
                             <div class="col-md-4"><center>Posts<br />@Model.Contents.Count()</center></div>
                             <div class="col-md-4"><center>Followers<br /><span id="Flwer">@Model.Follows.Count()</span></center></div>
@@ -69,7 +70,7 @@
                     </div>
 
                     <div>
-                        <span style="color:darkblue; margin-bottom:10px;"><b>مطالب مربوط به کاربر @Model.name</b></span>
+                        <span style="color:darkblue; margin-bottom:10px;"><b>مطالب مربوط به کاربر @Model.name</b></span><br /><br />
                         <div class="col-md-9 pre-scrollable">
                             @foreach (var item in Model.Contents)
                             {
@@ -80,7 +81,7 @@
                                                 <td>
                                                     <div>
                                                         <span class="last-visitors-item">
-                                                            <span class="fa fa-clock-o"></span>@item.Datetime
+                                                            <span class="fa fa-clock-o"></span>@item.Datetime.ToPersianDate()
                                                         </span>
                                                         <span class="last-visitors-item">
                                                             <span class="fa fa-cubes"></span>@item.Group.Name

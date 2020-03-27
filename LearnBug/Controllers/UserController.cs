@@ -25,24 +25,28 @@ namespace LearnBug.Controllers
         [AllowAnonymous]
         public ActionResult RegisterUser(User user)
         {
+            if(db.Users.Where(p=>p.Username==user.Username.ToLower().Trim())!=null)
+            {
+                ViewBag.message = "کاربر با این نام از قبل وجود دارد";
+                ViewBag.style = "red";
+                return View(user);
+            }
             user.Status = 1;
             user.Roles = "user";
-            user.Username = user.Username.ToLower();
+            user.Username = user.Username.ToLower().Trim();
             user.Dateofbirth = user.Dateofbirth.ToMiladiDate();
             if (ModelState.IsValid)
             {
                 db.Users.Add(user);
                 if (db.SaveChanges() > 0)
                 {
-                    ViewBag.message = "ثبت نام انجام شد";
-                    ViewBag.style = "green";
-                    return View();
+                    return RedirectToAction(actionName:"Login",controllerName:"Home");
                 }
                 else
                 {
                     ViewBag.message = "ثبت نام انجام نشد";
                     ViewBag.style = "red";
-                    return View();
+                    return View(user);
                 }
 
             }
@@ -50,7 +54,7 @@ namespace LearnBug.Controllers
             {
                 ViewBag.message = "مقادیر ورودی صحیح نمی باشد";
                 ViewBag.style = "blue";
-                return View();
+                return View(user);
 
             }
         }
@@ -112,7 +116,7 @@ namespace LearnBug.Controllers
         }
         public ActionResult _editPicture()
         {
-            ViewBag.pic = db.Users.Single(p => p.Username == User.Identity.Name).Image.ImgProfile();
+            ViewBag.pic = db.Users.Single(p => p.Username == User.Identity.Name).ImgProfile();
             return PartialView();
         }
         public ActionResult _editProfile()

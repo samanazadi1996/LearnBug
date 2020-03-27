@@ -12,7 +12,6 @@
                     @using (Html.BeginForm("RegisterUser", "User", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
-
                         <div>
                             @Html.ValidationSummary(true)
                             <div style="color:@ViewBag.style">

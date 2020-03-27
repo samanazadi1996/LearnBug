@@ -12,10 +12,10 @@
                     <div class="panel-body">
                         <div id="w1" class="grid-view">
                             <!-- -->
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.Where(p=>p.Username!=User.Identity.Name))
                             {
 
-                                <table class="table table-striped table-bordered"> 
+                                <table class="table table-striped table-bordered">
                                     <tbody>
                                         <tr>
                                             <td>
@@ -73,7 +73,6 @@
     <script src="~/Scripts/Bootstrap4/popper.min.js"></script>
 
     <script>
-        setInterval( "aa('')", 1000);
         function renderPartialViewMessage(id) {
             $.ajax({
                 url: "/message/_viewfullMessage",
@@ -82,34 +81,21 @@
                 datatype: "json",
                 success: function (resulet) {
                     if (resulet) {
-                        $('#myModal').html(resulet);
-
+                        $('#myModal').html(resulet)        
                     }
                 }
-            });
-        } 
-        function aa() {
-            var t = $("#myModal").css('display');
-            if (t != 'none') {
-                var s = $("#IdForuser").val();                
-                renderPartialViewMessage(s);
-            }
+            })
         }
-                //function viewmmessage(messageid) {
-                //    $.ajax({
-                //        url: "/message/viewmessage",
-                //        data: { id: messageid },
-                //        type: "post",
-                //        datatype: "json",
-                //        success: function (resulet) {
-                //            if (resulet.success) {
-                //                $('#modal-title').html(resulet.username);
-                //                $('#modal-body').html(resulet.text);
-                //                $('#viewmsgdt').html(resulet.datetime);
-                //            }
-                //        }
-                //    });
-                //}
+
+        function SendMessage(id) {
+            $.ajax({
+                url: "/Message/SendMessage",
+                data: { text: document.getElementById("text").value, to: id },
+                type: "post",
+                datatype: "json"
+            })
+            document.getElementById("refresh").click()
+        }
     </script>
 }
 
