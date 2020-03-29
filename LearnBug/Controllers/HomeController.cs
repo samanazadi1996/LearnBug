@@ -15,23 +15,18 @@ namespace LearnBug.Controllers
         LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
         public ActionResult AdminPanel()
         {
-
             return View();
         }
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(string search=null)
         {
-            var a = db.Contents;
-            var model = new IndexViewModel
-            {
-                Contents = a.OrderByDescending(p => p.Id).Skip((page - 1) * 10).Take(10),
-                UsersCount = db.Users.Count(),
-                CurrentPage = page,
-                TotalItemCount = a.Count()
-            };
-            if (User.Identity.IsAuthenticated)
-                model.User = db.Users.Single(p => p.Username == User.Identity.Name);
+            var contents = db.Contents.AsQueryable();
 
-            return View(model);
+            if (!string.IsNullOrEmpty(search))
+            {
+                contents = contents.Where(p => p.Subject.Contains(search) || p.Group.Name.Contains(search) || p.User.name.Contains(search) || p.User.Username.Contains(search));
+                ViewBag.Srch = search.Trim();
+            }
+            return View(contents.OrderByDescending(p=>p.Datetime));
         }
 
         [HttpGet]

@@ -209,6 +209,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\BU\MyCssCode.css" />
+    <Content Include="Content\BU\MyJsCode.js" />
     <Content Include="Content\css\elastislide.css" />
     <Content Include="Content\css\flexslider.css" />
     <Content Include="Content\css\jquery.jqzoom.css" />
@@ -303,6 +305,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Files\AdminPanel\Groups.png" />
+    <Content Include="Files\AdminPanel\Setting.png" />
     <Content Include="Files\Picture\Logo.png" />
     <Content Include="Files\Picture\P_P_Default.png" />
     <Content Include="Files\Picture\P_P_Famel.png" />
@@ -1250,10 +1254,11 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\User\_editProfile.cshtml" />
     <Content Include="Views\Setting\Index.cshtml" />
+    <Content Include="Views\Content\_ContentList.cshtml" />
+    <Content Include="Views\User\avatar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\BU\" />
     <Folder Include="Content\js\" />
     <Folder Include="Models\Enums\" />
     <Folder Include="Views\Follow\" />

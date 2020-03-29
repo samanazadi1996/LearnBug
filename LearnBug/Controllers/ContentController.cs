@@ -16,7 +16,7 @@ namespace LearnBug.Controllers
         [Authorize]
         public ActionResult myContents()
         {
-            var contents = db.Contents.Where(p => p.User.Username == User.Identity.Name).OrderByDescending(o=>o.Datetime);
+            var contents = db.Contents.Where(p => p.User.Username == User.Identity.Name).OrderByDescending(o => o.Datetime);
             return View(contents);
         }
         [HttpGet]
@@ -31,23 +31,22 @@ namespace LearnBug.Controllers
         [HttpPost]
         [Authorize]
 
-        public ActionResult DeleteContent(int id)
+        public JavaScriptResult DeleteContent(int id)
         {
+
             var cntnt = db.Contents.Find(id);
-            foreach (var item in cntnt.Comments)
+            if (cntnt.User.Username==User.Identity.Name || User.IsInRole("Admin"))
             {
-                db.Comments.Remove(item);
+                foreach (var item in cntnt.Comments){db.Comments.Remove(item);}
+                foreach (var item in cntnt.Bookmarks){db.Bookmarks.Remove(item);}
+                db.Contents.Remove(cntnt);
+                db.SaveChanges();
+                return JavaScript("alert('!مطلب شما حذف شد')");
             }
-            db.Contents.Remove(cntnt);
-            db.SaveChanges();
-            return Json(new JsonData()
+            else
             {
-                Html = "",
-                Success = true,
-                Script = "alert('!مطلب شما حذف شد')"
-
-            });
-
+                return JavaScript("alert('!مطلب شما حذف نشد')");
+            }
         }
         [HttpGet]
         [Authorize]
@@ -84,18 +83,8 @@ namespace LearnBug.Controllers
         public ActionResult ContentOfFollowing()
         {
             var user = db.Users.Single(p => p.Username == User.Identity.Name);
-            var model = user.Follows1.SelectMany(p => p.User.Contents).OrderByDescending(O=>O.Datetime);
-                return View(model);
+            var model = user.Follows1.SelectMany(p => p.User.Contents).OrderByDescending(O => O.Datetime);
+            return View(model);
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

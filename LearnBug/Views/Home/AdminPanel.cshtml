@@ -3,7 +3,36 @@
     ViewBag.Title = "AddGroup";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section styles{
+    <style>
+        .Items {
+            margin: 20px;
+            width: fix-contents;
+            float: right;
+            text-align: center;
+            border: 3px solid darkcyan;
+            border-radius: 5px;
+            transition: 1s;
+            box-shadow:0px 6px 8px 0px silver;
+        }
 
+            .Items:hover {
+                transform: scale(1.2);
+            }
+
+            .Items img {
+                margin: 10px;
+                width: 100px;
+                height: auto;
+            }
+
+            .Items span {
+                font-size: 16px;
+                font-family: 'Comic Sans MS';
+            }
+    </style>
+
+}
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -15,27 +44,23 @@
                 <div class="panel-body">
                     <!-- -->
                     <!-- -->
-                    <div style="float:right">
+                    <div>
 
-                        <div style="margin:20px;width:100px">
-                            <a href="/Setting/Index">
-                                <center>
-                                    <span class="fa fa-5x fa-object-group"></span>
-                                    <br />
-                                    مدیریت سایت
-                                </center>
-                            </a>
-                        </div>
-                        <div  style="margin:20px;width:100px">
-                                <a href="/Group/ManagementGroups">
+                        <a href="/Setting/Index">
+                            <div class="Items">
+                                <img src="~/Files/AdminPanel/Setting.png" />
+                                <br />
+                                <span>مدیریت سایت</span>
+                            </div>
+                        </a>
 
-                                    <center>
-                                        <span class="fa fa-5x fa-group"></span>
-                                        <br />
-                                        مدیریت گروهها
-                                    </center>
-                                </a>
-</div>
+                        <a href="/Group/ManagementGroups">
+                            <div class="Items">
+                                <img src="~/Files/AdminPanel/Groups.png" />
+                                <br />
+                                <span>مدیریت گروهها</span>
+                            </div>
+                        </a>
 
 
                     </div>

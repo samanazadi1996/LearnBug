@@ -10,95 +10,106 @@
             <div class="panel-body">
                 <div id="w1" class="grid-view">
                     <!-- -->
-                    <div class="col-md-3" style="float:right;">
-                        <div>
-                            <center>
-                                <img style="width:200px;height:200px;border-radius:100%;" src="@Model.ImgProfile()">
-                            </center>
-                        </div>
+                    <div class="relative">
 
-                        <div>
-                            <div class="col-md-4"><center>Posts<br />@Model.Contents.Count()</center></div>
-                            <div class="col-md-4"><center>Followers<br /><span id="Flwer">@Model.Follows.Count()</span></center></div>
-                            <div class="col-md-4"><center>Following<br />@Model.Follows1.Count()</center></div>
-                        </div><br />
-                        @if (User.Identity.IsAuthenticated && User.Identity.Name!=Model.Username)
-                        {
-                            <div>
-                                <button id="sndmsg" class="btn btn-success col-md-6">ارسال پیام به کاربر</button>
-                                @if (Model.Follows.Any(p => p.User1.Username == User.Identity.Name))
-                                {
-                                    <input onclick="Follow(@Model.Id);" id="btnFollow" class="btn btn-info col-md-6" flw="true" value="UnFollow"/>
-                                }
-                                else
-                                {
-                                    <input onclick="Follow(@Model.Id);" id="btnFollow" class="btn btn-info col-md-6" flw="false" value="Follow"/>
-                                }
+                        <div class="col-md-12">
+
+                            <div class="col-md-4">
+                                <center>
+                                    <img style="width:90%;height:auto;" src="@Model.ImgProfile()">
+                                </center>
                             </div>
-                        }
 
-                        <div>
-                            <span>نام  : </span> @Model.name
-                        </div>
-
-                        <div>
-                            <span>نام کاربری : </span> @Model.Username
-                        </div>
-
-                        <div>
-                            <span>ایمیل  : </span> @Model.Email
-                        </div>
-
-                        <div>
-                            <span>جنسیت  : </span> @Model.Gender.ToString().GenderToText()
-                        </div>
-
-                        <div>
-                            <span>تاریخ تولد : </span> @Model.Dateofbirth.ToPersianDate().ToShortDateString()
-                        </div>
-                        <div>
-                            <span>محل سکونت : </span> @Model.Location
-                        </div>
-
-                        <div>
-                            <span>نوع دسترسی : </span> @Model.Roles
-                        </div>
-
-                        <div>
-                            <span>بیوگرافی : </span> @Model.Biography
-                        </div>
-                    </div>
-
-                    <div>
-                        <span style="color:darkblue; margin-bottom:10px;"><b>مطالب مربوط به کاربر @Model.name</b></span><br /><br />
-                        <div class="col-md-9 pre-scrollable">
-                            @foreach (var item in Model.Contents)
-                            {
-                                <div id="w0" class="grid-view">
-                                    <table class="table table-striped table-bordered">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div>
-                                                        <span class="last-visitors-item">
-                                                            <span class="fa fa-clock-o"></span>@item.Datetime.ToPersianDate()
-                                                        </span>
-                                                        <span class="last-visitors-item">
-                                                            <span class="fa fa-cubes"></span>@item.Group.Name
-                                                        </span>
-                                                        <span class="last-visitors-item">
-                                                            <span class="fa fa-tablet"></span>@item.Subject
-                                                        </span>
-                                                    </div>
-                                                    <div class="clear"></div>
-                                                    <span>مشاهده مطالب</span>: <a href="/Content/ViewContent/?id=@item.Id">View</a>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <a href="#GotoContents">
+                                        <div class="col-md-4">
+                                            <div class="panel-body top-info-box">
+                                                <div class="fa fa-file-text-o"></div>
+                                                <div class="desc">
+                                                    <span style="font-size: 12px; font-weight: bold">مطلب</span>
+                                                    <br />
+                                                    <span style="font-size: 24px; font-weight: bold">@Model.Contents.Count()</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="col-md-4">
+                                        <div class="panel-body top-info-box">
+                                            <div class="fa fa-group"></div>
+                                            <div class="desc">
+                                                <span style="font-size: 12px; font-weight: bold">دنبال کندده ها</span>
+                                                <br />
+                                                <span style="font-size: 24px; font-weight: bold">@Model.Follows.Count()</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="panel-body top-info-box">
+                                            <div class="fa fa-object-group"></div>
+                                            <div class="desc">
+                                                <span style="font-size: 12px; font-weight: bold">دنبال شونده ها</span>
+                                                <br />
+                                                <span style="font-size: 24px; font-weight: bold">@Model.Follows1.Count()</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            }
+                                <div class="col-md-12">
+                                    @if (User.Identity.IsAuthenticated && User.Identity.Name != Model.Username)
+                                    {
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <button id="sndmsg" style="width:100%;" class="btn btn-success">ارسال پیام به کاربر</button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @if (Model.Follows.Any(p => p.User1.Username == User.Identity.Name))
+                                                {
+                                                    <input type="button" onclick="Follow(@Model.Id);" id="btnFollow" style="width:100%;" class="btn btn-info" flw="true" value="UnFollow" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="button" onclick="Follow(@Model.Id);" id="btnFollow" style="width:100%;" class="btn btn-info" flw="false" value="Follow" />
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="clear"></div>
+                                    <div class="col-md-12">
+                                        <span class="col-md-2 MyFontInProfile">نام  : </span>
+                                        <span class="col-md-4 MyFontInProfile"> @Model.name</span>
+                                        <span class="col-md-2 MyFontInProfile">نام کاربری  : </span>
+                                        <span class="col-md-4 MyFontInProfile"> @Model.Username</span>
+                                        <span class="col-md-2 MyFontInProfile">ایمیل : </span>
+                                        <span class="col-md-4 MyFontInProfile"> @Model.Email</span>
+                                        @if ((User.Identity.IsAuthenticated && User.Identity.Name == Model.Username) || User.IsInRole("Admin"))
+                                        {
+                                            <span class="col-md-2 MyFontInProfile">شماره تلفن  : </span>
+                                            <span class="col-md-4 MyFontInProfile"> @Model.Phone</span>
+                                        }
+                                        <span class="col-md-2 MyFontInProfile">جنسیت : </span>
+                                        <span class="col-md-4 MyFontInProfile"> @Model.Gender.ToString().GenderToText()</span>
+                                        <span class="col-md-2 MyFontInProfile">تاریخ تولد : </span>
+                                        <span class="col-md-4 MyFontInProfile"> @Model.Dateofbirth.ToPersianDate().ToShortDateString()</span>
+                                        <span class="col-md-2 MyFontInProfile">محل سکونت  : </span>
+                                        <span class="col-md-4 MyFontInProfile"> @Model.Location</span>
+
+                                        <span class="col-md-2 MyFontInProfile">نوع دسترسی  : </span>
+                                        <span class="col-md-4 MyFontInProfile"> @Model.Roles</span>
+                                        <span class="col-md-2 MyFontInProfile">بیوگرافی : </span>
+                                        <span class="col-md-4 MyFontInProfile"> @Model.Biography</span>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="clear"> </div>
+                        <div class="col-md-12" id="GotoContents">
+                            @Html.Partial(Url.Content("~/Views/Content/_ContentList.cshtml"), @Model.Contents.AsQueryable())
+
                         </div>
                     </div>
                     <!-- -->

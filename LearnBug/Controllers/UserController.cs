@@ -157,7 +157,11 @@ namespace LearnBug.Controllers
                 return JavaScript("alert('عکس پروفایل شما با موفقیت حذف شد')");
             }
         }
-
+        public ActionResult Avatar()
+        {
+            var user = db.Users.Single(p => p.Username == User.Identity.Name);
+            return PartialView(user);
+        }
 
     }
 }

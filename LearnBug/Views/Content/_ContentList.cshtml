@@ -1,0 +1,46 @@
+﻿@model IEnumerable<LearnBug.Models.DomainModels.Content>
+    @foreach (var item in Model)
+    {
+    <div class="ContentDiv">
+        @if (User.Identity.IsAuthenticated)
+        {
+        <div href="" class="fa fa-2x fa-bars divContentBars dropdown">
+            <div class="dropdownmenu">
+
+                @if (item.User.Username == User.Identity.Name || User.IsInRole("Admin"))
+                {
+                <a style="cursor:pointer;color:red;font-size:14px" onclick="deleteContent(this,@item.Id)"><span class="fa-remove"></span>Delete</a>
+                <br />
+                <a style="cursor:pointer;color:blue;font-size:14px"><span class="fa-edit"></span>Edit</a>
+                <br />
+                }
+                @if (item.User.Username != User.Identity.Name)
+                {
+                if (item.Bookmarks.Any(p => p.User.Username == User.Identity.Name))
+                {
+                <a style="cursor:pointer;color:green;font-size:14px" onclick="AddBookMark(this,@item.Id)" class="fa-bookmark">Bookmark</a>
+                }
+                else
+                {
+                <a style="cursor:pointer;color:green;font-size:14px" onclick="AddBookMark(this,@item.Id)" class="fa-bookmark-o">Bookmark</a>
+                }
+                }
+            </div>
+
+        </div>
+        }
+        <a href="/User/Profile/?username=@item.User.Username">
+            <img src="@item.User.ImgProfile()" class="ContentDivImg" />
+        </a>
+
+        <span class="divContentSubject">@item.Subject</span>
+        <a class="btn btn-info ContentDivVisit" href="/Content/ViewContent/?id=@item.Id">نمایش مطلب</a>
+        <a class="divContentGroup" href="/Home/Index/?search=@item.Group.Name">@item.Group.Name</a>
+        <span class="fa fa-comment-o CommentCount">@item.Comments.Count</span>
+
+    </div>
+    }
+    @section styles{
+    <style>
+    </style>
+    }

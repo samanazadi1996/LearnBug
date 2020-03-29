@@ -13,14 +13,31 @@
     <link href="~/Content/css/markup.css" rel="stylesheet" />
     @RenderSection("styles", required: false)
     <title>LearnBug</title>
+
+    <link href="~/Content/BU/MyCssCode.css" rel="stylesheet" />
+
 </head>
 <body>
-    <div class="top-head">
-        <div class="raspina pull-right">
-            <div class="rs-name">Bug</div>
-            <div class="rs-version">Learn</div>
-        </div>
+    @*<div class="MyMenuBar">
+        <ul>
+            <li class="green">123456</li>
+            <li class="yellow">123456</li>
+            <li class="blue">123456</li>
+            <li class="pink">123456</li>
+        </ul>
+    </div>*@
+    <div class="top-head navbar-fixed-top">
         <ul class="top-item pull-right">
+            <li style="background-color:rgb(26, 26, 95)">
+                <div class="fa fa-bars" onclick="togNav()"></div>
+            </li>
+
+
+            <li>
+                <a href="/Home/Index">
+                    <div class="fa fa-home"></div>
+                </a>
+            </li>
             <li>
                 <a href="/Content/AddContent">
                     <div class="fa fa-plus"></div>
@@ -28,135 +45,86 @@
             </li>
 
             <li>
-                <div class="fa fa-comments"></div>
-                <div class="item-notification">12</div>
-            </li>
-
-            <li>
                 <a href="/Message/myMessage">
-                    <div class="fa fa-envelope-o"></div>
-                    <div class="item-notification">5</div>
+                    <div class="fa fa-comments"></div>
                 </a>
             </li>
-
-            <li>
-                <div class="fa fa-users"></div>
-                <div class="item-notification">5</div>
+            @if (User.IsInRole("Admin"))
+            {
+                <li>
+                    <a href="/Home/AdminPanel">
+                        <div class="fa fa-cog"></div>
+                    </a>
+                </li>
+            }
+            <li style="cursor:default">
+                @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                {
+                    <input name="search" id="search" value="@ViewBag.Srch" style="color:cadetblue;margin-left:10px" />
+                    <div style="cursor:pointer;" onclick="$('#submitsrch').click()" class="fa fa-search"></div>
+                    <button id="submitsrch" class="hidden"></button>
+                }
             </li>
-
-            <li>
-                <div class="fa fa-newspaper-o"></div>
-                <div class="item-notification">5</div>
-
-            </li>
-
         </ul>
         @if (User.Identity.IsAuthenticated)
         {
             <ul class="top-item pull-left">
                 <li>
-                    <a class="link" href="/Home/LogOut">
+                    <a href="@Url.Action("LogOut", "Home")">
                         <div class="fa fa-sign-out"></div>
                     </a>
                 </li>
             </ul>
         }
+
         <div class="clear"></div>
     </div>
-    <div class="container" style="width: 100%; min-height: 100%;">
-        <div class="row" style="border-right: 72px solid #383A3F;">
-            <!-- tools start -->
-            <div class="rs-tools">
-                <a href="/Home/Index">
+    <div class="container" style="width: 100%;
+        min-height: 100%;
+">
+        <!-- tools start -->
+        <div id="mySidenav" class="sidenav pull-right">
+            @if (User.Identity.IsAuthenticated)
+            {
+                @Html.Action(actionName: "Avatar", controllerName: "User")
+            }
+            else
+            {
 
-                    <div class="rs-item">
-                        <div class="fa fa-home rs-icon"></div>
-                        <div class="rs-tool-title">خانه</div>
-                    </div>
-                </a>
-                <div class="group-items rs-open">
-                    <a href="~/Content/myContents">
-                        <div class="rs-item rs-active">
-                            <div class="fa fa-file-text-o rs-icon"></div>
-                            <div class="rs-tool-title">مطالب</div>
-                        </div>
-                    </a>
-                    <div class="sub-item">
-                        <a href="#">
-                            <div class="rs-item">
-                                <div class="fa fa fa-plus rs-icon"></div>
-                                <div class="rs-tool-title">مطلب جدید</div>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="rs-item">
-                                <div class="fa fa fa-list rs-icon"></div>
-                                <div class="rs-tool-title">لیست مطالب</div>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="rs-item">
-                                <div class="fa fa fa-clone rs-icon"></div>
-                                <div class="rs-tool-title">پیش نویس</div>
-                            </div>
-                        </a>
-                    </div>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <a href="/Home/AdminPanel">
-                            <div class="rs-item">
-                                <div class="fa fa fa-book rs-icon"></div>
-                                <div class="rs-tool-title">پنل مدیریت</div>
-                            </div>
-                        </a>
-                    }
+                <div class="col-lg-12" style="text-align:left">
+                    <a href="@Url.Action("Login", "Home")" class="fa fa-sign-in">ورود </a>
+                    <a href="@Url.Action("RegisterUser", "User")" class="fa fa-registered">ثبت نام </a>
                 </div>
 
-                <div class="rs-item">
-                    <div class="fa fa-link rs-icon"></div>
-                    <div class="rs-tool-title">پیوند ها</div>
-                </div>
-
-                <div class="rs-item">
-                    <div class="fa fa-info-circle rs-icon"></div>
-                    <div class="rs-tool-title">درباره</div>
-                </div>
-                <div class="rs-item">
-                    <div class="fa fa-cog rs-icon"></div>
-                    <div class="rs-tool-title">تنظیمات</div>
-                </div>
-            </div>
-            <!-- tools end -->
-            <!-- main start -->
-            <div class="pull-left main-content">
-                <div class="clear" style="padding-bottom: 20px;"></div>
-
-                <div>
-                    @RenderBody()
-                </div>
-            </div>
-            <!-- main end -->
-
+            }
         </div>
+
+        <!-- tools end -->
+        <!-- main start -->
+        <div class="pull-left main-content" id="main">
+            <div class="clear" style="padding-bottom: 70px;"></div>
+            <div id="divbody">
+                @RenderBody()
+            </div>
+        </div>
+        <!-- main end -->
     </div>
     <div class="footer">
-        <div class="raspina pull-right" style="min-width: 72px;">
-            <div class="rs-name"><span class="fa fa-copyright" style="font-size: 18px;"></span></div>
-            <div class="rs-version">@(DateTime.Now.Year)</div>
-        </div>
-        <div class="copyright">
-
-        </div>
         <div class="rsabout">
             <a href="#" target="_blank">LearnBug.com</a>
         </div>
     </div>
-
+    <script src="~/Content/BU/MyJsCode.js"></script>
     <script src="~/Content/RSadmin/js/chart.bundle.min.js"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        if (document.getElementById("search").value.length > "0") {
+            $("#search").focus()
+        }
+    </script>
 </body>
 
 </html>

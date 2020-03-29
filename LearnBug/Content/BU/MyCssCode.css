@@ -1,0 +1,191 @@
+﻿.MyFontInProfile {
+    color: darkblue;
+    font-size: 18px;
+    font-family: 'Comic Sans MS';
+    padding: 3px;
+    float: right;
+}
+
+#main {
+    transition: padding-right .5s;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #008c9e;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: white;
+        display: block;
+        transition: 0.3s;
+    }
+
+        .sidenav a:hover {
+            color: silver;
+        }
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+.ContentDiv {
+    padding: 10px;
+    float: left;
+    width: 250px;
+    height: 250px;
+    margin: 23px;
+    transition: transform 1s;
+    border: 2px solid #008c9e;
+    border-radius: 5px;
+    box-shadow: 0px 8px 8px 0px silver;
+    position: relative;
+}
+
+
+.ContentDivImg {
+    width: 70px;
+    height: 70px;
+    margin: 10px;
+    border: 3px solid #008c9e;
+    border-radius: 100%;
+    cursor: pointer;
+    top: 10px;
+    right: 10px;
+    transition: 1s;
+}
+
+    .ContentDivImg:hover {
+        transform: scale(1.2);
+    }
+
+.ContentDiv:hover {
+    z-index: 1;
+    transform: scale(1.2);
+}
+
+.divContentSubject {
+    background-color: rgba(150,150,150,0.5);
+    position: absolute;
+    font: 14px bold;
+    color: black;
+    top: 50%;
+    left: 50%;
+    border: solid 1px black;
+    border-radius: 5px;
+    width: 90%;
+    text-align: center;
+    font-size: 16px;
+    padding: 4px;
+    transform: translate(-50%, -50%);
+}
+
+.ContentDivVisit {
+    bottom: 0px;
+    left: 15px;
+    position: absolute
+}
+
+.divContentGroup {
+    position: absolute;
+    bottom: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    right: 15px;
+    color: #008c9e;
+}
+
+.CommentCount {
+    position: absolute;
+    bottom: 15px;
+    font-size: 18px;
+    left: 50%;
+    color: #008c9e;
+}
+
+
+.dropdownmenu {
+    display: none;
+    position: absolute;
+    padding: 10px;
+    left: 5px;
+    top: 10px;
+    background-color: white;
+    border: 1px groove silver;
+    transition: 1s;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 0px 5px 5px 0px silver;
+    border-radius: 5px;
+}
+
+.divContentBars {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+
+    .divContentBars:hover .dropdownmenu {
+        display: inline-block;
+        z-index: 1;
+    }
+   
+.MyMenuBar {
+    position: fixed;
+    top: 50%;
+    z-index: 1;
+    transform: translate(0, -50%);
+}
+
+    .MyMenuBar ul li {
+        padding-top: 20px;
+        width: 40px;
+        color: transparent;
+        padding-bottom: 20px;
+        margin: 10px 10px 10px 0px;
+        border-bottom-right-radius: 20px;
+        border-top-right-radius: 20px;
+        border-left: 0px;
+        cursor: pointer;
+        transition: 1s;
+        text-align: center;
+        font: 16px bold;
+        border: 2px solid;
+    } 
+    .MyMenuBar ul li:hover {
+        width:200px;
+        color:black;
+    }
+
+        .MyMenuBar ul li.pink {
+            background-color: pink;
+            border-color: hotpink;
+        }
+        .MyMenuBar ul li.green {
+            background-color: greenyellow;
+            border-color: green;
+        }
+        .MyMenuBar ul li.yellow {
+            background-color: yellow;
+            border-color: rgb(255, 185, 0);
+        }
+        .MyMenuBar ul li.blue {
+            background-color: cyan;
+            border-color: darkcyan;
+        }
+

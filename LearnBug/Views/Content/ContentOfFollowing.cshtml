@@ -10,42 +10,7 @@
             <div class="panel-body">
                 <div class="grid-view">
                     <!-- -->
-                    @foreach (var item in Model)
-                    {
-                        <table class="table table-striped table-bordered">
-                            <tbody>
-                                <tr>
-                                    <td style="width:60px;">
-                                        <a href="/User/Profile/?username=@item.User.Username">
-                                            <img src="@item.User.ImgProfile()" style="width:100%;height:auto;border-radius:100%;box-shadow:0px 3px 4px 0px rgb(0, 0, 54)" />
-                                        </a>
-                                    </td>
-                                    <td>
-
-                                        <div>
-                                            <span class="last-visitors-item">
-                                                <span class="fa fa-user"></span>
-                                                <a href="/User/Profile/?username=@item.User.Username">@item.User.Username</a>
-                                            </span>
-                                            <span class="last-visitors-item">
-                                                <span class="fa fa-tablet"></span>@item.Subject
-                                            </span>
-                                            <span class="last-visitors-item">
-                                                <span class="fa fa-cubes"></span>@item.Group.Name
-                                            </span>
-                                            <span class="last-visitors-item">
-                                                <span class="fa fa-clock-o"></span>@item.Datetime.ToPersianDate()
-                                            </span>
-                                        </div>
-                                        <div class="clear"></div>
-                                        <span>مشاهده مطالب</span>: <a href="/Content/ViewContent/?id=@item.Id">View</a>
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    }
+                    @Html.Partial(Url.Content("~/Views/Content/_ContentList.cshtml"), @Model.AsQueryable())
                     <!-- -->
                 </div>
             </div>

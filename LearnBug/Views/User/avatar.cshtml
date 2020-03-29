@@ -1,0 +1,28 @@
+﻿@model LearnBug.Models.DomainModels.User
+<div>
+    <img src="@Model.ImgProfile()" width="100%" />
+    <center>
+        <span style="color:white;font-size:25px;">
+            <a href="/User/Profile/?username=@Model.Username">
+
+                @Model.name
+            </a>
+        </span>
+    </center>
+</div>
+<br />
+<div class="col-md-12">
+    <center>
+        <div class="col-md-4"><center>Posts<br />@Model.Contents.Count()</center></div>
+        <div class="col-md-4"><center>Followers<br />@Model.Follows.Count()</center></div>
+        <div class="col-md-4"><center>Following<br />@Model.Follows1.Count()</center></div>
+    </center>
+</div>
+
+
+<div class="col-lg-12" style="text-align:left">
+    <a href="@Url.Action("Edit","User")" class="fa fa-edit">Edit Profile </a>
+    <a href="@Url.Action("ContentOfFollowing","Content")" class="fa fa-file">Home</a>
+    <a href="@Url.Action("myContents","Content")" class="fa fa-book">My Contents</a>
+    <a href="@Url.Action("MyBookMarks","Bookmark")" class="fa fa-bookmark">BookMarks </a>
+</div>
