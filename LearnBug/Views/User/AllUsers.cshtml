@@ -6,40 +6,48 @@
 <div>
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading"><a href="/Home/Index">صفحه اصلی</a></div>
+            <div class="panel-heading"><a href="/Home/AdminPanel">پنل مدیریتی</a>/<a href="/User/AllUsers">مدیریت کاربران</a></div>
             <div class="panel-body">
                 <div class="grid-view">
                     <!-- -->
-                    @foreach (var item in Model)
-                    {
-                        <table class="table table-striped table-bordered">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div>
-                                            <span class="last-visitors-item">
-                                                <img style="width:30px;height:30px;border-radius:100%;" src="@item.ImgProfile()">
-                                            </span>
-                                            <span class="last-visitors-item">
-                                                <a href="/User/Profile/?username=@item.Username">
-                                                    <span class="fa fa-user"></span>
-                                                    @item.Username
-                                                </a><br />
+                    <table class="table table-hover table-striped">
+                        <tr>
+                            <th> عکس</th>
+                            <th> نام کاربری</th>
+                            <th>نام</th>
+                            <th>کیف پول</th>
+                            <th>کمیسیون</th>
+                            <th>پستها</th>
+                            <th>کامنت ها</th>
+                            <th>پیامهای ارسالی</th>
+                            <th>پیامهای دریافتی</th>
+                            <th>نشانه گذاری شده ها</th>
+                            <th>فاکتور ها</th>
+                            <th>تراکنش ها</th>
+                            <th>فروشها</th>
+                            <th>دسترسی</th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><img style="width:30px;height:30px;border-radius:100%;" src="@item.ImgProfile()"></td>
+                                <td><a href="/User/Profile/?username=@item.Username">@item.Username</a></td>
+                                <td>@item.name</td>
+                                <td>@item.Wallet.ToPrice() $</td>
+                                <td>@item.Commission %</td>
+                                <td>@item.Contents.Count</td>
+                                <td>@item.Comments.Count</td>
+                                <td>@item.Messages.Count</td>
+                                <td>@item.Messages1.Count</td>
+                                <td>@item.Bookmarks.Count</td>
+                                <td>@item.Factors.Count</td>
+                                <td>@item.Transactions.Count</td>
+                                <td>@item.Contents.SelectMany(p=>p.Factors).Sum(o=>o.Price).ToPrice() $</td>
+                                <td>@item.Roles</td>
+                            </tr>
+                        }
+                    </table>
 
-                                            </span>
-                                            <span class="last-visitors-item">
-                                                <span class="fa fa-genderless"></span>@item.Gender.ToString().GenderToText()
-                                            </span>
-                                            <span class="last-visitors-item">
-                                                <span class="fa fa-navicon"></span>@item.name
-                                            </span>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    }
                     <!-- -->
                 </div>
             </div>

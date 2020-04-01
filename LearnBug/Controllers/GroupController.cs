@@ -17,12 +17,20 @@ namespace LearnBug.Controllers
         {
             return View(db.Groups);
         }
+        public ActionResult _GroupList()
+        {
+            return PartialView();
+        }
         [HttpPost]
-        public ActionResult ManagementGroups(Group group)
+        public ActionResult AddGroup(string Name ,string Image)
         {
 
-            if (ModelState.IsValid && !string.IsNullOrEmpty(group.Name.Trim()))
+            if (!db.Groups.Any(p=>p.Name.ToLower()==Name))
             {
+                Group group = new Group { 
+                    Name = Name ,
+                    Image=Image
+                };
                 db.Groups.Add(group);
                 if (db.SaveChanges() > 0)
                 {
@@ -50,11 +58,12 @@ namespace LearnBug.Controllers
                 {
                     Html = "",
                     Success = false,
-                    Script = "alert('گروه اضافه نشد')"
+                    Script = "alert('گروه از قبل وجود دارد')"
 
                 });
             }
         }
+        [HttpPost]
         public ActionResult DeleteGroup(int Id)
         {
 
@@ -94,10 +103,48 @@ namespace LearnBug.Controllers
                 });
             }
         }
-
-        public ActionResult _GroupList()
+        [HttpPost]
+        public ActionResult EditGroup(int Id ,string Name, string Image)
         {
-            return PartialView();
+
+            if (!string.IsNullOrEmpty(Id.ToString()))
+            {
+
+                var group = db.Groups.Find(Id);
+                group.Name = Name;
+                group.Image = Image;
+                if (db.SaveChanges() > 0)
+                {
+                    return Json(new JsonData()
+                    {
+                        Html = this.RenderPartialToString("_GroupList", db.Groups),
+                        Success = true,
+                        Script = "alert('گروه ویرایش شد')"
+                    });
+                }
+                else
+                {
+                    return Json(new JsonData()
+                    {
+                        Html = "",
+                        Success = false,
+                        Script = "alert('گروه ویرایش نشد')"
+                    });
+                }
+
+            }
+            else
+            {
+                return Json(new JsonData()
+                {
+                    Html = "",
+                    Success = false,
+                    Script = "alert('گروه انتخواب نشده است')"
+
+                });
+            }
         }
+
+
     }
 }

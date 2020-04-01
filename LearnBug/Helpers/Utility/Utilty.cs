@@ -149,14 +149,14 @@ public static class Utilty
         int day = pc.GetDayOfMonth(dt);
         int hour = pc.GetHour(dt);
         int min = pc.GetMinute(dt);
-
-        return new DateTime(year, month, day, hour, min, 0);
+        int sec = pc.GetSecond(dt);
+        return new DateTime(year, month, day, hour, min, sec);
     }
 
     public static DateTime ToMiladiDate(this DateTime dt)
     {
         PersianCalendar pc = new PersianCalendar();
-        return pc.ToDateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, 0, 0);
+        return pc.ToDateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second,0);
 
     }
 

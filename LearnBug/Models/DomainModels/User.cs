@@ -20,10 +20,12 @@ namespace LearnBug.Models.DomainModels
             this.Bookmarks = new HashSet<Bookmark>();
             this.Comments = new HashSet<Comment>();
             this.Contents = new HashSet<Content>();
+            this.Factors = new HashSet<Factor>();
             this.Follows = new HashSet<Follow>();
             this.Follows1 = new HashSet<Follow>();
             this.Messages = new HashSet<Message>();
             this.Messages1 = new HashSet<Message>();
+            this.Transactions = new HashSet<Transaction>();
         }
     
         public int Id { get; set; }
@@ -39,6 +41,8 @@ namespace LearnBug.Models.DomainModels
         public string Location { get; set; }
         public string Roles { get; set; }
         public Nullable<byte> Status { get; set; }
+        public double Wallet { get; set; }
+        public int Commission { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bookmark> Bookmarks { get; set; }
@@ -47,6 +51,8 @@ namespace LearnBug.Models.DomainModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Content> Contents { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Factor> Factors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Follow> Follows { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Follow> Follows1 { get; set; }
@@ -54,5 +60,7 @@ namespace LearnBug.Models.DomainModels
         public virtual ICollection<Message> Messages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }

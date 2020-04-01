@@ -13,29 +13,33 @@ namespace LearnBug.Controllers
     public class HomeController : Controller
     {
         LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
+        [Authorize(Roles="Admin")]
         public ActionResult AdminPanel()
         {
             return View();
         }
-        public ActionResult Index(string search=null)
+        public ActionResult Index(string search=null,int Page=1)
         {
-            var contents = db.Contents.AsQueryable();
+            var contents = db.Contents.OrderByDescending(p => p.Datetime).AsQueryable();
 
             if (!string.IsNullOrEmpty(search))
             {
                 contents = contents.Where(p => p.Subject.Contains(search) || p.Group.Name.Contains(search) || p.User.name.Contains(search) || p.User.Username.Contains(search));
                 ViewBag.Srch = search.Trim();
             }
-            return View(contents.OrderByDescending(p=>p.Datetime));
+            ContentViewModel model = new ContentViewModel {
+                Contents = contents.Skip((Page - 1) * 12).Take(12),
+                CurrentPage = Page,
+                TotalItemCount = contents.Count()            
+            };
+            return View(model);
         }
-
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
         [HttpPost]
-
         public ActionResult Login(string Username, string Password, string Rememberme)
         {
 

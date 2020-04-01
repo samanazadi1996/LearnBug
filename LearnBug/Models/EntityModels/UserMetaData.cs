@@ -12,14 +12,14 @@ namespace LearnBug.Models.EntityModels
     internal class UserMetaData
     {
 
-       [ScaffoldColumn(false)]
-       [Required]
-       [Key]
+        [ScaffoldColumn(false)]
+        [Required]
+        [Key]
         public int Id { get; set; }
 
-        [Display(Name=" : نام کاربری")]
+        [Display(Name = " : نام کاربری")]
         [DisplayName(" : نام کاربری")]
-        [Required(ErrorMessage ="نام کاربری خود را وارد کنید")]
+        [Required(ErrorMessage = "نام کاربری خود را وارد کنید")]
         public string Username { get; set; }
 
         [Display(Name = " : نام")]
@@ -32,8 +32,8 @@ namespace LearnBug.Models.EntityModels
         [EmailAddress]
         public string Email { get; set; }
 
-            [Display(Name = "رمز عبور")]
-            [DisplayName("رمز عبور")]
+        [Display(Name = "رمز عبور")]
+        [DisplayName("رمز عبور")]
         public string Password { get; set; }
 
         [Display(Name = "تاریخ تولد")]
@@ -69,6 +69,14 @@ namespace LearnBug.Models.EntityModels
         [ScaffoldColumn(false)]
         public Nullable<byte> Status { get; set; }
 
+        [Display(Name = "کیف پول")]
+        [DisplayName("کیف پول")]
+        public double Wallet { get; set; }
+
+        [Display(Name = "کمیسیون")]
+        [DisplayName("کمیسیون")]
+        [Range(minimum: 0, maximum: 100)]
+        public int Commission { get; set; }
 
     }
 

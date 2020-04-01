@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LearnBug.Models.DomainModels.Content>
+﻿@model LearnBug.ViewModels.ContentViewModel
 @using MvcPager
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,12 +14,12 @@
             <div class="panel-body last-visited">
                 <!-- -->
                 <div>
-                    @*<div class="block-pagination" style="direction: ltr; ">
-                            @Html.Pager(12, ViewBag.CurrentPage, ViewBag.TotalItemCount)
-                        </div>*@
+                    <div class="block-pagination" style="direction: ltr; ">
+                            @Html.Pager(12, Model.CurrentPage, @Model.TotalItemCount,new {search= ViewBag.Srch})
+                        </div>
                     <!-- -->
                     <div>
-                        @Html.Partial(Url.Content("~/Views/Content/_ContentList.cshtml"), @Model.AsQueryable())
+                        @Html.Partial(Url.Content("~/Views/Content/_ContentList.cshtml"), @Model.Contents.AsQueryable())
                     </div>
                     <!-- -->
                 </div>

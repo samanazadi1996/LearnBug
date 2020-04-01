@@ -1,5 +1,22 @@
 ﻿@model LearnBug.Models.DomainModels.Content
+@section styles{
+    <style>
+        .btn_buy {
+            color: lawngreen;
+            font-size: 50px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 8px 10px 0px silver;
+            font-family: 'Comic Sans MS';
+            padding: 10px;
+        }
 
+            .btn_buy:hover {
+                color: white;
+                background-color: greenyellow;
+            }
+    </style>
+}
 <div>
     <div class="col-md-12">
         <div class="panel panel-default">
@@ -13,30 +30,58 @@
 
                     <!-- -->
                     <div class="col-md-9">
-                            @if (User.Identity.IsAuthenticated && Model.User.Username != User.Identity.Name)
+                        @if (User.Identity.IsAuthenticated && Model.User.Username != User.Identity.Name)
+                        {
+                            if (Model.Bookmarks.Any(p => p.User.Username == User.Identity.Name))
                             {
-                                if (Model.Bookmarks.Any(p => p.User.Username == User.Identity.Name))
+                                <a onclick="AddBookMark()" id="BtnBookmark" class="fa fa-bookmark" style="font-size:55px;position:absolute;float:left;cursor:pointer"></a>
+                            }
+                            else
+                            {
+                                <a onclick="" id="BtnBookmark" class="fa fa-bookmark-o" style="font-size:55px;position:absolute;float:left;cursor:pointer;"></a>
+                            }
+                        }
+                        <div class="col-md-12">
+                            <center>
+                                <span style="font-size:22px;" class="left">@Model.Subject</span>
+                            </center>
+                        </div>
+                        <div class="clear"><hr /></div>
+                        <div id="div-body" class="col-md-12">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (string.IsNullOrEmpty(Model.Price.ToString()) ||
+                                    Model.Factors.Any(p => p.User.Username == User.Identity.Name) ||
+                                    Model.User.Username == User.Identity.Name 
+                                    //|| User.IsInRole("Admin")
+                                    )
                                 {
-                                    <a onclick="AddBookMark()" id="BtnBookmark" class="fa fa-bookmark" style="font-size:55px;position:absolute;float:left;cursor:pointer"></a>
+                                    @Html.Raw(Model.Description)
                                 }
                                 else
                                 {
-                                    <a onclick="AddBookMark()" id="BtnBookmark" class="fa fa-bookmark-o" style="font-size:55px;position:absolute;float:left;cursor:pointer;"></a>
+                                    <Center>
+                                        <input type="button" onclick="BuyContent(@Model.Id)" class="btn_buy" name="name" value="خرید @Model.Price.ToPrice() $" />
+                                    </Center>
                                 }
+
                             }
-                        <center>
-                            <span style="font-size:22px;" class="left">@Model.Subject</span>
-                        </center>
-                        @Html.Raw(Model.Description)<br />
+                            else
+                            {
+                                <Center>
+                                    <b style="color:orange;font-size:22px;">برای مشاهده مطلب باید عضو سایت باشید !</b>
+                                </Center>
+                            }
+                        </div>
                     </div>
                     <div class="col-md-3">
                         @if (User.Identity.IsAuthenticated)
                         {
-                        <div>
-                            <input type="text" name="Cmnt" id="Cmnt" Cid="@Model.Id" style="width:90%;" />
-                            <button id="btnsnd" style="float:right;width:10%" onclick="sendComment()" class="fa fa-send"></button>
+                            <div>
+                                <input type="text" name="Cmnt" id="Cmnt" Cid="@Model.Id" style="width:90%;" />
+                                <button id="btnsnd" style="float:right;width:10%" onclick="sendComment()" class="fa fa-send"></button>
 
-                        </div>
+                            </div>
                             <br />
                         }
                         <div id="mfrm" style="background-color:#eeeeee;width:100%;height:100%;float:left;" class="last-visitors">
@@ -102,6 +147,21 @@
                 type: "Post",
                 datatype: "Json",
                 error: function () { alert("خظا!") }
+            })
+        }
+
+        function BuyContent(contentId) {
+            $.ajax({
+                url:"@Url.Action("BuyContent","Content")",
+                data: {Id:contentId},
+                type: "Post",
+                datatype: "Json",
+                success: function (result) {
+                    if (result.Success) {
+                        document.getElementById("div-body").innerHTML=result.Html
+                    }
+                    eval(result.Script)
+                }
             })
         }
     </script>

@@ -19,6 +19,7 @@ namespace LearnBug.Models.DomainModels
         {
             this.Bookmarks = new HashSet<Bookmark>();
             this.Comments = new HashSet<Comment>();
+            this.Factors = new HashSet<Factor>();
         }
     
         public int Id { get; set; }
@@ -28,6 +29,7 @@ namespace LearnBug.Models.DomainModels
         public Nullable<byte> Status { get; set; }
         public int groupId { get; set; }
         public int userId { get; set; }
+        public Nullable<double> Price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bookmark> Bookmarks { get; set; }
@@ -35,5 +37,7 @@ namespace LearnBug.Models.DomainModels
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual Group Group { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Factor> Factors { get; set; }
     }
 }

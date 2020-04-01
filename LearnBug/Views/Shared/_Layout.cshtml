@@ -19,13 +19,13 @@
 </head>
 <body>
     @*<div class="MyMenuBar">
-        <ul>
-            <li class="green">123456</li>
-            <li class="yellow">123456</li>
-            <li class="blue">123456</li>
-            <li class="pink">123456</li>
-        </ul>
-    </div>*@
+            <ul>
+                <li class="green">123456</li>
+                <li class="yellow">123456</li>
+                <li class="blue">123456</li>
+                <li class="pink">123456</li>
+            </ul>
+        </div>*@
     <div class="top-head navbar-fixed-top">
         <ul class="top-item pull-right">
             <li style="background-color:rgb(26, 26, 95)">
@@ -34,7 +34,7 @@
 
 
             <li>
-                <a href="/Home/Index">
+                <a href="@(User.Identity.IsAuthenticated ? Url.Action("ContentOfFollowing","Content") : Url.Action("Index","Home"))">
                     <div class="fa fa-home"></div>
                 </a>
             </li>

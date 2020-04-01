@@ -1,10 +1,13 @@
 ﻿@model LearnBug.Models.DomainModels.User
+
+<div style="position:relative">
+    <img src="@Model.ImgProfile()" style="width:100%;height:auto" />
+    <span class="wallet">$ @Model.Wallet.ToPrice()</span>
+</div>
 <div>
-    <img src="@Model.ImgProfile()" width="100%" />
     <center>
         <span style="color:white;font-size:25px;">
             <a href="/User/Profile/?username=@Model.Username">
-
                 @Model.name
             </a>
         </span>
@@ -22,7 +25,6 @@
 
 <div class="col-lg-12" style="text-align:left">
     <a href="@Url.Action("Edit","User")" class="fa fa-edit">Edit Profile </a>
-    <a href="@Url.Action("ContentOfFollowing","Content")" class="fa fa-file">Home</a>
     <a href="@Url.Action("myContents","Content")" class="fa fa-book">My Contents</a>
     <a href="@Url.Action("MyBookMarks","Bookmark")" class="fa fa-bookmark">BookMarks </a>
 </div>

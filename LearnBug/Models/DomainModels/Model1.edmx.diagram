@@ -5,26 +5,31 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="625af019c71642d88f49e58edc8fb64f" Name="Diagram1">
-        <EntityTypeShape EntityType="LearnBugDBModel.Bookmark" Width="1.5" PointX="8.25" PointY="8.25" />
-        <EntityTypeShape EntityType="LearnBugDBModel.Comment" Width="1.5" PointX="3" PointY="8.125" />
-        <EntityTypeShape EntityType="LearnBugDBModel.Content" Width="1.5" PointX="6" PointY="7.75" />
-        <EntityTypeShape EntityType="LearnBugDBModel.Follow" Width="1.5" PointX="3" PointY="19.75" />
-        <EntityTypeShape EntityType="LearnBugDBModel.Group" Width="1.5" PointX="3.75" PointY="5.375" />
+        <EntityTypeShape EntityType="LearnBugDBModel.Bookmark" Width="1.5" PointX="5.25" PointY="7" />
+        <EntityTypeShape EntityType="LearnBugDBModel.Comment" Width="1.5" PointX="5.25" PointY="9.875" />
+        <EntityTypeShape EntityType="LearnBugDBModel.Content" Width="1.5" PointX="3" PointY="9.375" />
+        <EntityTypeShape EntityType="LearnBugDBModel.Follow" Width="1.5" PointX="3" PointY="17.25" />
+        <EntityTypeShape EntityType="LearnBugDBModel.Group" Width="1.5" PointX="0.75" PointY="5.125" />
         <EntityTypeShape EntityType="LearnBugDBModel.Link" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="LearnBugDBModel.Message" Width="1.5" PointX="3" PointY="16.5" />
+        <EntityTypeShape EntityType="LearnBugDBModel.Message" Width="1.5" PointX="3" PointY="20.125" />
+        <EntityTypeShape EntityType="LearnBugDBModel.Setting" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LearnBugDBModel.Transaction" Width="1.5" PointX="3" PointY="23.5" />
         <AssociationConnector Association="LearnBugDBModel.FK_Bookmarks_Contents" />
         <AssociationConnector Association="LearnBugDBModel.FK_Comments_Contents" />
         <AssociationConnector Association="LearnBugDBModel.FK_Contents_Groups" />
-        <EntityTypeShape EntityType="LearnBugDBModel.User" Width="1.5" PointX="0.75" PointY="12.375" />
+        <EntityTypeShape EntityType="LearnBugDBModel.Factor" Width="1.5" PointX="5.25" PointY="13.125" />
+        <EntityTypeShape EntityType="LearnBugDBModel.User" Width="1.5" PointX="0.75" PointY="13.5" />
         <AssociationConnector Association="LearnBugDBModel.FK_Bookmarks_Users" />
         <AssociationConnector Association="LearnBugDBModel.FK_Comments_Users" />
         <AssociationConnector Association="LearnBugDBModel.FK_Contents_Users" />
+        <AssociationConnector Association="LearnBugDBModel.FK_Factor_Contents" />
+        <AssociationConnector Association="LearnBugDBModel.FK_Factor_Users" />
         <AssociationConnector Association="LearnBugDBModel.FK_Follow_Users" />
         <AssociationConnector Association="LearnBugDBModel.Me" />
         <AssociationConnector Association="LearnBugDBModel.ReceivedMessage" />
         <AssociationConnector Association="LearnBugDBModel.SendedMessage" />
-        <EntityTypeShape EntityType="LearnBugDBModel.Setting" Width="1.5" PointX="3.375" PointY="0.75" />
-      </Diagram>
+        <AssociationConnector Association="LearnBugDBModel.FK_Transaction_Users" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

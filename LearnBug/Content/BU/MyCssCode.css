@@ -6,6 +6,14 @@
     float: right;
 }
 
+.ImageBackground {
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    z-index: 0;
+    filter: blur(5px);
+}
+
 #main {
     transition: padding-right .5s;
 }
@@ -45,7 +53,6 @@
     }
 
 .ContentDiv {
-    padding: 10px;
     float: left;
     width: 250px;
     height: 250px;
@@ -59,14 +66,14 @@
 
 
 .ContentDivImg {
+    position: absolute;
     width: 70px;
     height: 70px;
-    margin: 10px;
     border: 3px solid #008c9e;
     border-radius: 100%;
     cursor: pointer;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     transition: 1s;
 }
 
@@ -90,15 +97,11 @@
     border-radius: 5px;
     width: 90%;
     text-align: center;
-    font-size: 16px;
-    padding: 4px;
+    font-size: 15px;
+    padding: 5px;
     transform: translate(-50%, -50%);
-}
-
-.ContentDivVisit {
-    bottom: 0px;
-    left: 15px;
-    position: absolute
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .divContentGroup {
@@ -114,8 +117,9 @@
     position: absolute;
     bottom: 15px;
     font-size: 18px;
-    left: 50%;
+    left: 15px;
     color: #008c9e;
+    cursor: default;
 }
 
 
@@ -129,22 +133,22 @@
     border: 1px groove silver;
     transition: 1s;
     text-align: left;
-    cursor: pointer;
+    box-shadow: 0px 5px 5px 0px silver;
     box-shadow: 0px 5px 5px 0px silver;
     border-radius: 5px;
 }
 
 .divContentBars {
     position: absolute;
-    top: 8px;
-    left: 16px;
+    top: 15px;
+    left: 15px;
 }
 
     .divContentBars:hover .dropdownmenu {
         display: inline-block;
         z-index: 1;
     }
-   
+
 .MyMenuBar {
     position: fixed;
     top: 50%;
@@ -153,7 +157,7 @@
 }
 
     .MyMenuBar ul li {
-        padding-top: 20px;
+        padding: 10px;
         width: 40px;
         color: transparent;
         padding-bottom: 20px;
@@ -166,26 +170,52 @@
         text-align: center;
         font: 16px bold;
         border: 2px solid;
-    } 
-    .MyMenuBar ul li:hover {
-        width:200px;
-        color:black;
     }
+
+        .MyMenuBar ul li:hover {
+            width: 200px;
+            color: black;
+        }
 
         .MyMenuBar ul li.pink {
             background-color: pink;
             border-color: hotpink;
         }
+
         .MyMenuBar ul li.green {
             background-color: greenyellow;
             border-color: green;
         }
+
         .MyMenuBar ul li.yellow {
             background-color: yellow;
             border-color: rgb(255, 185, 0);
         }
+
         .MyMenuBar ul li.blue {
             background-color: cyan;
             border-color: darkcyan;
         }
 
+.wallet {
+    font-size: 18px;
+    color: darkblue;
+    font-family:'Comic Sans MS';
+    position: absolute;
+    background-color:white;
+    opacity: 0.8;
+    left: 10px;
+    bottom: 10px;
+    display: inline-block;
+    border:1px solid darkblue;
+    padding:5px;
+    border-radius:5px;
+}
+.Price {
+    position: absolute;
+    transform:translateX(-50%);
+    bottom: 15px;
+    font-size: 18px;
+    left: 50%;
+    cursor: default;
+}

@@ -35,6 +35,17 @@
           <Property Name="Status" Type="tinyint" />
           <Property Name="groupId" Type="int" Nullable="false" />
           <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="float" />
+        </EntityType>
+        <EntityType Name="Factor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="contentId" Type="int" Nullable="false" />
+          <Property Name="Datetime" Type="datetime" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Follow">
           <Key>
@@ -52,6 +63,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="targetId" Type="int" />
+          <Property Name="Image" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Links">
           <Key>
@@ -82,6 +94,16 @@
           <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Single" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="Datetime" Type="datetime" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="Charge" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
@@ -99,6 +121,8 @@
           <Property Name="Location" Type="nvarchar" MaxLength="50" />
           <Property Name="Roles" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Status" Type="tinyint" />
+          <Property Name="Wallet" Type="float" Nullable="false" />
+          <Property Name="Commission" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Bookmarks_Contents">
           <End Role="Contents" Type="Self.Contents" Multiplicity="1" />
@@ -172,6 +196,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Factor_Contents">
+          <End Role="Contents" Type="Self.Contents" Multiplicity="1" />
+          <End Role="Factor" Type="Self.Factor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Factor">
+              <PropertyRef Name="contentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Factor_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Factor" Type="Self.Factor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Factor">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Follow_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Follow" Type="Self.Follow" Multiplicity="*" />
@@ -181,6 +229,18 @@
             </Principal>
             <Dependent Role="Follow">
               <PropertyRef Name="followUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -224,11 +284,13 @@
           <EntitySet Name="Bookmarks" EntityType="Self.Bookmarks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contents" EntityType="Self.Contents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Factor" EntityType="Self.Factor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Follow" EntityType="Self.Follow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Links" EntityType="Self.Links" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Setting" EntityType="Self.Setting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Bookmarks_Contents" Association="Self.FK_Bookmarks_Contents">
             <End Role="Contents" EntitySet="Contents" />
@@ -254,9 +316,21 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Contents" EntitySet="Contents" />
           </AssociationSet>
+          <AssociationSet Name="FK_Factor_Contents" Association="Self.FK_Factor_Contents">
+            <End Role="Contents" EntitySet="Contents" />
+            <End Role="Factor" EntitySet="Factor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Factor_Users" Association="Self.FK_Factor_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Factor" EntitySet="Factor" />
+          </AssociationSet>
           <AssociationSet Name="FK_Follow_Users" Association="Self.FK_Follow_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Follow" EntitySet="Follow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Users" Association="Self.FK_Transaction_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Transaction" EntitySet="Transaction" />
           </AssociationSet>
           <AssociationSet Name="Me" Association="Self.Me">
             <End Role="Users" EntitySet="Users" />
@@ -283,6 +357,8 @@
           <EntitySet Name="Groups" EntityType="LearnBugDBModel.Group" />
           <EntitySet Name="Links" EntityType="LearnBugDBModel.Link" />
           <EntitySet Name="Messages" EntityType="LearnBugDBModel.Message" />
+          <EntitySet Name="Settings" EntityType="LearnBugDBModel.Setting" />
+          <EntitySet Name="Transactions" EntityType="LearnBugDBModel.Transaction" />
           <AssociationSet Name="FK_Bookmarks_Contents" Association="LearnBugDBModel.FK_Bookmarks_Contents">
             <End Role="Content" EntitySet="Contents" />
             <End Role="Bookmark" EntitySet="Bookmarks" />
@@ -295,6 +371,7 @@
             <End Role="Group" EntitySet="Groups" />
             <End Role="Content" EntitySet="Contents" />
           </AssociationSet>
+          <EntitySet Name="Factors" EntityType="LearnBugDBModel.Factor" />
           <EntitySet Name="Users" EntityType="LearnBugDBModel.User" />
           <AssociationSet Name="FK_Bookmarks_Users" Association="LearnBugDBModel.FK_Bookmarks_Users">
             <End Role="User" EntitySet="Users" />
@@ -307,6 +384,14 @@
           <AssociationSet Name="FK_Contents_Users" Association="LearnBugDBModel.FK_Contents_Users">
             <End Role="User" EntitySet="Users" />
             <End Role="Content" EntitySet="Contents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Factor_Contents" Association="LearnBugDBModel.FK_Factor_Contents">
+            <End Role="Content" EntitySet="Contents" />
+            <End Role="Factor" EntitySet="Factors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Factor_Users" Association="LearnBugDBModel.FK_Factor_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Factor" EntitySet="Factors" />
           </AssociationSet>
           <AssociationSet Name="FK_Follow_Users" Association="LearnBugDBModel.FK_Follow_Users">
             <End Role="User" EntitySet="Users" />
@@ -324,7 +409,10 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <EntitySet Name="Settings" EntityType="LearnBugDBModel.Setting" />
+          <AssociationSet Name="FK_Transaction_Users" Association="LearnBugDBModel.FK_Transaction_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Bookmark">
           <Key>
@@ -360,10 +448,12 @@
           <Property Name="Status" Type="Byte" />
           <Property Name="groupId" Type="Int32" Nullable="false" />
           <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Double" />
           <NavigationProperty Name="Bookmarks" Relationship="LearnBugDBModel.FK_Bookmarks_Contents" FromRole="Content" ToRole="Bookmark" />
           <NavigationProperty Name="Comments" Relationship="LearnBugDBModel.FK_Comments_Contents" FromRole="Content" ToRole="Comment" />
           <NavigationProperty Name="Group" Relationship="LearnBugDBModel.FK_Contents_Groups" FromRole="Content" ToRole="Group" />
           <NavigationProperty Name="User" Relationship="LearnBugDBModel.FK_Contents_Users" FromRole="Content" ToRole="User" />
+          <NavigationProperty Name="Factors" Relationship="LearnBugDBModel.FK_Factor_Contents" FromRole="Content" ToRole="Factor" />
         </EntityType>
         <EntityType Name="Follow">
           <Key>
@@ -375,7 +465,7 @@
           <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="User" Relationship="LearnBugDBModel.FK_Follow_Users" FromRole="Follow" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="LearnBugDBModel.Me" FromRole="Follow" ToRole="User" />
-          </EntityType>
+        </EntityType>
         <EntityType Name="Group">
           <Key>
             <PropertyRef Name="Id" />
@@ -383,6 +473,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="targetId" Type="Int32" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Contents" Relationship="LearnBugDBModel.FK_Contents_Groups" FromRole="Group" ToRole="Content" />
         </EntityType>
         <EntityType Name="Link">
@@ -406,7 +497,27 @@
           <Property Name="Status" Type="Int64" />
           <NavigationProperty Name="User" Relationship="LearnBugDBModel.ReceivedMessage" FromRole="Message" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="LearnBugDBModel.SendedMessage" FromRole="Message" ToRole="User" />
-          </EntityType>
+        </EntityType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Single" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="Datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Charge" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="LearnBugDBModel.FK_Transaction_Users" FromRole="Transaction" ToRole="User" />
+        </EntityType>
         <Association Name="FK_Bookmarks_Contents">
           <End Type="LearnBugDBModel.Content" Role="Content" Multiplicity="1" />
           <End Type="LearnBugDBModel.Bookmark" Role="Bookmark" Multiplicity="*" />
@@ -443,6 +554,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Factor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="contentId" Type="Int32" Nullable="false" />
+          <Property Name="Datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Content" Relationship="LearnBugDBModel.FK_Factor_Contents" FromRole="Factor" ToRole="Content" />
+          <NavigationProperty Name="User" Relationship="LearnBugDBModel.FK_Factor_Users" FromRole="Factor" ToRole="User" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -460,13 +583,17 @@
           <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Roles" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Byte" />
+          <Property Name="Wallet" Type="Double" Nullable="false" />
+          <Property Name="Commission" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Bookmarks" Relationship="LearnBugDBModel.FK_Bookmarks_Users" FromRole="User" ToRole="Bookmark" />
           <NavigationProperty Name="Comments" Relationship="LearnBugDBModel.FK_Comments_Users" FromRole="User" ToRole="Comment" />
           <NavigationProperty Name="Contents" Relationship="LearnBugDBModel.FK_Contents_Users" FromRole="User" ToRole="Content" />
+          <NavigationProperty Name="Factors" Relationship="LearnBugDBModel.FK_Factor_Users" FromRole="User" ToRole="Factor" />
           <NavigationProperty Name="Follows" Relationship="LearnBugDBModel.FK_Follow_Users" FromRole="User" ToRole="Follow" />
           <NavigationProperty Name="Follows1" Relationship="LearnBugDBModel.Me" FromRole="User" ToRole="Follow" />
           <NavigationProperty Name="Messages" Relationship="LearnBugDBModel.ReceivedMessage" FromRole="User" ToRole="Message" />
           <NavigationProperty Name="Messages1" Relationship="LearnBugDBModel.SendedMessage" FromRole="User" ToRole="Message" />
+          <NavigationProperty Name="Transactions" Relationship="LearnBugDBModel.FK_Transaction_Users" FromRole="User" ToRole="Transaction" />
         </EntityType>
         <Association Name="FK_Bookmarks_Users">
           <End Type="LearnBugDBModel.User" Role="User" Multiplicity="1" />
@@ -500,6 +627,30 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Content">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Factor_Contents">
+          <End Type="LearnBugDBModel.Content" Role="Content" Multiplicity="1" />
+          <End Type="LearnBugDBModel.Factor" Role="Factor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Content">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Factor">
+              <PropertyRef Name="contentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Factor_Users">
+          <End Type="LearnBugDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="LearnBugDBModel.Factor" Role="Factor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Factor">
               <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
@@ -552,15 +703,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Setting">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Single" Type="Boolean" Nullable="false" />
-        </EntityType>
+        <Association Name="FK_Transaction_Users">
+          <End Type="LearnBugDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="LearnBugDBModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -591,6 +745,7 @@
           <EntitySetMapping Name="Contents">
             <EntityTypeMapping TypeName="LearnBugDBModel.Content">
               <MappingFragment StoreEntitySet="Contents">
+                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="groupId" ColumnName="groupId" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -614,6 +769,7 @@
           <EntitySetMapping Name="Groups">
             <EntityTypeMapping TypeName="LearnBugDBModel.Group">
               <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="targetId" ColumnName="targetId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -642,9 +798,43 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="LearnBugDBModel.Setting">
+              <MappingFragment StoreEntitySet="Setting">
+                <ScalarProperty Name="Single" ColumnName="Single" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="LearnBugDBModel.Transaction">
+              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="Charge" ColumnName="Charge" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Factors">
+            <EntityTypeMapping TypeName="LearnBugDBModel.Factor">
+              <MappingFragment StoreEntitySet="Factor">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="contentId" ColumnName="contentId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="LearnBugDBModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Commission" ColumnName="Commission" />
+                <ScalarProperty Name="Wallet" ColumnName="Wallet" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Roles" ColumnName="Roles" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
@@ -657,16 +847,6 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Settings">
-            <EntityTypeMapping TypeName="LearnBugDBModel.Setting">
-              <MappingFragment StoreEntitySet="Setting">
-                <ScalarProperty Name="Single" ColumnName="Single" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

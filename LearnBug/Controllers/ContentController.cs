@@ -19,6 +19,7 @@ namespace LearnBug.Controllers
             var contents = db.Contents.Where(p => p.User.Username == User.Identity.Name).OrderByDescending(o => o.Datetime);
             return View(contents);
         }
+
         [HttpGet]
         [ValidateInput(false)]
         public ActionResult ViewContent(int id)
@@ -35,10 +36,10 @@ namespace LearnBug.Controllers
         {
 
             var cntnt = db.Contents.Find(id);
-            if (cntnt.User.Username==User.Identity.Name || User.IsInRole("Admin"))
+            if (cntnt.User.Username == User.Identity.Name || User.IsInRole("Admin"))
             {
-                foreach (var item in cntnt.Comments){db.Comments.Remove(item);}
-                foreach (var item in cntnt.Bookmarks){db.Bookmarks.Remove(item);}
+                foreach (var item in cntnt.Comments) { db.Comments.Remove(item); }
+                foreach (var item in cntnt.Bookmarks) { db.Bookmarks.Remove(item); }
                 db.Contents.Remove(cntnt);
                 db.SaveChanges();
                 return JavaScript("alert('!مطلب شما حذف شد')");
@@ -61,12 +62,17 @@ namespace LearnBug.Controllers
 
         public ActionResult AddContent(Content content)
         {
+            var user = db.Users.Single(p => p.Username == User.Identity.Name);
             content.Datetime = DateTime.Now;
             content.Status = 0;
-            db.Users.Single(p => p.Username == User.Identity.Name).Contents.Add(content);
+            if (User.IsInRole("User"))
+                content.Price = null;
+
+            user.Contents.Add(content);
             if (db.SaveChanges() > 0)
             {
-                return RedirectToAction("myContents");
+                return RedirectToAction("ViewContent", "Content", new { id = user.Contents.LastOrDefault().Id });
+
             }
             else
             {
@@ -80,11 +86,97 @@ namespace LearnBug.Controllers
         }
         [Authorize]
 
-        public ActionResult ContentOfFollowing()
+        public ActionResult ContentOfFollowing(int Page = 1)
         {
             var user = db.Users.Single(p => p.Username == User.Identity.Name);
-            var model = user.Follows1.SelectMany(p => p.User.Contents).OrderByDescending(O => O.Datetime);
+            var contents = user.Follows1.SelectMany(p => p.User.Contents).OrderByDescending(O => O.Datetime).AsQueryable();
+            ContentViewModel model = new ContentViewModel
+            {
+                Contents = contents.Skip((Page - 1) * 12).Take(12),
+                CurrentPage = Page,
+                TotalItemCount = contents.Count()
+            };
+
+
             return View(model);
+        }
+
+        [Authorize]
+        public ActionResult EditContent(int id)
+        {
+            var model = db.Contents.Find(id);
+
+            if (User.IsInRole("Admin") || model.User.Username == User.Identity.Name)
+            {
+                ViewBag.Groups = new SelectList(db.Groups.ToList(), "Id", "Name");
+                return View(model);
+            }
+            return View("AddContent");
+
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult EditContent(Content content)
+        {
+            var cntnt = db.Contents.Find(content.Id);
+            if (cntnt.User.Username == User.Identity.Name || User.IsInRole("Admin"))
+            {
+                if (!User.IsInRole("User"))
+                    cntnt.Price = content.Price;
+
+                cntnt.groupId = content.groupId;
+                cntnt.Subject = content.Subject;
+                cntnt.Description = content.Description;
+            }
+
+            if (db.SaveChanges() > 0)
+            {
+                return RedirectToAction("ViewContent", "Content", new { id = content.Id });
+            }
+            else
+            {
+                ViewBag.Groups = new SelectList(db.Groups.ToList(), "Id", "Name");
+                ViewBag.message = "ثبت مطلب انجام نشد";
+                ViewBag.style = "red";
+                return View(content);
+            }
+
+
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult BuyContent(int Id)
+        {
+            var me = db.Users.Single(p => p.Username == User.Identity.Name);
+
+            var content = db.Contents.Find(Id);
+            if (!content.Factors.Any(p => p.User.Username == me.Username))
+            {
+                if (me.Wallet>=content.Price)
+                {
+                    Factor factor = new Factor()
+                    {
+                        Datetime = DateTime.Now,
+                        contentId = Id,
+                        Price = content.Price.Value,
+                    };
+                    me.Factors.Add(factor);
+                    me.Wallet -= content.Price.Value;
+                    content.User.Wallet += (content.Price.Value-(content.Price.Value /100*content.User.Commission));
+                    db.SaveChanges();
+                    return Json(new JsonData { Success =true,Html=content.Description,Script="alert('خرید با موفقیت انجام شد')"});
+
+                }
+                else
+                {
+                    return Json(new JsonData { Success = false,Html="" , Script = "alert('کیف پول خود را شارژ کنید')" });
+                }
+            }
+            else
+            {
+                return Json(new JsonData { Success = false, Html = "" , Script = "alert('error');" });
+
+            }
         }
     }
 }

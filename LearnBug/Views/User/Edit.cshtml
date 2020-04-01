@@ -7,10 +7,13 @@
             <div class="panel-heading">ویرایش پروفایل</div>
             <div class="panel-body">
                 <!-- -->
-                <a class="btn btn-info col-md-12" data-toggle="modal" data-target="#myModal" onclick="renderPvCangePass('_editProfile')">ویرایش اطلاعات کاربری</a>
-                <a class="btn btn-info col-md-12" data-toggle="modal" data-target="#myModal" onclick="renderPvCangePass('_editPicture')">ویرایش عکس پروفایل</a>
-                <a class="btn btn-info col-md-12" data-toggle="modal" data-target="#myModal" onclick="renderPvCangePass('_editPassword')">تغییر رمز عبور</a>
-
+                <a class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="renderPvCangePass('_editProfile')">ویرایش اطلاعات کاربری</a>
+                <a class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="renderPvCangePass('_editPicture')">ویرایش عکس پروفایل</a>
+                <a class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="renderPvCangePass('_editPassword')">تغییر رمز عبور</a>
+                <div class="clear"><hr /></div>
+                <a class="btn btn-info" onclick="AddPrice()">افزایش اعتبار</a>
+                <a class="btn btn-info">تراکنش ها</a>
+                <a class="btn btn-info">مطالب خریداری شده</a>
                 <!-- -->
             </div>
         </div>
@@ -38,6 +41,16 @@
 @section Scripts {
     <script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
     <script type="text/javascript">
+        function AddPrice() {
+            $.ajax({
+                url: "/Transaction/add",
+                data: { price: 1000 },
+                type: "Post"
+            })
+
+        }
+
+
         function changeProfilePicture(type) {
             var img = $("#upload-Preview").attr('src')
             $.ajax({
@@ -51,7 +64,7 @@
 
         }
 
-        function renderDatepicker() {$("#Dateofbirth").datepicker()}
+        function renderDatepicker() { $("#Dateofbirth").datepicker() }
 
         var fileReader = new FileReader();
         var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;

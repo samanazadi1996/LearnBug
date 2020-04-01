@@ -25,14 +25,15 @@ namespace LearnBug.Controllers
         [AllowAnonymous]
         public ActionResult RegisterUser(User user)
         {
-            if(db.Users.Where(p=>p.Username==user.Username.ToLower().Trim())!=null)
+            if(db.Users.Any(p=>p.Username==user.Username.ToLower().Trim()))
             {
                 ViewBag.message = "کاربر با این نام از قبل وجود دارد";
                 ViewBag.style = "red";
                 return View(user);
             }
             user.Status = 1;
-            user.Roles = "user";
+            user.Roles = "User";
+            user.Wallet = 0;
             user.Username = user.Username.ToLower().Trim();
             user.Dateofbirth = user.Dateofbirth.ToMiladiDate();
             if (ModelState.IsValid)
@@ -64,7 +65,7 @@ namespace LearnBug.Controllers
             var user = db.Users.Single(p => p.Username.Trim() == username.Trim());
             return View(user);
         }
-        [AllowAnonymous]
+        [Authorize(Roles="Admin")]
         public ActionResult AllUsers()
         {
             return View(db.Users);
@@ -125,7 +126,7 @@ namespace LearnBug.Controllers
             return PartialView(user);
         }
         [HttpPost]
-        public ActionResult _editProfile(User user)
+        public ActionResult _editProfile([Bind(Exclude ="Wallet")] User user)
         {
             var myuser = db.Users.Single(p => p.Username == User.Identity.Name);
             //myuser.Username = user.Username.ToLower();

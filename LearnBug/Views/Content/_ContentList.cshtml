@@ -1,46 +1,67 @@
 ﻿@model IEnumerable<LearnBug.Models.DomainModels.Content>
-    @foreach (var item in Model)
-    {
+
+@foreach (var item in Model)
+{
     <div class="ContentDiv">
+        @if (!string.IsNullOrEmpty(item.Group.Image))
+        {
+            <img src="@item.Group.Image" class="ImageBackground" />
+        }
+
         @if (User.Identity.IsAuthenticated)
         {
-        <div href="" class="fa fa-2x fa-bars divContentBars dropdown">
-            <div class="dropdownmenu">
+            <div class="fa fa-2x fa-bars divContentBars dropdown">
+                <div class="dropdownmenu">
+                    @if (item.User.Username == User.Identity.Name || User.IsInRole("Admin"))
+                    {
+                        <a style="cursor:pointer;color:red;font-size:14px" onclick="deleteContent(this,@item.Id)"><span class="fa-remove"></span>Delete</a>
+                        <br />
+                        <a style="cursor:pointer;color:blue;font-size:14px" href="/Content/EditContent/@item.Id"><span class="fa-edit"></span>Edit</a>
+                        <br />
+                    }
+                    @if (item.User.Username != User.Identity.Name)
+                    {
+                        if (item.Bookmarks.Any(p => p.User.Username == User.Identity.Name))
+                        {
+                            <a style="cursor:pointer;color:green;font-size:14px" onclick="AddBookMark(this,@item.Id)" class="fa-bookmark">Bookmark</a>
+                        }
+                        else
+                        {
+                            <a style="cursor:pointer;color:green;font-size:14px" onclick="AddBookMark(this,@item.Id)" class="fa-bookmark-o">Bookmark</a>
+                        }
+                    }
+                </div>
 
-                @if (item.User.Username == User.Identity.Name || User.IsInRole("Admin"))
-                {
-                <a style="cursor:pointer;color:red;font-size:14px" onclick="deleteContent(this,@item.Id)"><span class="fa-remove"></span>Delete</a>
-                <br />
-                <a style="cursor:pointer;color:blue;font-size:14px"><span class="fa-edit"></span>Edit</a>
-                <br />
-                }
-                @if (item.User.Username != User.Identity.Name)
-                {
-                if (item.Bookmarks.Any(p => p.User.Username == User.Identity.Name))
-                {
-                <a style="cursor:pointer;color:green;font-size:14px" onclick="AddBookMark(this,@item.Id)" class="fa-bookmark">Bookmark</a>
-                }
-                else
-                {
-                <a style="cursor:pointer;color:green;font-size:14px" onclick="AddBookMark(this,@item.Id)" class="fa-bookmark-o">Bookmark</a>
-                }
-                }
             </div>
-
-        </div>
         }
         <a href="/User/Profile/?username=@item.User.Username">
             <img src="@item.User.ImgProfile()" class="ContentDivImg" />
         </a>
+        <a class="divContentSubject" href="/Content/ViewContent/@item.Id">@item.Subject</a>
 
-        <span class="divContentSubject">@item.Subject</span>
-        <a class="btn btn-info ContentDivVisit" href="/Content/ViewContent/?id=@item.Id">نمایش مطلب</a>
-        <a class="divContentGroup" href="/Home/Index/?search=@item.Group.Name">@item.Group.Name</a>
+        <a class="divContentGroup" onclick="$('#search').val('@item.Group.Name');$('#submitsrch').click()">@item.Group.Name</a>
         <span class="fa fa-comment-o CommentCount">@item.Comments.Count</span>
+        <span class="Price">
+            @if (!string.IsNullOrEmpty(item.Price.ToString()))
+            {
+                <b>
+                    @if (!item.Factors.Any(p => p.User.Username == User.Identity.Name))
+                    {
+                        <span style="color:orangered;">@item.Price.ToPrice() $</span>
+                    }
+                    else
+                    {
+                        <del style="color:darkgreen;"> @item.Price.ToPrice() $</del>
+                    }
+                </b>
+            }
+            else
+            {
+                <b style="color:blue">Free $</b>
+            }
+        </span>
 
     </div>
-    }
-    @section styles{
-    <style>
-    </style>
-    }
+}
+@section styles{
+}
