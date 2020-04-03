@@ -21,14 +21,14 @@ namespace LearnBug
         }
         protected void FormsAuthentication_OnAuthenticate(Object sender, FormsAuthenticationEventArgs e)
         {
+            LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
+
             if (FormsAuthentication.CookiesSupported == true)
             {
                 if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
                 {
                     string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
-                    var blUser = new LearnBug.Models.Repositories.UserRepository();
-                    string roles = blUser.Where(p => p.Username == username).Single().Roles;
-
+                    string roles = db.Users.Single(p => p.Username == username).Roles;
                     e.User = new GenericPrincipal(new System.Security.Principal.GenericIdentity(username), roles.Split(','));
                 }
             }

@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using Data;
+using Entities;
+using System;
 using System.Linq;
 using System.Web;
 
 namespace LearnBug.Models.Repositories
 {
-    public class MessageRepository : IDisposable
+    public class CommentRepository : IDisposable
     {
-        private LearnBug.Models.DomainModels.LearnBugDBEntities1 db = null;
+        DatabaseContext db = null;
 
-        public MessageRepository()
+        public CommentRepository()
         {
-            db = new DomainModels.LearnBugDBEntities1();
+            db = new DatabaseContext();
         }
 
-        public bool Add(LearnBug.Models.DomainModels.Message entity, bool autoSave = true)
+        public bool Add(Comment entity, bool autoSave = true)
         {
             try
             {
-                db.Messages.Add(entity);
+                db.comments.Add(entity);
                 if (autoSave)
                     return Convert.ToBoolean(db.SaveChanges());
                 else
@@ -31,7 +31,7 @@ namespace LearnBug.Models.Repositories
             }
         }
 
-        public bool Update(LearnBug.Models.DomainModels.Message entity, bool autoSave = true)
+        public bool Update(Comment entity, bool autoSave = true)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace LearnBug.Models.Repositories
             }
         }
 
-        public bool Delete(LearnBug.Models.DomainModels.Message entity, bool autoSave = true)
+        public bool Delete(Comment entity, bool autoSave = true)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace LearnBug.Models.Repositories
         {
             try
             {
-                var entity = db.Messages.Find(id);
+                var entity = db.comments.Find(id);
                 db.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
                 if (autoSave)
                 {
@@ -84,11 +84,11 @@ namespace LearnBug.Models.Repositories
             }
         }
 
-        public LearnBug.Models.DomainModels.Message Find(int id)
+        public Comment Find(int id)
         {
             try
             {
-                return db.Messages.Find(id);
+                return db.comments.Find(id);
             }
             catch
             {
@@ -96,11 +96,11 @@ namespace LearnBug.Models.Repositories
             }
         }
 
-        public IQueryable<LearnBug.Models.DomainModels.Message> Where(System.Linq.Expressions.Expression<Func<LearnBug.Models.DomainModels.Message, bool>> predicate)
+        public IQueryable<Comment> Where(System.Linq.Expressions.Expression<Func<Comment, bool>> predicate)
         {
             try
             {
-                return db.Messages.Where(predicate);
+                return db.comments.Where(predicate);
             }
             catch
             {
@@ -108,11 +108,11 @@ namespace LearnBug.Models.Repositories
             }
         }
 
-        public IQueryable<LearnBug.Models.DomainModels.Message> Select()
+        public IQueryable<Comment> Select()
         {
             try
             {
-                return db.Messages.AsQueryable();
+                return db.comments.AsQueryable();
             }
             catch
             {
@@ -120,11 +120,11 @@ namespace LearnBug.Models.Repositories
             }
         }
 
-        public IQueryable<TResult> Select<TResult>(System.Linq.Expressions.Expression<Func<LearnBug.Models.DomainModels.Message, TResult>> selector)
+        public IQueryable<TResult> Select<TResult>(System.Linq.Expressions.Expression<Func<Comment, TResult>> selector)
         {
             try
             {
-                return db.Messages.Select(selector);
+                return db.comments.Select(selector);
             }
             catch
             {
@@ -136,8 +136,8 @@ namespace LearnBug.Models.Repositories
         {
             try
             {
-                if (db.Messages.Any())
-                    return db.Messages.OrderByDescending(p => p.Id).First().Id;
+                if (db.comments.Any())
+                    return db.comments.OrderByDescending(p => p.Id).First().Id;
                 else
                     return 0;
             }
@@ -177,7 +177,7 @@ namespace LearnBug.Models.Repositories
             }
         }
 
-        ~MessageRepository()
+        ~CommentRepository()
         {
             Dispose(false);
         }

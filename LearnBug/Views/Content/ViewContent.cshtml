@@ -15,6 +15,14 @@
                 color: white;
                 background-color: greenyellow;
             }
+        #BtnBookmark{
+            font-size: 55px;
+            position: absolute;
+            cursor: pointer;
+            left:10px;
+            top:-10px;
+            z-index:1;
+        }
     </style>
 }
 <div>
@@ -29,16 +37,16 @@
                 <div id="w1" class="grid-view">
 
                     <!-- -->
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         @if (User.Identity.IsAuthenticated && Model.User.Username != User.Identity.Name)
                         {
                             if (Model.Bookmarks.Any(p => p.User.Username == User.Identity.Name))
                             {
-                                <a onclick="AddBookMark()" id="BtnBookmark" class="fa fa-bookmark" style="font-size:55px;position:absolute;float:left;cursor:pointer"></a>
+                                <a onclick="AddBookMark()" id="BtnBookmark" class="fa fa-bookmark"></a>
                             }
                             else
                             {
-                                <a onclick="" id="BtnBookmark" class="fa fa-bookmark-o" style="font-size:55px;position:absolute;float:left;cursor:pointer;"></a>
+                                <a onclick="AddBookMark()" id="BtnBookmark" class="fa fa-bookmark-o"></a>
                             }
                         }
                         <div class="col-md-12">
@@ -74,7 +82,8 @@
                             }
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-12" style="padding:20px">نظرات کاربران</div>
+                    <div class="col-md-12">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <div>
@@ -152,7 +161,7 @@
 
         function BuyContent(contentId) {
             $.ajax({
-                url:"@Url.Action("BuyContent","Content")",
+                url:"@Url.Action("CreateFactor","Factor")",
                 data: {Id:contentId},
                 type: "Post",
                 datatype: "Json",

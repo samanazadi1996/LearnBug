@@ -34,7 +34,7 @@ namespace LearnBug.Models.DomainModels
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
-        public virtual DbSet<Factor> Factors { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Factor> Factors { get; set; }
     }
 }

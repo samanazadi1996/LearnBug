@@ -255,8 +255,6 @@ public static class Utilty
         }
     }
 
-
-
     public static string GenderToText(this string g)
     {
         string a = "نا مشخص";

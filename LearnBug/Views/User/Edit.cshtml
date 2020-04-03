@@ -12,8 +12,12 @@
                 <a class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="renderPvCangePass('_editPassword')">تغییر رمز عبور</a>
                 <div class="clear"><hr /></div>
                 <a class="btn btn-info" onclick="AddPrice()">افزایش اعتبار</a>
-                <a class="btn btn-info">تراکنش ها</a>
-                <a class="btn btn-info">مطالب خریداری شده</a>
+                <a href="@Url.Action("Index","Transaction")" class="btn btn-info">تراکنش ها</a>
+                <a href="@Url.Action("Index","Factor")" class="btn btn-info">مطالب خریداری شده</a>
+                @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+                {
+                    <a href="@Url.Action("SellContent","Factor")" class="btn btn-info">گذارش خرید مطالب من</a>
+                }
                 <!-- -->
             </div>
         </div>

@@ -17,18 +17,18 @@
         <AssociationConnector Association="LearnBugDBModel.FK_Bookmarks_Contents" />
         <AssociationConnector Association="LearnBugDBModel.FK_Comments_Contents" />
         <AssociationConnector Association="LearnBugDBModel.FK_Contents_Groups" />
-        <EntityTypeShape EntityType="LearnBugDBModel.Factor" Width="1.5" PointX="5.25" PointY="13.125" />
         <EntityTypeShape EntityType="LearnBugDBModel.User" Width="1.5" PointX="0.75" PointY="13.5" />
         <AssociationConnector Association="LearnBugDBModel.FK_Bookmarks_Users" />
         <AssociationConnector Association="LearnBugDBModel.FK_Comments_Users" />
         <AssociationConnector Association="LearnBugDBModel.FK_Contents_Users" />
-        <AssociationConnector Association="LearnBugDBModel.FK_Factor_Contents" />
-        <AssociationConnector Association="LearnBugDBModel.FK_Factor_Users" />
         <AssociationConnector Association="LearnBugDBModel.FK_Follow_Users" />
         <AssociationConnector Association="LearnBugDBModel.Me" />
         <AssociationConnector Association="LearnBugDBModel.ReceivedMessage" />
         <AssociationConnector Association="LearnBugDBModel.SendedMessage" />
         <AssociationConnector Association="LearnBugDBModel.FK_Transaction_Users" />
+        <EntityTypeShape EntityType="LearnBugDBModel.Factor" Width="1.5" PointX="5.25" PointY="13" />
+        <AssociationConnector Association="LearnBugDBModel.FK_Factor_Contents" />
+        <AssociationConnector Association="LearnBugDBModel.FK_Factor_Users" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

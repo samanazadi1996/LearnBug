@@ -136,6 +136,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\FactorController .cs" />
     <Compile Include="Controllers\BookmarkController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ContentController.cs" />
@@ -205,11 +206,6 @@
     <Compile Include="Models\EntityModels\MessageMetaData.cs" />
     <Compile Include="Models\EntityModels\UserMetaData.cs" />
     <Compile Include="Models\EntityModels\ConentMetaData.cs" />
-    <Compile Include="Models\Repositories\MessageRepository.cs" />
-    <Compile Include="Models\Repositories\GroupRepository.cs" />
-    <Compile Include="Models\Repositories\ContentRepository.cs" />
-    <Compile Include="Models\Repositories\CommentRepository.cs" />
-    <Compile Include="Models\Repositories\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ContentViewModel.cs" />
   </ItemGroup>
@@ -1265,6 +1261,9 @@
     <Content Include="Views\Content\_ContentList.cshtml" />
     <Content Include="Views\User\avatar.cshtml" />
     <Content Include="Views\Content\EditContent.cshtml" />
+    <Content Include="Views\Factor\Index.cshtml" />
+    <Content Include="Views\Transaction\Index.cshtml" />
+    <Content Include="Views\Factor\SellContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1272,7 +1271,6 @@
     <Folder Include="Models\Enums\" />
     <Folder Include="Views\Follow\" />
     <Folder Include="Views\Post\" />
-    <Folder Include="Views\Transaction\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -1285,6 +1283,24 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{cc34c854-ac75-4dd6-aa81-339e1d3840ab}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{1eb6f991-5100-4164-92de-4cbfd9aa34a7}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{bdf26215-651e-429a-afb6-d6c198d9eb9c}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{f64bd14a-49aa-44e3-ab5e-081e9fa460d5}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

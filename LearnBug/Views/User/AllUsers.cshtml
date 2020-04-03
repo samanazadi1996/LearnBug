@@ -42,7 +42,7 @@
                                 <td>@item.Bookmarks.Count</td>
                                 <td>@item.Factors.Count</td>
                                 <td>@item.Transactions.Count</td>
-                                <td>@item.Contents.SelectMany(p=>p.Factors).Sum(o=>o.Price).ToPrice() $</td>
+                                <td>@item.Contents.SelectMany(p=>p.Factors).Count()</td>
                                 <td>@item.Roles</td>
                             </tr>
                         }

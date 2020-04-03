@@ -17,7 +17,7 @@
                             <div class="col-md-4" style="text-align:center">
                                 <div class="col-md-12">
                                     <img style="width:100%;height:auto;" src="@Model.ImgProfile()">
-                                </div>    
+                                </div>
                             </div>
 
                             <div class="col-md-8">
@@ -63,14 +63,9 @@
                                                 <button onclick="SendMessage(@Model.Id);" style="width:100%;" class="btn btn-success">ارسال پیام به کاربر</button>
                                             </div>
                                             <div class="col-md-6">
-                                                @if (Model.Follows.Any(p => p.User1.Username == User.Identity.Name))
-                                                {
-                                                    <input type="button" onclick="Follow(@Model.Id);" id="btnFollow" style="width:100%;" class="btn btn-info" flw="true" value="UnFollow" />
-                                                }
-                                                else
-                                                {
-                                                    <input type="button" onclick="Follow(@Model.Id);" id="btnFollow" style="width:100%;" class="btn btn-info" flw="false" value="Follow" />
-                                                }
+                                                <input type="button" onclick="Follow(@Model.Id);" id="btnFollow" style="width:100%;" class="btn btn-info"
+                                                       @(Model.Follows.Any(p => p.User1.Username == User.Identity.Name) ? " value=UnFollow" : " value=Follow")
+                                                       />
                                             </div>
                                         </div>
                                     }
@@ -118,10 +113,10 @@
 
                         </div>
                         <div class="col-lg-12">
-                            <hr /> 
+                            <hr />
                         </div>
                         <div class="col-md-12" id="GotoContents">
-                            @Html.Partial(Url.Content("~/Views/Content/_ContentList.cshtml"), @Model.Contents.AsQueryable())
+                            @Html.Partial(Url.Content("~/Views/Content/_ContentList.cshtml"), @Model.Contents.OrderByDescending(p => p.Datetime).AsQueryable())
 
                         </div>
 

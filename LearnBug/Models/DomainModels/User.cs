@@ -20,12 +20,12 @@ namespace LearnBug.Models.DomainModels
             this.Bookmarks = new HashSet<Bookmark>();
             this.Comments = new HashSet<Comment>();
             this.Contents = new HashSet<Content>();
-            this.Factors = new HashSet<Factor>();
             this.Follows = new HashSet<Follow>();
             this.Follows1 = new HashSet<Follow>();
             this.Messages = new HashSet<Message>();
             this.Messages1 = new HashSet<Message>();
             this.Transactions = new HashSet<Transaction>();
+            this.Factors = new HashSet<Factor>();
         }
     
         public int Id { get; set; }
@@ -51,8 +51,6 @@ namespace LearnBug.Models.DomainModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Content> Contents { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Factor> Factors { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Follow> Follows { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Follow> Follows1 { get; set; }
@@ -62,5 +60,7 @@ namespace LearnBug.Models.DomainModels
         public virtual ICollection<Message> Messages1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Factor> Factors { get; set; }
     }
 }

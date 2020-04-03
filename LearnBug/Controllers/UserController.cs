@@ -1,5 +1,4 @@
 ﻿using LearnBug.Models.DomainModels;
-using LearnBug.Models.Repositories;
 using LearnBug.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -7,13 +6,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Common.Log;
 
 namespace LearnBug.Controllers
 {
     [Authorize]
     public class UserController : Controller
     {
-        LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
+        private LearnBugDBEntities1 db = new LearnBugDBEntities1();
 
         [HttpGet]
         [AllowAnonymous]
@@ -25,7 +25,7 @@ namespace LearnBug.Controllers
         [AllowAnonymous]
         public ActionResult RegisterUser(User user)
         {
-            if(db.Users.Any(p=>p.Username==user.Username.ToLower().Trim()))
+            if (db.Users.Any(p => p.Username == user.Username.ToLower().Trim()))
             {
                 ViewBag.message = "کاربر با این نام از قبل وجود دارد";
                 ViewBag.style = "red";
@@ -41,7 +41,8 @@ namespace LearnBug.Controllers
                 db.Users.Add(user);
                 if (db.SaveChanges() > 0)
                 {
-                    return RedirectToAction(actionName:"Login",controllerName:"Home");
+                    Log.LogInfo("Ragister Account " + user.Username);
+                    return RedirectToAction(actionName: "Login", controllerName: "Home");
                 }
                 else
                 {
@@ -62,10 +63,21 @@ namespace LearnBug.Controllers
         [AllowAnonymous]
         public ActionResult Profile(string username)
         {
-            var user = db.Users.Single(p => p.Username.Trim() == username.Trim());
-            return View(user);
+            try
+            {
+                var user = db.Users.Single(p => p.Username.Trim() == username.Trim());
+                return View(user);
+
+            }
+            catch (Exception ex)
+            {
+                Log.LogError(ex.Message);
+                return View();
+
+            }
+
         }
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult AllUsers()
         {
             return View(db.Users);
@@ -126,7 +138,7 @@ namespace LearnBug.Controllers
             return PartialView(user);
         }
         [HttpPost]
-        public ActionResult _editProfile([Bind(Exclude ="Wallet")] User user)
+        public ActionResult _editProfile([Bind(Exclude = "Wallet")] User user)
         {
             var myuser = db.Users.Single(p => p.Username == User.Identity.Name);
             //myuser.Username = user.Username.ToLower();

@@ -214,7 +214,7 @@
 .Price {
     position: absolute;
     transform:translateX(-50%);
-    bottom: 15px;
+    bottom: 50px;
     font-size: 18px;
     left: 50%;
     cursor: default;

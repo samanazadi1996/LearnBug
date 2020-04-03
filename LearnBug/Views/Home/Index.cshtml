@@ -7,16 +7,14 @@
 @section styles{
 }
 <div>
-    @Html.Hidden(name: "loc",value: "/Home/Index/?srch=")
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading">آخرین مطالب</div>
-            <div class="panel-body last-visited">
-                <!-- -->
-                <div>
+            <div class="panel-heading">مطالب دوستان</div>
+            <div class="panel-body">
+                <div class="grid-view">
                     <div class="block-pagination" style="direction: ltr; ">
-                            @Html.Pager(12, Model.CurrentPage, @Model.TotalItemCount,new {search= ViewBag.Srch})
-                        </div>
+                        @Html.Pager(12, Model.CurrentPage, @Model.TotalItemCount, new { search = ViewBag.Srch })
+                    </div>
                     <!-- -->
                     <div>
                         @Html.Partial(Url.Content("~/Views/Content/_ContentList.cshtml"), @Model.Contents.AsQueryable())

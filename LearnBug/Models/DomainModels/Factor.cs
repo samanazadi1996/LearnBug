@@ -19,6 +19,7 @@ namespace LearnBug.Models.DomainModels
         public int contentId { get; set; }
         public System.DateTime Datetime { get; set; }
         public double Price { get; set; }
+        public int Commission { get; set; }
     
         public virtual Content Content { get; set; }
         public virtual User User { get; set; }

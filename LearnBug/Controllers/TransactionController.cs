@@ -27,5 +27,10 @@ namespace LearnBug.Controllers
             db.SaveChanges();
             return View();
         }
+        public ActionResult Index()
+        {
+            var transactions = db.Users.Single(p => p.Username == User.Identity.Name).Transactions;
+            return View(transactions);
+        }
     }
 }
