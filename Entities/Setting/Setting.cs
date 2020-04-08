@@ -11,7 +11,7 @@ namespace Entities
     {
         public string Name { get; set; }
         public string Value { get; set; }
-        public bool Single { get; set; }
+        public string Type { get; set; }
     }
 }
 

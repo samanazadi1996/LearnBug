@@ -1,0 +1,67 @@
+﻿#main {
+    transition: padding-right .5s;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #008c9e;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+.wallet {
+    font-size: 18px;
+    color: darkblue;
+    font-family: 'Comic Sans MS';
+    position: absolute;
+    background-color: white;
+    opacity: 0.8;
+    left: 10px;
+    bottom: 10px;
+    display: inline-block;
+    border: 1px solid darkblue;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.sa-box {
+    border: 1px solid white;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 100%;
+    cursor: pointer;
+    font-family: 'Comic Sans MS';
+    color: white;
+    background-color: rgb(100,200,255);
+    padding: 1px;
+    transition: 0.5s;
+    transform: scale(0.9)
+}
+
+    .sa-box:hover {
+        color: rgb(100,200,255);
+        transform: scale(1.1);
+        background-color: white;
+        z-index: 1;
+    }
+
+.ateg {
+    color: white;
+    font-size: 25px;
+    text-decoration: none;
+}
+

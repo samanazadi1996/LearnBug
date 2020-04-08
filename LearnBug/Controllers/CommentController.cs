@@ -5,13 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using static Utilty;
 
 namespace LearnBug.Controllers
 {
     public class CommentController : Controller
     {
-        LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
+        LearnBugDBEntities1 db = new LearnBugDBEntities1();
         public ActionResult _SeeComments(int Id)
         {
             var model = db.Contents.Find(Id);
@@ -23,12 +22,12 @@ namespace LearnBug.Controllers
         {
             var cmnt = db.Comments.Find(id);
             var user = db.Users.Single(p => p.Username.ToLower() == User.Identity.Name.ToLower());
-            if (cmnt.userId==user.Id || cmnt.Content.userId==user.Id || User.IsInRole("Admin"))
+            if (cmnt.userId == user.Id || cmnt.Content.userId == user.Id || User.IsInRole("Admin"))
             {
                 db.Comments.Remove(cmnt);
                 if (db.SaveChanges() > 0)
                 {
-                    return Json(new JsonData()
+                    return Json(new
                     {
                         Html = this.RenderPartialToString("_SeeComments", cmnt.Content),
                         Success = true,
@@ -38,7 +37,7 @@ namespace LearnBug.Controllers
                 }
                 else
                 {
-                    return Json(new JsonData()
+                    return Json(new
                     {
                         Html = "",
                         Success = false,
@@ -49,7 +48,7 @@ namespace LearnBug.Controllers
             }
             else
             {
-                return Json(new JsonData()
+                return Json(new
                 {
                     Html = "",
                     Success = false,
@@ -74,13 +73,13 @@ namespace LearnBug.Controllers
                 {
                     Comment comment = new Comment();
                     comment.Text = text;
-                    comment.userId =db.Users.Single(p=>p.Username.ToLower()==User.Identity.Name.ToLower()).Id;
+                    comment.userId = db.Users.Single(p => p.Username.ToLower() == User.Identity.Name.ToLower()).Id;
                     comment.Datetime = DateTime.Now;
                     db.Contents.Find(id).Comments.Add(comment);
                     if (db.SaveChanges() > 0)
                     {
                         var model = db.Contents.Find(id);
-                        return Json(new JsonData()
+                        return Json(new
                         {
                             Html = this.RenderPartialToString("_SeeComments", model),
                             Success = true,
@@ -89,7 +88,7 @@ namespace LearnBug.Controllers
                     }
                     else
                     {
-                        return Json(new JsonData()
+                        return Json(new
                         {
                             Html = "",
                             Success = false,
@@ -100,7 +99,7 @@ namespace LearnBug.Controllers
                 }
                 else
                 {
-                    return Json(new JsonData()
+                    return Json(new
                     {
                         Html = "",
                         Success = false,
@@ -110,7 +109,7 @@ namespace LearnBug.Controllers
             }
             else
             {
-                return Json(new JsonData()
+                return Json(new
                 {
                     Html = "",
                     Success = false,
@@ -126,7 +125,7 @@ namespace LearnBug.Controllers
         //    a.Group = db.Groups.Find(a.Content.groupId);
         //    a.Comments = db.Comments.Where(p => p.contentId == id).OrderByDescending(p => p.Id);
 
-        //    return Json(new JsonData()
+        //    return Json(new 
         //    {
         //        Html = this.RenderPartialToString("_SeeComments", a),
         //    });

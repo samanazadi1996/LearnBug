@@ -1,4 +1,7 @@
 ﻿@model LearnBug.Models.DomainModels.User
+    @{ 
+            ViewBag.Title = "ثبت نام";
+    }
 @section styles{
     <link href="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.css" rel="stylesheet" />
 }
@@ -43,7 +46,7 @@
 
                             <div class="form-group" style="width:200px;">
                                 <span class="mytxt">تاریخ تولد</span><br />
-                                @Html.TextBoxFor(model => model.Dateofbirth, new { @class = "form-control" })
+                                @Html.TextBoxFor(model => model.Dateofbirth, new { @class = "form-control"})
                                 @Html.ValidationMessageFor(model => model.Dateofbirth)
                             </div>
 

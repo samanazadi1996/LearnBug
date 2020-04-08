@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<LearnBug.Models.DomainModels.User>
 
 @{
-    ViewBag.Title = "myContents";
+    ViewBag.Title = "کاربران سایت";
 }
 <div>
     <div class="col-md-12">
@@ -9,6 +9,31 @@
             <div class="panel-heading"><a href="/Home/AdminPanel">پنل مدیریتی</a>/<a href="/User/AllUsers">مدیریت کاربران</a></div>
             <div class="panel-body">
                 <div class="grid-view">
+                    @using (Html.BeginForm("AllUsers", "User", FormMethod.Get))
+                    {
+                        <div class="col-lg-12" style="direction:rtl;">
+                            <div class=" form-group col-md-3" style="float:right">
+                                <input type="text" name="name" value="@ViewBag.name" placeholder="نام" class="form-control" />
+                            </div>
+                            <div class=" form-group col-md-3" style="float:right">
+                                <input type="text" name="username" value="@ViewBag.username" placeholder="نام کاربری" class="form-control" />
+                            </div>
+                            <div class=" form-group col-md-3" style="float:right">
+                                <input type="text" name="email" value="@ViewBag.email" placeholder="ایمیل" class="form-control" />
+                            </div>
+                            <div class=" form-group col-md-3" style="float:right">
+                                <select name="role" class="form-control">
+                                    <option style="color:silver;">نقش</option>
+                                    <option value="Admin" @(ViewBag.role == "Admin" ? "selected" : "")>Admin</option>
+                                    <option value="Teacher" @(ViewBag.role == "Teacher" ? "selected" : "")>Teacher</option>
+                                    <option value="User" @(ViewBag.role == "User" ? "selected" : "")>User</option>
+                                </select>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="col-lg-12 form-group"><button class="btn btn-success">جستحو</button><hr /></div>
+
+                        </div>
+                    }
                     <!-- -->
                     <table class="table table-hover table-striped">
                         <tr>
@@ -26,6 +51,7 @@
                             <th>تراکنش ها</th>
                             <th>فروشها</th>
                             <th>دسترسی</th>
+                            <th></th>
                         </tr>
                         @foreach (var item in Model)
                         {
@@ -42,8 +68,9 @@
                                 <td>@item.Bookmarks.Count</td>
                                 <td>@item.Factors.Count</td>
                                 <td>@item.Transactions.Count</td>
-                                <td>@item.Contents.SelectMany(p=>p.Factors).Count()</td>
+                                <td>@item.Contents.SelectMany(p => p.Factors).Count()</td>
                                 <td>@item.Roles</td>
+                                <td><a href="/User/ManagementUser/@item.Id">جزئیات</a></td>
                             </tr>
                         }
                     </table>

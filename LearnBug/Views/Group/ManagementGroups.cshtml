@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<LearnBug.Models.DomainModels.Group>
 
 @{
-    ViewBag.Title = "AddGroup";
+    ViewBag.Title = "مدیریت گروه ها";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,32 +14,34 @@
             <div class="panel-body">
                 <!-- -->
                 <!-- -->
-                <div id="w1" class="grid-view">
-                    <div class="form-group" id="mygrops">
+                <div style="" class="grid-view">
+                    <div class="col-md-4 pull-right" id="mygrops">
                         @Html.Partial("_GroupList", Model)
                     </div>
-                    <hr />
-                    <div class="col-md-12">
-                        <div class="col-md-3 pull-right">
-                            @Html.Label("نام گروه")<br />
-                            @Html.TextBox("Name", null, new { @class = "form-control " })
-                            <br />
-                            @Html.Label("عکس گروه")<br />
-                            <input class="form-control " id="upload-Image" type="file" onchange="loadImageFile();" />
+                    <div class="col-lg-8 pull-left">
+                        <div class="form-group col-md-12">
+                            <div class="col-md-3 pull-right">
+                                @Html.Label("نام گروه")<br />
+                                @Html.TextBox("Name", null, new { @class = "form-control " })
+                                <br />
+                                @Html.Label("عکس گروه")<br />
+                                <input class="form-control " id="upload-Image" type="file" onchange="loadImageFile();" />
+                            </div>
+                            <div class="col-md-9 pull-right" style="height:150px">
+                                <img id="upload-Preview" src="" alt="Select Image" style="border:2px solid silver;height:100%;width:auto;" />
+                                <img id="original-Img" src="" alt="Select Image" style="display:none" />
+                            </div>
                         </div>
-                        <div class="col-md-9 pull-right" style="height:150px">
-                            <img id="upload-Preview" src="" alt="Alternate Text" style="border:2px solid silver;height:100%;width:auto;" />
-                            <img id="original-Img" src="" alt="Alternate Text" style="display:none" />
+                        <div class="clear"></div>
+                        <div class="form-group col-md-12" style="margin-top:30px">
+                            <button class="btn btn-success" onclick="AddGroup()"><div class="fa fa-plus"> اضافه کردن به لیست گروه ها</div></button>
+                            &nbsp;
+
+                            <button class="btn btn-danger" onclick="DeleteGroup()"><div class="fa  fa-remove"> حذف گروه انتخواب شده</div></button>
+                            &nbsp;
+
+                            <button class="btn btn-info" onclick="EditGroup()"><div class="fa fa-edit"> ویرایش گروه انتخواب شده</div></button>
                         </div>
-                    </div>
-                    <div class="col-md-12" style="margin-top:30px">
-                        <button class="btn btn-success" onclick="AddGroup()"><div class="fa fa-plus"> اضافه کردن به لیست گروه ها</div></button>
-                        &nbsp;
-
-                        <button class="btn btn-danger" onclick="DeleteGroup()"><div class="fa  fa-remove"> حذف گروه انتخواب شده</div></button>
-                        &nbsp;
-
-                        <button class="btn btn-info" onclick="EditGroup()"><div class="fa fa-edit"> ویرایش گروه انتخواب شده</div></button>
                     </div>
 
                 </div>

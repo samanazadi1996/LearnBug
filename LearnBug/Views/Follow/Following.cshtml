@@ -1,0 +1,33 @@
+﻿@model IEnumerable<LearnBug.Models.DomainModels.Follow>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "دنبال شونده ها " + Model.FirstOrDefault().User1.Username;
+}
+<div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><a href="/Follow/Following/?username=@Model.FirstOrDefault().User1.Username"> دنبال شونده ها @Model.FirstOrDefault().User1.Username </a></div>
+            <div class="panel-body">
+                <div class="grid-view">
+                    @foreach (var item in Model)
+                    {
+                        <div class="Follow-Body">
+                            <img class="Follow-img" src="@item.User.ImgProfile()" />
+                            <p class="Follow-Uname">@item.User.Username</p>
+                            <div class="Follow-tools">
+                                <a href="/User/Profile/?username=@item.User.Username"><span style="color:greenyellow" class="fa fa-eye">Visit</span></a>
+                                <span type="button" onclick="Follow(@item.User.Id)" id="btnFollow" style="cursor:pointer;" class="fa fa-plus">UnFollow</span>
+                                <span class="fa fa-remove" style="color:red">remove</span>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+                <!-- -->
+            </div>
+        </div>
+    </div>
+</div>
+@section styles{
+    <link href="~/Content/BU/Follows.css" rel="stylesheet" />
+}

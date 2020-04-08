@@ -12,20 +12,12 @@
     <link href="~/Content/RSadmin/css/reset.css" rel="stylesheet" />
     <link href="~/Content/css/markup.css" rel="stylesheet" />
     @RenderSection("styles", required: false)
-    <title>LearnBug</title>
-
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/BU/Avater.css" rel="stylesheet" />
     <link href="~/Content/BU/MyCssCode.css" rel="stylesheet" />
 
 </head>
 <body>
-    @*<div class="MyMenuBar">
-            <ul>
-                <li class="green">123456</li>
-                <li class="yellow">123456</li>
-                <li class="blue">123456</li>
-                <li class="pink">123456</li>
-            </ul>
-        </div>*@
     <div class="top-head navbar-fixed-top">
         <ul class="top-item pull-right">
             <li style="background-color:rgb(26, 26, 95)">
@@ -60,11 +52,17 @@
             <li style="cursor:default">
                 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
                 {
-                    <input name="search" id="search" value="@ViewBag.Srch" style="color:cadetblue;margin-left:10px" />
+                    <input type="search" name="search" id="search" value="@ViewBag.Srch" style="color:cadetblue;margin-left:10px" />
                     <div style="cursor:pointer;" onclick="$('#submitsrch').click()" class="fa fa-search"></div>
                     <button id="submitsrch" class="hidden"></button>
                 }
             </li>
+            <li>
+                <a href="/Home/About">
+                    <div class="fa fa-heart-o"></div>
+                </a>
+            </li>
+
         </ul>
         @if (User.Identity.IsAuthenticated)
         {

@@ -6,16 +6,24 @@ using System.Web;
 using System.Web.Mvc;
 using LearnBug.ViewModels;
 using System.Web.Security;
+using NLog;
 
 namespace LearnBug.Controllers
 {
     public class HomeController : Controller
     {
-        LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
+        LearnBugDBEntities1 db = new LearnBugDBEntities1();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         [Authorize(Roles = "Admin")]
         public ActionResult AdminPanel()
         {
             return View();
+        }
+        public ActionResult About()
+        {
+            var model = db.Settings.Single(p => p.Name == "About");
+            return View(model);
         }
         public ActionResult Index(string search = null, int Page = 1)
         {
@@ -45,6 +53,7 @@ namespace LearnBug.Controllers
 
             if (db.Users.Where(p => p.Username == Username.ToLower() && p.Password == Password).Any())
             {
+                logger.Info("Login User => " + Username.ToLower());
                 FormsAuthentication.SetAuthCookie(Username.ToLower(), Convert.ToBoolean(Rememberme));
                 return RedirectToAction("Index");
             }

@@ -1,0 +1,304 @@
+﻿@model LearnBug.Models.DomainModels.User
+
+@{
+        ViewBag.Title = "مدیریت کاربر"+ Model.Username;
+
+}
+
+
+<div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="/Home/AdminPanel">پنل مدیریتی</a>/
+                <a href="/User/Allusers/">مدیریت کاربر</a>/
+                <a href="/User/ManagementUser/@Model.Id">@Model.Username</a>
+            </div>
+
+            <div class="panel-body">
+                <div class="grid-view">
+                    <button class="accordion">اطلاعات کاربری @Model.Username</button>
+                    <div class="accpanel">
+                        <br />
+                        <div class="col-md-3" style="padding:20px;">
+                                <div class="col-md-12">
+                                    <img style="display:none" id="original-Img"/>
+                                    <input style="display:none" type="file" id="upload-Image" onchange="loadImageFile();"/>
+                                    <img src="@Model.ImgProfile()" width="100%;" name="upload-Preview" id="upload-Preview" />
+                                </div>                
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                    <input type="submit" name="name" value="Delete"  class="btn btn-danger" style="width:100%" onclick="document.getElementById('upload-Preview').src = '';document.getElementById('Image').value=''"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <input type="submit" name="name" value="New" class="btn btn-success" style="width:100%" onclick="document.getElementById('upload-Image').click()"/>
+                                    </div>
+                                </div>
+                        </div>
+                        @using (Html.BeginForm())
+                        {
+                    <div class="col-md-9 divstyle">
+                        @Html.HiddenFor(model => model.Id)
+
+                        @Html.HiddenFor(model => model.Image)
+                        <div class="col-md-2">نام کاربری  : </div>
+                        <div class="col-md-4"> @Html.TextBoxFor(model => Model.Username, new { @class = "form-control" })</div>
+                        <div class="col-md-2">نام  : </div>
+                        <div class="col-md-4"> @Html.TextBoxFor(model => Model.name, new { @class = "form-control" })</div>
+                        <div class="col-md-2">ایمیل : </div>
+                        <div class="col-md-4"> @Html.TextBoxFor(model => Model.Email, new { @class = "form-control" })</div>
+                        <div class="col-md-2">رمز عبور : </div>
+                        <div class="col-md-4"> @Html.TextBoxFor(model => Model.Password, new {@type = "password", @class = "form-control" })</div>
+                        <div class="col-md-2">شماره تلفن  : </div>
+                        <div class="col-md-4"> @Html.TextBoxFor(model => Model.Phone, new { @type = "tel", @class = "form-control" })</div>
+                        <div class="col-md-2">کیف پول : </div>
+                        <div class="col-md-4"> @Html.TextBoxFor(model => Model.Wallet, new { @type = "number", @class = "form-control", min = "0" })</div>
+                        <div class="col-md-2">کمیسیون : </div>
+                        <div class="col-md-4"> @Html.TextBoxFor(model => Model.Commission, new { @type = "number", @class = "form-control", min = "0", max = "100" })</div>
+                        <div class="col-md-2">جنسیت : </div>
+                        <div class="col-md-4">
+                            <select name="Gender" class=" form-control" id="Gender">
+                                <option value="0" @(Model.Gender == 0 ? "selected" : "")>نا مشخص</option>
+                                <option value="1" @(Model.Gender == 1 ? "selected" : "")>مرد</option>
+                                <option value="2" @(Model.Gender == 2 ? "selected" : "")>زن</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">تاریخ تولد : </div>
+                        <div class="col-md-4">
+
+                            <input type="date" id="Dateofbirth" name="Dateofbirth" value="@Model.Dateofbirth.ToPersianDate().ToString("yyyy-MM-dd")" class="form-control" />
+                        </div>
+                        <div class="col-md-2">محل سکونت  : </div>
+                        <div class="col-md-4"> @Html.TextBoxFor(model => Model.Location, new { @class = "form-control" })</div>
+                        <div class="col-md-2">نوع دسترسی  : </div>
+                        <div class="col-md-4">
+                            <select name="Roles" class=" form-control" id="Gender">
+                                <option value="Admin" @(Model.Roles == "Admin" ? "selected" : "")>Admin</option>
+                                <option value="Teacher" @(Model.Roles == "Teacher" ? "selected" : "")>Teacher</option>
+                                <option value="User" @(Model.Roles == "User" ? "selected" : "")>User</option>
+                            </select>
+
+                        </div>
+                        <div class="col-md-2">وضعیت  : </div>
+                        <div class="col-md-4"> @Html.TextBoxFor(model => Model.Status, new { @class = "form-control" })</div>
+
+                        <div class="col-md-2">بیوگرافی : </div>
+                        <div class="col-md-4"> @Html.TextAreaFor(model => Model.Biography, new { @class = "form-control" })</div>
+                        <div class="col-md-12"><button class="btn btn-success">ذخیره تغیرات</button></div>
+
+
+                    </div>
+                        }
+                    </div>
+
+                    <button class="accordion">خرید ها</button>
+                    <div class="accpanel">
+                        <br />
+                        <table class="table table-hover table-striped">
+                            <tr>
+                                <th>#</th>
+                                <th>تاریخ</th>
+                                <th>مبلغ</th>
+                                <th>کمیسیون</th>
+                                <th>دریافتی</th>
+                            </tr>
+                            @{int s = 0;}
+                            @foreach (var item in Model.Factors)
+                            {
+                                <tr>
+                                    <td>@(s++)</td>
+                                    <td>@item.Datetime.ToPersianDate()</td>
+                                    <td>$@item.Price</td>
+                                    <td>(%@item.Commission)</td>
+                                    <td style="color:blue"> $@(item.Price / 100 * item.Commission)</td>
+                                </tr>
+
+                            }
+                        </table>
+                    </div>
+
+                    <button class="accordion">تراکنش ها</button>
+                    <div class="accpanel">
+                        <br />
+                        <table class="table table-hover table-striped">
+                            <tr>
+                                <th>#</th>
+                                <th>تراکنش</th>
+                                <th>تاریخ</th>
+                                <th>مبلغ</th>
+                                <th></th>
+                            </tr>
+                            @foreach (var item in Model.Transactions)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@(item.Charge ? "+" : "-")</td>
+                                    <td>@item.Datetime.ToPersianDate()</td>
+                                    <td>@item.Price.ToPrice()</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+
+                    <button class="accordion">نظرات</button>
+                    <div class="accpanel">
+                        <br />
+                        <table class="table table-hover table-striped">
+                            <tr>
+                                <th>#</th>
+                                <th>متن</th>
+                                <th>تاریخ</th>
+                                <th>برای مطلب</th>
+                                <th></th>
+                            </tr>
+                            @foreach (var item in Model.Comments.OrderByDescending(p => p.Datetime))
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Text</td>
+                                    <td>@item.Datetime.ToPersianDate()</td>
+                                    <td>@item.contentId</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+
+                    <button class="accordion">پیامها</button>
+                    <div class="accpanel">
+                        <br />
+                        <table class="table table-hover table-striped">
+                            <tr>
+                                <th>پیامهای ارسالی <div style="float:right;background-color:cyan;width:20px;height:20px;"></div></th>
+                                <th>پیامهای دربافتی<div style="float:right;background-color:yellow;width:20px;height:20px;"></div></th>
+
+                            </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>متن</th>
+                                <th>تاریخ</th>
+                                <th>برای کاربر</th>
+                                <th>وضعیت پیام</th>
+                            </tr>
+                            @foreach (var item in Model.Messages.Concat(Model.Messages1).OrderByDescending(p => p.Datetime))
+                            {
+                                <tr @(item.User.Username == Model.Username ? "style=background-color:cyan;" : "style=background-color:yellow;")>
+                                    <td>@item.Id</td>
+                                    <td>@item.Text</td>
+                                    <td>@item.Datetime.ToPersianDate()</td>
+                                    <td>@(item.User1.Username == Model.Username ? item.User.Username : item.User1.Username)</td>
+                                    <td>@item.Status</td>
+
+                                </tr>
+                            }
+                        </table>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section scripts{
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+                var fileReader = new FileReader();
+        var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+
+        fileReader.onload = function (event) {
+            var image = new Image();
+
+            image.onload = function () {
+                document.getElementById("original-Img").src = image.src;
+                var canvas = document.createElement("canvas");
+                var context = canvas.getContext("2d");
+                canvas.width = 200;
+                canvas.height = 200;
+                context.drawImage(image,
+                    0,
+                    0,
+                    image.width,
+                    image.height,
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
+
+                document.getElementById("upload-Preview").src = canvas.toDataURL();
+                document.getElementById("Image").value = canvas.toDataURL();
+            }
+            image.src = event.target.result;
+        };
+
+        var loadImageFile = function () {
+            var uploadImage = document.getElementById("upload-Image");
+
+            //check and retuns the length of uploded file.
+
+            //Is Used for validate a valid file.
+            var uploadFile = document.getElementById("upload-Image").files[0];
+
+            fileReader.readAsDataURL(uploadFile);
+        }
+
+
+    </script>
+
+}
+@section styles{
+    <style>
+        .divstyle div {
+            float: right;
+            padding: 5px;
+        }
+
+
+
+        .accordion {
+            background-color: #eee;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            text-align: center;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+        }
+
+            .active, .accordion:hover {
+                background-color: #ccc;
+            }
+
+        .accpanel {
+            padding: 0 18px;
+            display: none;
+            background-color: white;
+            overflow: hidden;
+        }
+    </style>
+
+}

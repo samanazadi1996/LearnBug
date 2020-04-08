@@ -93,7 +93,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Single" Type="bit" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -358,7 +358,6 @@
           <EntitySet Name="Groups" EntityType="LearnBugDBModel.Group" />
           <EntitySet Name="Links" EntityType="LearnBugDBModel.Link" />
           <EntitySet Name="Messages" EntityType="LearnBugDBModel.Message" />
-          <EntitySet Name="Settings" EntityType="LearnBugDBModel.Setting" />
           <EntitySet Name="Transactions" EntityType="LearnBugDBModel.Transaction" />
           <AssociationSet Name="FK_Bookmarks_Contents" Association="LearnBugDBModel.FK_Bookmarks_Contents">
             <End Role="Content" EntitySet="Contents" />
@@ -414,6 +413,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Factor" EntitySet="Factors" />
           </AssociationSet>
+          <EntitySet Name="Settings" EntityType="LearnBugDBModel.Setting" />
           </EntityContainer>
         <EntityType Name="Bookmark">
           <Key>
@@ -498,15 +498,6 @@
           <Property Name="Status" Type="Int64" />
           <NavigationProperty Name="User" Relationship="LearnBugDBModel.ReceivedMessage" FromRole="Message" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="LearnBugDBModel.SendedMessage" FromRole="Message" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Setting">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Single" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -717,6 +708,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -800,16 +800,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Settings">
-            <EntityTypeMapping TypeName="LearnBugDBModel.Setting">
-              <MappingFragment StoreEntitySet="Setting">
-                <ScalarProperty Name="Single" ColumnName="Single" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Transactions">
             <EntityTypeMapping TypeName="LearnBugDBModel.Transaction">
               <MappingFragment StoreEntitySet="Transaction">
@@ -850,6 +840,16 @@
                 <ScalarProperty Name="Datetime" ColumnName="Datetime" />
                 <ScalarProperty Name="contentId" ColumnName="contentId" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="LearnBugDBModel.Setting">
+              <MappingFragment StoreEntitySet="Setting">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -18,6 +18,9 @@ namespace LearnBug
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //MailSender.SendMail("dsfsdds", "dsfsdfsfgt", "samanazadi1996@gmail.com");
+
         }
         protected void FormsAuthentication_OnAuthenticate(Object sender, FormsAuthenticationEventArgs e)
         {

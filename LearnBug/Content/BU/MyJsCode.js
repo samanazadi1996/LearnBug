@@ -1,4 +1,4 @@
-﻿function deleteContent(me,ContentId) {
+﻿function deleteContent(me, ContentId) {
 
     if (confirm('مطلب حذف شود؟') == true) {
         $.ajax({
@@ -28,8 +28,7 @@ function AddBookMark(me, ContentId) {
     })
 }
 function togNav() {
-    if (document.getElementById("mySidenav").style.width == "0px")
-    {
+    if (document.getElementById("mySidenav").style.width == "0px") {
         document.getElementById("mySidenav").style.width = "250px"
         document.getElementById("main").style.paddingRight = "250px"
 

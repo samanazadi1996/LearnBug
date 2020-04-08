@@ -1,10 +1,9 @@
 ﻿<div>
     <center><b style="font-size:18px;" id="modal-title">تغییر عکس پروفایل</b></center>
-    <button type="button" class="close" data-dismiss="modal">&times;</button>
 </div>
 
 <hr />
-<div  class="pre-scrollable mce-arrow-down ">
+<div  class="">
     <center>
         <img style="width:200px;height:200px;border:solid 1px silver" src="@ViewBag.pic" id="upload-Preview" />
         <img style="display:none"  id="original-Img" />
@@ -20,7 +19,7 @@
     <center>
         <input type="submit" class="btn btn-success" onclick="changeProfilePicture('update')" value="تغییر عکس" />
         <input type="submit" class="btn btn-warning" onclick="changeProfilePicture('delete')" value="حذف عکس" />
-        <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancel">انصراف</button>
+        <button type="button" class="btn btn-danger"  onclick="document.getElementById('bodypartial').innerHTML=''">انصراف</button>
     </center>
      
 </div>

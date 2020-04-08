@@ -11,7 +11,7 @@ namespace LearnBug.Controllers
 
     public class BookmarkController : Controller
     {
-        LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
+        LearnBugDBEntities1 db = new LearnBugDBEntities1();
         [Authorize]
         // GET: Bookmark
         public void AddBookmark(int ContentId, bool type)

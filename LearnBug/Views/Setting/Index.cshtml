@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<LearnBug.Models.DomainModels.Setting>
 
 @{
-    ViewBag.Title = "AddGroup";
+    ViewBag.Title = "تنظیمات";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,16 +11,15 @@
 
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading"><a href="/Home/AdminPanel">پنل مدیریتی</a>/<a href="/Setting/Index">تنظیمات</a></div>
+            <div class="panel-heading"><a href="/Home/AdminPanel">پنل مدیریتی</a> / <a href="/Setting/Index">تنظیمات</a></div>
             <div class="panel-body">
                 <!-- -->
                 <!-- -->
-                <input type="submit" name="AddValue" value="AddValue" class="btn btn-info" />
                 <table class="table table-hover table-bordered table-striped">
                     <tr>
                         <th width="50px">#</hr>
                         <th width="200px">name</hr>
-                        <th>values</hr>
+                        <th width="50px">Type</hr>
                         <th></hr>
                     </tr>
                     @{int a = 0;}
@@ -29,11 +28,9 @@
                         <tr>
                             <td>@(a++)</td>
                             <td>@item.Name</td>
-                            <td>@item.Value</td>
+                            <td>@item.Type</td>
                             <td>
-                                @if (!item.Single)
-                                {<a href="#">Delete</a><span>_</span>}
-                                <a href="#">Edit</a>
+                                <a href="/Setting/Edit/@item.Id">Edit</a>
                             </td>
                         </tr>
                     }

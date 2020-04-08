@@ -1,0 +1,47 @@
+﻿.Follow-Body {
+    float: right;
+    width: 70px;
+    margin: 15px;
+    height: 90px;
+    position: relative;
+}
+
+    .Follow-Body:hover .Follow-tools {
+        transform: translate(-50%,-50%) scale(2.2);
+        top: 50%;
+        left: 50%;
+    }
+
+.Follow-tools {
+    position: absolute;
+    padding: 4px;
+    z-index: 1;
+    transform: translate(-50%,-50%) scale(0);
+    transition: 0.4s;
+    top: 50%;
+    left: 50%;
+    width: fit-content;
+    height: auto;
+    background-color: rgba(0, 60, 255, 0.48);
+    border-radius: 2px;
+    font-size: 70%;
+    text-align:center;
+}
+
+.Follow-img {
+    width: 100%;
+    height: auto;
+    border-radius: 100%;
+    position: absolute;
+    box-shadow: 1px 4px 10px 0px blue;
+    border: 2px dotted blue;
+}
+ 
+.Follow-Uname {
+    position: absolute;
+    bottom: 0px;
+    color: blue;
+    z-index: 1;
+    transform: translateX(-50%);
+    left: 50%;
+}

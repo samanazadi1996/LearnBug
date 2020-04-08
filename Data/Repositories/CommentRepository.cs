@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Web;
 
-namespace LearnBug.Models.Repositories
+namespace Data.Repositories
 {
     public class CommentRepository : IDisposable
     {

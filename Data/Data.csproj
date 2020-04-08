@@ -53,6 +53,15 @@
   <ItemGroup>
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\TransactionRepository.cs" />
+    <Compile Include="Repositories\SettingRepository.cs" />
+    <Compile Include="Repositories\GroupRepository.cs" />
+    <Compile Include="Repositories\FollowRepository.cs" />
+    <Compile Include="Repositories\BookmarkRepository.cs" />
+    <Compile Include="Repositories\FactorRepository.cs" />
+    <Compile Include="Repositories\MessageRepository.cs" />
+    <Compile Include="Repositories\ContentRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\CommentRepository.cs" />
   </ItemGroup>
   <ItemGroup>

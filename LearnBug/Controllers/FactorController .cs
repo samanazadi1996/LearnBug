@@ -4,24 +4,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using static Utilty;
 
 namespace LearnBug.Controllers
 {
     [Authorize]
     public class FactorController : Controller
     {
-        LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
-        // GET: Bookmark
-        public ActionResult Index()
+        LearnBugDBEntities1 db = new LearnBugDBEntities1();
+
+
+
+        public ActionResult _Index()
         {
-            var model = db.Factors.Where(p => p.User.Username == User.Identity.Name);
-            return View(model);
+            var model = db.Factors.Where(p => p.User.Username == User.Identity.Name).OrderByDescending(p => p.Datetime).AsQueryable();
+            return PartialView(model);
         }
-        public ActionResult SellContent()
+        public ActionResult _SellContent()
         {
-            var model = db.Factors.Where(p => p.Content.User.Username == User.Identity.Name);
-            return View(model);
+            var model = db.Factors.Where(p => p.Content.User.Username == User.Identity.Name).OrderByDescending(p=>p.Datetime).AsQueryable();
+            return PartialView(model);
         }
         [HttpPost]
         public ActionResult CreateFactor(int Id)
@@ -44,20 +45,48 @@ namespace LearnBug.Controllers
                     me.Wallet -= content.Price.Value;
                     content.User.Wallet += (content.Price.Value - (content.Price.Value / 100 * content.User.Commission));
                     db.SaveChanges();
-                    return Json(new JsonData { Success = true, Html = content.Description, Script = "alert('خرید با موفقیت انجام شد')" });
+                    return Json(new { Success = true, Html = content.Description, Script = "alert('خرید با موفقیت انجام شد')" });
 
                 }
                 else
                 {
-                    return Json(new JsonData { Success = false, Html = "", Script = "alert('کیف پول خود را شارژ کنید')" });
+                    return Json(new { Success = false, Html = "", Script = "alert('کیف پول خود را شارژ کنید')" });
                 }
             }
             else
             {
-                return Json(new JsonData { Success = false, Html = "", Script = "alert('error');" });
+                return Json(new { Success = false, Html = "", Script = "alert('error');" });
 
             }
         }
+
+
+        [Authorize(Roles ="Admin")]
+        public ActionResult Factors( string from=null,string to=null)
+        {
+            var model = db.Factors.AsQueryable();
+
+            if (!string.IsNullOrEmpty(from))
+            {
+                DateTime datefrom =Convert.ToDateTime( from).ToMiladiDate();
+                model = model.Where(p => p.Datetime >= datefrom);
+            }
+
+            if (!string.IsNullOrEmpty(to))
+            {
+                DateTime dateto = Convert.ToDateTime(to).ToMiladiDate();
+                model = model.Where(p => p.Datetime <= dateto);
+            }
+            ViewBag.from = from;
+            ViewBag.to = to;
+
+            return View(model);
+        }
+
+
+
+
+
 
     }
 }

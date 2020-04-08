@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using static Utilty;
 
 namespace LearnBug.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class GroupController : Controller
     {
-        LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
+        LearnBugDBEntities1 db = new LearnBugDBEntities1();
         [HttpGet]
         public ActionResult ManagementGroups()
         {
@@ -34,8 +33,7 @@ namespace LearnBug.Controllers
                 db.Groups.Add(group);
                 if (db.SaveChanges() > 0)
                 {
-                    return Json(new JsonData()
-                    {
+                    return Json(new {
                         Html = this.RenderPartialToString("_GroupList", db.Groups),
                         Success = true,
                         Script = "alert('گروه اضافه شد')"
@@ -43,8 +41,7 @@ namespace LearnBug.Controllers
                 }
                 else
                 {
-                    return Json(new JsonData()
-                    {
+                    return Json(new {
                         Html = "",
                         Success = false,
                         Script = "alert('گروه اضافه نشد')"
@@ -54,8 +51,7 @@ namespace LearnBug.Controllers
             }
             else
             {
-                return Json(new JsonData()
-                {
+                return Json(new {
                     Html = "",
                     Success = false,
                     Script = "alert('گروه از قبل وجود دارد')"
@@ -74,8 +70,7 @@ namespace LearnBug.Controllers
                 db.Groups.Remove(group);
                 if (db.SaveChanges() > 0)
                 {
-                    return Json(new JsonData()
-                    {
+                    return Json(new {
                         Html = this.RenderPartialToString("_GroupList", db.Groups),
                         Success = true,
                         Script = "alert('گروه حذف شد')"
@@ -83,8 +78,7 @@ namespace LearnBug.Controllers
                 }
                 else
                 {
-                    return Json(new JsonData()
-                    {
+                    return Json(new {
                         Html = "",
                         Success = false,
                         Script = "alert('گروه حذف نشد')"
@@ -94,8 +88,7 @@ namespace LearnBug.Controllers
             }
             else
             {
-                return Json(new JsonData()
-                {
+                return Json(new {
                     Html = "",
                     Success = false,
                     Script = "alert('گروه انتخواب نشده است')"
@@ -115,8 +108,7 @@ namespace LearnBug.Controllers
                 group.Image = Image;
                 if (db.SaveChanges() > 0)
                 {
-                    return Json(new JsonData()
-                    {
+                    return Json(new {
                         Html = this.RenderPartialToString("_GroupList", db.Groups),
                         Success = true,
                         Script = "alert('گروه ویرایش شد')"
@@ -124,8 +116,7 @@ namespace LearnBug.Controllers
                 }
                 else
                 {
-                    return Json(new JsonData()
-                    {
+                    return Json(new {
                         Html = "",
                         Success = false,
                         Script = "alert('گروه ویرایش نشد')"
@@ -135,8 +126,7 @@ namespace LearnBug.Controllers
             }
             else
             {
-                return Json(new JsonData()
-                {
+                return Json(new {
                     Html = "",
                     Success = false,
                     Script = "alert('گروه انتخواب نشده است')"

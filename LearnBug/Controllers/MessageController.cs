@@ -11,7 +11,7 @@ namespace LearnBug.Controllers
     [Authorize]
     public class MessageController : Controller
     {
-        LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
+        LearnBugDBEntities1 db = new LearnBugDBEntities1();
         public ActionResult myMessage()
         {
             int userId = db.Users.Single(P=>P.Username==User.Identity.Name).Id;

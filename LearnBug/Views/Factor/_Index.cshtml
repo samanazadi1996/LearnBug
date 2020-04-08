@@ -1,0 +1,42 @@
+﻿@model IEnumerable<LearnBug.Models.DomainModels.Factor>
+<div>
+    <center><b style="font-size:18px;" id="modal-title">مطالب خریداری شده</b></center>
+</div>
+
+<hr />
+<div class="pre-scrollable mce-arrow-down">
+    <table class="table table-hover table-striped">
+        <tr>
+            <th>#</th>
+            <th>نام مدرس</th>
+            <th>تاریخ درج مطلب</th>
+            <th> تاریخ خرید</th>
+            <th> قیمت</th>
+            <th> مشاهده دوره</th>
+            <th> امتیاز</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Content.User.name</td>
+                <td>@item.Content.Datetime.ToPersianDate()</td>
+                <td>@item.Datetime.ToPersianDate()</td>
+                <td>@item.Price</td>
+                <td><a href="/Content/ViewContent/@item.contentId">مشاهده</a></td>
+                <td>5</td>
+            </tr>
+        }
+    </table>
+
+
+</div>
+<hr />
+<div>
+    <center>
+        <input type="submit" class="btn btn-success" onclick="" value="save" />
+        <input type="submit" class="btn btn-danger" onclick="document.getElementById('bodypartial').innerHTML=''" value="انصراف" />
+    </center>
+
+</div>
+

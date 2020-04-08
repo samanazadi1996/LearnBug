@@ -1,4 +1,7 @@
-﻿@section styles{
+﻿@{
+    ViewBag.Title = "ویرایش پروفایل";
+
+}@section styles{
     <link href="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.css" rel="stylesheet" />
 }
 <div>
@@ -7,51 +10,38 @@
             <div class="panel-heading">ویرایش پروفایل</div>
             <div class="panel-body">
                 <!-- -->
-                <a class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="renderPvCangePass('_editProfile')">ویرایش اطلاعات کاربری</a>
-                <a class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="renderPvCangePass('_editPicture')">ویرایش عکس پروفایل</a>
-                <a class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="renderPvCangePass('_editPassword')">تغییر رمز عبور</a>
-                <div class="clear"><hr /></div>
-                <a class="btn btn-info" onclick="AddPrice()">افزایش اعتبار</a>
-                <a href="@Url.Action("Index","Transaction")" class="btn btn-info">تراکنش ها</a>
-                <a href="@Url.Action("Index","Factor")" class="btn btn-info">مطالب خریداری شده</a>
-                @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
-                {
-                    <a href="@Url.Action("SellContent","Factor")" class="btn btn-info">گذارش خرید مطالب من</a>
-                }
+                <div class="col-md-2 pull-right" style="border-left:2px solid silver;">
+                    <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_editProfile","User")')">ویرایش اطلاعات کاربری</a><br />
+                    <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_editPicture", "User")')">ویرایش عکس پروفایل</a><br />
+                    <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_editPassword", "User")')">تغییر رمز عبور</a>
+                    <div class="clear"><hr /></div>
+                    <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_Add","Transaction")')">افزایش اعتبار</a><br />
+                    <a onclick="renderpage('@Url.Action("_Index","Transaction")')" style="width:100%" class="btn btn-info">تراکنش ها</a><br />
+                    <a onclick="renderpage('@Url.Action("_Index","Factor")')" style="width:100%" class="btn btn-info">مطالب خریداری شده</a>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+                    {
+                        <br />
+                        <a onclick="renderpage('@Url.Action("_SellContent","Factor")')" style="width:100%" class="btn btn-info">گذارش خرید مطالب من</a>
+                    }
+                </div>
+                <div id="bodypartial" class="col-md-10 pull-left" style="padding:10px;">
+                </div>
                 <!-- -->
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-        <div id="bodypartial" class="modal-content" style="padding:10px;">
-
-
-        </div>
-    </div>
-
-</div>
-
-
-
-
-
-
-
-
-
 @section Scripts {
     <script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
     <script type="text/javascript">
-        function AddPrice() {
+        function AddPrice(prc) {
             $.ajax({
-                url: "/Transaction/add",
-                data: { price: 1000 },
+                url: "/Transaction/_add",
+                data: { price: prc },
                 type: "Post"
             })
-
+            $('#bodypartial').html('')
         }
 
 
@@ -62,7 +52,6 @@
                 data: { newPicture: img, type: type },
                 type: "Post"
             })
-            $('#cancel').click()
             $('#bodypartial').html('')
 
 
@@ -109,9 +98,9 @@
             fileReader.readAsDataURL(uploadFile);
         }
 
-        function renderPvCangePass(a) {
+        function renderpage(a) {
             $.ajax({
-                url: "/User/" + a,
+                url: a,
                 success: function (data) {
                     $('#bodypartial').html(data)
                 }
@@ -132,8 +121,7 @@
                     success: function (data) {
                         if (data.ss) {
                             alert('رمز عبور شما با موفقیت تغیر کرد')
-                            document.getElementById('cancel').click()
-                            $('#bodypartial').html('')
+                            document.getElementById('bodypartial').innerHTML = ''
 
                         } else {
                             eval(data.js)

@@ -1,7 +1,8 @@
 ﻿@model LearnBug.Models.DomainModels.User
 
 @{
-    ViewBag.Title = "myContents";
+    ViewBag.Title = Model.Username;
+
 }
 <div>
     <div class="col-md-12">
@@ -34,26 +35,30 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <div class="col-md-4">
-                                        <div class="panel-body top-info-box">
-                                            <div class="fa fa-group"></div>
-                                            <div class="desc">
-                                                <span style="font-size: 12px; font-weight: bold">دنبال کندده ها</span>
-                                                <br />
-                                                <span style="font-size: 24px; font-weight: bold">@Model.Follows.Count()</span>
+                                    <a href="/Follow/Followers/?username=@Model.Username">
+                                        <div class="col-md-4">
+                                            <div class="panel-body top-info-box">
+                                                <div class="fa fa-group"></div>
+                                                <div class="desc">
+                                                    <span style="font-size: 12px; font-weight: bold">دنبال کندده ها</span>
+                                                    <br />
+                                                    <span style="font-size: 24px; font-weight: bold">@Model.Follows.Count()</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="panel-body top-info-box">
-                                            <div class="fa fa-object-group"></div>
-                                            <div class="desc">
-                                                <span style="font-size: 12px; font-weight: bold">دنبال شونده ها</span>
-                                                <br />
-                                                <span style="font-size: 24px; font-weight: bold">@Model.Follows1.Count()</span>
+                                    </a>
+                                    <a href="/Follow/Following/?username=@Model.Username">
+                                        <div class="col-md-4">
+                                            <div class="panel-body top-info-box">
+                                                <div class="fa fa-object-group"></div>
+                                                <div class="desc">
+                                                    <span style="font-size: 12px; font-weight: bold">دنبال شونده ها</span>
+                                                    <br />
+                                                    <span style="font-size: 24px; font-weight: bold">@Model.Follows1.Count()</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                                 <div class="col-md-12">
                                     @if (User.Identity.IsAuthenticated && User.Identity.Name != Model.Username)
@@ -64,15 +69,16 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="button" onclick="Follow(@Model.Id);" id="btnFollow" style="width:100%;" class="btn btn-info"
-                                                       @(Model.Follows.Any(p => p.User1.Username == User.Identity.Name) ? " value=UnFollow" : " value=Follow")
-                                                       />
+                                                       @(Model.Follows.Any(p => p.User1.Username == User.Identity.Name) ? " value=UnFollow" : " value=Follow") />
                                             </div>
                                         </div>
                                     }
-                                    @if (Model.Username == User.Identity.Name)
+                                    @if (Model.Username == User.Identity.Name || User.IsInRole("Admin"))
                                     {
                                         <div class="col-lg-12">
-                                            <a href="@Url.Action("Edit", "User")" class="btn btn-info" style="width:100%;">Edit Profile </a>
+                                            <a href="@(User.IsInRole("Admin")? Url.Action("ManagementUser", "User",new { id=Model.Id}) : Url.Action("Edit", "User"))"
+                                               class="btn btn-info"
+                                               style="width:100%;">Edit Profile </a>
 
                                         </div>
                                     }

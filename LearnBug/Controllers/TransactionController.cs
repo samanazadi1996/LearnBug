@@ -12,7 +12,21 @@ namespace LearnBug.Controllers
     {
         LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
         // GET: Transaction
-        public ActionResult Add(double price)
+
+        public ActionResult _Index()
+        {
+            var transactions = db.Users.Single(p => p.Username == User.Identity.Name).Transactions.OrderByDescending(p => p.Datetime).AsQueryable();
+            return PartialView(transactions);
+        }
+
+
+        public ActionResult _Add()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult _Add(double price)
         {
             var user = db.Users.Single(p => p.Username == User.Identity.Name);
             Transaction transaction = new Transaction
@@ -27,10 +41,13 @@ namespace LearnBug.Controllers
             db.SaveChanges();
             return View();
         }
-        public ActionResult Index()
-        {
-            var transactions = db.Users.Single(p => p.Username == User.Identity.Name).Transactions;
-            return View(transactions);
-        }
+
+
+
+
+
+
+
+
     }
 }

@@ -12,7 +12,7 @@ namespace LearnBug.Controllers
         LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
 
         // GET: Follow
-        public void Follow(int userId,bool type)
+        public void Follow(int userId, bool type)
         {
             var myUser = db.Users.Single(p => p.Username == User.Identity.Name);
             if (type)
@@ -32,6 +32,18 @@ namespace LearnBug.Controllers
             }
             db.SaveChanges();
 
+        }
+
+
+        public ActionResult Followers(string username)
+        {
+            var model = db.Users.Single(p => p.Username == username).Follows.AsQueryable();
+            return View(model);
+        }
+        public ActionResult Following(string username)
+        {
+            var model = db.Users.Single(p => p.Username == username).Follows1.AsQueryable();
+            return View(model);
         }
     }
 }

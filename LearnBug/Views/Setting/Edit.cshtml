@@ -1,0 +1,34 @@
+﻿@model LearnBug.Models.DomainModels.Setting
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "ویرایش تنظیمات";
+}
+<div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><a href="/Setting/Index">تنظیمات</a> / <a href="/Setting/Edit/@Model.Id">ویرایش مقدار @Model.Name</a></div>
+            <div class="panel-body">
+                <div class="grid-view">
+                    @using (Html.BeginForm())
+                    {
+                    @Html.TextAreaFor(mode => Model.Value)
+                    @Html.HiddenFor(mode => Model.Id)
+                    <br />
+                    <br />
+                    <br />
+                    <button class="btn btn-success">ذخیره تغیرات</button>
+                    }
+                </div>
+                <!-- -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @if (Model.Type.ToString() == "Html")
+    {
+        <script src="~/Scripts/tinymce/tinyMane.js"></script>
+        <script src="~/Scripts/tinymce/tinymce.js"></script>
+    }
+}
