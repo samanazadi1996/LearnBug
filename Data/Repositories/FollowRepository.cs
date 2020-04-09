@@ -19,7 +19,7 @@ namespace Data.Repositories
         {
             try
             {
-                db.follows.Add(entity);
+                db.Follows.Add(entity);
                 if (autoSave)
                     return Convert.ToBoolean(db.SaveChanges());
                 else
@@ -68,7 +68,7 @@ namespace Data.Repositories
         {
             try
             {
-                var entity = db.follows.Find(id);
+                var entity = db.Follows.Find(id);
                 db.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
                 if (autoSave)
                 {
@@ -88,7 +88,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.follows.Find(id);
+                return db.Follows.Find(id);
             }
             catch
             {
@@ -100,7 +100,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.follows.Where(predicate);
+                return db.Follows.Where(predicate);
             }
             catch
             {
@@ -112,7 +112,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.follows.AsQueryable();
+                return db.Follows.AsQueryable();
             }
             catch
             {
@@ -124,7 +124,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.follows.Select(selector);
+                return db.Follows.Select(selector);
             }
             catch
             {
@@ -136,8 +136,8 @@ namespace Data.Repositories
         {
             try
             {
-                if (db.follows.Any())
-                    return db.follows.OrderByDescending(p => p.Id).First().Id;
+                if (db.Follows.Any())
+                    return db.Follows.OrderByDescending(p => p.Id).First().Id;
                 else
                     return 0;
             }

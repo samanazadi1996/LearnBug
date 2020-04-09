@@ -19,7 +19,7 @@ namespace Data.Repositories
         {
             try
             {
-                db.bookmarks.Add(entity);
+                db.Bookmarks.Add(entity);
                 if (autoSave)
                     return Convert.ToBoolean(db.SaveChanges());
                 else
@@ -68,7 +68,7 @@ namespace Data.Repositories
         {
             try
             {
-                var entity = db.bookmarks.Find(id);
+                var entity = db.Bookmarks.Find(id);
                 db.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
                 if (autoSave)
                 {
@@ -88,7 +88,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.bookmarks.Find(id);
+                return db.Bookmarks.Find(id);
             }
             catch
             {
@@ -100,7 +100,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.bookmarks.Where(predicate);
+                return db.Bookmarks.Where(predicate);
             }
             catch
             {
@@ -112,7 +112,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.bookmarks.AsQueryable();
+                return db.Bookmarks.AsQueryable();
             }
             catch
             {
@@ -124,7 +124,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.bookmarks.Select(selector);
+                return db.Bookmarks.Select(selector);
             }
             catch
             {
@@ -136,8 +136,8 @@ namespace Data.Repositories
         {
             try
             {
-                if (db.bookmarks.Any())
-                    return db.bookmarks.OrderByDescending(p => p.Id).First().Id;
+                if (db.Bookmarks.Any())
+                    return db.Bookmarks.OrderByDescending(p => p.Id).First().Id;
                 else
                     return 0;
             }

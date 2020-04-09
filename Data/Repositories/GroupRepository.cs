@@ -19,7 +19,7 @@ namespace Data.Repositories
         {
             try
             {
-                db.groups.Add(entity);
+                db.Groups.Add(entity);
                 if (autoSave)
                     return Convert.ToBoolean(db.SaveChanges());
                 else
@@ -68,7 +68,7 @@ namespace Data.Repositories
         {
             try
             {
-                var entity = db.groups.Find(id);
+                var entity = db.Groups.Find(id);
                 db.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
                 if (autoSave)
                 {
@@ -88,7 +88,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.groups.Find(id);
+                return db.Groups.Find(id);
             }
             catch
             {
@@ -100,7 +100,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.groups.Where(predicate);
+                return db.Groups.Where(predicate);
             }
             catch
             {
@@ -112,7 +112,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.groups.AsQueryable();
+                return db.Groups.AsQueryable();
             }
             catch
             {
@@ -124,7 +124,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.groups.Select(selector);
+                return db.Groups.Select(selector);
             }
             catch
             {
@@ -136,8 +136,8 @@ namespace Data.Repositories
         {
             try
             {
-                if (db.groups.Any())
-                    return db.groups.OrderByDescending(p => p.Id).First().Id;
+                if (db.Groups.Any())
+                    return db.Groups.OrderByDescending(p => p.Id).First().Id;
                 else
                     return 0;
             }

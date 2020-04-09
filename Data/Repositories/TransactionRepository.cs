@@ -19,7 +19,7 @@ namespace Data.Repositories
         {
             try
             {
-                db.transactions.Add(entity);
+                db.Transactions.Add(entity);
                 if (autoSave)
                     return Convert.ToBoolean(db.SaveChanges());
                 else
@@ -68,7 +68,7 @@ namespace Data.Repositories
         {
             try
             {
-                var entity = db.transactions.Find(id);
+                var entity = db.Transactions.Find(id);
                 db.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
                 if (autoSave)
                 {
@@ -88,7 +88,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.transactions.Find(id);
+                return db.Transactions.Find(id);
             }
             catch
             {
@@ -100,7 +100,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.transactions.Where(predicate);
+                return db.Transactions.Where(predicate);
             }
             catch
             {
@@ -112,7 +112,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.transactions.AsQueryable();
+                return db.Transactions.AsQueryable();
             }
             catch
             {
@@ -124,7 +124,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.transactions.Select(selector);
+                return db.Transactions.Select(selector);
             }
             catch
             {
@@ -136,8 +136,8 @@ namespace Data.Repositories
         {
             try
             {
-                if (db.transactions.Any())
-                    return db.transactions.OrderByDescending(p => p.Id).First().Id;
+                if (db.Transactions.Any())
+                    return db.Transactions.OrderByDescending(p => p.Id).First().Id;
                 else
                     return 0;
             }

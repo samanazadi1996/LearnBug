@@ -14,15 +14,15 @@ namespace Data
         {
             Database.SetInitializer(new CreateDatabaseIfNotExists<DatabaseContext>());
         }
-        public DbSet<User> users { get; set; }
-        public DbSet<Content> contents { get; set; }
-        public DbSet<Message> messages { get; set; }
-        public DbSet<Comment> comments { get; set; }
-        public DbSet<Factor> factors { get; set; }
-        public DbSet<Setting> settings { get; set; }
-        public DbSet<Transaction> transactions { get; set; }
-        public DbSet<Group> groups { get; set; }
-        public DbSet<Bookmark> bookmarks { get; set; }
-        public DbSet<Follow> follows { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Content> Contents { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Factor> Factors { get; set; }
+        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Bookmark> Bookmarks { get; set; }
+        public DbSet<Follow> Follows { get; set; }
     }
 }

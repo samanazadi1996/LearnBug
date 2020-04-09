@@ -19,7 +19,7 @@ namespace Data.Repositories
         {
             try
             {
-                db.comments.Add(entity);
+                db.Comments.Add(entity);
                 if (autoSave)
                     return Convert.ToBoolean(db.SaveChanges());
                 else
@@ -68,7 +68,7 @@ namespace Data.Repositories
         {
             try
             {
-                var entity = db.comments.Find(id);
+                var entity = db.Comments.Find(id);
                 db.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
                 if (autoSave)
                 {
@@ -88,7 +88,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.comments.Find(id);
+                return db.Comments.Find(id);
             }
             catch
             {
@@ -100,7 +100,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.comments.Where(predicate);
+                return db.Comments.Where(predicate);
             }
             catch
             {
@@ -112,7 +112,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.comments.AsQueryable();
+                return db.Comments.AsQueryable();
             }
             catch
             {
@@ -124,7 +124,7 @@ namespace Data.Repositories
         {
             try
             {
-                return db.comments.Select(selector);
+                return db.Comments.Select(selector);
             }
             catch
             {
@@ -136,8 +136,8 @@ namespace Data.Repositories
         {
             try
             {
-                if (db.comments.Any())
-                    return db.comments.OrderByDescending(p => p.Id).First().Id;
+                if (db.Comments.Any())
+                    return db.Comments.OrderByDescending(p => p.Id).First().Id;
                 else
                     return 0;
             }
