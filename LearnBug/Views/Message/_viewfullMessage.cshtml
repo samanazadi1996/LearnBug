@@ -16,10 +16,10 @@
             <div id="scroll">
                 @foreach (var item in Model)
                 {
-
+                    <div class="clear" style="height:2px"></div>
                     if (item.User.Username == User.Identity.Name)
                     {
-                        <div style="background-color:aqua;text-align:right;border-radius:5px;padding:3px;" class="right">
+                        <div style="background-color:aqua;text-align:right;border-radius:5px;padding:3px;;width:fit-content;" class="pull-right">
                             @item.Text<br /><b>
                                 @{
                                     if (item.Status == 0)
@@ -35,13 +35,13 @@
                     }
                     else
                     {
-                        <div style="background-color:#fffa00;text-align:left;border-radius:5px;padding:3px;" class="right">
+                        <div style="background-color:#fffa00;text-align:left;border-radius:5px;padding:3px;width:fit-content;" class="pull-left">
                             @item.Text<br />@item.Datetime.ToPersianDate()<b>
                                 @{
                                     if (item.Status == 0)
                                     {<span style="color:silver;"><b>✓</b></span>}
                                     else if (item.Status == 1)
-                                    {<span style="color:silver;"><b>✓✓</b></span>}
+                                    {<span style="color: silver;"><b>✓✓</b></span>}
                                     else if (item.Status == 2)
                                     {<span style="color:darkblue;"><b>✓✓</b></span>}
                                 }

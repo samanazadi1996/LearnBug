@@ -15,6 +15,37 @@ namespace LearnBug.Controllers
         LearnBugDBEntities1 db = new LearnBugDBEntities1();
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        #region login_logout
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(string Username, string Password, string Rememberme)
+        {
+
+            if (db.Users.Where(p => p.Username == Username.ToLower() && p.Password == Password).Any())
+            {
+                logger.Info("Login User => " + Username.ToLower());
+                FormsAuthentication.SetAuthCookie(Username.ToLower(), Convert.ToBoolean(Rememberme));
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Message = "نام کاربری یا رمز عبور اشتباه است";
+                return View();
+            }
+        }
+        [Authorize]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index");
+        }
+
+        #endregion      
+
         [Authorize(Roles = "Admin")]
         public ActionResult AdminPanel()
         {
@@ -42,31 +73,10 @@ namespace LearnBug.Controllers
             };
             return View(model);
         }
-        [HttpGet]
-        public ActionResult Login()
+        public ActionResult Footer()
         {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Login(string Username, string Password, string Rememberme)
-        {
-
-            if (db.Users.Where(p => p.Username == Username.ToLower() && p.Password == Password).Any())
-            {
-                logger.Info("Login User => " + Username.ToLower());
-                FormsAuthentication.SetAuthCookie(Username.ToLower(), Convert.ToBoolean(Rememberme));
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                ViewBag.Message = "نام کاربری یا رمز عبور اشتباه است";
-                return View();
-            }
-        }
-        public ActionResult Logout()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index");
+            var model=db.Settings.Single(p => p.Name == "Footer");
+            return PartialView(model);
         }
     }
 }

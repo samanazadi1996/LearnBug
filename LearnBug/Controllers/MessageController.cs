@@ -67,7 +67,6 @@ namespace LearnBug.Controllers
 
             }
         }
-
         public JsonResult Viewmessage(int id)
         {
             var msg = db.Messages.Find(id);

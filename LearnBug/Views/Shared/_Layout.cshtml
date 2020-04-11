@@ -23,8 +23,7 @@
             <li style="background-color:rgb(26, 26, 95)">
                 <div class="fa fa-bars" onclick="togNav()"></div>
             </li>
-
-
+            
             <li>
                 <a href="@(User.Identity.IsAuthenticated ? Url.Action("ContentOfFollowing","Content") : Url.Action("Index","Home"))">
                     <div class="fa fa-home"></div>
@@ -59,7 +58,7 @@
             </li>
             <li>
                 <a href="/Home/About">
-                    <div class="fa fa-heart-o"></div>
+                    <div class="fa fa-question"></div>
                 </a>
             </li>
 
@@ -108,9 +107,7 @@
         <!-- main end -->
     </div>
     <div class="footer">
-        <div class="rsabout">
-            <a href="#" target="_blank">LearnBug.com</a>
-        </div>
+        @Html.Action("Footer","Home")
     </div>
     <script src="~/Content/BU/MyJsCode.js"></script>
     <script src="~/Content/RSadmin/js/chart.bundle.min.js"></script>
