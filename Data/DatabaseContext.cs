@@ -12,7 +12,7 @@ namespace Data
     {
         static DatabaseContext()
         {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<DatabaseContext>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext,Migrations.Configuration>());
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Content> Contents { get; set; }
