@@ -68,7 +68,7 @@
                         <div class="col-md-2">تاریخ تولد : </div>
                         <div class="col-md-4">
 
-                            <input type="date" id="Dateofbirth" name="Dateofbirth" value="@Model.Dateofbirth.ToPersianDate().ToString("yyyy-MM-dd")" class="form-control" />
+                            <input type="date" id="Dateofbirth" name="Dateofbirth" value="@Model.Dateofbirth.ToPersianDate().ToString("hh:mm  yyyy/MM/dd")" class="form-control" />
                         </div>
                         <div class="col-md-2">محل سکونت  : </div>
                         <div class="col-md-4"> @Html.TextBoxFor(model => Model.Location, new { @class = "form-control" })</div>
@@ -109,7 +109,7 @@
                             {
                                 <tr>
                                     <td>@(s++)</td>
-                                    <td>@item.Datetime.ToPersianDate()</td>
+                                    <td>@item.Datetime.ToPersianDate().ToString("hh:mm  yyyy/MM/dd")</td>
                                     <td>$@item.Price</td>
                                     <td>(%@item.Commission)</td>
                                     <td style="color:blue"> $@(item.Price / 100 * item.Commission)</td>
@@ -135,7 +135,7 @@
                                 <tr>
                                     <td>@item.Id</td>
                                     <td>@(item.Charge ? "+" : "-")</td>
-                                    <td>@item.Datetime.ToPersianDate()</td>
+                                    <td>@item.Datetime.ToPersianDate().ToString("hh:mm  yyyy/MM/dd")</td>
                                     <td>@item.Price.ToPrice()</td>
                                 </tr>
                             }
@@ -158,7 +158,7 @@
                                 <tr>
                                     <td>@item.Id</td>
                                     <td>@item.Text</td>
-                                    <td>@item.Datetime.ToPersianDate()</td>
+                                    <td>@item.Datetime.ToPersianDate().ToString("hh:mm  yyyy/MM/dd")</td>
                                     <td>@item.contentId</td>
                                 </tr>
                             }
@@ -186,7 +186,7 @@
                                 <tr @(item.User.Username == Model.Username ? "style=background-color:cyan;" : "style=background-color:yellow;")>
                                     <td>@item.Id</td>
                                     <td>@item.Text</td>
-                                    <td>@item.Datetime.ToPersianDate()</td>
+                                    <td>@item.Datetime.ToPersianDate().ToString("hh:mm  yyyy/MM/dd")</td>
                                     <td>@(item.User1.Username == Model.Username ? item.User.Username : item.User1.Username)</td>
                                     <td>@item.Status</td>
 
