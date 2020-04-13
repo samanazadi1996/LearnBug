@@ -5,7 +5,7 @@
 <br />
 <div class="fa fa-cubes">@Model.Group.Name</div>
 <br />
-<div class="fa fa-clock-o">@Model.Datetime.ToPersianDate()</div>
+<div class="fa fa-clock-o">@Model.Datetime.ToPersianDate().ToString("hh:mm  yyyy/MM/dd")</div>
 <br />
 <div class="fa fa-comment">@Model.Comments.Count() Comments</div>
 <br />
@@ -20,7 +20,7 @@
                 }
             </span>
             @item.Text <br />
-            <span style="font-size:12PX;"> @item.Datetime.ToPersianDate()</span>
+            <span style="font-size:12PX;"> @item.Datetime.ToPersianDate().ToString("hh:mm  yyyy/MM/dd")</span>
             @if (item.User.Username.ToLower() == User.Identity.Name.ToLower() || Model.User.Username.ToLower() == User.Identity.Name.ToLower() || User.IsInRole("Admin"))
             {
                 <a style="cursor:pointer;color:red" onclick="deleteComment(@item.Id)">حذف</a>

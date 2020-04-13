@@ -13,12 +13,12 @@
                     {
                         <div class="form-group col-lg-9">
                             تا تاریخ :
-                            <input type="text" id="to" name="to" value="@ViewBag.to" class="form-control" style="width:200px" />
+                            <input type="text" id="to" name="to" value="@ViewBag.to" class="form-control" style="width:200px" autocomplete="off"/>
 
                         </div>
                         <div class="form-group col-lg-3">
                             از تاریخ :
-                            <input type="text" id="from" name="from" value="@ViewBag.from" class="form-control" style="width:200px" />
+                            <input type="text" id="from" name="from" value="@ViewBag.from" class="form-control" style="width:200px" autocomplete="off"/>
 
                         </div>
                         <div class="form-group col-lg-12">
@@ -33,7 +33,7 @@
                             از تاریخ
                             @(string.IsNullOrEmpty(ViewBag.from) ? "..." : ViewBag.from)
                             تا تاریخ
-                            @(string.IsNullOrEmpty(ViewBag.to) ? DateTime.Now.ToPersianDate().ToShortDateString() : ViewBag.to)
+                            @(string.IsNullOrEmpty(ViewBag.to) ? DateTime.Now.ToPersianDate().ToString("yyyy/MM/dd") : ViewBag.to)
                             تعداد
                             @Model.Count()
                             مطلب توسط کاربران خریداری شده و سود حاصل از کمیسیون ان
@@ -54,7 +54,7 @@
                     {
                         <tr>
                             <td>@(s++)</td>
-                            <td>@item.Datetime.ToPersianDate()</td>
+                            <td>@item.Datetime.ToPersianDate().ToString("hh:mm  yyyy/MM/dd")</td>
                             <td>$@item.Price</td>
                             <td>(%@item.Commission)</td>
                             <td style="color:blue"> $@(item.Price / 100 * item.Commission)</td>
