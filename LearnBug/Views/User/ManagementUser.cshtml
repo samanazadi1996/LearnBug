@@ -42,13 +42,15 @@
 
                         @Html.HiddenFor(model => model.Image)
                         <div class="col-md-2">نام کاربری  : </div>
-                        <div class="col-md-4"> @Html.TextBoxFor(model => Model.Username, new { @class = "form-control" })</div>
+                        <div class="col-md-4"> @Html.TextBoxFor(model => Model.Username, new { @class = "form-control"})</div>
                         <div class="col-md-2">نام  : </div>
                         <div class="col-md-4"> @Html.TextBoxFor(model => Model.name, new { @class = "form-control" })</div>
                         <div class="col-md-2">ایمیل : </div>
                         <div class="col-md-4"> @Html.TextBoxFor(model => Model.Email, new { @class = "form-control" })</div>
                         <div class="col-md-2">رمز عبور : </div>
-                        <div class="col-md-4"> @Html.TextBoxFor(model => Model.Password, new {@type = "password", @class = "form-control" })</div>
+                        <div class="col-md-4">
+                            <input type = "password" name="Password" value="@Model.Password.Decrypt()" class = "form-control" />
+                        </div>
                         <div class="col-md-2">شماره تلفن  : </div>
                         <div class="col-md-4"> @Html.TextBoxFor(model => Model.Phone, new { @type = "tel", @class = "form-control" })</div>
                         <div class="col-md-2">کیف پول : </div>

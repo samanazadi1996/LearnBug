@@ -25,7 +25,7 @@ namespace LearnBug.Controllers
         public ActionResult Login(string Username, string Password, string Rememberme)
         {
 
-            if (db.Users.Where(p => p.Username == Username.ToLower() && p.Password == Password).Any())
+            if (db.Users.Where(p => p.Username == Username.ToLower() && p.Password == Password.Encrypt()).Any())
             {
                 logger.Info("Login User => " + Username.ToLower());
                 FormsAuthentication.SetAuthCookie(Username.ToLower(), Convert.ToBoolean(Rememberme));

@@ -36,6 +36,7 @@ namespace LearnBug.Controllers
             user.Roles = "User";
             user.Wallet = 0;
             user.Username = user.Username.ToLower().Trim();
+            user.Password = user.Password.Encrypt();
             user.Dateofbirth = user.Dateofbirth.ToMiladiDate();
             if (ModelState.IsValid)
             {
@@ -111,7 +112,7 @@ namespace LearnBug.Controllers
         [Authorize]
         public ActionResult ChangePassword(string oldPassword, string newPassword, string confirmPassword)
         {
-            var myuser = db.Users.FirstOrDefault(p => p.Username == User.Identity.Name && p.Password == oldPassword);
+            var myuser = db.Users.FirstOrDefault(p => p.Username == User.Identity.Name && p.Password == oldPassword.Encrypt());
             if (myuser == null)
             {
 
@@ -126,7 +127,7 @@ namespace LearnBug.Controllers
             {
                 if (confirmPassword == newPassword)
                 {
-                    myuser.Password = newPassword;
+                    myuser.Password = newPassword.Encrypt();
                     db.SaveChanges();
                     return Json(new
                     {
@@ -213,6 +214,7 @@ namespace LearnBug.Controllers
         {
             user.Dateofbirth = user.Dateofbirth.ToMiladiDate();
             user.Username = user.Username.ToLower().Trim();
+            user.Password = user.Password.Encrypt();
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = System.Data.Entity.EntityState.Modified;
