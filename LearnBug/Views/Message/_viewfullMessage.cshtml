@@ -30,13 +30,13 @@
                                     {<span style="color:darkblue;"><b>✓✓</b></span>}
                                 }
 
-                            </b>@item.Datetime.ToPersianDate().ToString("hh:mm  yyyy/MM/dd")
+                            </b>@item.Datetime.ToPersianDate()
                         </div>
                     }
                     else
                     {
                         <div style="background-color:#fffa00;text-align:left;border-radius:5px;padding:3px;width:fit-content;" class="pull-left">
-                            @item.Text<br />@item.Datetime.ToPersianDate().ToString("hh:mm  yyyy/MM/dd")<b>
+                            @item.Text<br />@item.Datetime.ToPersianDate()<b>
                                 @{
                                     if (item.Status == 0)
                                     {<span style="color:silver;"><b>✓</b></span>}

@@ -37,7 +37,7 @@
 
                                                     </span>
                                                     <span class="last-visitors-item">
-                                                        <span class="fa fa-clock-o"></span>@item.Messages.LastOrDefault().Datetime.ToPersianDate().ToString("hh:mm  yyyy/MM/dd")
+                                                        <span class="fa fa-clock-o"></span>@item.Messages.LastOrDefault().Datetime.ToPersianDate()
                                                     </span>
                                                     <span class="last-visitors-item">
                                                         <a style="color:darkblue;cursor:pointer" data-toggle="modal" data-target="#myModal" onclick="renderPartialViewMessage(@item.Id);">visit</a>

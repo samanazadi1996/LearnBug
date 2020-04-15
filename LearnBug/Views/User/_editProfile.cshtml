@@ -32,7 +32,8 @@
 
                 <div class="col-md-2 pull-right">: تاریخ تولد</div>
                 <div class="col-md-3 pull-right">
-                <input class="form-control text-box single-line hasDatepicker" onfocus="renderDatepicker()" name="Dateofbirth" id="Dateofbirth" type="date" value="@Model.Dateofbirth.ToPersianDate().ToString("yyyy-MM-dd")" /></div>
+                    <input class="form-control text-box single-line" onmousedown="$('#Dateofbirth').datepicker();" name="Dateofbirth" id="Dateofbirth" type="text" value="@Model.Dateofbirth.ToPersianDate("yyyy/MM/dd")" autocomplete="off" />
+                </div>
                 <div class="col-md-7 pull-left">@Html.ValidationMessageFor(model => model.Dateofbirth, "", new { @class = "text-danger" })</div>
             </div>
             <div class="clear"></div>
@@ -67,7 +68,7 @@
             <div class="form-group" style="padding:10px;" style="padding:10px;">
 
                 <div class="col-md-2 pull-right">: بیوگرافی</div>
-                <div class="col-md-3 pull-right">@Html.TextAreaFor(model => model.Biography,  new { @class = "form-control"  })</div>
+                <div class="col-md-3 pull-right">@Html.TextAreaFor(model => model.Biography, new { @class = "form-control" })</div>
                 <div class="col-md-7 pull-left">@Html.ValidationMessageFor(model => model.Biography, "", new { @class = "text-danger" })</div>
             </div>
         </div>
@@ -81,7 +82,6 @@
 
     }
 </div>
-
 
 
 

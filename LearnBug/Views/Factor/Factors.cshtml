@@ -33,11 +33,11 @@
                             از تاریخ
                             @(string.IsNullOrEmpty(ViewBag.from) ? "..." : ViewBag.from)
                             تا تاریخ
-                            @(string.IsNullOrEmpty(ViewBag.to) ? DateTime.Now.ToPersianDate().ToString("yyyy/MM/dd") : ViewBag.to)
+                            @(string.IsNullOrEmpty(ViewBag.to) ? DateTime.Now.ToPersianDate("yyyy/MM/dd") : ViewBag.to)
                             تعداد
                             @Model.Count()
                             مطلب توسط کاربران خریداری شده و سود حاصل از کمیسیون ان
-                            @Model.Sum(p => p.Price - (p.Price - (p.Price / 100 * p.Commission))).ToPrice()$
+                            @Model.Sum(p => p.Price - (p.Price - (p.Price / 100 * p.Commission))).ToPrice() $
                             میباشد.
                         </td>
                     </tr>
@@ -54,7 +54,7 @@
                     {
                         <tr>
                             <td>@(s++)</td>
-                            <td>@item.Datetime.ToPersianDate().ToString("hh:mm  yyyy/MM/dd")</td>
+                            <td>@item.Datetime.ToPersianDate()</td>
                             <td>$@item.Price</td>
                             <td>(%@item.Commission)</td>
                             <td style="color:blue"> $@(item.Price / 100 * item.Commission)</td>

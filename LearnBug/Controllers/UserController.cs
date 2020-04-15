@@ -112,7 +112,8 @@ namespace LearnBug.Controllers
         [Authorize]
         public ActionResult ChangePassword(string oldPassword, string newPassword, string confirmPassword)
         {
-            var myuser = db.Users.FirstOrDefault(p => p.Username == User.Identity.Name && p.Password == oldPassword.Encrypt());
+            oldPassword = oldPassword.Encrypt();
+            var myuser = db.Users.FirstOrDefault(p => p.Username == User.Identity.Name && p.Password == oldPassword);
             if (myuser == null)
             {
 

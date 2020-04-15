@@ -46,7 +46,7 @@
 
                             <div class="form-group" style="width:200px;">
                                 <span class="mytxt">تاریخ تولد</span><br />
-                                @Html.TextBoxFor(model => model.Dateofbirth, new { @class = "form-control"})
+                                @Html.TextBoxFor(model => model.Dateofbirth, new { @class = "form-control",autocomplete="off"})
                                 @Html.ValidationMessageFor(model => model.Dateofbirth)
                             </div>
 

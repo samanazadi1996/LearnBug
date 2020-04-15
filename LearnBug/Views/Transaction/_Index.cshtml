@@ -17,7 +17,7 @@
             <tr>
                 <td>@item.Id</td>
                 <td>@(item.Charge ? "+" : "-")</td>
-                <td>@item.Datetime.ToPersianDate().ToString("hh:mm  yyyy/MM/dd")</td>
+                <td>@item.Datetime.ToPersianDate()</td>
                 <td>@item.Price.ToPrice()</td>
             </tr>
         }

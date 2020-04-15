@@ -47,11 +47,11 @@
                 <b>
                     @if (!item.Factors.Any(p => p.User.Username == User.Identity.Name))
                     {
-                        <span style="color:orangered;">@item.Price.ToPrice() $</span>
+                        <span style="color:orangered;">@item.Price.Value.ToPrice() $</span>
                     }
                     else
                     {
-                        <del style="color:darkgreen;"> @item.Price.ToPrice() $</del>
+                        <del style="color:darkgreen;"> @item.Price.Value.ToPrice() $</del>
                     }
                 </b>
             }

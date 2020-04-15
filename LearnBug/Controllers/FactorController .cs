@@ -68,7 +68,7 @@ namespace LearnBug.Controllers
 
             if (!string.IsNullOrEmpty(from))
             {
-                DateTime datefrom =Convert.ToDateTime( from).ToMiladiDate();
+                DateTime datefrom =Convert.ToDateTime(from).ToMiladiDate();
                 model = model.Where(p => p.Datetime >= datefrom);
             }
 

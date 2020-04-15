@@ -103,7 +103,7 @@
                                         <span class="col-md-2 MyFontInProfile">جنسیت : </span>
                                         <span class="col-md-4 MyFontInProfile"> @Model.Gender.ToString().GenderToText()</span>
                                         <span class="col-md-2 MyFontInProfile">تاریخ تولد : </span>
-                                        <span class="col-md-4 MyFontInProfile"> @Model.Dateofbirth.ToPersianDate().ToShortDateString()</span>
+                                        <span class="col-md-4 MyFontInProfile"> @Model.Dateofbirth.ToPersianDate("yyyy/MM/dd")</span>
                                         <span class="col-md-2 MyFontInProfile">محل سکونت  : </span>
                                         <span class="col-md-4 MyFontInProfile"> @Model.Location</span>
 
