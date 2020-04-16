@@ -36,8 +36,17 @@
                         @{
                             foreach (string filename in Directory.GetFiles(Server.MapPath("~") + @"Files\Picture\Logo", "*.*"))
                             {
+
                                 string a = filename.Replace(Server.MapPath("~"), @"\");
-                                <img src="@a" class="itemlogo" onclick="viewimage(this)" />
+                                string name = a.Substring(a.LastIndexOf(@"\") + 1);
+
+                                <div class="itemlogo">
+                                    <img src="@a" style="width:100%;height:100%;" onclick="viewimage(this)" />
+                                    @if (name != "Logo.png")
+                                    {
+                                        <span class="fa fa-remove itemDelete" title="حذف لوگو" onclick="deleteLogo('@name',this)"></span>
+                                    }
+                                </div>
                             }
 
                         }
@@ -64,31 +73,68 @@
             font-size: 100px;
             font: bold;
             color: deepskyblue;
+            transition: 0.5s;
+            cursor: pointer;
+            position: relative;
         }
 
             .itemlogo:hover {
-                border: 4px solid silver;
+                transform: scale(1.2);
             }
+
+                .itemlogo:hover .itemDelete {
+                    transform: scale(1);
+                }
+
+        .itemDelete {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            font-size: xx-large;
+            z-index: 1;
+            color: red;
+            transition: 0.5s;
+            transform: scale(0);
+        }
     </style>
 }
 @section scripts{
     <script>
-        function viewimage(m) {
-            document.getElementById("LogoImage").src = m.src
+        function viewimage(me) {
+            document.getElementById("LogoImage").src = me.src
 
         }
-
-
-
-
-
         function setLogo() {
-            var temp = document.getElementById("LogoImage").src;
-            $.ajax({
-                url: "/Setting/SetLogo",
-                data: { pathfile: temp },
-                type:"Post"
-            })
+            var temp = document.getElementById("LogoImage").src
+            var filename = temp.substring(temp.lastIndexOf('/') + 1)
+            if (filename != 'Logo.png') {
+                if (confirm("لوگو سایت را تغیر میدهید؟")) {
+                    $.ajax({
+                        url: "/Setting/SetLogo",
+                        data: { name: filename },
+                        type: "Post"
+                    })
+                }
+            }
+            else {
+                alert('لوگو در حال حاضر فعال است !')
+            }
+
         }
+
+        function deleteLogo(name, me) {
+            if (name != 'Logo.png') {
+                if (confirm("لوگو حذف شود؟")) {
+                    $.ajax({
+                        url: "/Setting/DeleteLogo",
+                        data: { name: name },
+                        type: "Post"
+                    })
+                    me.parentElement.hidden = true
+                }
+
+            }
+        }
+
     </script>
 }

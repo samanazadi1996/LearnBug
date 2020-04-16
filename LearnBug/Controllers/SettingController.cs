@@ -1,6 +1,8 @@
 ﻿using LearnBug.Models.DomainModels;
+using Services.SettingServices;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -45,9 +47,23 @@ namespace LearnBug.Controllers
         }
 
         [HttpPost]
-        public JavaScriptResult SetLogo(string pathfile)
+        public JavaScriptResult SetLogo(string name)
         {
-            return JavaScript("alert("+pathfile+")");
+            SettingServices a = new SettingServices();
+            if (a.ChangeLogo(name))
+                return JavaScript("alert('لوگو سایت با موفقیت تغیر کرد')");
+            return JavaScript("alert('خطایی رخ داده است')");
+
+        }
+        [HttpPost]
+        public JavaScriptResult DeleteLogo(string name)
+        {
+            SettingServices a = new SettingServices();
+            if (a.DeleteLogo(name))
+                return JavaScript("alert('لوگو با موفقیت حذف شد !')");
+
+            return JavaScript("alert('لوگو سایت فعال است و نمیتوان آن را حذف کرد!')");
+
         }
     }
 }
