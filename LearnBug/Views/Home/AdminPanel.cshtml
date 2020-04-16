@@ -13,7 +13,7 @@
             border: 3px solid darkcyan;
             border-radius: 5px;
             transition: 0.5s;
-            box-shadow:0px 6px 8px 0px silver;
+            box-shadow: 0px 6px 8px 0px silver;
         }
 
             .Items:hover {
@@ -46,7 +46,7 @@
                     <!-- -->
                     <div>
 
-                        <a href="/Setting/Index">
+                        <a href="@Url.Action("Index","Setting")">
                             <div class="Items">
                                 <img src="~/Files/AdminPanel/Setting.png" />
                                 <br />
@@ -54,7 +54,8 @@
                             </div>
                         </a>
 
-                        <a href="/Group/ManagementGroups">
+                        <a href="@Url.Action("ManagementGroups","Group")">
+
                             <div class="Items">
                                 <img src="~/Files/AdminPanel/Groups.png" />
                                 <br />
@@ -62,7 +63,8 @@
                             </div>
                         </a>
 
-                        <a href="/User/AllUsers">
+                        <a href="@Url.Action("AllUsers","User")">
+
                             <div class="Items">
                                 <img src="~/Files/AdminPanel/Users.png" />
                                 <br />
@@ -70,7 +72,8 @@
                             </div>
                         </a>
 
-                        <a href="/Factor/Factors">
+                        <a href="@Url.Action("Factors","Factor")">
+
                             <div class="Items">
                                 <img src="~/Files/AdminPanel/Factors.png" />
                                 <br />
@@ -78,11 +81,18 @@
                             </div>
                         </a>
 
-                        <a href="#">
+                        <a href="@Url.Action("UploadLogo","Setting")">
                             <div class="Items">
-                                <img src="~/Files/Picture/Logo.png" />
+                                <img src="~/Files/Picture/Logo/Logo.png" />
                                 <br />
                                 <span>لوگو سایت</span>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="Items">
+                                <img src="~/Files/AdminPanel/Mail.png" />
+                                <br />
+                                <span>ایمیل اطلاع رسانی</span>
                             </div>
                         </a>
 

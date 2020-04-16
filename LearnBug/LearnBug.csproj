@@ -334,9 +334,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Files\AdminPanel\Factors.png" />
     <Content Include="Files\AdminPanel\Groups.png" />
+    <Content Include="Files\AdminPanel\Mail.png" />
     <Content Include="Files\AdminPanel\Setting.png" />
     <Content Include="Files\AdminPanel\Users.png" />
-    <Content Include="Files\Picture\Logo.png" />
+    <Content Include="Files\Picture\Logo\Logo.png" />
     <Content Include="Files\Picture\P_P_Default.png" />
     <Content Include="Files\Picture\P_P_Famel.png" />
     <Content Include="Files\Picture\P_P_Male.png" />
@@ -1297,6 +1298,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Setting\Edit.cshtml" />
     <Content Include="Views\Home\Footer.cshtml" />
+    <Content Include="Views\Setting\UploadLogo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

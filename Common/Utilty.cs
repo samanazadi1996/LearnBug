@@ -16,18 +16,15 @@ public static class Utilty
     {
         return new PersianDateTime(dt).ToString(format);
     }
-
     public static DateTime ToMiladiDate(this DateTime dt)
     {
 
         return PersianDateTime.Parse(dt.ToString("yyyy/MM/dd hh:mm:ss")).ToDateTime();
     }
-
     public static string ToPrice(this double dec)
     {
         return dec.ToString("#,##0");
     }
-
     public static string Encrypt(this string str)
     {
         byte[] encData_byte = new byte[str.Length];
@@ -59,7 +56,5 @@ public static class Utilty
         return a;
 
     }
-
-
 
 }

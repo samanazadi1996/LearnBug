@@ -11,12 +11,93 @@
                 <div class="grid-view">
                     @using (Html.BeginForm())
                     {
-                    @Html.TextAreaFor(mode => Model.Value)
-                    @Html.HiddenFor(mode => Model.Id)
-                    <br />
-                    <br />
-                    <br />
-                    <button class="btn btn-success">ذخیره تغیرات</button>
+                        <div>
+                            <center>
+
+                                @Html.HiddenFor(mode => Model.Id)
+
+                                @switch (Model.Type)
+                                {
+                                    case "Html":
+                                        {
+                                            @Html.TextAreaFor(mode => Model.Value)
+                                            @section Scripts{
+                                                <script src="~/Scripts/tinymce/tinyMane.js"></script>
+                                                <script src="~/Scripts/tinymce/tinymce.js"></script>
+                                            }
+                                            break;
+                                        }
+                                    case "Image":
+                                        {
+                                            @Html.HiddenFor(model => Model.Value)
+                                            <img style="width:200px;height:200px;border:solid 1px silver" src="@Model.Value" id="upload-Preview" />
+                                            <img style="display:none" id="original-Img" />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <input id="upload-Image" type="file" onchange="loadImageFile();" style="width:200px" />
+
+                                            @section Scripts{
+                                                <script>
+                                                    var fileReader = new FileReader();
+                                                    var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+
+                                                    fileReader.onload = function (event) {
+                                                        var image = new Image();
+
+                                                        image.onload = function () {
+                                                            document.getElementById("original-Img").src = image.src;
+                                                            var canvas = document.createElement("canvas");
+                                                            var context = canvas.getContext("2d");
+                                                            canvas.width = 200;
+                                                            canvas.height = 200;
+                                                            context.drawImage(image,
+                                                                0,
+                                                                0,
+                                                                image.width,
+                                                                image.height,
+                                                                0,
+                                                                0,
+                                                                canvas.width,
+                                                                canvas.height
+                                                            );
+
+                                                            document.getElementById("upload-Preview").src = canvas.toDataURL();
+                                                            document.getElementById("Value").value = canvas.toDataURL();
+                                                        }
+                                                        image.src = event.target.result;
+                                                    };
+
+                                                    var loadImageFile = function () {
+                                                        var uploadImage = document.getElementById("upload-Image");
+
+                                                        //check and retuns the length of uploded file.
+
+                                                        //Is Used for validate a valid file.
+                                                        var uploadFile = document.getElementById("upload-Image").files[0];
+
+                                                        fileReader.readAsDataURL(uploadFile);
+                                                    }
+
+                                                </script>
+                                            }
+                                            break;
+                                        }
+                                    case "Text":
+                                        {
+                                            @Html.TextBoxFor(model => Model.Value, new { @class = "form-control", Style = "width:300px;" })
+                                            break;
+                                        }
+                                }
+                                <br />
+                                <br />
+                                <br />
+                                <a href="@Url.Action("Index","Setting")" class="btn btn-danger">انصراف</a>
+                                <button class="btn btn-success">ذخیره تغیرات</button>
+
+                            </center>
+                        </div>
+
                     }
                 </div>
                 <!-- -->
@@ -25,10 +106,3 @@
     </div>
 </div>
 
-@section Scripts {
-    @if (Model.Type.ToString() == "Html")
-    {
-        <script src="~/Scripts/tinymce/tinyMane.js"></script>
-        <script src="~/Scripts/tinymce/tinymce.js"></script>
-    }
-}
