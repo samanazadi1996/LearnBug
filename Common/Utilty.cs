@@ -18,7 +18,6 @@ public static class Utilty
     }
     public static DateTime ToMiladiDate(this DateTime dt)
     {
-
         return PersianDateTime.Parse(dt.ToString("yyyy/MM/dd hh:mm:ss")).ToDateTime();
     }
     public static string ToPrice(this double dec)

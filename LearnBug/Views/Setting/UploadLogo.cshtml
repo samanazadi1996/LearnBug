@@ -27,7 +27,7 @@
                 <center>
                     @using (Html.BeginForm("UploadLogo", "Setting", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
-                        <input name="UploadImage" type="file" class="hidden" id="FileUpload" onchange="document.getElementById('sub').click()" />
+                        <input name="File" type="file" class="hidden" id="FileUpload" onchange="document.getElementById('sub').click()" />
                         <button class="hidden" id="sub"></button>
                     }
 
@@ -85,6 +85,11 @@
                 .itemlogo:hover .itemDelete {
                     transform: scale(1);
                 }
+
+                    .itemlogo:hover .itemDelete:hover {
+                        transform: scale(1) rotate(360deg);
+                        color:black;
+                    }
 
         .itemDelete {
             position: absolute;

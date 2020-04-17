@@ -13,6 +13,7 @@ namespace LearnBug.Controllers
     public class SettingController : Controller
     {
         Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
+        SettingServices settingServices = new SettingServices();
         public ActionResult Index()
         {
             var model = db.Settings.AsQueryable();
@@ -38,28 +39,22 @@ namespace LearnBug.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult UploadLogo(HttpPostedFileBase UploadImage)
+        public ActionResult UploadLogo(HttpPostedFileBase File)
         {
-            string path = Server.MapPath("~") + "Files\\Picture\\Logo\\" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".png";
-
-            UploadImage.SaveAs(path);
+            settingServices.UploadLogo(File);
             return View();
         }
-
         [HttpPost]
         public JavaScriptResult SetLogo(string name)
         {
-            SettingServices a = new SettingServices();
-            if (a.ChangeLogo(name))
+            if (settingServices.ChangeLogo(name))
                 return JavaScript("alert('لوگو سایت با موفقیت تغیر کرد')");
             return JavaScript("alert('خطایی رخ داده است')");
-
         }
         [HttpPost]
         public JavaScriptResult DeleteLogo(string name)
         {
-            SettingServices a = new SettingServices();
-            if (a.DeleteLogo(name))
+            if (settingServices.DeleteLogo(name))
                 return JavaScript("alert('لوگو با موفقیت حذف شد !')");
 
             return JavaScript("alert('لوگو سایت فعال است و نمیتوان آن را حذف کرد!')");

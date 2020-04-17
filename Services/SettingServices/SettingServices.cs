@@ -42,5 +42,20 @@ namespace Services.SettingServices
             File.Delete(HttpContext.Current.Server.MapPath("~") + "Files\\Picture\\Logo\\" + Name);
             return true;
         }
+
+        public bool UploadLogo(HttpPostedFileBase File)
+        {
+            try
+            {
+                string path = HttpContext.Current.Server.MapPath("~") + "Files\\Picture\\Logo\\" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".png";
+                File.SaveAs(path);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
     }
 }
