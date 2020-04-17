@@ -62,7 +62,7 @@
                             {
                                 if (string.IsNullOrEmpty(Model.Price.ToString()) ||
                                     Model.Factors.Any(p => p.User.Username == User.Identity.Name) ||
-                                    Model.User.Username == User.Identity.Name 
+                                    Model.User.Username == User.Identity.Name
                                     //|| User.IsInRole("Admin")
                                     )
                                 {
@@ -78,9 +78,18 @@
                             }
                             else
                             {
-                                <Center>
-                                    <b style="color:orange;font-size:22px;">برای مشاهده مطلب باید عضو سایت باشید !</b>
-                                </Center>
+                                if (string.IsNullOrEmpty(Model.Price.ToString()))
+                                {
+                                    @Html.Raw(Model.Description)
+
+                                }
+                                else
+                                {
+                                    <Center>
+                                        <b style="color:orange;font-size:22px;">برای مشاهده مطلب باید عضو سایت باشید !</b>
+                                    </Center>
+                                }
+
                             }
                         </div>
                     </div>
