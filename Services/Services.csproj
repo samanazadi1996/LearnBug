@@ -51,10 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formater\Formater.cs" />
     <Compile Include="MailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SettingServices\ISettingServices.cs" />
-    <Compile Include="SettingServices\SettingServices.cs" />
+    <Compile Include="Services\ISettingServices.cs" />
+    <Compile Include="Services\SettingServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Services.SettingServices
+namespace Services
 {
    public interface ISettingServices
     {
