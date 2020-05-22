@@ -6,7 +6,9 @@
 <div>
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading"><a href="/Setting/Index">تنظیمات</a> / <a href="/Setting/Edit/@Model.Id">ویرایش مقدار @Model.Name</a></div>
+            <div class="panel-heading">
+                <a href="/Home/AdminPanel">پنل مدیریتی</a> / <a href="/Setting/Index">تنظیمات</a> / <a href="/Setting/Edit/@Model.Id">ویرایش مقدار @Model.Name</a>
+            </div>
             <div class="panel-body">
                 <div class="grid-view">
                     @using (Html.BeginForm())
@@ -69,11 +71,6 @@
                                                     };
 
                                                     var loadImageFile = function () {
-                                                        var uploadImage = document.getElementById("upload-Image");
-
-                                                        //check and retuns the length of uploded file.
-
-                                                        //Is Used for validate a valid file.
                                                         var uploadFile = document.getElementById("upload-Image").files[0];
 
                                                         fileReader.readAsDataURL(uploadFile);
@@ -85,7 +82,17 @@
                                         }
                                     case "Text":
                                         {
-                                            @Html.TextAreaFor(model => Model.Value, new { @class = "form-control", Style = "width:400px;height:300px;" })
+                                            @Html.TextAreaFor(model => Model.Value, new { @class = "form-control" })
+                                            <style>
+                                                #Value {
+                                                    width: 400px;
+                                                    font-size:18px;
+                                                    color:darkblue;
+                                                    height: 300px;
+                                                    resize: none;
+                                                    box-shadow: 0px 5px 5px 0px silver
+                                                }
+                                            </style>
                                             break;
                                         }
                                 }

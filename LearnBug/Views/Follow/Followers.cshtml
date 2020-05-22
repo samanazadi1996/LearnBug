@@ -6,7 +6,7 @@
 <div>
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading"><a href="/Follow/Followers/?username=@Model.FirstOrDefault().User.Username">دنبال کنندگان @Model.FirstOrDefault().User.Username</a></div>
+            <div class="panel-heading"><a href="/Follow/Followers/@Model.FirstOrDefault().User.Username">دنبال کنندگان @Model.FirstOrDefault().User.Username</a></div>
             <div class="panel-body">
                 <div class="grid-view">
                     @foreach (var item in Model)
@@ -15,7 +15,7 @@
                             <img class="Follow-img" src="@item.User1.ImgProfile()" />
                             <p class="Follow-Uname">@item.User1.Username</p>
                             <div class="Follow-tools">
-                                <a href="/User/Profile/?username=@item.User1.Username"><span class="fa fa-eye">Visit</span></a>
+                                <a href="/User/Profile/@item.User1.Username"><span class="fa fa-eye">Visit</span></a>
                                 <span class="fa fa-plus">Follow</span>
                                 <span class="fa fa-remove">remove</span>
                             </div>

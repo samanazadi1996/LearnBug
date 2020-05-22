@@ -14,19 +14,22 @@ namespace LearnBug.Controllers
         LearnBugDBEntities1 db = new LearnBugDBEntities1();
         public ActionResult myMessage()
         {
-            int userId = db.Users.Single(P=>P.Username==User.Identity.Name).Id;
-            var model = db.Users.OrderByDescending(p => p.Id).Where(p => p.Messages.Any(o => o.FromuserId == userId || o.TouserId == userId)).OrderByDescending(p => p.Id);
+            int userId = db.Users.Single(P => P.Username == User.Identity.Name).Id;
+            var model = db.Users.Where(p =>
+            p.Messages.Any(o =>
+            o.FromuserId == userId ||
+            o.TouserId == userId)&& p.Id != userId).OrderByDescending(p=>p.Id);
+
+
             var modelstatus = db.Messages.Where(p => p.TouserId == userId && p.Status == 0);
-            foreach (var item in modelstatus)
-            {
-                item.Status = 1;
-            }
+
+            foreach (var item in modelstatus){item.Status = 1;}
             db.SaveChanges();
             return View(model);
         }
         public ActionResult _viewfullMessage(int id)
         {
-            int a = db.Users.Single(p=>p.Username==User.Identity.Name).Id;
+            int a = db.Users.Single(p => p.Username == User.Identity.Name).Id;
             var user = db.Users.Find(id);
             ViewBag.username = user.Username;
             ViewBag.id = user.Id;
@@ -51,7 +54,7 @@ namespace LearnBug.Controllers
             };
             if (ModelState.IsValid)
             {
-                db.Users.Single(p=>p.Username==User.Identity.Name).Messages.Add(message);
+                db.Users.Single(p => p.Username == User.Identity.Name).Messages.Add(message);
                 if (db.SaveChanges() > 0)
                 {
                     return JavaScript("alert('پیغام ارسال شد')");

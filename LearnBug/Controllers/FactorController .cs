@@ -80,7 +80,7 @@ namespace LearnBug.Controllers
             ViewBag.from = from;
             ViewBag.to = to;
 
-            return View(model);
+            return View(model.OrderByDescending(p=>p.Datetime));
         }
 
 

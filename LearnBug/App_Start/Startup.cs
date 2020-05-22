@@ -20,11 +20,10 @@ namespace LearnBug
 
             app.UseHangfireDashboard();
             app.UseHangfireServer();
-            RecurringJob.AddOrUpdate(() =>
-            File.Delete(System.Web.HttpContext.Current.Server.MapPath("~") + "logs/app-log.txt"), Cron.DayInterval(1));
+            //RecurringJob.AddOrUpdate(() =>
+            //File.Delete(System.Web.HttpContext.Current.Server.MapPath("~") + "logs/app-log.txt"), Cron.DayInterval(1));
 
-            RecurringJob.AddOrUpdate(() => MailSender.SendMail("adasdasd", "sadasdasdsad", "samanazadi1996@gmail.com")
-            , Cron.MinuteInterval(50));
+            //RecurringJob.AddOrUpdate(() => MailSender.SendMail("adasdasd", "sadasdasdsad", "samanazadi1996@gmail.com"), Cron.MinuteInterval(50));
         }
     }
 }

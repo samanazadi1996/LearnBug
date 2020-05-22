@@ -63,11 +63,11 @@ namespace LearnBug.Controllers
             }
         }
         [AllowAnonymous]
-        public ActionResult Profile(string username)
+        public ActionResult Profile(string id)
         {
             try
             {
-                var user = db.Users.FirstOrDefault(p => p.Username.Trim() == username.Trim());
+                var user = db.Users.FirstOrDefault(p => p.Username.Trim() == id.Trim());
                 return View(user);
 
             }

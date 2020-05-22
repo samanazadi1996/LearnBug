@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using LearnBug.ViewModels;
 using System.Web.Security;
 using NLog;
+using Models;
 
 namespace LearnBug.Controllers
 {

@@ -62,13 +62,12 @@
       <Project>{cc34c854-ac75-4dd6-aa81-339e1d3840ab}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{1eb6f991-5100-4164-92de-4cbfd9aa34a7}</Project>
-      <Name>Data</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configuration\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

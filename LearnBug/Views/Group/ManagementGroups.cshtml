@@ -10,7 +10,7 @@
 
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading"><a href="/Home/AdminPanel">پنل مدیریتی</a>/<a href="/Group/ManagementGroups">مدیریت گروه ها</a></div>
+            <div class="panel-heading"><a href="/Home/AdminPanel">پنل مدیریتی</a> / <a href="/Group/ManagementGroups">مدیریت گروه ها</a></div>
             <div class="panel-body">
                 <!-- -->
                 <!-- -->
@@ -22,7 +22,7 @@
                         <div class="form-group col-md-12">
                             <div class="col-md-3 pull-right">
                                 @Html.Label("نام گروه")<br />
-                                @Html.TextBox("Name", null, new { @class = "form-control " })
+                                @Html.TextBox("Name", null, new { @class = "form-control " ,autocomplete="off"})
                                 <br />
                                 @Html.Label("عکس گروه")<br />
                                 <input class="form-control " id="upload-Image" type="file" onchange="loadImageFile();" />
@@ -164,11 +164,6 @@
         };
 
         var loadImageFile = function () {
-            var uploadImage = document.getElementById("upload-Image");
-
-            //check and retuns the length of uploded file.
-
-            //Is Used for validate a valid file.
             var uploadFile = document.getElementById("upload-Image").files[0];
 
             fileReader.readAsDataURL(uploadFile);

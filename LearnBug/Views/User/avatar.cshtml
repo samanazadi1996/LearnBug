@@ -4,23 +4,22 @@
     <img src="@Model.ImgProfile()" style="width:100%;height:auto" />
     <span class="wallet">$ @Model.Wallet.ToPrice()</span>
 </div>
-<div>
-    <center>
-            <a class="ateg" href="/User/Profile/?username=@Model.Username">
-                @Model.name
-            </a>
-    </center>
-</div>
-<br />
 <div class="col-md-12">
     <center>
-        <a href="/User/Profile/?username=@Model.Username#GotoContents">
+        <a href="/User/Profile/@Model.Username" style="text-decoration:none;">
+            <div class="col-md-12 sa-box ateg">@Model.name</div>
+        </a>
+    </center>
+</div>
+<div class="col-md-12">
+    <center>
+        <a href="/User/Profile/@Model.Username#GotoContents" style="text-decoration:none;">
             <div class="col-md-4 sa-box">Posts<br />@Model.Contents.Count()</div>
         </a>
-        <a href="/Follow/Followers/?username=@Model.Username">
+        <a href="/Follow/Followers/@Model.Username" style="text-decoration:none;">
             <div class="col-md-4 sa-box">Followers<br />@Model.Follows.Count()</div>
         </a>
-        <a href="/Follow/Following/?username=@Model.Username">
+        <a href="/Follow/Following/@Model.Username" style="text-decoration:none;">
             <div class="col-md-4 sa-box">Following<br />@Model.Follows1.Count()</div>
         </a>
     </center>
@@ -28,8 +27,16 @@
 
 
 <div class="col-lg-12"><center>
-    <a href="@Url.Action("Edit","User")" class="fa fa-edit ateg">Edit Profile </a><br />
-    <a href="@Url.Action("myContents","Content")" class="fa fa-book ateg">My Contents</a><br />
-    <a href="@Url.Action("MyBookMarks","Bookmark")" class="fa fa-bookmark ateg">BookMarks </a>
+    <a href="@Url.Action("Edit","User")" style="text-decoration:none;">
+        <div class="col-md-12 sa-box ateg">Edit Profile</div>
+    </a>
+
+    <a href="@Url.Action("myContents","Content")" style="text-decoration:none;">
+        <div class="col-md-12 sa-box ateg">My Content</div>
+    </a>
+
+    <a href="@Url.Action("MyBookMarks","Bookmark")" style="text-decoration:none;">
+        <div class="col-md-12 sa-box ateg">BookMarks</div>      
+    </a>
 </center>
 </div>

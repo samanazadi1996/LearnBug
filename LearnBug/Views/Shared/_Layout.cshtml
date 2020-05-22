@@ -20,7 +20,7 @@
 <body>
     <div class="top-head navbar-fixed-top">
         <ul class="top-item pull-right">
-            <li style="background-color:rgb(26, 26, 95)">
+            <li style="background-color:#222">
                 <div class="fa fa-bars" onclick="togNav()"></div>
             </li>
             
@@ -87,12 +87,16 @@
             }
             else
             {
-
-                <div class="col-lg-12" style="text-align:left">
-                    <a href="@Url.Action("Login", "Home")" class="fa fa-sign-in">ورود </a>
-                    <a href="@Url.Action("RegisterUser", "User")" class="fa fa-registered">ثبت نام </a>
+                <div class="col-lg-12">
+                    <center>
+                        <a href="@Url.Action("Login","Home")">
+                            <div class="col-md-12 sa-box ateg">Sing in</div>
+                        </a>        
+                        <a href="@Url.Action("RegisterUser","User")">
+                            <div class="col-md-12 sa-box ateg">Register</div>
+                        </a>
+                    </center>
                 </div>
-
             }
         </div>
 

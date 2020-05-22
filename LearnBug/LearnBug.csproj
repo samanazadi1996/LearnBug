@@ -412,6 +412,8 @@
     <Content Include="Models\DomainModels\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Scripts\AjaxForm\jquery.form.js" />
+    <Content Include="Scripts\AjaxForm\jquery.form.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1304,7 +1306,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\js\" />
     <Folder Include="Models\Enums\" />
-    <Folder Include="Views\Post\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -1323,13 +1324,9 @@
       <Project>{cc34c854-ac75-4dd6-aa81-339e1d3840ab}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{1eb6f991-5100-4164-92de-4cbfd9aa34a7}</Project>
-      <Name>Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Entities\Entities.csproj">
-      <Project>{bdf26215-651e-429a-afb6-d6c198d9eb9c}</Project>
-      <Name>Entities</Name>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{5ca2eb51-6610-4fff-b70b-dafdccdbced4}</Project>
+      <Name>Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
       <Project>{f64bd14a-49aa-44e3-ab5e-081e9fa460d5}</Project>

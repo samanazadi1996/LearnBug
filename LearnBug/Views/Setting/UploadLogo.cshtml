@@ -25,9 +25,9 @@
 
                 <div class="clear"></div>
                 <center>
-                    @using (Html.BeginForm("UploadLogo", "Setting", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("UploadLogo", "Setting", FormMethod.Post, new {id="frm", enctype = "multipart/form-data" }))
                     {
-                        <input name="File" type="file" class="hidden" id="FileUpload" onchange="document.getElementById('sub').click()" />
+                        <input name="File" type="file" class="hidden" id="FileUpload" onchange="document.getElementById('frm').submit()" />
                         <button class="hidden" id="sub"></button>
                     }
 

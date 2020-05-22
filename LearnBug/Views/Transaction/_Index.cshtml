@@ -12,10 +12,11 @@
             <th>تاریخ</th>
             <th>مبلغ</th>
         </tr>
-        @foreach (var item in Model)
-        {
+        @{int a = 1;}
+            @foreach (var item in Model)
+            {
             <tr>
-                <td>@item.Id</td>
+                <td>@(a++) </td>
                 <td>@(item.Charge ? "+" : "-")</td>
                 <td>@item.Datetime.ToPersianDate()</td>
                 <td>@item.Price.ToPrice()</td>

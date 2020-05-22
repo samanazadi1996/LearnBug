@@ -9,21 +9,21 @@
         <tr>
             <th>#</th>
             <th>نام مدرس</th>
-            <th>تاریخ درج مطلب</th>
+            <th>موضوع مطلب</th>
             <th> تاریخ خرید</th>
             <th> قیمت</th>
-            <th> مشاهده دوره</th>
             <th> امتیاز</th>
         </tr>
+        @{int a = 1;}
+
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Id</td>
-                <td>@item.Content.User.name</td>
-                <td>@item.Content.Datetime.ToPersianDate()</td>
+                <td>@(a++)</td>
+                <td><a href="/User/Profile/@item.Content.User.Username">@item.Content.User.name</a></td>
+                <td><a href="/Content/ViewContent/@item.contentId">@item.Content.Subject</a></td>
                 <td>@item.Datetime.ToPersianDate()</td>
                 <td>@item.Price</td>
-                <td><a href="/Content/ViewContent/@item.contentId">مشاهده</a></td>
                 <td>5</td>
             </tr>
         }

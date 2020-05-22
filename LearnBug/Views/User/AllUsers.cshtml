@@ -6,7 +6,7 @@
 <div>
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading"><a href="/Home/AdminPanel">پنل مدیریتی</a>/<a href="/User/AllUsers">مدیریت کاربران</a></div>
+            <div class="panel-heading"><a href="/Home/AdminPanel">پنل مدیریتی</a> / <a href="/User/AllUsers">مدیریت کاربران</a></div>
             <div class="panel-body">
                 <div class="grid-view">
                     @using (Html.BeginForm("AllUsers", "User", FormMethod.Get))
@@ -57,7 +57,7 @@
                         {
                             <tr>
                                 <td><img style="width:30px;height:30px;border-radius:100%;" src="@item.ImgProfile()"></td>
-                                <td><a href="/User/Profile/?username=@item.Username">@item.Username</a></td>
+                                <td><a href="/User/Profile/@item.Username">@item.Username</a></td>
                                 <td>@item.name</td>
                                 <td>@item.Wallet.ToPrice() $</td>
                                 <td>@item.Commission %</td>
@@ -70,7 +70,7 @@
                                 <td>@item.Transactions.Count</td>
                                 <td>@item.Contents.SelectMany(p => p.Factors).Count()</td>
                                 <td>@item.Roles</td>
-                                <td><a href="/User/ManagementUser/@item.Id">جزئیات</a></td>
+                                <td><a href="/User/ManagementUser/@item.Id" class="fa fa-edit"></a></td>
                             </tr>
                         }
                     </table>
