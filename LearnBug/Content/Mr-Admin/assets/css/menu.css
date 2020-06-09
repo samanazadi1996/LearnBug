@@ -197,6 +197,7 @@ File: Menu
 .content-page {
   margin-right: 250px;
   overflow: hidden;
+  transition:0.4s;
 }
 .content-page .content {
   padding: 0px 5px;
@@ -367,6 +368,7 @@ File: Menu
   z-index: 5;
   position: absolute;
   padding-bottom: 10px;
+  transition:0.4s;
 }
 #wrapper.enlarged .left.side-menu #sidebar-menu > ul > li > a {
   padding: 15px 20px;
@@ -481,6 +483,7 @@ File: Menu
 }
 #wrapper.enlarged .topbar .topbar-left {
   width: 70px !important;
+  transition:0.4s;
 }
 #wrapper.enlarged .topbar .topbar-left .logo span {
   display: none;
