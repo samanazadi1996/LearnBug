@@ -21,7 +21,7 @@ namespace Models
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Content> Contents { get; set; }
+        public DbSet<Post> Posts { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Factor> Factors { get; set; }
@@ -42,7 +42,7 @@ namespace Models
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.Add(new User.Configuration());
-            modelBuilder.Configurations.Add(new Content.Configuration());
+            modelBuilder.Configurations.Add(new Post.Configuration());
             modelBuilder.Configurations.Add(new Message.Configuration());
             modelBuilder.Configurations.Add(new Follow.Configuration());
             modelBuilder.Configurations.Add(new Comment.Configuration());

@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Models.Entities.Group>
+
+    <select size="10" id="MyGroupList" style="width:300px;font-size:16px;color:darkblue;font-family:'Comic Sans MS'" onchange="SelectGroup()">
+        @foreach (var item in Model)
+        {
+            <option value=@item.Id img=@(item.Image==null ? "" : item.Image)>@item.Name</option>
+        }
+    </select>

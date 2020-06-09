@@ -27,7 +27,15 @@ namespace Models.Entities
         #region Constractor
         public User()
         {
-
+            this.Bookmarks   = new HashSet<Bookmark>();
+            this.Posts = new HashSet<Post>();
+            this.Comments = new HashSet<Comment>();
+            this.Follower = new HashSet<Follow>();
+            this.Following = new HashSet<Follow>();
+            this.Factors = new HashSet<Factor>();
+            this.Transactions = new HashSet<Transaction>();
+            this.Sent = new HashSet<Message>();
+            this.Inbox = new HashSet<Message>();
         }
         #endregion
 
@@ -39,7 +47,7 @@ namespace Models.Entities
         [Display(Name = " : نام")]
         [DisplayName(": نام")]
         [Required(ErrorMessage = "نام خود را وارد کنید")]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Display(Name = "ایمیل")]
         [DisplayName("ایمیل")]
@@ -95,7 +103,7 @@ namespace Models.Entities
 
         public virtual ICollection<Comment> Comments { get; set; }
 
-        public virtual ICollection<Content> Contents { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
 
         public virtual ICollection<Factor> Factors { get; set; }
 

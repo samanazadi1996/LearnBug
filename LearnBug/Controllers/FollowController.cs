@@ -1,4 +1,5 @@
-﻿using LearnBug.Models.DomainModels;
+﻿using Models.Entities;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,24 +10,23 @@ namespace LearnBug.Controllers
 {
     public class FollowController : Controller
     {
-        LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
-
+        DatabaseContext db = new DatabaseContext();
         // GET: Follow
         public void Follow(int id, bool type)
         {
             var myUser = db.Users.Single(p => p.Username == User.Identity.Name);
             if (type)
             {
-                if (!myUser.Follows1.Any(p => p.followUserId == id))
+                if (!myUser.Follower.Any(p => p.followerId == id))
                 {
-                    myUser.Follows1.Add(new Follow { followUserId = id, DateTime = DateTime.Now });
+                    myUser.Follower.Add(new Follow { followerId = id});
                 }
             }
             else
             {
-                if (myUser.Follows1.Any(p => p.followUserId == id))
+                if (myUser.Follower.Any(p => p.followerId == id))
                 {
-                    var follow = myUser.Follows1.FirstOrDefault(p => p.followUserId == id);
+                    var follow = myUser.Follower.FirstOrDefault(p => p.followerId == id);
                     db.Follows.Remove(follow);
                 }
             }
@@ -37,12 +37,12 @@ namespace LearnBug.Controllers
 
         public ActionResult Followers(string id)
         {
-            var model = db.Users.Single(p => p.Username == id).Follows.AsQueryable();
+            var model = db.Users.Single(p => p.Username == id).Following.Select(p=>p.Follower).AsQueryable();
             return View(model);
         }
         public ActionResult Following(string id)
         {
-            var model = db.Users.Single(p => p.Username == id).Follows1.AsQueryable();
+            var model = db.Users.Single(p => p.Username == id).Follower.Select(p=>p.Following).AsQueryable();
             return View(model);
         }
     }

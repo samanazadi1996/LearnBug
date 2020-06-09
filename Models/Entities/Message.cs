@@ -40,7 +40,6 @@ namespace Models.Entities
         #endregion
 
         public string Text { get; set; }
-        public DateTime Datetime { get; set; }
         public Nullable<long> Status { get; set; }
 
         #region User

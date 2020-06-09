@@ -1,43 +1,50 @@
-﻿using LearnBug.Models.DomainModels;
+﻿using Models.Entities;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ViewModels;
 
 namespace LearnBug.Controllers
 {
     [Authorize]
-
     public class BookmarkController : Controller
     {
-        LearnBugDBEntities1 db = new LearnBugDBEntities1();
+        DatabaseContext db = new DatabaseContext();
         [Authorize]
         // GET: Bookmark
-        public void AddBookmark(int ContentId, bool type)
+        public JavaScriptResult CreateOrDeleteBookmark(int postId)
         {
-                var myUser = db.Users.Single(p => p.Username == User.Identity.Name);
-                if (type)
-                {
-                    if (!myUser.Bookmarks.Any(p => p.contentId == ContentId))
-                    {
-                        myUser.Bookmarks.Add(new Bookmark { contentId = ContentId, Datetime = DateTime.Now });
-                    }
-                }
-                else
-                {
-                    if (myUser.Bookmarks.Any(p => p.contentId == ContentId))
-                    {
-                        var bookmark = myUser.Bookmarks.FirstOrDefault(p => p.contentId == ContentId);
-                        db.Bookmarks.Remove(bookmark) ;
-                    }
-                }
+            var myUser = db.Users.Single(p => p.Username == User.Identity.Name);
+            if (!myUser.Bookmarks.Any(p => p.postId == postId))
+            {
+                myUser.Bookmarks.Add(new Bookmark { postId = postId });
                 db.SaveChanges();
+                return JavaScript("alert('مطلب نشانه گذاری شد .')");
+
+            }
+            else
+            {
+                var bookmark = myUser.Bookmarks.FirstOrDefault(p => p.postId == postId);
+                db.Bookmarks.Remove(bookmark);
+                db.SaveChanges();
+                return JavaScript("alert('مطلب از لیست نشانه گذاری ها حذف شد .')");
+            }
         }
-        public ActionResult MyBookMarks()
+
+        public ActionResult Index( int Page = 1)
         {
-            var contents = db.Users.Single(p => p.Username == User.Identity.Name).Bookmarks.Select(o => o.Content).OrderByDescending(i=>i.Datetime);
-            return View(contents);
+            var Posts = db.Users.Single(p => p.Username == User.Identity.Name).Bookmarks.Select(o => o.Post).OrderByDescending(i => i.InsertDateTime);
+            PostsViewModel model = new PostsViewModel
+            {
+                postId = Posts.Skip((Page - 1) * 12).Take(12).Select(p => p.Id).AsQueryable(),
+                CurrentPage = Page,
+                TotalItemCount = Posts.Count()
+            };
+            return View(model);
         }
+
     }
 }

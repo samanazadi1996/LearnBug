@@ -1,0 +1,107 @@
+﻿@model IEnumerable<ViewModels.MessageViewModel>
+@{
+    ViewBag.Title = "پیام های من";
+}
+
+<div class="row">
+
+    <div class="col-sm-12">
+        <div class="inbox-app-main">
+            <div class="row">
+                <div class="col-md-3">
+                    <aside id="sidebar" class="nano">
+                        <div class="nano-content">
+
+                            <div class="text-center">
+                                <a href="#custom-modal" class="btn btn-danger btn-rounded w-lg waves-effect waves-light m-b-20 m-t-30" data-animation="fadein" data-plugin="custommodal"
+                                   data-overlaySpeed="200" data-overlayColor="#36404a">ارسال ایمیل</a>
+                            </div>
+                            <menu class="menu-segment">
+                                <ul class="list-unstyled">
+                                    <li class="active liActive" id="li_Inbox">
+                                        <a href="javascript:void(0);" onclick="renderPartialView('_Inbox')">اینباکس@*<span> (43)</span>*@</a>
+                                    </li>
+                                    <li class="liActive" id="li_Important"><a href="javascript:void(0);">مهم</a></li>
+                                    <li class="liActive" id="li_Sent"><a href="javascript:void(0);" onclick="renderPartialView('_Sent')">ارسالی</a></li>
+                                    <li class="liActive" id="li_Draft"><a href="javascript:void(0);">پیش نویس</a></li>
+                                    <li class="liActive" id="li_Bin"><a href="javascript:void(0);">زباله</a></li>
+                                </ul>
+                            </menu>
+                            <div class="separator"></div>
+                            <div class="menu-segment">
+                                <ul class="labels list-unstyled">
+                                    <li class="title">برچسب ها <span class="icon">+</span></li>
+                                    <li>
+                                        <a href="#">نام کاربر 1 <span class="ball pink"></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            نام کاربر 2 <span class="ball green"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">نام کاربر 3 <span class="ball blue"></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="menu-segment">
+                                <ul class="chat list-unstyled">
+                                    <li class="title">دوستان من <span class="icon"></span></li>
+                                    @foreach (var item in Model)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Profile","User",new {id=item.User.Username})">
+                                                @item.User.Name
+                                                <span class="ball pink"></span>
+                                            </a>
+                                        </li>
+
+                                    }
+                                </ul>
+                            </div>
+                            <div class="bottom-padding"></div>
+                        </div>
+                    </aside>
+                </div> <!-- end col -->
+                <div class="col-md-9" id="myModal">
+                    @Html.Action("_Inbox", "Message")
+                </div>
+            </div><!-- end row -->
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts{
+    <script src="~/Scripts/Bootstrap4/popper.min.js"></script>
+
+    <script>
+        function renderPartialView(PV_Name) {
+            $.ajax({
+                url: "/message/" + PV_Name,
+                type: "post",
+                success: function (resulet) {
+                    if (resulet) {
+                        $('#myModal').html(resulet)
+                    }
+                }
+            })
+            $(".liActive").removeClass(" active ");
+            $("#li" + PV_Name).addClass(" active ");
+
+        }
+
+        function SendMessage(id) {
+            $.ajax({
+                url: "/Message/SendMessage",
+                data: { text: document.getElementById("text").value, to: id },
+                type: "post",
+                datatype: "json"
+            })
+        }
+
+    </script>
+}
+

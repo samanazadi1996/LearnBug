@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LearnBug.Models.DomainModels;
 using System.Web;
 using System.Web.Mvc;
-using LearnBug.ViewModels;
 using System.Web.Security;
 using NLog;
 using Models;
+using ViewModels;
 
 namespace LearnBug.Controllers
 {
     public class HomeController : Controller
     {
-        LearnBugDBEntities1 db = new LearnBugDBEntities1();
+        DatabaseContext db = new DatabaseContext();
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         #region login_logout
@@ -46,12 +45,6 @@ namespace LearnBug.Controllers
         }
 
         #endregion      
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult AdminPanel()
-        {
-            return View();
-        }
         public ActionResult About()
         {
             var model = db.Settings.Single(p => p.Name == "About");
@@ -59,16 +52,16 @@ namespace LearnBug.Controllers
         }
         public ActionResult Index(string search = null, int Page = 1)
         {
-            var contents = db.Contents.OrderByDescending(p => p.Datetime).AsQueryable();
+            var contents = db.Posts.OrderByDescending(p => p.InsertDateTime).AsQueryable();
 
             if (!string.IsNullOrEmpty(search))
             {
-                contents = contents.Where(p => p.Subject.Contains(search) || p.Group.Name.Contains(search) || p.User.name.Contains(search) || p.User.Username.Contains(search));
+                contents = contents.Where(p => p.Subject.Contains(search) || p.Group.Name.Contains(search) || p.User.Name.Contains(search) || p.User.Username.Contains(search));
                 ViewBag.Srch = search.Trim();
             }
-            ContentViewModel model = new ContentViewModel
+            PostsViewModel model = new PostsViewModel
             {
-                Contents = contents.Skip((Page - 1) * 12).Take(12),
+                postId = contents.Skip((Page - 1) * 12).Take(12).Select(p => p.Id),
                 CurrentPage = Page,
                 TotalItemCount = contents.Count()
             };

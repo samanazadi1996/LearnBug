@@ -1,4 +1,5 @@
-﻿using LearnBug.Models.DomainModels;
+﻿using Models;
+using Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -143,17 +144,17 @@ public static class Utilty
 
     public static string ImgProfile(this User user)
     {
-        LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new LearnBug.Models.DomainModels.LearnBugDBEntities1();
+        DatabaseContext db = new DatabaseContext();
 
         if (string.IsNullOrEmpty(user.Image))
         {
 
-            if (user.Gender==1)
+            if (user.Gender==GenderType.Mele)
             {
                 return db.Settings.Single(p => p.Name == "DefultProfilePictureMale").Value;
 
             }
-            else if (user.Gender==2)
+            else if (user.Gender==GenderType.Femele)
             {
                 return db.Settings.Single(p => p.Name == "DefultProfilePictureFemale").Value;
 

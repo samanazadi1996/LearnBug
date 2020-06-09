@@ -14,11 +14,11 @@ namespace Models.Repositories
             db = new DatabaseContext();
         }
 
-        public bool Add(Content entity, bool autoSave = true)
+        public bool Add(Post entity, bool autoSave = true)
         {
             try
             {
-                db.Contents.Add(entity);
+                db.Posts.Add(entity);
                 if (autoSave)
                     return Convert.ToBoolean(db.SaveChanges());
                 else
@@ -30,7 +30,7 @@ namespace Models.Repositories
             }
         }
 
-        public bool Update(Content entity, bool autoSave = true)
+        public bool Update(Post entity, bool autoSave = true)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace Models.Repositories
             }
         }
 
-        public bool Delete(Content entity, bool autoSave = true)
+        public bool Delete(Post entity, bool autoSave = true)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace Models.Repositories
         {
             try
             {
-                var entity = db.Contents.Find(id);
+                var entity = db.Posts.Find(id);
                 db.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
                 if (autoSave)
                 {
@@ -83,11 +83,11 @@ namespace Models.Repositories
             }
         }
 
-        public Content Find(int id)
+        public Post Find(int id)
         {
             try
             {
-                return db.Contents.Find(id);
+                return db.Posts.Find(id);
             }
             catch
             {
@@ -95,11 +95,11 @@ namespace Models.Repositories
             }
         }
 
-        public IQueryable<Content> Where(System.Linq.Expressions.Expression<Func<Content, bool>> predicate)
+        public IQueryable<Post> Where(System.Linq.Expressions.Expression<Func<Post, bool>> predicate)
         {
             try
             {
-                return db.Contents.Where(predicate);
+                return db.Posts.Where(predicate);
             }
             catch
             {
@@ -107,11 +107,11 @@ namespace Models.Repositories
             }
         }
 
-        public IQueryable<Content> Select()
+        public IQueryable<Post> Select()
         {
             try
             {
-                return db.Contents.AsQueryable();
+                return db.Posts.AsQueryable();
             }
             catch
             {
@@ -119,11 +119,11 @@ namespace Models.Repositories
             }
         }
 
-        public IQueryable<TResult> Select<TResult>(System.Linq.Expressions.Expression<Func<Content, TResult>> selector)
+        public IQueryable<TResult> Select<TResult>(System.Linq.Expressions.Expression<Func<Post, TResult>> selector)
         {
             try
             {
-                return db.Contents.Select(selector);
+                return db.Posts.Select(selector);
             }
             catch
             {
@@ -135,8 +135,8 @@ namespace Models.Repositories
         {
             try
             {
-                if (db.Contents.Any())
-                    return db.Contents.OrderByDescending(p => p.Id).First().Id;
+                if (db.Posts.Any())
+                    return db.Posts.OrderByDescending(p => p.Id).First().Id;
                 else
                     return 0;
             }

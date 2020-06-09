@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Models.Entities.Comment>
+@foreach (var item in Model)
+{
+    <div class="alert alert-info fade in">
+        @if (item.User.Username==User.Identity.Name || User.IsInRole("Admin") || item.Post.User.Username==User.Identity.Name)
+        {
+            <button type="button" onclick="deleteComment(@item.Id);" class="close" data-dismiss="alert" aria-hidden="true"><i class="zmdi zmdi-delete"></i></button>
+        }
+        <h4>@item.User.Name</h4>
+        <p>
+            @item.Text
+        </p>
+    </div>
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="alert alert-info m-b-0">
+        <fieldset>
+            @using (Ajax.BeginForm("SendComment", "Comment", new AjaxOptions { UpdateTargetId = "comments", HttpMethod = "Post" }))
+            {
+                <input type="hidden" name="Id" value="@ViewBag.PostId" />
+                <h4>ارسال نظر جدید</h4>
+                <div class="col-md-12">
+                    <textarea style="width:100%;height:80px;resize:none" name="text" required></textarea>
+                </div>
+                <div class="col-md-12">
+                    <input type="submit" class="btn btn-info w-md" value="ارسال نظر" />
+                </div>
+            }
+        </fieldset>
+    </div>
+}
+

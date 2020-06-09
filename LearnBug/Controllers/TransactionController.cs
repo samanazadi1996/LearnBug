@@ -1,4 +1,5 @@
-﻿using LearnBug.Models.DomainModels;
+﻿using Models.Entities;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,12 @@ namespace LearnBug.Controllers
     [Authorize]
     public class TransactionController : Controller
     {
-        LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
+        DatabaseContext db = new DatabaseContext();
         // GET: Transaction
 
         public ActionResult _Index()
         {
-            var transactions = db.Users.Single(p => p.Username == User.Identity.Name).Transactions.OrderByDescending(p => p.Datetime).AsQueryable();
+            var transactions = db.Users.Single(p => p.Username == User.Identity.Name).Transactions.OrderByDescending(p => p.InsertDateTime).AsQueryable();
             return PartialView(transactions);
         }
 
@@ -31,7 +32,6 @@ namespace LearnBug.Controllers
             var user = db.Users.Single(p => p.Username == User.Identity.Name);
             Transaction transaction = new Transaction
             {
-                Datetime = DateTime.Now,
                 Price = price,
                 Charge = true,
             };

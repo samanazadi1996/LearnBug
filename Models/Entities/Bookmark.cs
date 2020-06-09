@@ -22,9 +22,9 @@ namespace Models.Entities
                     .HasForeignKey(current => current.userId)
                     .WillCascadeOnDelete(false);
 
-                HasRequired(current => current.Content)
+                HasRequired(current => current.Post)
                     .WithMany(current => current.Bookmarks)
-                    .HasForeignKey(current => current.contentId)
+                    .HasForeignKey(current => current.postId)
                     .WillCascadeOnDelete(false);
             }
         }
@@ -37,16 +37,14 @@ namespace Models.Entities
         }
         #endregion
 
-        public DateTime Datetime { get; set; }
-
         #region User
         public virtual User User { get; set; }
         public int userId { get; set; }
         #endregion
 
-        #region Content
-        public virtual Content Content { get; set; }
-        public int contentId { get; set; }
+        #region Post
+        public virtual Post Post { get; set; }
+        public int postId { get; set; }
         #endregion
     }
 }

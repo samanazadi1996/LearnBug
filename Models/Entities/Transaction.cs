@@ -33,7 +33,6 @@ namespace Models.Entities
         }
         #endregion
 
-        public DateTime Datetime { get; set; }
         public double Price { get; set; }
         public bool Charge { get; set; }
 

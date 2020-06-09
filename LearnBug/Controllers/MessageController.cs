@@ -1,60 +1,51 @@
-﻿using LearnBug.Models.DomainModels;
-using LearnBug.ViewModels;
+﻿using Models.Entities;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ViewModels;
 
 namespace LearnBug.Controllers
 {
     [Authorize]
     public class MessageController : Controller
     {
-        LearnBugDBEntities1 db = new LearnBugDBEntities1();
-        public ActionResult myMessage()
+        DatabaseContext db = new DatabaseContext();
+        public ActionResult Index()
         {
-            int userId = db.Users.Single(P => P.Username == User.Identity.Name).Id;
-            var model = db.Users.Where(p =>
-            p.Messages.Any(o =>
-            o.FromuserId == userId ||
-            o.TouserId == userId)&& p.Id != userId).OrderByDescending(p=>p.Id);
-
-
-            var modelstatus = db.Messages.Where(p => p.TouserId == userId && p.Status == 0);
-
-            foreach (var item in modelstatus){item.Status = 1;}
-            db.SaveChanges();
-            return View(model);
+            var myUserName = User.Identity.Name;
+            var message = db.Messages.Where(p => p.sender.Username == myUserName || p.Reciver.Username == myUserName);
+            var model = message.Select(p => new MessageViewModel {
+                User =(p.Reciver.Username== myUserName ? p.sender:p.Reciver)
+                });
+            return View(model.Distinct());
         }
-        public ActionResult _viewfullMessage(int id)
+        public ActionResult _Inbox()
         {
-            int a = db.Users.Single(p => p.Username == User.Identity.Name).Id;
-            var user = db.Users.Find(id);
-            ViewBag.username = user.Username;
-            ViewBag.id = user.Id;
-            ViewBag.image = user.Image;
-            ViewBag.name = user.name;
-            var model = db.Messages.Where(p => (p.FromuserId == a && p.TouserId == id) || (p.FromuserId == id && p.TouserId == a));
-            var modelstatus = model.Where(p => p.TouserId == a && p.Status != 2);
-            foreach (var item in modelstatus) item.Status = 2;
-            db.SaveChanges();
-
+            var me = db.Users.Single(p => p.Username == User.Identity.Name);
+            var model = me.Inbox.OrderByDescending(p=>p.InsertDateTime);
             return PartialView(model);
         }
-        public ActionResult SendMessage(string text, int to)
+        public ActionResult _Sent()
+        {
+            var me = db.Users.Single(p => p.Username == User.Identity.Name);
+            var model = me.Sent.OrderByDescending(p => p.InsertDateTime);
+            return PartialView(model);
+        }
+        public JavaScriptResult SendMessage(string text, int to)
         {
             var message = new Message
             {
-                Datetime = DateTime.Now,
                 Text = text,
-                TouserId = to,
+                reciverId = to,
                 Status = 0
 
             };
             if (ModelState.IsValid)
             {
-                db.Users.Single(p => p.Username == User.Identity.Name).Messages.Add(message);
+                db.Users.Single(p => p.Username == User.Identity.Name).Sent.Add(message);
                 if (db.SaveChanges() > 0)
                 {
                     return JavaScript("alert('پیغام ارسال شد')");
@@ -74,9 +65,9 @@ namespace LearnBug.Controllers
         {
             var msg = db.Messages.Find(id);
             int user = db.Users.Single(p => p.Username == User.Identity.Name).Id;
-            if (msg.TouserId == user || msg.FromuserId == user)
+            if (msg.reciverId == user || msg.senderId == user)
             {
-                if (msg.Status < 2 && msg.TouserId == user)
+                if (msg.Status < 2 && msg.reciverId == user)
                 {
                     msg.Status = 2;
                     db.SaveChanges();
@@ -84,7 +75,6 @@ namespace LearnBug.Controllers
                 return Json(new
                 {
                     success = true,
-                    datetime = msg.Datetime,
                     text = msg.Text,
                     username = User.Identity.Name,
                 });

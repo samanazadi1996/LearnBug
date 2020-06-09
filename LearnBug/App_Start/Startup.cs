@@ -16,7 +16,7 @@ namespace LearnBug
         public void Configuration(IAppBuilder app)
         {
             GlobalConfiguration.Configuration
-    .UseSqlServerStorage(@"data source=.;initial catalog=learnbugdb;integrated security=true;");
+    .UseSqlServerStorage(@"data source=.;initial catalog=LearnBugDatabase;integrated security=True;");
 
             app.UseHangfireDashboard();
             app.UseHangfireServer();

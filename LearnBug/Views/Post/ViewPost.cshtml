@@ -1,0 +1,64 @@
+﻿@model Models.Entities.Post
+@{ ViewBag.Title = Model.Subject;
+}
+@section styles{}
+<div class="col-lg-12">
+    <div class="panel panel-border panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">@Model.User.Name</h3>
+        </div>
+        <div class="panel-body">
+            @Html.Raw(Model.Content)
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12">
+    <div class="panel panel-border panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">نظرات</h3>
+        </div>
+        <div class="panel-body" id="comments">
+            @Html.Action("_Comments", "Comment", new { Model.Id })
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+
+        function AddBookMark() {
+            var w = document.getElementById("BtnBookmark").classList['value']
+            var typ = true
+            if (w == "fa fa-bookmark") {
+                document.getElementById("BtnBookmark").classList['value'] = "fa fa-bookmark-o"
+                typ = false
+            } else {
+                document.getElementById("BtnBookmark").classList['value'] = "fa fa-bookmark"
+                typ = true
+            }
+            $.ajax({
+                url: "/Bookmark/AddBookmark",
+                data: { ContentId: $("#Id").val(), type: typ },
+                type: "Post",
+                datatype: "Json",
+                error: function () { alert("خظا!") }
+            })
+        }
+        function BuyContent(contentId) {
+            $.ajax({
+                url:"@Url.Action("CreateFactor","Factor")",
+                data: {Id:contentId},
+                type: "Post",
+                datatype: "Json",
+                success: function (result) {
+                    if (result.Success) {
+                        document.getElementById("div-body").innerHTML=result.Html
+                    }
+                    eval(result.Script)
+                }
+            })
+        }
+    </script>
+}

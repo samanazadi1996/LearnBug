@@ -1,4 +1,4 @@
-﻿@model LearnBug.ViewModels.ContentViewModel
+﻿@model ViewModels.PostsViewModel
 @using MvcPager
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,23 +6,17 @@
 }
 @section styles{
 }
-<div>
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">خانه</div>
-            <div class="panel-body">
-                <div class="grid-view">
-                    <div class="block-pagination" style="direction: ltr; ">
-                        @Html.Pager(12, Model.CurrentPage, Model.TotalItemCount, new { search = ViewBag.Srch })
-                    </div>
-                    <!-- -->
-                    <div>
-                        @Html.Partial(Url.Content("~/Views/Content/_ContentList.cshtml"), Model.Contents.AsQueryable())
-                    </div>
-                    <!-- -->
-                </div>
-                <!-- -->
-            </div>
+@if (Model.TotalItemCount > 12)
+{
+    <div class="col-lg-12">
+        <div class="card-box">
+            <fieldset>
+                @Html.Pager(12, Model.CurrentPage, Model.TotalItemCount, new { search = ViewBag.Srch })
+            </fieldset>
         </div>
     </div>
-</div>
+}
+@foreach (var item in Model.postId)
+{
+    @Html.Action("_SinglePost", "Post", new { id = item })
+}

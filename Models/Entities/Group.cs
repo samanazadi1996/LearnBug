@@ -24,6 +24,7 @@ namespace Models.Entities
         #region Constractor
         public Group()
         {
+            this.Posts = new HashSet<Post>();
 
         }
         #endregion
@@ -32,7 +33,7 @@ namespace Models.Entities
         public Nullable<int> targetId { get; set; }
         public string Image { get; set; }
 
-        public virtual ICollection<Content> Contents { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
 
     }
 }

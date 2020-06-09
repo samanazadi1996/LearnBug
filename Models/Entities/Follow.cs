@@ -36,8 +36,6 @@ namespace Models.Entities
         }
         #endregion
 
-        public DateTime DateTime { get; set; }
-
         #region User
         public virtual User Follower { get; set; }
         public int followerId { get; set; }

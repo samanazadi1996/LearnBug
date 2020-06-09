@@ -40,9 +40,30 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,7 +76,7 @@
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Bookmark.cs" />
     <Compile Include="Entities\Comment.cs" />
-    <Compile Include="Entities\Content.cs" />
+    <Compile Include="Entities\Post.cs" />
     <Compile Include="Entities\Factor.cs" />
     <Compile Include="Entities\Follow.cs" />
     <Compile Include="Entities\Group.cs" />
@@ -66,6 +87,18 @@
     <Compile Include="Migrations\202005011912186_Version1.cs" />
     <Compile Include="Migrations\202005011912186_Version1.designer.cs">
       <DependentUpon>202005011912186_Version1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006021602278_Version2.cs" />
+    <Compile Include="Migrations\202006021602278_Version2.designer.cs">
+      <DependentUpon>202006021602278_Version2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006021619003_Version3.cs" />
+    <Compile Include="Migrations\202006021619003_Version3.designer.cs">
+      <DependentUpon>202006021619003_Version3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006051618520_Version31.cs" />
+    <Compile Include="Migrations\202006051618520_Version31.designer.cs">
+      <DependentUpon>202006051618520_Version31.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,6 +120,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202005011912186_Version1.resx">
       <DependentUpon>202005011912186_Version1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006021602278_Version2.resx">
+      <DependentUpon>202006021602278_Version2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006021619003_Version3.resx">
+      <DependentUpon>202006021619003_Version3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006051618520_Version31.resx">
+      <DependentUpon>202006051618520_Version31.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

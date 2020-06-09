@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Models.Entities.Message>
+<main id="main">
+    <div class="overlay"></div>
+    <header class="header">
+
+        <h1 class="page-title">
+            <a class="sidebar-toggle-btn trigger-toggle-sidebar">
+                <span class="line"></span><span class="line"></span><span class="line"></span><span class="line line-angle1"></span><span class="line line-angle2"></span>
+            </a>
+        </h1>
+        <div class="action-bar pull-left">
+            <ul class="list-inline m-b-0">
+                <li>
+                    <a class="icon circle-icon glyphicon glyphicon-refresh" onclick="renderPartialView('_Inbox')"></a>
+                </li>
+                <li>
+                    <a class="icon circle-icon glyphicon glyphicon-share-alt"></a>
+                </li>
+                <li>
+                    <a class="icon circle-icon red glyphicon glyphicon-remove"></a>
+                </li>
+                <li>
+                    <a class="icon circle-icon red glyphicon glyphicon-flag"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="search-box pull-left">
+            <input placeholder="جستجو..."><span class="icon glyphicon glyphicon-search"></span>
+        </div>
+
+        <div class="clearfix"></div>
+
+    </header>
+
+    <div id="main-nano-wrapper" class="nano">
+        <div class="nano-content">
+            <table class="table table-responsive">
+                <tr>
+                    <th>
+                        <input type="checkbox" id="chk" class="checkbox-wrapper-mail" onchange="$('.mycheckbox').prop('checked',this.checked)">
+                    </th>
+                    <th class="text-primary"><b>کاربر</b></th>
+                    <th class="text-primary"><b>تاریخ</b></th>
+                    <th class="text-primary"><b>متن پیام</b></th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="mycheckbox checkbox-wrapper-mail" id="chk_@item.Id">
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Profile","User",new { id=item.sender.Username})">
+                                <img class="img-circle" style="height:40px;" src="@item.sender.ImgProfile()">
+                            </a>
+                        </td>
+                        <td>@item.InsertDateTime.ToPersianDate()</td>
+                        <td>
+                            @(item.Text.Length > 80 ? item.Text.Substring(0, 80) : item.Text)
+                        </td>
+                        <td>
+                            <button class="btn btn-info btn-trans waves-effect waves-success m-b-5"><i class="zmdi zmdi-eye"></i></button>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</main>

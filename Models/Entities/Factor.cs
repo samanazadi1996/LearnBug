@@ -18,9 +18,9 @@ namespace Models.Entities
             public Configuration()
             {
 
-                HasRequired(current => current.Content).
+                HasRequired(current => current.Post).
                     WithMany(current => current.Factors).
-                    HasForeignKey(current => current.contentId)
+                    HasForeignKey(current => current.postId)
                     .WillCascadeOnDelete(false);
 
                 HasRequired(current => current.User)
@@ -38,14 +38,12 @@ namespace Models.Entities
 
         }
         #endregion
-
-        public DateTime Datetime { get; set; }
         public double Price { get; set; }
         public int Commission { get; set; }
 
         #region Content
-        public virtual Content Content { get; set; }
-        public int contentId { get; set; }
+        public virtual Post Post { get; set; }
+        public int postId { get; set; }
         #endregion
 
         #region User

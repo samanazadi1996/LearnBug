@@ -1,5 +1,5 @@
-﻿using LearnBug.Models.DomainModels;
-using LearnBug.ViewModels;
+﻿using Models.Entities;
+using Models;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using ViewModels;
 
 namespace LearnBug.Controllers
 {
@@ -14,7 +15,7 @@ namespace LearnBug.Controllers
     public class UserController : Controller
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        private LearnBugDBEntities1 db = new LearnBugDBEntities1();
+        DatabaseContext db = new DatabaseContext();
 
         [HttpGet]
         [AllowAnonymous]
@@ -68,7 +69,14 @@ namespace LearnBug.Controllers
             try
             {
                 var user = db.Users.FirstOrDefault(p => p.Username.Trim() == id.Trim());
-                return View(user);
+                ProfileViewModel model = new ProfileViewModel() {
+                User=user,
+                Follower=user.Follower.Take(5).Select(p=>p.Following),
+                Following= user.Following.Take(5).Select(p => p.Follower),
+                Posts=user.Posts
+            };
+
+                return View(model);
 
             }
             catch (Exception ex)
@@ -78,8 +86,9 @@ namespace LearnBug.Controllers
             }
 
         }
-        [Authorize(Roles = "Admin")][HttpGet]
-        public ActionResult AllUsers(string name=null, string username=null, string role="نقش", string email=null)
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult AllUsers(string name = null, string username = null, string role = "نقش", string email = null)
         {
             var model = db.Users.AsQueryable();
 
@@ -87,7 +96,7 @@ namespace LearnBug.Controllers
             //username = username.Trim();
             //email = email.Trim();
             if (!string.IsNullOrEmpty(name))
-                model = model.Where(p => p.name.Contains(name));
+                model = model.Where(p => p.Name.Contains(name));
 
             if (!string.IsNullOrEmpty(username))
                 model = model.Where(p => p.Username.Contains(username));
@@ -95,7 +104,7 @@ namespace LearnBug.Controllers
             if (!string.IsNullOrEmpty(email))
                 model = model.Where(p => p.Email.Contains(email));
 
-            if (role!="نقش")
+            if (role != "نقش")
                 model = model.Where(p => p.Roles == role);
 
             ViewBag.name = name;
@@ -165,7 +174,7 @@ namespace LearnBug.Controllers
         {
             var myuser = db.Users.Single(p => p.Username == User.Identity.Name);
             //myuser.Username = user.Username.ToLower();
-            myuser.name = user.name;
+            myuser.Name = user.Name;
             myuser.Email = user.Email;
             myuser.Dateofbirth = user.Dateofbirth.ToMiladiDate();
             myuser.Gender = user.Gender;
@@ -197,31 +206,6 @@ namespace LearnBug.Controllers
         {
             var user = db.Users.Single(p => p.Username == User.Identity.Name);
             return PartialView(user);
-        }
-
-
-
-
-
-        public ActionResult ManagementUser(int id)
-        {
-            var user = db.Users.Find(id);
-            return View(user);
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult ManagementUser(User user)
-        {
-            user.Dateofbirth = user.Dateofbirth.ToMiladiDate();
-            user.Username = user.Username.ToLower().Trim();
-            user.Password = user.Password.Encrypt();
-            if (ModelState.IsValid)
-            {
-                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-            }
-            return View(db.Users.Single(p=>p.Id==user.Id));
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using LearnBug.Models.DomainModels;
-using LearnBug.ViewModels;
+﻿using Models.Entities;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,112 +10,55 @@ namespace LearnBug.Controllers
 {
     public class CommentController : Controller
     {
-        LearnBugDBEntities1 db = new LearnBugDBEntities1();
-        public ActionResult _SeeComments(int Id)
+        DatabaseContext db = new DatabaseContext();
+        public ActionResult _Comments(int Id)
         {
-            var model = db.Contents.Find(Id);
+            var post = db.Posts.Find(Id);
+            var model = post.Comments;
+            ViewBag.PostId = post.Id;
             return PartialView(model);
         }
         [HttpPost]
         [Authorize]
-        public ActionResult deleteComment(int id)
+        public string deleteComment(int id)
         {
             var cmnt = db.Comments.Find(id);
             var user = db.Users.Single(p => p.Username.ToLower() == User.Identity.Name.ToLower());
-            if (cmnt.userId == user.Id || cmnt.Content.userId == user.Id || User.IsInRole("Admin"))
+            if (cmnt.userId == user.Id || cmnt.Post.userId == user.Id || User.IsInRole("Admin"))
             {
                 db.Comments.Remove(cmnt);
                 if (db.SaveChanges() > 0)
                 {
-                    return Json(new
-                    {
-                        Html = this.RenderPartialToString("_SeeComments", cmnt.Content),
-                        Success = true,
-                        Script = "alert('!کامنت شما حذف شد')"
-
-                    });
+                    return "alert('!کامنت شما حذف شد')";
                 }
                 else
                 {
-                    return Json(new
-                    {
-                        Html = "",
-                        Success = false,
-                        Script = "alert('!کامنت شما حذف نشد')"
-                    });
+                    return "alert('!کامنت شما حذف نشد')";
 
                 }
             }
             else
             {
-                return Json(new
-                {
-                    Html = "",
-                    Success = false,
-                    Script = "alert('!کامنت شما حذف نشد')"
-                });
+                return "alert('!کامنت شما حذف نشد')";
             }
-
-
-
-
-
-
         }
 
-        [HttpPost]
         [Authorize]
         public ActionResult SendComment(int id, string text)
         {
-            if (User.Identity.IsAuthenticated)
+            var post = db.Posts.Find(id);
+            Comment comment = new Comment()
             {
-                if (!string.IsNullOrEmpty(text))
-                {
-                    Comment comment = new Comment();
-                    comment.Text = text;
-                    comment.userId = db.Users.Single(p => p.Username.ToLower() == User.Identity.Name.ToLower()).Id;
-                    comment.Datetime = DateTime.Now;
-                    db.Contents.Find(id).Comments.Add(comment);
-                    if (db.SaveChanges() > 0)
-                    {
-                        var model = db.Contents.Find(id);
-                        return Json(new
-                        {
-                            Html = this.RenderPartialToString("_SeeComments", model),
-                            Success = true,
-                            Script = "alert('!کامنت شما ثبت شد')"
-                        });
-                    }
-                    else
-                    {
-                        return Json(new
-                        {
-                            Html = "",
-                            Success = false,
-                            Script = "alert('!کامنت شما ثبت نشد')"
-                        });
+                Text = text,
+                postId = id
+            };
+            comment.Text = text;
+            var me = db.Users.Single(p => p.Username.ToLower() == User.Identity.Name.ToLower());
+            me.Comments.Add(comment);
+            db.SaveChanges();
+            return PartialView("_Comments", post.Id);
 
-                    }
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        Html = "",
-                        Success = false,
-                        Script = "alert('نظر خود را بنویسید')"
-                    });
-                }
-            }
-            else
-            {
-                return Json(new
-                {
-                    Html = "",
-                    Success = false,
-                    Script = "alert('لطفا در سایت ما ثبت نام کنید!')"
-                });
-            }
+
         }
         //public ActionResult SetparialviewComment(int id)
         //{

@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+        <meta name="author" content="Coderthemes">
+
+        <!-- App Favicon -->
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+        <!-- App title -->
+        <title>آقای ادمین | قالب واکنشگرا مدیریتی</title>
+
+        <!-- Custom box (Modal) css -->
+        <link href="assets/plugins/custombox/dist/custombox.min.css" rel="stylesheet">
+        <!-- Dragula (Drag and drop) css -->
+        <link href="assets/plugins/dragula/dragula.min.css" rel="stylesheet">
+
+        <!-- App CSS -->
+        <link href="assets/css/bootstrap-rtl.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/components.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/pages.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/menu.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+
+        <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="assets/js/modernizr.min.js"></script>
+
+    </head>
+
+
+    <body class="fixed-left">
+
+        <!-- Begin page -->
+        <div id="wrapper">
+
+            <!-- Top Bar Start -->
+            <div class="topbar">
+
+                <!-- LOGO -->
+                <div class="topbar-left">
+                    <a href="index.html" class="logo"><span>آقای<span>ادمین</span></span><i class="zmdi zmdi-layers"></i></a>
+                </div>
+
+                <!-- Button mobile view to collapse sidebar menu -->
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="container">
+
+                        <!-- Page title -->
+                        <ul class="nav navbar-nav navbar-left">
+                            <li>
+                                <button class="button-menu-mobile open-left">
+                                    <i class="zmdi zmdi-menu"></i>
+                                </button>
+                            </li>
+                            <li>
+                                <h4 class="page-title">مدیر ها</h4>
+                            </li>
+                        </ul>
+
+                        <!-- Right(Notification and Searchbox -->
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <!-- Notification -->
+                                <div class="notification-box">
+                                    <ul class="list-inline m-b-0">
+                                        <li>
+                                            <a href="javascript:void(0);" class="right-bar-toggle">
+                                                <i class="zmdi zmdi-notifications-none"></i>
+                                            </a>
+                                            <div class="noti-dot">
+                                                <span class="dot"></span>
+                                                <span class="pulse"></span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- End Notification bar -->
+                            </li>
+                            <li class="hidden-xs">
+                                <form role="search" class="app-search">
+                                    <input type="text" placeholder="به دنبال چه می گردی ؟؟؟"
+                                           class="form-control">
+                                    <a href=""><i class="fa fa-search"></i></a>
+                                </form>
+                            </li>
+                        </ul>
+
+                    </div><!-- end container -->
+                </div><!-- end navbar -->
+            </div>
+            <!-- Top Bar End -->
+
+
+            <!-- ========== Left Sidebar Start ========== -->
+            <div class="left side-menu">
+                <div class="sidebar-inner slimscrollleft">
+
+                    <!-- User -->
+                    <div class="user-box">
+                        <div class="user-img">
+                            <img src="assets/images/users/avatar-1.jpg" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
+                            <div class="user-status offline"><i class="zmdi zmdi-dot-circle"></i></div>
+                        </div>
+                        <h5><a href="#">علی یدالهی</a> </h5>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="#" >
+                                    <i class="zmdi zmdi-settings"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="text-custom">
+                                    <i class="zmdi zmdi-power"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End User -->
+
+                    <!--- Sidemenu -->
+                    <div id="sidebar-menu">
+                        <ul>
+                        	<li class="text-muted menu-title">دسته بندی ها</li>
+
+                            <li>
+                                <a href="index.html" class="waves-effect"><i class="zmdi zmdi-view-dashboard"></i> <span> داشبورد </span> </a>
+                            </li>
+
+                            <li>
+                                <a href="typography.html" class="waves-effect"><i class="zmdi zmdi-format-underlined"></i> <span> نوشته ها </span> </a>
+                            </li>
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-invert-colors"></i> <span> رابط کاربی </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="ui-buttons.html">دکمه ها</a></li>
+                                    <li><a href="ui-cards.html">کارد</a></li>
+                                    <li><a href="ui-draggable-cards.html">کارت های جابه جا شونده</a></li>
+                                    <li><a href="ui-checkbox-radio.html">چک باکس ها</a></li>
+                                    <li><a href="ui-material-icons.html">آیکون های طراحی متریال</a></li>
+                                    <li><a href="ui-font-awesome-icons.html">فونت آسوم</a></li>
+                                    <li><a href="ui-themify-icons.html">تم فی آیکون</a></li>
+                                    <li><a href="ui-modals.html">مدل ها</a></li>
+                                    <li><a href="ui-notification.html">اطلاعات</a></li>
+                                    <li><a href="ui-range-slider.html">نوار تغیرات</a></li>
+                                    <li><a href="ui-components.html">اجزا</a>
+                                    <li><a href="ui-sweetalert.html">هشدار ها</a>
+                                    <li><a href="ui-treeview.html">نمایش درختی</a>
+                                    <li><a href="ui-widgets.html">ویجت ها</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-warning pull-right">7</span><span> فرم ها </span> </a>
+                                <ul class="list-unstyled">
+                                    <li><a href="form-elements.html">فرم های عمومی</a></li>
+                                    <li><a href="form-advanced.html">فرم های پیشرفته</a></li>
+                                    <li><a href="form-validation.html">فرم ولیدشن</a></li>
+                                    <li><a href="form-wizard.html">فرم پیشفرض</a></li>
+                                    <li><a href="form-fileupload.html">فرم آپلود</a></li>
+                                    <li><a href="form-wysiwig.html">ادیتور 1</a></li>
+                                    <li><a href="form-xeditable.html">ادیتور 2</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-view-list"></i> <span> جدول ها </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                	<li><a href="tables-basic.html">جدول پیشفرض</a></li>
+                                    <li><a href="tables-datatable.html">جدول داده ها</a></li>
+                                    <li><a href="tables-responsive.html">جدول واکنش گرا</a></li>
+                                    <li><a href="tables-editable.html">جدول تغیرات</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect "><i class="zmdi zmdi-chart"></i><span> چارت ها </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="chart-flot.html">چارت شماره 1</a></li>
+                                    <li><a href="chart-morris.html">چارت شماره 2</a></li>
+                                    <li><a href="chart-chartist.html">چارت شماره 3</a></li>
+                                    <li><a href="chart-chartjs.html">چارت شماره 4</a></li>
+                                    <li><a href="chart-other.html">چارت شماره 5</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="calendar.html" ><i class="zmdi zmdi-calendar"></i><span> تقویم </span></a>
+                            </li>
+
+                            <li>
+                                <a href="inbox.html" class="waves-effect"><i class="zmdi zmdi-email"></i><span class="label label-purple pull-right">جدید</span><span> ایمیل </span></a>
+                            </li>
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-collection-item"></i><span> برگه ها </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="page-starter.html">برگه خالی</a></li>
+                                    <li><a href="page-login.html">ورود</a></li>
+                                    <li><a href="page-register.html">ثبت نام</a></li>
+                                    <li><a href="page-recoverpw.html">فراموشی رمز</a></li>
+                                    <li><a href="page-lock-screen.html">قفل صفحه</a></li>
+                                    <li><a href="page-confirm-mail.html">تنظیمات ایمیل</a></li>
+                                    <li><a href="page-404.html">خطای 404</a></li>
+                                    <li><a href="page-500.html">خطای 500</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect active"><i class="zmdi zmdi-layers"></i><span>دیگر صفحات </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="extras-projects.html">پروژ ه ها</a></li>
+                                    <li><a href="extras-tour.html">تور آزمایشی</a></li>
+                                    <li  class="active"><a href="extras-taskboard.html">مدیرها</a></li>
+                                    <li><a href="extras-taskdetail.html">جزئیات</a></li>
+                                    <li><a href="extras-profile.html">پروفایل </a></li>
+                                    <li><a href="extras-maps.html">نقشه</a></li>
+                                    <li><a href="extras-contact.html">لیست تماس</a></li>
+                                    <li><a href="extras-pricing.html">فروش</a></li>
+                                    <li><a href="extras-timeline.html">خط زمان</a></li>
+                                    <li><a href="extras-invoice.html">صورت حساب</a></li>
+                                    <li><a href="extras-faq.html">سوال و جواب</a></li>
+                                    <li><a href="extras-gallery.html">گالری</a></li>
+                                    <li><a href="extras-email-template.html">تم های ایمیل</a></li>
+                                    <li><a href="extras-maintenance.html">تعمیرات</a></li>
+                                    <li><a href="extras-comingsoon.html">به زودی</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- Sidebar -->
+                    <div class="clearfix"></div>
+
+                </div>
+
+            </div>
+            <!-- Left Sidebar End -->
+
+
+
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="content-page">
+                <!-- Start content -->
+                <div class="content">
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card-box taskboard-box">
+                                    <div class="dropdown pull-right">
+                                        <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="zmdi zmdi-more-vert"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">متن یک</a></li>
+                                            <li><a href="#">متن دو</a></li>
+                                            <li><a href="#">متن سه</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">متن پاورقی</a></li>
+                                        </ul>
+                                    </div>
+
+                        			<h4 class="header-title m-t-0 m-b-30 text-primary">بخش پشتیبانی</h4>
+
+                                    <ul class="list-unstyled task-list" id="drag-upcoming">
+                                        <li>
+                                            <div class="card-box kanban-box">
+                                                <div class="checkbox-wrapper">
+                                                    <div class="checkbox checkbox-success checkbox-single">
+                                                        <input type="checkbox" id="singleCheckbox2" value="option2"
+                                                               aria-label="Single checkbox Two">
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="kanban-detail">
+                                                    <span class="label label-danger pull-right">ارتقا یافته</span>
+                                                    <h4><a href="">بخش پشتیبانی محصول</a> </h4>
+                                                    <ul class="list-inline m-b-0">
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="نام کاربری">
+                                                                <img src="assets/images/users/avatar-2.jpg" alt="img"
+                                                                     class="thumb-sm img-circle">
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="5 Tasks">
+                                                                <i class="zmdi zmdi-format-align-left"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="3 Comments">
+                                                                <i class="zmdi zmdi-comment-outline"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="card-box kanban-box">
+                                                <div class="checkbox-wrapper">
+                                                    <div class="checkbox checkbox-success checkbox-single">
+                                                        <input type="checkbox" id="singleCheckbox3" value="option3"
+                                                               aria-label="Single checkbox Two">
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="kanban-detail">
+                                                    <span class="label label-warning pull-right">سطح دسترسی بالا</span>
+                                                    <h4><a href="">نویسنده مطالب</a> </h4>
+                                                    <ul class="list-inline m-b-0">
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="نام کاربری">
+                                                                <img src="assets/images/users/avatar-3.jpg" alt="img"
+                                                                     class="thumb-sm img-circle">
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="5 Tasks">
+                                                                <i class="zmdi zmdi-format-align-left"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="3 Comments">
+                                                                <i class="zmdi zmdi-comment-outline"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="card-box kanban-box">
+                                                <div class="checkbox-wrapper">
+                                                    <div class="checkbox checkbox-success checkbox-single">
+                                                        <input type="checkbox" id="singleCheckbox4" value="option4"
+                                                               aria-label="Single checkbox Two">
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="kanban-detail">
+                                                    <h4><a href="">بازار یاب</a> </h4>
+                                                    <ul class="list-inline m-b-0">
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="نام کاربری">
+                                                                <img src="assets/images/users/avatar-4.jpg" alt="img"
+                                                                     class="thumb-sm img-circle">
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="5 Tasks">
+                                                                <i class="zmdi zmdi-format-align-left"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="3 Comments">
+                                                                <i class="zmdi zmdi-comment-outline"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+
+
+                                        <li>
+                                            <div class="card-box kanban-box">
+                                                <div class="checkbox-wrapper">
+                                                    <div class="checkbox checkbox-success checkbox-single">
+                                                        <input type="checkbox" id="singleCheckbox5" value="option2"
+                                                                aria-label="Single checkbox Two">
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="kanban-detail">
+                                                    <span class="label label-danger pull-right">ارتقا یافته</span>
+                                                    <h4><a href="">کد نویس ارشد</a> </h4>
+                                                    <ul class="list-inline m-b-0">
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top" title="" data-original-title="نام کاربری">
+                                                                <img src="assets/images/users/avatar-6.jpg" alt="img" class="thumb-sm img-circle">
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top" title="" data-original-title="5 Tasks">
+                                                                <i class="zmdi zmdi-format-align-left"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top" title="" data-original-title="3 Comments">
+                                                                <i class="zmdi zmdi-comment-outline"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+
+                                    <div class="text-center">
+                                        <a href="#custom-modal" class="btn btn-default btn-md waves-effect waves-light"
+                                           data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a">
+                                            <i class="zmdi zmdi-plus"></i> افزودن
+                                        </a>
+                                    </div>
+                                </div>
+                            </div><!-- end col -->
+
+
+                            <div class="col-md-4">
+                                <div class="card-box taskboard-box">
+                                    <div class="dropdown pull-right">
+                                        <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="zmdi zmdi-more-vert"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">متن یک</a></li>
+                                            <li><a href="#">متن دو</a></li>
+                                            <li><a href="#">متن سه</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">متن پاورقی</a></li>
+                                        </ul>
+                                    </div>
+
+                        			<h4 class="header-title m-t-0 m-b-30 text-warning">تیم بازار یابی</h4>
+
+                                    <ul class="list-unstyled task-list" id="drag-inprogress">
+                                        <li>
+                                            <div class="card-box kanban-box">
+                                                <div class="checkbox-wrapper">
+                                                    <div class="checkbox checkbox-success checkbox-single">
+                                                        <input type="checkbox" id="singleCheckbox6" value="option6"
+                                                               aria-label="Single checkbox Two">
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="kanban-detail">
+                                                    <span class="label label-danger pull-right">ارتقا یافته</span>
+                                                    <h4><a href="">بازرس بازار</a> </h4>
+                                                    <ul class="list-inline m-b-0">
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="نام کاربری">
+                                                                <img src="assets/images/users/avatar-4.jpg" alt="img"
+                                                                     class="thumb-sm img-circle">
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="5 Tasks">
+                                                                <i class="zmdi zmdi-format-align-left"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="3 Comments">
+                                                                <i class="zmdi zmdi-comment-outline"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="card-box kanban-box">
+                                                <div class="checkbox-wrapper">
+                                                    <div class="checkbox checkbox-success checkbox-single">
+                                                        <input type="checkbox" id="singleCheckbox7" value="option7"
+                                                               aria-label="Single checkbox Two">
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="kanban-detail">
+                                                    <span class="label label-warning pull-right">سطح دسترسی بالا</span>
+                                                    <h4><a href="">آنالیزور  بازار</a> </h4>
+                                                    <ul class="list-inline m-b-0">
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="نام کاربری">
+                                                                <img src="assets/images/users/avatar-6.jpg" alt="img"
+                                                                     class="thumb-sm img-circle">
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="5 Tasks">
+                                                                <i class="zmdi zmdi-format-align-left"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="3 Comments">
+                                                                <i class="zmdi zmdi-comment-outline"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+
+
+                                        <li>
+                                            <div class="card-box kanban-box">
+                                                <div class="checkbox-wrapper">
+                                                    <div class="checkbox checkbox-success checkbox-single">
+                                                        <input type="checkbox" id="singleCheckbox8" value="option8"
+                                                               aria-label="Single checkbox Two">
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="kanban-detail">
+                                                    <h4><a href="">بخش پشتیبانی محصول</a> </h4>
+                                                    <ul class="list-inline m-b-0">
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="نام کاربری">
+                                                                <img src="assets/images/users/avatar-7.jpg" alt="img"
+                                                                     class="thumb-sm img-circle">
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="5 Tasks">
+                                                                <i class="zmdi zmdi-format-align-left"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="3 Comments">
+                                                                <i class="zmdi zmdi-comment-outline"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+
+                                    <div class="text-center">
+                                        <a href="#custom-modal" class="btn btn-default btn-md waves-effect waves-light"
+                                           data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a">
+                                            <i class="zmdi zmdi-plus"></i> افزودن
+                                        </a>
+                                    </div>
+                                </div>
+                            </div><!-- end col -->
+
+
+                            <div class="col-md-4">
+                                <div class="card-box taskboard-box">
+                                    <div class="dropdown pull-right">
+                                        <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="zmdi zmdi-more-vert"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">متن یک</a></li>
+                                            <li><a href="#">متن دو</a></li>
+                                            <li><a href="#">متن سه</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">متن پاورقی</a></li>
+                                        </ul>
+                                    </div>
+
+                        			<h4 class="header-title m-t-0 m-b-30 text-success">مدیران ارشد</h4>
+
+                                    <ul class="list-unstyled task-list" id="drag-complete">
+                                        <li>
+                                            <div class="card-box kanban-box">
+                                                <div class="checkbox-wrapper">
+                                                    <div class="checkbox checkbox-success checkbox-single">
+                                                        <input type="checkbox" id="singleCheckbox10" value="option10"
+                                                               aria-label="Single checkbox Two">
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="kanban-detail">
+                                                    <span class="label label-danger pull-right">ارتقا یافته</span>
+                                                    <h4><a href="">بخش پشتیبانی محصول</a> </h4>
+                                                    <ul class="list-inline m-b-0">
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="نام کاربری">
+                                                                <img src="assets/images/users/avatar-2.jpg" alt="img"
+                                                                     class="thumb-sm img-circle">
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="5 Tasks">
+                                                                <i class="zmdi zmdi-format-align-left"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="3 Comments">
+                                                                <i class="zmdi zmdi-comment-outline"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="card-box kanban-box">
+                                                <div class="checkbox-wrapper">
+                                                    <div class="checkbox checkbox-success checkbox-single">
+                                                        <input type="checkbox" id="singleCheckbox11" value="option11"
+                                                               aria-label="Single checkbox Two">
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="kanban-detail">
+                                                    <span class="label label-warning pull-right">سطح دسترسی بالا</span>
+                                                    <h4><a href="">نویسنده مطالب</a> </h4>
+                                                    <ul class="list-inline m-b-0">
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="نام کاربری">
+                                                                <img src="assets/images/users/avatar-3.jpg" alt="img"
+                                                                     class="thumb-sm img-circle">
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="5 Tasks">
+                                                                <i class="zmdi zmdi-format-align-left"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="3 Comments">
+                                                                <i class="zmdi zmdi-comment-outline"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+
+
+                                        <li>
+                                            <div class="card-box kanban-box">
+                                                <div class="checkbox-wrapper">
+                                                    <div class="checkbox checkbox-success checkbox-single">
+                                                        <input type="checkbox" id="singleCheckbox12" value="option12"
+                                                               aria-label="Single checkbox Two">
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="kanban-detail">
+                                                    <h4><a href="">بازار یاب</a> </h4>
+                                                    <ul class="list-inline m-b-0">
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="نام کاربری">
+                                                                <img src="assets/images/users/avatar-4.jpg" alt="img"
+                                                                     class="thumb-sm img-circle">
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="5 Tasks">
+                                                                <i class="zmdi zmdi-format-align-left"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top"
+                                                               title="" data-original-title="3 Comments">
+                                                                <i class="zmdi zmdi-comment-outline"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+
+
+                                        <li>
+                                            <div class="card-box kanban-box">
+                                                <div class="checkbox-wrapper">
+                                                    <div class="checkbox checkbox-success checkbox-single">
+                                                        <input type="checkbox" id="singleCheckbox13" value="option13"
+                                                                aria-label="Single checkbox Two">
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="kanban-detail">
+                                                    <span class="label label-danger pull-right">ارتقا یافته</span>
+                                                    <h4><a href="">کد نویس ارشد</a> </h4>
+                                                    <ul class="list-inline m-b-0">
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top" title="" data-original-title="نام کاربری">
+                                                                <img src="assets/images/users/avatar-6.jpg" alt="img" class="thumb-sm img-circle">
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top" title="" data-original-title="5 Tasks">
+                                                                <i class="zmdi zmdi-format-align-left"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="" data-toggle="tooltip" data-placement="top" title="" data-original-title="3 Comments">
+                                                                <i class="zmdi zmdi-comment-outline"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+
+                                    <div class="text-center">
+                                        <a href="#custom-modal" class="btn btn-default btn-md waves-effect waves-light"
+                                           data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a">
+                                            <i class="zmdi zmdi-plus"></i> افزودن
+                                        </a>
+                                    </div>
+                                </div>
+                            </div><!-- end col -->
+
+
+                        </div>
+                        <!-- end row -->
+
+
+                    </div> <!-- container -->
+
+                </div> <!-- content -->
+
+                <footer class="footer">
+                     آقای ادمین2016 ©.
+                </footer>
+
+            </div>
+
+
+            <!-- Modal -->
+			<div id="custom-modal" class="modal-demo">
+			    <button type="button" class="close" onclick="Custombox.close();">
+			        <span>&times;</span><span class="sr-only">بستن</span>
+			    </button>
+			    <h4 class="custom-modal-title">افزودن</h4>
+			    <div class="custom-modal-text text-left">
+			        <form role="form">
+			        	<div class="form-group">
+                            <label for="name">نام </label>
+                            <input type="text" class="form-control" id="name" placeholder="">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="assign">ارجا داده شده</label>
+                                    <input type="text" class="form-control" id="assign" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="priority">مشخصه ها</label>
+                                    <input type="text" class="form-control" id="priority" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Sdate">تاریخ شروع</label>
+                                    <input type="text" class="form-control" id="Sdate" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Ddate">تاریخ پایان</label>
+                                    <input type="text" class="form-control" id="Ddate" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success waves-effect waves-light">ذخیره</button>
+                        <button type="button" class="btn btn-danger waves-effect waves-light m-l-5">لغو</button>
+                    </form>
+			    </div>
+			</div>
+
+            <!-- ============================================================== -->
+            <!-- End Right content here -->
+            <!-- ============================================================== -->
+
+
+            <!-- Right Sidebar -->
+            <div class="side-bar right-bar">
+                <a href="javascript:void(0);" class="right-bar-toggle">
+                    <i class="zmdi zmdi-close-circle-o"></i>
+                </a>
+                <h4 class="">اعلانات</h4>
+                <div class="notification-list nicescroll">
+                    <ul class="list-group list-no-border user-list">
+                        <li class="list-group-item">
+                            <a href="#" class="user-list-item">
+                                <div class="avatar">
+                                    <img src="assets/images/users/avatar-2.jpg" alt="">
+                                </div>
+                                <div class="user-desc">
+                                    <span class="name">کاربر شماره یک</span>
+                                    <span class="desc">متن کاربر شماره یک</span>
+                                    <span class="time">2 ساعت قبل</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" class="user-list-item">
+                                <div class="icon bg-info">
+                                    <i class="zmdi zmdi-account"></i>
+                                </div>
+                                <div class="user-desc">
+                                    <span class="name">ثبت نام جدید</span>
+                                    <span class="desc">کاربری جدید در سایت ثبت نام کرده است</span>
+                                    <span class="time">5 ساعت قبل</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" class="user-list-item">
+                                <div class="icon bg-pink">
+                                    <i class="zmdi zmdi-comment"></i>
+                                </div>
+                                <div class="user-desc">
+                                    <span class="name">پیام جدید</span>
+                                    <span class="desc">متن پیام جدید از کاریی جدید</span>
+                                    <span class="time">1 روز قبل</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-group-item active">
+                            <a href="#" class="user-list-item">
+                                <div class="avatar">
+                                    <img src="assets/images/users/avatar-3.jpg" alt="">
+                                </div>
+                                <div class="user-desc">
+                                    <span class="name">کاربر شماره 2</span>
+                                    <span class="desc">با سلام من یک متن کاملا آزمایشی هستم</span>
+                                    <span class="time">2 روز قبل</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-group-item active">
+                            <a href="#" class="user-list-item">
+                                <div class="icon bg-warning">
+                                    <i class="zmdi zmdi-settings"></i>
+                                </div>
+                                <div class="user-desc">
+                                    <span class="name">تنظیمات</span>
+                                    <span class="desc">تنظیمات جدید برای دسترسی و راحتی شما موجود است</span>
+                                    <span class="time">1 روز قبل</span>
+                                </div>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!-- /Right-bar -->
+
+        </div>
+        <!-- END wrapper -->
+
+
+
+        <script>
+            var resizefunc = [];
+        </script>
+
+        <!-- jQuery  -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/bootstrap-rtl.min.js"></script>
+        <script src="assets/js/detect.js"></script>
+        <script src="assets/js/fastclick.js"></script>
+        <script src="assets/js/jquery.slimscroll.js"></script>
+        <script src="assets/js/jquery.blockUI.js"></script>
+        <script src="assets/js/waves.js"></script>
+        <script src="assets/js/jquery.nicescroll.js"></script>
+        <script src="assets/js/jquery.scrollTo.min.js"></script>
+
+        <!-- drgula (Drag and drop) js -->
+        <script src="assets/plugins/dragula/dragula.min.js"></script>
+
+        <!-- Modal-Effect -->
+        <script src="assets/plugins/custombox/dist/custombox.min.js"></script>
+        <script src="assets/plugins/custombox/dist/legacy.min.js"></script>
+
+        <!-- App js -->
+        <script src="assets/js/jquery.core.js"></script>
+        <script src="assets/js/jquery.app.js"></script>
+
+        <script type="text/javascript">
+            dragula([document.querySelector('#drag-upcoming'), document.querySelector('#drag-inprogress'), document.querySelector('#drag-complete')], {
+                isContainer: function (el) {
+                    return false; // only elements in drake.containers will be taken into account
+                },
+                moves: function (el, source, handle, sibling) {
+                    return true; // elements are always draggable by default
+                },
+                accepts: function (el, target, source, sibling) {
+                    return true; // elements can be dropped in any of the `containers` by default
+                },
+                invalid: function (el, handle) {
+                    return false; // don't prevent any drags from initiating by default
+                },
+                direction: 'vertical',             // Y axis is considered when determining where an element would be dropped
+                copy: false,                       // elements are moved by default, not copied
+                copySortSource: false,             // elements in copy-source containers can be reordered
+                revertOnSpill: false,              // spilling will put the element back where it was dragged from, if this is true
+                removeOnSpill: false,              // spilling will `.remove` the element, if this is true
+                mirrorContainer: document.body,    // set the element that gets mirror elements appended
+                ignoreInputTextSelection: true     // allows users to select input text, see details below
+            });
+        </script>
+
+    </body>
+</html>

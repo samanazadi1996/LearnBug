@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
@@ -24,8 +25,7 @@ namespace LearnBug
         }
         protected void FormsAuthentication_OnAuthenticate(Object sender, FormsAuthenticationEventArgs e)
         {
-            LearnBug.Models.DomainModels.LearnBugDBEntities1 db = new Models.DomainModels.LearnBugDBEntities1();
-
+            DatabaseContext db = new DatabaseContext();
             if (FormsAuthentication.CookiesSupported == true)
             {
                 if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
