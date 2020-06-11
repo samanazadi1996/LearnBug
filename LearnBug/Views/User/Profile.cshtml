@@ -17,23 +17,10 @@
                         @Model.User.Biography
                     </p>
 
-                    <div class="button-list m-t-20">
-                        <button type="button" class="btn btn-facebook btn-sm waves-effect waves-light">
-                            <i class="fa fa-facebook"></i>
-                        </button>
-
-                        <button type="button" class="btn btn-sm btn-twitter waves-effect waves-light">
-                            <i class="fa fa-twitter"></i>
-                        </button>
-
-                        <button type="button" class="btn btn-sm btn-linkedin waves-effect waves-light">
-                            <i class="fa fa-linkedin"></i>
-                        </button>
-
-                        <button type="button" class="btn btn-sm btn-dribbble waves-effect waves-light">
-                            <i class="fa fa-dribbble"></i>
-                        </button>
-
+                    <div class="form-group col-md-12">
+                        <div class="col-md-4"><a class="btn btn-info btn-trans waves-effect btn-block waves-info m-b-5" href="@Url.Action("Following","Follow",new {id=Model.User.Username })">دنبال شده ها <span class="text-success"> @Model.User.Follower.Count() </span></a></div>
+                        <div class="col-md-4"><a class="btn btn-info btn-trans waves-effect btn-block waves-info m-b-5" href="@Url.Action("Followers","Follow",new {id=Model.User.Username })">دنبال کننده ها <span class="text-success"> @Model.Following.Count() </span></a></div>
+                        <div class="col-md-4"><a class="btn btn-info btn-trans waves-effect btn-block waves-info m-b-5" href="#Div_posts">تعداد پست ها <span class="text-success">@Model.User.Posts.Count()</span> </a></div>
                     </div>
                 </div>
 
@@ -56,7 +43,7 @@
         }
         @if (Model.Posts != null)
         {
-            <div class="card-box">
+            <div class="card-box" id="Div_posts">
                 @foreach (var item in Model.Posts)
                 {
                     <div class="fa-border form-group">
@@ -238,7 +225,7 @@
                     url: "@Url.Action("SendMessage","Message")",
                     data: { text: document.getElementById('TextMessage').value, to: userid },
                     type: "Post",
-                    dataType: "JavaScript",
+                    dataType: "Json",
                     success: function () {
                         document.getElementById("SendMessage").value=""
                     }

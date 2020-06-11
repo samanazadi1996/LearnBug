@@ -72,7 +72,6 @@
                                 </div>
                             </li>
                             <li>&nbsp;</li>
-
                             <li>
                                 <div class="notification-box">
                                     <ul class="list-inline m-b-0">
@@ -84,30 +83,26 @@
                                     </ul>
                                 </div>
                             </li>
-
+                            <li>&nbsp;</li>
+                            <li>
+                                <!-- Notification -->
+                                <div class="notification-box">
+                                    <ul class="list-inline m-b-0">
+                                        <li>
+                                            <a href="javascript:void(0);" class="right-bar-toggle">
+                                                <i class="zmdi zmdi-notifications-none"></i>
+                                            </a>
+                                            <div class="noti-dot">
+                                                <span class="dot"></span>
+                                                <span class="pulse"></span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- End Notification bar -->
+                            </li>
+                            <li>&nbsp;</li>
                         }
-
-                        <li>&nbsp;</li>
-                        <!-- Right(Notification and Searchbox -->
-
-                        <li>
-                            <!-- Notification -->
-                            <div class="notification-box">
-                                <ul class="list-inline m-b-0">
-                                    <li>
-                                        <a href="javascript:void(0);" class="right-bar-toggle">
-                                            <i class="zmdi zmdi-notifications-none"></i>
-                                        </a>
-                                        <div class="noti-dot">
-                                            <span class="dot"></span>
-                                            <span class="pulse"></span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- End Notification bar -->
-                        </li>
-                        <li>&nbsp;</li>
                         <li class="hidden-xs">
                             <form role="search" class="app-search">
                                 <input type="text" placeholder="به دنبال چه می گردی ؟؟؟"
@@ -124,53 +119,7 @@
         <!-- ========== Left Sidebar Start ========== -->
         <div class="left side-menu">
             <div class="sidebar-inner slimscrollleft">
-
-                <!-- User -->
-                <div class="user-box">
-
-                    @Html.Action("Avatar", "User")
-                    <ul class="list-inline">
-                        <li>
-                            <a href="~/Content/Mr-Admin/#">
-                                <i class="zmdi zmdi-settings"></i>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="@Url.Action("Logout","Home")" class="text-custom">
-                                <i class="zmdi zmdi-power"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- End User -->
-                <!--- Sidemenu -->
-                <div id="sidebar-menu">
-                    <ul>
-                        <li class="text-muted menu-title">دسته بندی ها</li>
-
-                        <li>
-                            <a href="@Url.Action("Index","Home")" class="waves-effect"><i class="zmdi zmdi-view-dashboard"></i> <span> خانه </span> </a>
-                        </li>
-                        <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-account"></i> <span> کاربران</span> <span class="menu-arrow"></span></a>
-                            <ul class="list-unstyled">
-                                <li><a href="@Url.Action("Followers","Follow",new {id= User.Identity.Name})">دنبال کنندگان</a></li>
-                                <li><a href="@Url.Action("Following","Follow",new {id= User.Identity.Name})">دنبال شده ها</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Index","Post")" class="waves-effect"><i class="zmdi zmdi-group"></i> <span> پست های من </span> </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Index","BookMark")" class="waves-effect"><i class="zmdi zmdi-group"></i> <span> نشانه گذاری شده ها </span> </a>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
-                <!-- Sidebar -->
-                <div class="clearfix"></div>
-
+                @Html.Action("Avatar", "User")
             </div>
 
         </div>

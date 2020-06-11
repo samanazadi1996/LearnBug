@@ -19,49 +19,28 @@ namespace LearnBug.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult RegisterUser()
+        public ActionResult Register()
         {
             return View();
         }
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult RegisterUser(User user)
+        public ActionResult Register(User user)
         {
-            if (db.Users.Any(p => p.Username == user.Username.ToLower().Trim()))
-            {
-                ViewBag.message = "کاربر با این نام از قبل وجود دارد";
-                ViewBag.style = "red";
+            if (!ModelState.IsValid || db.Users.Any(p => p.Username == user.Username.ToLower().Trim()))
                 return View(user);
-            }
+
             user.Status = 1;
             user.Roles = "User";
             user.Wallet = 0;
             user.Username = user.Username.ToLower().Trim();
             user.Password = user.Password.Encrypt();
             user.Dateofbirth = user.Dateofbirth.ToMiladiDate();
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(user);
-                if (db.SaveChanges() > 0)
-                {
-                    logger.Info("RegisterUser " + user.Username);
-                    return RedirectToAction(actionName: "Login", controllerName: "Home");
-                }
-                else
-                {
-                    ViewBag.message = "ثبت نام انجام نشد";
-                    ViewBag.style = "red";
-                    return View(user);
-                }
+            db.Users.Add(user);
+            if (db.SaveChanges() > 0)
+                return RedirectToAction(actionName: "Login", controllerName: "Home");
+            return View(user);
 
-            }
-            else
-            {
-                ViewBag.message = "مقادیر ورودی صحیح نمی باشد";
-                ViewBag.style = "blue";
-                return View(user);
-
-            }
         }
         [AllowAnonymous]
         public ActionResult Profile(string id)
@@ -69,12 +48,13 @@ namespace LearnBug.Controllers
             try
             {
                 var user = db.Users.FirstOrDefault(p => p.Username.Trim() == id.Trim());
-                ProfileViewModel model = new ProfileViewModel() {
-                User=user,
-                Follower=user.Follower.Take(5).Select(p=>p.Following),
-                Following= user.Following.Take(5).Select(p => p.Follower),
-                Posts=user.Posts
-            };
+                ProfileViewModel model = new ProfileViewModel()
+                {
+                    User = user,
+                    Follower = user.Follower.Take(5).Select(p => p.Following),
+                    Following = user.Following.Take(5).Select(p => p.Follower),
+                    Posts = user.Posts
+                };
 
                 return View(model);
 
@@ -191,7 +171,9 @@ namespace LearnBug.Controllers
             var user = db.Users.Single(p => p.Username == User.Identity.Name);
             if (type == "update")
             {
-                user.Image = newPicture;
+                var filename = "/Files/ProfilePicture/" + user.Username + DateTime.Now.ToString("yyyyMMddhhmmss") + ".jpg";
+                 Utility.ConvertBase64toFile.Convert_base64_url_Image(newPicture, filename);
+                user.Image = filename;
                 db.SaveChanges();
                 return JavaScript("alert('عکس پروفایل شما با موفقیت بروزرسانی شد')");
             }
@@ -202,10 +184,42 @@ namespace LearnBug.Controllers
                 return JavaScript("alert('عکس پروفایل شما با موفقیت حذف شد')");
             }
         }
+        [AllowAnonymous]
         public ActionResult Avatar()
         {
-            var user = db.Users.Single(p => p.Username == User.Identity.Name);
-            return PartialView(user);
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = db.Users.Single(p => p.Username == User.Identity.Name);
+                return PartialView(user);
+            }
+            return PartialView(null);
+        }
+        [AllowAnonymous][HttpPost]
+        public JsonResult AutenticatorUseName(string Username)
+        {
+            Username = Username.ToLower();
+
+            if (Username.Length < 5 || Username.Length > 30)
+                return Json(false);
+
+            if (db.Users.Any(p => p.Username == Username))
+                return Json(false);
+
+            var list = Username.ToCharArray();
+            var firstChar = (int)list[0];
+
+            if (firstChar <= 57 && firstChar >= 48)
+                return Json(false);
+
+            foreach (var item in list)
+            {
+                var asc = (int)item;
+
+                if ((asc < 97 || asc > 122) && (asc < 48 || asc > 57) && item != '_' && item != '.' && item != '-' && item != '@')
+                    return Json(false);
+            }
+
+            return Json(true);
         }
     }
 }

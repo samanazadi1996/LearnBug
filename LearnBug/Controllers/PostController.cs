@@ -71,11 +71,15 @@ namespace LearnBug.Controllers
         [ValidateInput(false)]
         public ActionResult Create(Post post)
         {
+            string path = Server.MapPath("~") +"Files\\Posts\\";
+
+            var result = Utility.ConvertBase64toFile.Convert_Htmlbase64_url_Image(post.Content, path,"/Files/Posts/");
+
             var user = db.Users.Single(p => p.Username == User.Identity.Name);
             post.Status = 0;
             if (User.IsInRole("User"))
                 post.Price = null;
-
+            post.Content = result.ToString();
             user.Posts.Add(post);
             if (db.SaveChanges() > 0)
             {
@@ -92,6 +96,7 @@ namespace LearnBug.Controllers
 
 
         }
+
         //[Authorize]
 
         //public ActionResult ContentOfFollowing(int Page = 1)

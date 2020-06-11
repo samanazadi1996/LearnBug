@@ -27,9 +27,12 @@ namespace LearnBug.Areas.Admin.Controllers
 
             if (!db.Groups.Any(p=>p.Name.ToLower()==Name))
             {
+                var filename = "/Files/GroupPicture/Group_" + (db.Groups.OrderByDescending(p=>p.Id).FirstOrDefault().Id+1).ToString() + ".jpg";
+                Utility.ConvertBase64toFile.Convert_base64_url_Image(Image, filename);
+
                 Group group = new Group { 
                     Name = Name ,
-                    Image=Image
+                    Image= filename
                 };
                 db.Groups.Add(group);
                 if (db.SaveChanges() > 0)
@@ -103,10 +106,12 @@ namespace LearnBug.Areas.Admin.Controllers
 
             if (!string.IsNullOrEmpty(Id.ToString()))
             {
-
                 var group = db.Groups.Find(Id);
+                var filename = "/Files/GroupPicture/Group_" + group.Id + ".jpg";
+                Utility.ConvertBase64toFile.Convert_base64_url_Image(Image, filename);
+
                 group.Name = Name;
-                group.Image = Image;
+                group.Image = filename;
                 if (db.SaveChanges() > 0)
                 {
                     return Json(new {

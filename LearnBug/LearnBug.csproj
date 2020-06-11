@@ -179,6 +179,7 @@
     </Compile>
     <Compile Include="Helpers\Helper\CKEditorHelpers.cs" />
     <Compile Include="Helpers\Helper\UploadHelper.cs" />
+    <Compile Include="Helpers\Utility\ConvertBase64toFile.cs" />
     <Compile Include="Helpers\Utility\Utilty.cs" />
     <Compile Include="Helpers\Utility\ViewHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -4167,7 +4168,7 @@
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Group\ManagementGroups.cshtml" />
     <Content Include="Areas\Admin\Views\Group\_GroupList.cshtml" />
-    <Content Include="Views\User\RegisterUser.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Post\ViewPost.cshtml" />
     <Content Include="Views\Comment\_Comments.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
@@ -4222,6 +4223,9 @@
     <Folder Include="Areas\Admin\Content\Mr-Admin\assets\plugins\jstree\themes\default\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Content\Mr-Admin\assets\plugins\jstree\themes\default\" />
+    <Folder Include="Files\GroupPicture\" />
+    <Folder Include="Files\Posts\" />
+    <Folder Include="Files\ProfilePicture\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

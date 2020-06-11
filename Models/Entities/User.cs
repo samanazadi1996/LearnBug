@@ -51,15 +51,23 @@ namespace Models.Entities
 
         [Display(Name = "ایمیل")]
         [DisplayName("ایمیل")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage ="ایمیل اشتباه است")]
         public string Email { get; set; }
 
         [Display(Name = "رمز عبور")]
         [DisplayName("رمز عبور")]
+        [Required(ErrorMessage = "رمز عبور اجباری است")]
+
         public string Password { get; set; }
+        [Display(Name = "تکرار رمز عبور")]
+        [DisplayName("تکرار رمز عبور")]
+        [NotMapped]
+        [Compare("Password", ErrorMessage = "تکرار رمز عبور اشتباه است")]
+        public string ConfirmPassword { get; set; }
 
         [Display(Name = "تاریخ تولد")]
         [DisplayName("تاریخ تولد")]
+        [Required(ErrorMessage = "تاریخ تولد اجباری است")]
         public DateTime Dateofbirth { get; set; }
 
         [Display(Name = "جنسیت")]
@@ -72,6 +80,7 @@ namespace Models.Entities
 
         [Display(Name = "شماره تلفن")]
         [DisplayName("شماره تلفن")]
+        [Required(ErrorMessage ="شماره تلفن اجباری است") ]
         public string Phone { get; set; }
 
         [Display(Name = "عکس پروفایل")]
@@ -116,6 +125,9 @@ namespace Models.Entities
         public virtual ICollection<Message> Sent { get; set; }
 
         public virtual ICollection<Transaction> Transactions { get; set; }
+
+
+
     }
 
     public enum GenderType

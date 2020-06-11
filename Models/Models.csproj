@@ -100,6 +100,10 @@
     <Compile Include="Migrations\202006051618520_Version31.designer.cs">
       <DependentUpon>202006051618520_Version31.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006092154281_version4.cs" />
+    <Compile Include="Migrations\202006092154281_version4.designer.cs">
+      <DependentUpon>202006092154281_version4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BookmarkRepository.cs" />
@@ -129,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006051618520_Version31.resx">
       <DependentUpon>202006051618520_Version31.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006092154281_version4.resx">
+      <DependentUpon>202006092154281_version4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -51,26 +51,27 @@
             <div class="col-md-12 form-group">
                 @using (Html.BeginForm("ViewPost", "Post", new { id = Model.Id }))
                 {
-                    <div class="col-md-6">
+                    <div class="col-md-6 form-group">
                         <button class="btn btn-success btn-block"> مشاهده</button>
                     </div>
                 }
-                @if (Model.User.Username == User.Identity.Name)
+                @if (User.Identity.IsAuthenticated)
                 {
-                    <div class=" col-md-6">
-                        <a href="@Url.Action("Edit", "Post", new { id = Model.Id })" class="btn btn-info btn-trans waves-effect waves-warning m-b-5"><i class="zmdi zmdi-edit"></i></a>
-                        <a class="btn btn-danger btn-trans waves-effect waves-warning m-b-5"><i class="zmdi zmdi-delete"></i></a>
-                    </div>
+                    if (Model.User.Username == User.Identity.Name)
+                    {
+                        <div class=" col-md-6 form-group">
+                            <a href="@Url.Action("Edit", "Post", new { id = Model.Id })" class="btn btn-info btn-trans waves-effect waves-warning m-b-5"><i class="zmdi zmdi-edit"></i></a>
+                            <a class="btn btn-danger btn-trans waves-effect waves-warning m-b-5"><i class="zmdi zmdi-delete"></i></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class=" col-md-6 form-group">
+                            <a class="btn btn-warning btn-trans waves-effect waves-warning m-b-5" onclick="bookmark('@Model.Id');"><i class="zmdi zmdi-bookmark"></i></a>
+                        </div>
+                    }
                 }
-                else
-                {
-                    <div class=" col-md-6">
-                        <a class="btn btn-warning btn-trans waves-effect waves-warning m-b-5" onclick="bookmark('@Model.Id');"><i class="zmdi zmdi-bookmark"></i></a>
-                    </div>
-                }
-
             </div>
-
         </div>
     </div>
 </div>
