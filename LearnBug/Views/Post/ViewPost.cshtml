@@ -7,8 +7,23 @@
         <div class="panel-heading">
             <h3 class="panel-title">@Model.User.Name</h3>
         </div>
-        <div class="panel-body">
-            @Html.Raw(Model.Content)
+        <div class="panel-body" id="div-body">
+            @if (Model.Price == null || Model.Factors.Any(p => p.User.Username == User.Identity.Name))
+            {
+                @Html.Raw(Model.Content)
+            }
+            else
+            {
+                <div style="text-align:-webkit-center;">
+                    <div class="col-md-4" style="float:none">
+                        <div class="col-md-6 form-group"><h3>قیمت </h3></div>
+                        <div class="col-md-6 form-group"><h3>@(Model.Price?.ToPrice()) ریال</h3></div>
+                        <div class="col-md-12 form-group">
+                            <button class="btn btn-success btn-lg btn-block" onclick="BuyPost(@Model.Id)">خرید</button>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -25,9 +40,7 @@
 </div>
 
 @section scripts{
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script>
-
         function AddBookMark() {
             var w = document.getElementById("BtnBookmark").classList['value']
             var typ = true
@@ -44,20 +57,6 @@
                 type: "Post",
                 datatype: "Json",
                 error: function () { alert("خظا!") }
-            })
-        }
-        function BuyContent(contentId) {
-            $.ajax({
-                url:"@Url.Action("CreateFactor","Factor")",
-                data: {Id:contentId},
-                type: "Post",
-                datatype: "Json",
-                success: function (result) {
-                    if (result.Success) {
-                        document.getElementById("div-body").innerHTML=result.Html
-                    }
-                    eval(result.Script)
-                }
             })
         }
     </script>

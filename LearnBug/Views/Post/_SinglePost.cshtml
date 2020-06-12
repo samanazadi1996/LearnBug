@@ -10,7 +10,7 @@
                     @Html.Label("مدرس : ")
                 </div>
                 <div class="col-md-7">
-                    <a href="@Url.Action("Profile","User",new {id=Model.User.Username})">
+                    <a href="@Url.Action("Profile", "User", new { id = Model.User.Username })">
                         @Html.DisplayFor(model => model.User.Name)
                     </a>
                 </div>
@@ -20,7 +20,9 @@
                     @Html.Label("گروه مطلب : ")
                 </div>
                 <div class="col-md-7">
-                    @Html.DisplayFor(model => model.Group.Name)
+                    <a href="@Url.Action("Index", "Home", new { search = Model.Group.Name })">
+                        @Html.DisplayFor(model => model.Group.Name)
+                    </a>
                 </div>
             </div>
             <div class="col-md-12 form-group">
@@ -45,7 +47,22 @@
                     @Html.Label("قیمت : ")
                 </div>
                 <div class="col-md-7">
-                    @(Model.Price == null ? "Free" : Model.Price?.ToPrice())
+                    @if (Model.Price == null)
+                    {
+                        <span>Free</span>
+                    }
+                    else
+                    {
+                        if (Model.Factors.Any(p => p.User.Username == User.Identity.Name))
+                        {
+                            <del class="text-pink">@(Model.Price?.ToPrice()) ریال</del>
+                        }
+                        else
+                        {
+                            <span class="text-success">@(Model.Price?.ToPrice()) ریال</span>
+                        }
+                    }
+
                 </div>
             </div>
             <div class="col-md-12 form-group">

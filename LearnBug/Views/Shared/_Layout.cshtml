@@ -60,11 +60,26 @@
                     <ul class="nav navbar-nav navbar-right">
                         @if (User.Identity.IsAuthenticated)
                         {
+                            if (true)
+                            {
+                                <li>
+                                    <div class="notification-box">
+                                        <ul class="list-inline m-b-0">
+                                            <li>
+                                                <a class="text-pink" href="/Admin/Home">
+                                                    <i class="zmdi zmdi-settings"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>&nbsp;</li>
+                            }
                             <li>
                                 <div class="notification-box">
                                     <ul class="list-inline m-b-0">
                                         <li>
-                                            <a href="@Url.Action("Create","Post")">
+                                            <a href="@Url.Action("Create","Post")" class="text-success">
                                                 <i class="zmdi zmdi-plus"></i>
                                             </a>
                                         </li>
@@ -76,7 +91,7 @@
                                 <div class="notification-box">
                                     <ul class="list-inline m-b-0">
                                         <li>
-                                            <a href="@Url.Action("Index","Message")">
+                                            <a href="@Url.Action("Index","Message")" class="text-info">
                                                 <i class="zmdi zmdi-comment"></i>
                                             </a>
                                         </li>
@@ -89,7 +104,7 @@
                                 <div class="notification-box">
                                     <ul class="list-inline m-b-0">
                                         <li>
-                                            <a href="javascript:void(0);" class="right-bar-toggle">
+                                            <a href="javascript:void(0);" class="right-bar-toggle text-warning">
                                                 <i class="zmdi zmdi-notifications-none"></i>
                                             </a>
                                             <div class="noti-dot">
@@ -104,11 +119,12 @@
                             <li>&nbsp;</li>
                         }
                         <li class="hidden-xs">
-                            <form role="search" class="app-search">
-                                <input type="text" placeholder="به دنبال چه می گردی ؟؟؟"
+                            @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { id = "frm", @class = "app-search" }))
+                            {
+                                <input type="search" name="search" value="@(ViewBag.Srch ?? ViewBag.Srch)" placeholder="به دنبال چه می گردی ؟؟؟"
                                        class="form-control">
-                                <a href="~/Content/Mr-Admin/"><i class="fa fa-search"></i></a>
-                            </form>
+                                <a style="cursor:pointer" onclick="document.getElementById('frm').submit()" ;><i class="fa fa-search"></i></a>
+                            }
                         </li>
                     </ul>
 

@@ -52,16 +52,16 @@ namespace LearnBug.Controllers
         }
         public ActionResult Index(string search = null, int Page = 1)
         {
-            var contents = db.Posts.OrderByDescending(p => p.InsertDateTime).AsQueryable();
+            var contents = db.Posts.AsQueryable();
 
             if (!string.IsNullOrEmpty(search))
             {
-                contents = contents.Where(p => p.Subject.Contains(search) || p.Group.Name.Contains(search) || p.User.Name.Contains(search) || p.User.Username.Contains(search));
+                contents = contents.Where(p => p.Subject.Contains(search) || p.Group.Name.Contains(search) || p.User.Name.Contains(search) || p.User.Username.Contains(search) || p.Price.ToString().Contains(search)|| p.KeyWords.Contains(search)) ;
                 ViewBag.Srch = search.Trim();
             }
             PostsViewModel model = new PostsViewModel
             {
-                postId = contents.Skip((Page - 1) * 12).Take(12).Select(p => p.Id),
+                postId = contents.OrderByDescending(p => p.InsertDateTime).Skip((Page - 1) * 12).Take(12).Select(p => p.Id),
                 CurrentPage = Page,
                 TotalItemCount = contents.Count()
             };

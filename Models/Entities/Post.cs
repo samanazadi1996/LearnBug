@@ -46,6 +46,9 @@ namespace Models.Entities
         [Display(Name = "موضوع مطلب")]
         [Required(ErrorMessage = "موضوع را مشخص کنید")]
         public string Subject { get; set; }
+        [DisplayName("کلمات کلیدی")]
+        [Display(Name = "کلمات کلیدی")]
+        public string KeyWords { get; set; }
         [AllowHtml]
         public string Content { get; set; }
         [ScaffoldColumn(false)]

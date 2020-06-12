@@ -59,11 +59,11 @@ namespace Models.Entities
         [Required(ErrorMessage = "رمز عبور اجباری است")]
 
         public string Password { get; set; }
-        [Display(Name = "تکرار رمز عبور")]
-        [DisplayName("تکرار رمز عبور")]
-        [NotMapped]
-        [Compare("Password", ErrorMessage = "تکرار رمز عبور اشتباه است")]
-        public string ConfirmPassword { get; set; }
+        //[Display(Name = "تکرار رمز عبور")]
+        //[DisplayName("تکرار رمز عبور")]
+        //[NotMapped]
+        //[Compare("Password", ErrorMessage = "تکرار رمز عبور اشتباه است")]
+        //public string ConfirmPassword { get; set; }
 
         [Display(Name = "تاریخ تولد")]
         [DisplayName("تاریخ تولد")]

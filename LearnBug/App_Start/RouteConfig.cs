@@ -18,6 +18,12 @@ namespace LearnBug
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
             namespaces: new[] { "LearnBug.Controllers" }
+            );       
+            routes.MapRoute(
+                name: "Profile",
+                url: "Profile/{id}",
+                defaults: new { controller = "User", action = "Profile", id = UrlParameter.Optional },
+            namespaces: new[] { "LearnBug.Controllers" }
             );
         }
     }

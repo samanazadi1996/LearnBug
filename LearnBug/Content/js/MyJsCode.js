@@ -20,3 +20,18 @@ function deleteComment(id) {
 
     });
 }
+function BuyPost(PostId) {
+    debugger
+    $.ajax({
+        url: "/Factor/CreateFactor",
+        data: { Id: PostId },
+        type: "Post",
+        datatype: "Json",
+        success: function (result) {
+            if (result.Success) {
+                document.getElementById("div-body").innerHTML = result.Html
+            }
+            eval(result.Script)
+        }
+    })
+}

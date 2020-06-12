@@ -16,14 +16,14 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="form-group col-md-12">
-                        <div class="col-md-3">
+                        <div class="col-md-3 form-group">
                             @Html.Label("نام گروه")<br />
                             @Html.TextBox("Name", null, new { @class = "form-control ", autocomplete = "off" })
                             <br />
                             @Html.Label("عکس گروه")<br />
                             <input class="form-control " id="upload-Image" type="file" onchange="loadImageFile();" />
                         </div>
-                        <div class="col-md-9" style="height:150px">
+                        <div class="col-md-9  form-group"">
                             <img id="upload-Preview" src="" alt="Select Image" style="border:2px solid silver;height:100%;width:auto;" />
                             <img id="original-Img" src="" alt="Select Image" style="display:none" />
                         </div>
@@ -38,7 +38,6 @@
                         <button class="btn btn-info" onclick="EditGroup()"><div class="fa fa-edit"> ویرایش گروه انتخواب شده</div></button>
                     </div>
                 </div>
-
             <!-- -->
             <!-- -->
         </fieldset>
@@ -56,7 +55,6 @@
             var y = (document.getElementById("MyGroupList"))
             document.getElementById("Name").value = y.options[y.selectedIndex].text
             document.getElementById("upload-Preview").src = y.options[y.selectedIndex].attributes['img'].value
-
         }
 
         function EditGroup() {
@@ -97,13 +95,11 @@
                         document.getElementById("mygrops").innerHTML = result.Html
                         document.getElementById("Name").value = ""
                         document.getElementById("upload-Preview").src = ""
-
                     }
                     eval(result.Script)
                 },
                 error: function () { alert("خطا!") }
             });
-
         }
 
         function DeleteGroup() {
@@ -117,8 +113,6 @@
                         document.getElementById("mygrops").innerHTML = result.Html
                         document.getElementById("Name").value = ""
                         document.getElementById("upload-Preview").src = ""
-
-
                     }
                     eval(result.Script)
                 },
@@ -156,7 +150,6 @@
 
         var loadImageFile = function () {
             var uploadFile = document.getElementById("upload-Image").files[0];
-
             fileReader.readAsDataURL(uploadFile);
         }
 

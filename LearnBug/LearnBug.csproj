@@ -4207,7 +4207,7 @@
     <Content Include="Areas\Admin\Views\Factor\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\ManagementUser.cshtml" />
     <Content Include="Views\Transaction\_Index.cshtml" />
-    <Content Include="Views\Factor\_Index.cshtml" />
+    <Content Include="Views\Factor\Index.cshtml" />
     <Content Include="Views\Factor\_SellContent.cshtml" />
     <Content Include="Views\Transaction\_Add.cshtml" />
     <Content Include="Views\Follow\Followers.cshtml" />
