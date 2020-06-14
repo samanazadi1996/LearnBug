@@ -41,8 +41,20 @@ function SendMessage(userid) {
         data: { text: document.getElementById('TextMessage').value, to: userid },
         type: "Post",
         dataType: "Json",
-        success: function () {
-            document.getElementById("SendMessage").value = ""
+        success: function (data) {
+            document.getElementById("TextMessage").value = ""
+            eval(data.msg)
         }
     })
 }
+function follow(id) {
+    $.ajax({
+        url: "/Follow/AddOrDeleteFollow",
+        data: { id: id },
+        type: "Post",
+        success: function (data) {
+            document.getElementById('follow').innerHTML = data
+        }
+    })
+}
+

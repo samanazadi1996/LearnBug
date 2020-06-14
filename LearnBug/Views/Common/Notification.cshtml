@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ViewModels.NotificationViewModel>
+<a href="javascript:void(0);" class="right-bar-toggle">
+    <i class="zmdi zmdi-close-circle-o"></i>
+</a>
+<h4 class="">اعلانات</h4>
+<div class="notification-list nicescroll">
+    <ul class="list-group list-no-border user-list">
+        @foreach (var item in Model)
+        {
+
+            <li class="list-group-item">
+                <a href="@Url.Action("Profile","User",new { id=item.User.Username})" class="user-list-item">
+                    <div class="avatar">
+                        <img src="@item.User.ImgProfile()" alt="">
+                    </div>
+                    <div class="user-desc">
+                        <span class="name">@item.User.Name</span>
+                        <span class="desc">@item.Text</span>
+                        <span class="time">@item.DateTime.ToPersianDate()</span>
+                    </div>
+                </a>
+            </li>
+        }
+
+    </ul>
+</div>

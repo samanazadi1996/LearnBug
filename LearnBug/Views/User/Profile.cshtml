@@ -56,10 +56,10 @@
             <div class="card-box">
                 <fieldset>
                     <span class="input-icon icon-right">
-                        <textarea rows="2" id="TextMessage" class="form-control" placeholder="نوشتن یک پیام"></textarea>
+                        <textarea rows="2" id="TextMessage" class="form-control resize-none" placeholder="نوشتن یک پیام"></textarea>
                     </span>
                     <div class="p-t-10 pull-right">
-                        <a class="btn btn-sm btn-primary waves-effect waves-light" onclick="SendMessage('@Model.User.Id')">ارسال</a>
+                        <a class="btn btn-sm btn-primary w-md waves-effect waves-light" onclick="SendMessage('@Model.User.Id')"> ارسال پیام </a>
                     </div>
                 </fieldset>
             </div>
@@ -241,19 +241,4 @@
 
 
 @section scripts{
-
-    <script>
-
-        function follow(id) {
-            $.ajax({
-                url: "/Follow/AddOrDeleteFollow",
-                data: { id: id },
-                type: "Post",
-                success: function (data) {
-                    document.getElementById('follow').innerHTML = data
-                }
-            })
-        }
-
-    </script>
 }

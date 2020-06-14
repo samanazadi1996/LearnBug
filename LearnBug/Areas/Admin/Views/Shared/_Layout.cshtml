@@ -32,7 +32,12 @@
 
             <!-- LOGO -->
             <div class="topbar-left">
-                <a href="@Url.Action("Index","home")" class="logo"><span>Lear<span>nBug</span></span><i class="zmdi zmdi-layers"></i></a>
+                <a href="/home/Index" class="logo">
+                    <span>Lear<span>nBug</span></span>
+                    <i>
+                        <img src="~/Files/Picture/Logo/Logo.png" class="img-thumbnail img-responsive" />
+                    </i>
+                </a>
             </div>
 
             <!-- Button mobile view to collapse sidebar menu -->
@@ -53,23 +58,52 @@
 
                     <!-- Right(Notification and Searchbox -->
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <!-- Notification -->
-                            <div class="notification-box">
-                                <ul class="list-inline m-b-0">
-                                    <li>
-                                        <a href="javascript:void(0);" class="right-bar-toggle">
-                                            <i class="zmdi zmdi-notifications-none"></i>
-                                        </a>
-                                        <div class="noti-dot">
-                                            <span class="dot"></span>
-                                            <span class="pulse"></span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- End Notification bar -->
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <div class="notification-box">
+                                    <ul class="list-inline m-b-0">
+                                        <li>
+                                            <a href="/Post/Create" class="text-success">
+                                                <i class="zmdi zmdi-plus"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>&nbsp;</li>
+                            <li>
+                                <div class="notification-box">
+                                    <ul class="list-inline m-b-0">
+                                        <li>
+                                            <a href="/Message/Index" class="text-info">
+                                                <i class="zmdi zmdi-comment"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>&nbsp;</li>
+                            <li>
+                                <!-- Notification -->
+                                <div class="notification-box">
+                                    <ul class="list-inline m-b-0">
+                                        <li>
+                                            <a href="javascript:void(0);" class="right-bar-toggle text-warning">
+                                                <i class="zmdi zmdi-notifications-none"></i>
+                                            </a>
+                                            <div class="noti-dot">
+                                                <span class="dot"></span>
+                                                <span class="pulse"></span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- End Notification bar -->
+                            </li>
+                            <li>&nbsp;</li>
+                        }
+
                         <li class="hidden-xs">
                             <form role="search" class="app-search">
                                 <input type="text" placeholder="به دنبال چه می گردی ؟؟؟"
@@ -116,7 +150,7 @@
             </div> <!-- content -->
 
             <footer class="footer">
-                LearnBug.com
+                @Html.Action("Footer", "Common")
             </footer>
 
         </div>
@@ -125,77 +159,13 @@
         <!-- End Right content here -->
         <!-- ============================================================== -->
         <!-- Right Sidebar -->
-        <div class="side-bar right-bar">
-            <a href="javascript:void(0);" class="right-bar-toggle">
-                <i class="zmdi zmdi-close-circle-o"></i>
-            </a>
-            <h4 class="">اعلانات</h4>
-            <div class="notification-list nicescroll">
-                <ul class="list-group list-no-border user-list">
-                    <li class="list-group-item">
-                        <a href="~/Content/Mr-Admin/#" class="user-list-item">
-                            <div class="avatar">
-                                <img src="~/Content/Mr-Admin/assets/images/users/avatar-2.jpg" alt="">
-                            </div>
-                            <div class="user-desc">
-                                <span class="name">کاربر شماره یک</span>
-                                <span class="desc">متن کاربر شماره یک</span>
-                                <span class="time">2 ساعت قبل</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="~/Content/Mr-Admin/#" class="user-list-item">
-                            <div class="icon bg-info">
-                                <i class="zmdi zmdi-account"></i>
-                            </div>
-                            <div class="user-desc">
-                                <span class="name">ثبت نام جدید</span>
-                                <span class="desc">کاربری جدید در سایت ثبت نام کرده است</span>
-                                <span class="time">5 ساعت قبل</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="~/Content/Mr-Admin/#" class="user-list-item">
-                            <div class="icon bg-pink">
-                                <i class="zmdi zmdi-comment"></i>
-                            </div>
-                            <div class="user-desc">
-                                <span class="name">پیام جدید</span>
-                                <span class="desc">متن پیام جدید از کاریی جدید</span>
-                                <span class="time">1 روز قبل</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item active">
-                        <a href="~/Content/Mr-Admin/#" class="user-list-item">
-                            <div class="avatar">
-                                <img src="~/Content/Mr-Admin/assets/images/users/avatar-3.jpg" alt="">
-                            </div>
-                            <div class="user-desc">
-                                <span class="name">کاربر شماره 2</span>
-                                <span class="desc">با سلام من یک متن کاملا آزمایشی هستم</span>
-                                <span class="time">2 روز قبل</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item active">
-                        <a href="~/Content/Mr-Admin/#" class="user-list-item">
-                            <div class="icon bg-warning">
-                                <i class="zmdi zmdi-settings"></i>
-                            </div>
-                            <div class="user-desc">
-                                <span class="name">تنظیمات</span>
-                                <span class="desc">تنظیمات جدید برای دسترسی و راحتی شما موجود است</span>
-                                <span class="time">1 روز قبل</span>
-                            </div>
-                        </a>
-                    </li>
-
-                </ul>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="side-bar right-bar">
+                @Html.Action("Notification", "Common")
             </div>
-        </div>
+        }
+
         <!-- /Right-bar -->
 
     </div>

@@ -67,10 +67,5 @@ namespace LearnBug.Controllers
             };
             return View(model);
         }
-        public ActionResult Footer()
-        {
-            var model=db.Settings.Single(p => p.Name == "Footer");
-            return PartialView(model);
-        }
     }
 }

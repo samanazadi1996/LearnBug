@@ -158,11 +158,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommonController.cs" />
     <Compile Include="Areas\Admin\Controllers\FactorController .cs" />
     <Compile Include="Areas\Admin\Controllers\GroupController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\SettingController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\FactorController .cs" />
     <Compile Include="Controllers\BookmarkController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
@@ -184,6 +186,7 @@
     <Compile Include="Helpers\Utility\ViewHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\PostsViewModel.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
@@ -3370,6 +3373,8 @@
     <Content Include="Content\Mr-Admin\assets\plugins\bootstrap-tagsinput\dist\bootstrap-tagsinput.min.js.map" />
     <Content Include="Content\Mr-Admin\assets\plugins\bootstrap-tagsinput\dist\bootstrap-tagsinput.zip" />
     <Content Include="Areas\Admin\Views\User\Avatar.cshtml" />
+    <Content Include="Areas\Admin\Views\Common\Footer.cshtml" />
+    <Content Include="Areas\Admin\Views\Common\Notification.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\CkEditor\adapters\jquery.js" />
     <Content Include="Scripts\CkEditor\build-config.js" />
@@ -4223,10 +4228,11 @@
     <Content Include="Views\Follow\Following.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\Edit.cshtml" />
-    <Content Include="Views\Home\Footer.cshtml" />
+    <Content Include="Views\Common\Footer.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\UploadLogo.cshtml" />
     <Content Include="Views\Message\_Sent.cshtml" />
     <Content Include="Views\User\_UserFollow.cshtml" />
+    <Content Include="Views\Common\Notification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

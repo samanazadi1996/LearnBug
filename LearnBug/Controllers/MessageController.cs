@@ -34,7 +34,7 @@ namespace LearnBug.Controllers
             var model = me.Sent.OrderByDescending(p => p.InsertDateTime);
             return PartialView(model);
         }
-        public JavaScriptResult SendMessage(string text, int to)
+        public JsonResult SendMessage(string text, int to)
         {
             var message = new Message
             {
@@ -48,16 +48,16 @@ namespace LearnBug.Controllers
                 db.Users.Single(p => p.Username == User.Identity.Name).Sent.Add(message);
                 if (db.SaveChanges() > 0)
                 {
-                    return JavaScript("alert('پیغام ارسال شد')");
+                    return Json(new {msg= "alert('پیغام ارسال شد')" });
                 }
                 else
                 {
-                    return JavaScript("alert('پیغام ارسال نشد')");
+                    return Json(new { msg="alert('پیغام ارسال نشد')" });
                 }
             }
             else
             {
-                return JavaScript("alert('مقادیر نامعتبر')");
+                return Json(new { msg = "alert('مقادیر نامعتبر')" });
 
             }
         }
