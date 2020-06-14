@@ -4,31 +4,27 @@
 }@section styles{
     <link href="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.css" rel="stylesheet" />
 }
-<div>
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">ویرایش پروفایل</div>
-            <div class="panel-body">
-                <!-- -->
-                <div class="col-md-2 pull-right" style="border-left:2px solid silver;">
-                    <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_editProfile","User")')">ویرایش اطلاعات کاربری</a><br />
-                    <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_editPicture", "User")')">ویرایش عکس پروفایل</a><br />
-                    <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_editPassword", "User")')">تغییر رمز عبور</a>
-                    <div class="clear"><hr /></div>
-                    <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_Add","Transaction")')">افزایش اعتبار</a><br />
-                    <a onclick="renderpage('@Url.Action("_Index","Transaction")')" style="width:100%" class="btn btn-info">تراکنش ها</a><br />
-                    <a onclick="renderpage('@Url.Action("_Index","Factor")')" style="width:100%" class="btn btn-info">مطالب خریداری شده</a>
-                    @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
-                    {
-                        <br />
-                        <a onclick="renderpage('@Url.Action("_SellContent","Factor")')" style="width:100%" class="btn btn-info">گذارش خرید مطالب من</a>
-                    }
-                </div>
-                <div id="bodypartial" class="col-md-10 pull-left" style="padding:10px;">
-                </div>
-                <!-- -->
+
+<div class="col-lg-12">
+    <div class="card-box">
+        <fieldset>
+            <!-- -->
+            <div class="col-md-2" style="border-left:2px solid silver;">
+                <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_editProfile","User")')">ویرایش اطلاعات کاربری</a><br /><br />
+                <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_editPicture", "User")')">ویرایش عکس پروفایل</a><br /><br />
+                <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_editPassword", "User")')">تغییر رمز عبور</a>
+                <div class="clear"><hr /></div>
+                <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_Add","Transaction")')">افزایش اعتبار</a><br /><br />
+                <a onclick="renderpage('@Url.Action("_Index","Transaction")')" style="width:100%" class="btn btn-info">تراکنش ها</a><br /><br />
+                @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+                {
+                    <a onclick="renderpage('@Url.Action("_SellContent","Factor")')" style="width:100%" class="btn btn-info">گذارش خرید مطالب من</a>
+                }
             </div>
-        </div>
+            <div id="bodypartial" class="col-md-10" style="padding:10px;">
+            </div>
+            <!-- -->
+        </fieldset>
     </div>
 </div>
 

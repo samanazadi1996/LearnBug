@@ -1,87 +1,113 @@
 ﻿@model Models.Entities.User
-@using Entities;
 <div>
     <center><b style="font-size:18px;" id="modal-title">ویرایش اطلاعات کاربری</b></center>
 </div>
 
 <hr />
-<div class="">
-    @using (Html.BeginForm(""))
-    {
+@using (Html.BeginForm(""))
+{
 
-        @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 
-        <div class="col-md-12">
-
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group" style="padding:10px;">
-                <div class="col-md-2 pull-right">: نام</div>
-                <div class="col-md-3 pull-right">@Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })</div>
-                <div class="col-md-7 pull-left">@Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })</div>
+    <div class="col-md-9 form-group">
+        <div class="col-md-9">
+            <div class="col-md-3">
+                @Html.Label("نام : ")
             </div>
-            <div class="clear"></div>
-            <div class="form-group" style="padding:10px;">
-
-                <div class="col-md-2 pull-right">: ایمیل</div>
-                <div class="col-md-3 pull-right">@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })</div>
-                <div class="col-md-7 pull-left">@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })</div>
-            </div>
-            <div class="clear"></div>
-            <div class="form-group" style="padding:10px;">
-
-
-                <div class="col-md-2 pull-right">: تاریخ تولد</div>
-                <div class="col-md-3 pull-right">
-                    <input class="form-control text-box single-line" onmousedown="$('#Dateofbirth').datepicker();" name="Dateofbirth" id="Dateofbirth" type="text" value="@Model.Dateofbirth.ToPersianDate("yyyy/MM/dd")" autocomplete="off" />
-                </div>
-                <div class="col-md-7 pull-left">@Html.ValidationMessageFor(model => model.Dateofbirth, "", new { @class = "text-danger" })</div>
-            </div>
-            <div class="clear"></div>
-            <div class="form-group" style="padding:10px;">
-
-                <div class="col-md-2 pull-right">: جنسیت</div>
-                <div class="col-md-3 pull-right">
-                    <select name="Gender" class=" form-control" id="Gender">
-                        <option value="0" @(Model.Gender == 0 ? "selected" : "")>نا مشخص</option>
-                        <option value="1" @(Model.Gender == 1 ? "selected" : "")>مرد</option>
-                        <option value="2" @(Model.Gender == 2 ? "selected" : "")>زن</option>
-                    </select>
-                    @*@Html.DropDownListFor(model => model.Gender, new SelectList(Enum.GetValues(typeof(GenderType))), new { @class = "form-control" })*@
-                </div>
-                <div class="col-md-7 pull-left">@Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })</div>
-            </div>
-            <div class="clear"></div>
-            <div class="form-group" style="padding:10px;">
-
-                <div class="col-md-2 pull-right">: تلفن</div>
-                <div class="col-md-3 pull-right">@Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })</div>
-                <div class="col-md-7 pull-left">@Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })</div>
-            </div>
-            <div class="clear"></div>
-            <div class="form-group" style="padding:10px;">
-
-                <div class="col-md-2 pull-right">: محل سکونت</div>
-                <div class="col-md-3 pull-right">@Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })</div>
-                <div class="col-md-7 pull-left">@Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })</div>
-            </div>
-            <div class="clear"></div>
-            <div class="form-group" style="padding:10px;" style="padding:10px;">
-
-                <div class="col-md-2 pull-right">: بیوگرافی</div>
-                <div class="col-md-3 pull-right">@Html.TextAreaFor(model => model.Biography, new { @class = "form-control" })</div>
-                <div class="col-md-7 pull-left">@Html.ValidationMessageFor(model => model.Biography, "", new { @class = "text-danger" })</div>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
-        <hr />
-        <div class=" col-md-12" style="padding-top:40px">
-            <center>
-                <input type="submit" class="btn btn-success" value="ذخیره" />
-                <a type="submit" class="btn btn-danger" onclick="document.getElementById('bodypartial').innerHTML=''">انصراف</a>
-            </center>
+    </div>
+    <div class="col-md-9 form-group">
+        <div class="col-md-9">
+            <div class="col-md-3">
+                @Html.Label("ایمیل : ")
+            </div>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 form-group">
+        <div class="col-md-9">
+            <div class="col-md-3">
+                @Html.Label("تاریخ تولد : ")
+            </div>
+            <div class="col-md-9">
+                <input class="form-control text-box single-line" onmousedown="$('#Dateofbirth').datepicker();" name="Dateofbirth" id="Dateofbirth" type="text" value="@Model.Dateofbirth.ToPersianDate("yyyy/MM/dd")" autocomplete="off" />
+                @Html.ValidationMessageFor(model => model.Dateofbirth, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-9 form-group">
+        <div class="col-md-9">
+            <div class="col-md-3">
+                @Html.Label("جنسیت : ")
+            </div>
+            <div class="col-md-9">
+                @Html.EnumDropDownListFor(model => model.Gender, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 form-group">
+        <div class="col-md-9">
+            <div class="col-md-3">
+                @Html.Label("تلفن : ")
+            </div>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            </div>
         </div>
 
-    }
-</div>
+    </div>
+
+    <div class="col-md-9 form-group">
+        <div class="col-md-9">
+            <div class="col-md-3">
+                @Html.Label("محل سکونت : ")
+            </div>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 form-group">
+        <div class="col-md-9">
+            <div class="col-md-3">
+                @Html.Label("بیوگرافی : ")
+            </div>
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.Biography, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Biography, "", new { @class = "text-danger" })
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-9 form-group">
+        <div class="col-md-9">
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-9">
+                <input type="submit" class="btn btn-success w-md" value="ذخیره" />
+                <a type="submit" class="btn btn-danger w-md" onclick="document.getElementById('bodypartial').innerHTML=''">انصراف</a>
+
+            </div>
+        </div>
+    </div>
+
+
+
+}
 
 
 

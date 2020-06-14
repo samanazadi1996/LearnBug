@@ -1,0 +1,40 @@
+﻿@model Models.Entities.User
+<div class="followItem">
+    <div class="card-box widget-user">
+        <fieldset>
+            <div>
+                <a href="@Url.Action("Profile","User",new {id=Model.Username})">
+                    <img src="@Model.ImgProfile()" class="img-responsive img-circle" alt="user">
+                </a>
+                <div class="wid-u-info form-group">
+                    <a href="@Url.Action("Profile","User",new {id=Model.Username})">
+                        <h4 class="m-t-0 m-b-5 font-600 text-info">@Model.Name</h4>
+                    </a>
+                    <p class="text-muted m-b-5 font-13">@Model.Gender</p>
+                    <small class="text-success"><b>@Model.Roles</b></small>
+                </div>
+
+            </div>
+            <div>
+                @if (User.Identity.IsAuthenticated && Model.Username != User.Identity.Name)
+                {
+                    <div class="col-md-6">
+                        <button class="btn btn-pink btn-trans waves-effect btn-sm btn-block waves-info m-b-5" id="follow" onclick="follow(@Model.Id)">@(Model.Following.Any(p => p.Follower.Username == User.Identity.Name) ? "Unfollow" : "follow")</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-success btn-trans waves-effect btn-sm  btn-block waves-info m-b-5" onclick="alert('')">Message</button>
+                    </div>
+                }
+                else if (Model.Username == User.Identity.Name)
+                {
+                    <div class="col-md-12">
+                        <a href="@Url.Action("Edit","User")" class="btn btn-pink btn-trans waves-effect btn-sm  btn-block waves-info m-b-5">ویرایش پروفایل</a>
+                    </div>
+
+                }
+
+
+            </div>
+        </fieldset>
+    </div>
+</div>

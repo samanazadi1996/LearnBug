@@ -88,61 +88,9 @@
             <div class="sidebar-inner slimscrollleft">
 
                 <!-- User -->
-                <div class="user-box">
-                    <div class="user-img">
-                        <img src="~/Content/Mr-Admin/assets/images/users/avatar-1.jpg" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
-                        <div class="user-status offline"><i class="zmdi zmdi-dot-circle"></i></div>
-                    </div>
-                    <h5><a href="~/Content/Mr-Admin/#">@User.Identity.Name</a> </h5>
-                    <ul class="list-inline">
-                        <li>
-                            <a href="~/Content/Mr-Admin/#">
-                                <i class="zmdi zmdi-settings"></i>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="~/Content/Mr-Admin/#" class="text-custom">
-                                <i class="zmdi zmdi-power"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                @Html.Action("Avatar", "User")
                 <!-- End User -->
                 <!--- Sidemenu -->
-                <div id="sidebar-menu">
-                    <ul>
-                        <li class="text-muted menu-title">دسته بندی ها</li>
-
-                        <li>
-                            <a href="@Url.Action("Index","Home")" class="waves-effect"><i class="zmdi zmdi-view-dashboard"></i> <span> داشبورد </span> </a>
-                        </li>
-                        <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-account"></i> <span> کاربران سایت</span> <span class="menu-arrow"></span></a>
-                            <ul class="list-unstyled">
-                                <li><a href="@Url.Action("Index","User")">کاربران</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("ManagementGroups","Group")" class="waves-effect"><i class="zmdi zmdi-group"></i> <span> مدیریت گروه ها </span> </a>
-                        </li>
-
-                        <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-money"></i> <span>مدیریت مالی </span> <span class="menu-arrow"></span></a>
-                            <ul class="list-unstyled">
-                                <li><a href="@Url.Action("Index","Factor")">مدیریت فروش</a></li>
-                            </ul>
-                        </li>
-                        <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-settings"></i> <span> تنظیمات </span> <span class="menu-arrow"></span></a>
-                            <ul class="list-unstyled">
-                                <li><a href="@Url.Action("Index","Setting")">مدیریت مقادیر اولیه</a></li>
-                                <li><a href="@Url.Action("UploadLogo","Setting")">آپلود لوگو </a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
                 <!-- Sidebar -->
                 <div class="clearfix"></div>
 

@@ -76,7 +76,6 @@ namespace LearnBug.Areas.Admin.Controllers
             return View(user);
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public ActionResult ManagementUser(User user)
         {
             user.Dateofbirth = user.Dateofbirth.ToMiladiDate();

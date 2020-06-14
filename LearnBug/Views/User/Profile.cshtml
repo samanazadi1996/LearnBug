@@ -22,13 +22,36 @@
                         <div class="col-md-4"><a class="btn btn-info btn-trans waves-effect btn-block waves-info m-b-5" href="@Url.Action("Followers","Follow",new {id=Model.User.Username })">دنبال کننده ها <span class="text-success"> @Model.Following.Count() </span></a></div>
                         <div class="col-md-4"><a class="btn btn-info btn-trans waves-effect btn-block waves-info m-b-5" href="#Div_posts">تعداد پست ها <span class="text-success">@Model.User.Posts.Count()</span> </a></div>
                     </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (Model.User.Username != User.Identity.Name)
+                        {
+
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <button class="btn btn-pink btn-trans waves-effect btn-block waves-info m-b-5" id="follow" onclick="follow(@Model.User.Id)">
+                                        @(Model.Following.Any(p => p.Username == User.Identity.Name) ? "Unfollow" : "follow")
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <a href="@Url.Action("Edit","User")" class="btn btn-pink btn-trans waves-effect btn-block waves-info m-b-5"> ویرایش پروفایل </a>
+                                </div>
+                            </div>
+                        }
+                    }
                 </div>
 
                 <div class="clearfix"></div>
             </div>
         </div>
         <!--/ meta -->
-        @if (Model.User.Username != User.Identity.Name)
+
+        @if (Model.User.Username != User.Identity.Name && User.Identity.IsAuthenticated)
         {
             <div class="card-box">
                 <fieldset>
@@ -220,35 +243,15 @@
 @section scripts{
 
     <script>
-        function SendMessage(userid) {
-                $.ajax({
-                    url: "@Url.Action("SendMessage","Message")",
-                    data: { text: document.getElementById('TextMessage').value, to: userid },
-                    type: "Post",
-                    dataType: "Json",
-                    success: function () {
-                        document.getElementById("SendMessage").value=""
-                    }
-                })
-        }
 
-
-
-        function Follow(id) {
-            var w = $("#btnFollow").val()
-            var typ = true
-            if (w == "UnFollow") {
-                $("#btnFollow").val("Follow")
-                typ = false
-            } else {
-                $("#btnFollow").val("UnFollow")
-                typ = true
-            }
+        function follow(id) {
             $.ajax({
-                url: "/Follow/Follow",
-                data: { userId: id, type: typ },
+                url: "/Follow/AddOrDeleteFollow",
+                data: { id: id },
                 type: "Post",
-                datatype: "Json"
+                success: function (data) {
+                    document.getElementById('follow').innerHTML = data
+                }
             })
         }
 

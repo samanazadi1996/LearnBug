@@ -3,27 +3,34 @@
     <center><b style="font-size:18px;" id="modal-title">افزایش اعتبار</b></center>
 </div>
 
-<hr /><br />
-<div class=" col-lg-12">
-    <div class=" form-group col-lg-2 pull-right"> : افزایش اعتبار (تومان) </div>
-    <div class="col-lg-3 pull-right">
-        <select class="form-control" style="font-size:16px;" id="prc">
-            <option value="5000">5000</option>
-            <option value="10000">10000</option>
-            <option value="15000">15000</option>
-            <option value="20000">20000</option>
-            <option value="25000">25000</option>
-            <option value="30000">30000</option>
-        </select>
+<hr />
+<div class="col-md-12 form-group">
+    <div class="col-md-9">
+        <div class="col-md-4">
+            @Html.Label("افزایش اعتبار (تومان) : ")
+        </div>
+        <div class="col-md-6">
+            <select class="form-control" style="font-size:16px;" id="prc">
+                <option value="5000">5000</option>
+                <option value="10000">10000</option>
+                <option value="15000">15000</option>
+                <option value="20000">20000</option>
+                <option value="25000">25000</option>
+                <option value="30000">30000</option>
+            </select>
+
+        </div>
     </div>
 </div>
+<div class="col-md-12 form-group">
+    <div class="col-md-9">
+        <div class="col-md-4">
 
-<hr />
-<div>
-    <center>
-        <input type="submit" onclick="AddPrice(document.getElementById('prc').value)" class="btn btn-success" value="خرید اعتبار" />
-        <input type="submit" class="btn btn-danger" onclick="document.getElementById('bodypartial').innerHTML=''" value="انصراف" />
-    </center>
+        </div>
+        <div class="col-md-6">
+            <input type="submit" class="btn btn-success w-md" onclick="AddPrice(document.getElementById('prc').value)"  value="خرید اعتبار" />
+            <input type="submit" class="btn btn-danger w-md" onclick="document.getElementById('bodypartial').innerHTML=''" value="انصراف" />
 
+        </div>
+    </div>
 </div>
-

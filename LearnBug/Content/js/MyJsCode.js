@@ -35,3 +35,14 @@ function BuyPost(PostId) {
         }
     })
 }
+function SendMessage(userid) {
+    $.ajax({
+        url: "/Message/SendMessage",
+        data: { text: document.getElementById('TextMessage').value, to: userid },
+        type: "Post",
+        dataType: "Json",
+        success: function () {
+            document.getElementById("SendMessage").value = ""
+        }
+    })
+}

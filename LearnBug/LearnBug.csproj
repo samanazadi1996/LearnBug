@@ -3361,6 +3361,7 @@
     <Content Include="Content\Mr-Admin\assets\plugins\bootstrap-tagsinput\dist\bootstrap-tagsinput.less" />
     <Content Include="Content\Mr-Admin\assets\plugins\bootstrap-tagsinput\dist\bootstrap-tagsinput.min.js.map" />
     <Content Include="Content\Mr-Admin\assets\plugins\bootstrap-tagsinput\dist\bootstrap-tagsinput.zip" />
+    <Content Include="Areas\Admin\Views\User\Avatar.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\CkEditor\adapters\jquery.js" />
     <Content Include="Scripts\CkEditor\build-config.js" />
@@ -4217,6 +4218,7 @@
     <Content Include="Views\Home\Footer.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\UploadLogo.cshtml" />
     <Content Include="Views\Message\_Sent.cshtml" />
+    <Content Include="Views\User\_UserFollow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,7 +11,7 @@
         <h5><a href="@Url.Action("Profile","User",new {id=Model.Username })">@User.Identity.Name</a> </h5>
         <ul class="list-inline">
             <li>
-                <a href="~/Content/Mr-Admin/#">
+                <a href="@Url.Action("Edit","User")">
                     <i class="zmdi zmdi-settings"></i>
                 </a>
             </li>

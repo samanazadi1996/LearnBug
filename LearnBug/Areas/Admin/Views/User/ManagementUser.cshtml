@@ -35,7 +35,7 @@
                         <div class="col-md-2">نام کاربری  : </div>
                         <div class="col-md-4"> @Html.TextBoxFor(model => Model.Username, new { @class = "form-control" })</div>
                         <div class="col-md-2">نام  : </div>
-                        <div class="col-md-4"> @Html.TextBoxFor(model => Model.name, new { @class = "form-control" })</div>
+                        <div class="col-md-4"> @Html.TextBoxFor(model => Model.Name, new { @class = "form-control" })</div>
                         <div class="col-md-2">ایمیل : </div>
                         <div class="col-md-4"> @Html.TextBoxFor(model => Model.Email, new { @class = "form-control" })</div>
                         <div class="col-md-2">رمز عبور : </div>
@@ -100,7 +100,7 @@
                     {
                         <tr>
                             <td>@(s++)</td>
-                            <td>@item.Datetime.ToPersianDate()</td>
+                            <td>@item.InsertDateTime.ToPersianDate()</td>
                             <td>$@item.Price</td>
                             <td>(%@item.Commission)</td>
                             <td style="color:blue"> $@(item.Price / 100 * item.Commission)</td>
@@ -126,7 +126,7 @@
                         <tr>
                             <td>@item.Id</td>
                             <td>@(item.Charge ? "+" : "-")</td>
-                            <td>@item.Datetime.ToPersianDate()</td>
+                            <td>@item.InsertDateTime.ToPersianDate()</td>
                             <td>@item.Price.ToPrice()</td>
                         </tr>
                     }
@@ -144,12 +144,12 @@
                         <th>برای مطلب</th>
                         <th></th>
                     </tr>
-                    @foreach (var item in Model.Comments.OrderByDescending(p => p.Datetime))
+                    @foreach (var item in Model.Comments.OrderByDescending(p => p.InsertDateTime))
                     {
                         <tr>
                             <td>@item.Id</td>
                             <td>@item.Text</td>
-                            <td>@item.Datetime.ToPersianDate()</td>
+                            <td>@item.InsertDateTime.ToPersianDate()</td>
                             <td>@item.postId</td>
                         </tr>
                     }
@@ -172,12 +172,12 @@
                         <th>برای کاربر</th>
                         <th>وضعیت پیام</th>
                     </tr>
-                    @foreach (var item in Model.Sent.Concat(Model.Inbox).OrderByDescending(p => p.Datetime))
+                    @foreach (var item in Model.Sent.Concat(Model.Inbox).OrderByDescending(p => p.InsertDateTime))
                     {
                         <tr @(item.sender.Username == Model.Username ? "style=background-color:cyan;" : "style=background-color:yellow;")>
                             <td>@item.Id</td>
                             <td>@item.Text</td>
-                            <td>@item.Datetime.ToPersianDate()</td>
+                            <td>@item.InsertDateTime.ToPersianDate()</td>
                             <td>@(item.sender.Username == Model.Username ? item.Reciver.Username : item.sender.Username)</td>
                             <td>@item.Status</td>
 

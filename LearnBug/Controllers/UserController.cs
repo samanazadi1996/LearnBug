@@ -171,8 +171,8 @@ namespace LearnBug.Controllers
             var user = db.Users.Single(p => p.Username == User.Identity.Name);
             if (type == "update")
             {
-                var filename = "/Files/ProfilePicture/" + user.Username + DateTime.Now.ToString("yyyyMMddhhmmss") + ".jpg";
-                 Utility.ConvertBase64toFile.Convert_base64_url_Image(newPicture, filename);
+                var filename = "/Files/ProfilePicture/" + user.Username + ".jpg";
+                Utility.ConvertBase64toFile.Convert_base64_url_Image(newPicture, filename);
                 user.Image = filename;
                 db.SaveChanges();
                 return JavaScript("alert('عکس پروفایل شما با موفقیت بروزرسانی شد')");
@@ -194,7 +194,14 @@ namespace LearnBug.Controllers
             }
             return PartialView(null);
         }
-        [AllowAnonymous][HttpPost]
+        [AllowAnonymous]
+        public ActionResult _UserFollow(int id)
+        {
+            var user = db.Users.Find(id);
+            return PartialView(user);
+        }
+        [AllowAnonymous]
+        [HttpPost]
         public JsonResult AutenticatorUseName(string Username)
         {
             Username = Username.ToLower();

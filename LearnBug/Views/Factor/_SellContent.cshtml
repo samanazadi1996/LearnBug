@@ -4,37 +4,26 @@
 </div>
 
 <hr />
-<div class="pre-scrollable mce-arrow-down">
-    <table class="table table-hover table-striped">
+<table class="table table-hover table-responsive">
+    <tr>
+        <th>#</th>
+        <th>نام خریدار</th>
+        <th>موضوع مطلب</th>
+        <th> تاریخ خرید</th>
+        <th>مبلغ دریافتی-کمیسیون %</th>
+        <th> امتیاز</th>
+    </tr>
+    @{int a = 1;}
+
+    @foreach (var item in Model)
+    {
         <tr>
-            <th>#</th>
-            <th>نام خریدار</th>
-            <th>موضوع مطلب</th>
-            <th> تاریخ خرید</th>
-            <th>مبلغ دریافتی-کمیسیون %</th>
-            <th> امتیاز</th>
+            <td>@(a++)</td>
+            <td><a href="/User/Profile/@item.User.Username">@item.User.Name</a></td>
+            <td><a href="/Content/ViewContent/@item.postId">@item.Post.Subject</a></td>
+            <td>@item.InsertDateTime.ToPersianDate()</td>
+            <td>@(item.Price - (item.Price / 100 * item.Commission)) (%@item.Commission)</td>
+            <td>5</td>
         </tr>
-        @{int a = 1;}
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@(a++)</td>
-                <td><a href="/User/Profile/@item.User.Username">@item.User.name</a></td>
-                <td><a href="/Content/ViewContent/@item.contentId">@item.Content.Subject</a></td>
-                <td>@item.Datetime.ToPersianDate()</td>
-                <td>@(item.Price - (item.Price / 100 * item.Commission)) (%@item.Commission)</td>
-                <td>5</td>
-            </tr>
-        }
-    </table>
-</div>
-<hr />
-<div>
-    <center>
-        <input type="submit" class="btn btn-success" onclick="" value="save" />
-        <input type="submit" class="btn btn-danger" onclick="document.getElementById('bodypartial').innerHTML=''" value="انصراف" />
-    </center>
-
-</div>
-
+    }
+</table>

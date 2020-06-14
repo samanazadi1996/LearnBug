@@ -1,0 +1,58 @@
+﻿
+@model Models.Entities.User
+<!-- User -->
+<div class="user-box">
+    <div class="user-img">
+        <a href="@Url.Action("Profile","User",new {id=Model.Username })">
+            <img src="@Model.ImgProfile()" alt="user-img" title="Mat Helme" class="img-thumbnail img-responsive">
+        </a>
+    </div>
+    <h5><a href="@Url.Action("Profile","User",new {id=Model.Username })">@User.Identity.Name</a> </h5>
+    <ul class="list-inline">
+        <li>
+            <a href="@Url.Action("Edit","User")">
+                <i class="zmdi zmdi-settings"></i>
+            </a>
+        </li>
+
+        <li>
+            <a href="@Url.Action("Logout","Home")" class="text-custom">
+                <i class="zmdi zmdi-power"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- End User -->
+<!--- Sidemenu -->
+<div id="sidebar-menu">
+    <ul>
+        <li>
+            <a href="@Url.Action("Index","Home")" class="waves-effect"><i class="zmdi zmdi-view-dashboard"></i> <span> داشبورد </span> </a>
+        </li>
+        <li class="has_sub">
+            <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-account"></i> <span> کاربران سایت</span> <span class="menu-arrow"></span></a>
+            <ul class="list-unstyled">
+                <li><a href="@Url.Action("Index","User")">کاربران</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="@Url.Action("ManagementGroups","Group")" class="waves-effect"><i class="zmdi zmdi-group"></i> <span> مدیریت گروه ها </span> </a>
+        </li>
+
+        <li class="has_sub">
+            <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-money"></i> <span>مدیریت مالی </span> <span class="menu-arrow"></span></a>
+            <ul class="list-unstyled">
+                <li><a href="@Url.Action("Index","Factor")">مدیریت فروش</a></li>
+            </ul>
+        </li>
+        <li class="has_sub">
+            <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-settings"></i> <span> تنظیمات </span> <span class="menu-arrow"></span></a>
+            <ul class="list-unstyled">
+                <li><a href="@Url.Action("Index","Setting")">مدیریت مقادیر اولیه</a></li>
+                <li><a href="@Url.Action("UploadLogo","Setting")">آپلود لوگو </a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="clearfix"></div>

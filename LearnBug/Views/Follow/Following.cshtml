@@ -6,18 +6,7 @@
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-lg-3 col-md-6">
-            <div class="card-box widget-user">
-                <div>
-                    <img src="@item.ImgProfile()" class="img-responsive img-circle" alt="user">
-                    <div class="wid-u-info">
-                        <h4 class="m-t-0 m-b-5 font-600">@item.Name</h4>
-                        <p class="text-muted m-b-5 font-13">@item.Gender</p>
-                        <small class="text-success"><b>@item.Roles</b></small>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @Html.Action("_UserFollow","User",new {item.Id})
     }
 </div>
 @section Scripts {
