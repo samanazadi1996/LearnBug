@@ -28,7 +28,7 @@ namespace LearnBug.Controllers
             return View(model);
         }
 
-        public ActionResult _SellContent(int Id)
+        public ActionResult _SellPost()
         {
             var model = db.Factors.Where(p => p.Post.User.Username == User.Identity.Name).OrderByDescending(p=>p.InsertDateTime).AsQueryable();
             return PartialView(model);
@@ -53,17 +53,17 @@ namespace LearnBug.Controllers
                     me.Wallet -= content.Price.Value;
                     content.User.Wallet += (content.Price.Value - (content.Price.Value / 100 * content.User.Commission));
                     db.SaveChanges();
-                    return Json(new { Success = true, Html = content.Content, Script = "alert('خرید با موفقیت انجام شد')" });
+                    return Json(new { Success = true, Html = content.Content, Script = "toastr.success('خرید با موفقیت انجام شد')" });
 
                 }
                 else
                 {
-                    return Json(new { Success = false, Html = "", Script = "alert('کیف پول خود را شارژ کنید')" });
+                    return Json(new { Success = false, Html = "", Script = "toastr.info('کیف پول خود را شارژ کنید')" });
                 }
             }
             else
             {
-                return Json(new { Success = false, Html = "", Script = "alert('error');" });
+                return Json(new { Success = false, Html = "", Script = "toastr.error('خطا');" });
 
             }
         }

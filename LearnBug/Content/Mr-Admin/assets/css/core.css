@@ -1479,8 +1479,17 @@ pre {
 .followItem {
     width: fit-content;
     float: right;
-    margin-right:10px;
+    margin-right: 10px;
 }
-.resize-none{
-    resize:none;
+
+.resize-none {
+    resize: none;
+}
+
+.sa-right {
+    float: right;
+}
+
+.sa-left {
+    float: left;
 }

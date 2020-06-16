@@ -5,7 +5,19 @@
 <div class="col-lg-12">
     <div class="panel panel-border panel-info">
         <div class="panel-heading">
-            <h3 class="panel-title">@Model.User.Name</h3>
+            <div class="col-lg-12">
+                <h3 class="panel-title sa-right"><a href="@Url.Action("Profile","User",new { id=Model.User.Username})">@Model.User.Name</a></h3>
+                @if (Model.User.Username == User.Identity.Name)
+                {
+                    <a class="btn btn-info btn-trans waves-effect waves-warning m-b-5 sa-left" href="@Url.Action("Edit", "Post", new { id = Model.Id })"><i class="zmdi zmdi-edit"></i></a>
+                    <span class="sa-left">&nbsp;</span>
+                    <a class="btn btn-danger btn-trans waves-effect waves-warning m-b-5 sa-left"><i class="zmdi zmdi-delete"></i></a>
+                }
+                else
+                {
+                    <a class="btn btn-warning btn-trans waves-effect waves-warning m-b-5 sa-left" onclick="bookmark('@Model.Id');"><i class="zmdi zmdi-bookmark"></i></a>
+                }
+            </div>
         </div>
         <div class="panel-body" id="div-body">
             @if (Model.Price == null || Model.Factors.Any(p => p.User.Username == User.Identity.Name))
@@ -40,24 +52,4 @@
 </div>
 
 @section scripts{
-    <script>
-        function AddBookMark() {
-            var w = document.getElementById("BtnBookmark").classList['value']
-            var typ = true
-            if (w == "fa fa-bookmark") {
-                document.getElementById("BtnBookmark").classList['value'] = "fa fa-bookmark-o"
-                typ = false
-            } else {
-                document.getElementById("BtnBookmark").classList['value'] = "fa fa-bookmark"
-                typ = true
-            }
-            $.ajax({
-                url: "/Bookmark/AddBookmark",
-                data: { ContentId: $("#Id").val(), type: typ },
-                type: "Post",
-                datatype: "Json",
-                error: function () { alert("خظا!") }
-            })
-        }
-    </script>
 }

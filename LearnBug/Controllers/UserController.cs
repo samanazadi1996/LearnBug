@@ -48,11 +48,14 @@ namespace LearnBug.Controllers
             try
             {
                 var user = db.Users.FirstOrDefault(p => p.Username.Trim() == id.Trim());
+                var mutualFollower = user.Following.Select(p => p.Follower)
+                    .Where(p => p.Following.Any(o => o.Follower.Username == User.Identity.Name));
+                    
+                    //.Where(p => p.Follower.Following.Any(o => o.Follower.Username == User.Identity.Name)).Take(5).Select(p => p.Following);
                 ProfileViewModel model = new ProfileViewModel()
                 {
                     User = user,
-                    Follower = user.Follower.Take(5).Select(p => p.Following),
-                    Following = user.Following.Take(5).Select(p => p.Follower),
+                    mutualFollower =mutualFollower,
                     Posts = user.Posts
                 };
 
@@ -97,42 +100,37 @@ namespace LearnBug.Controllers
         {
             return View();
         }
-        [HttpPost]
         [Authorize]
-        public ActionResult ChangePassword(string oldPassword, string newPassword, string confirmPassword)
+        public JsonResult ChangePassword(ChangePasswordViewModel model)
         {
-            oldPassword = oldPassword.Encrypt();
-            var myuser = db.Users.FirstOrDefault(p => p.Username == User.Identity.Name && p.Password == oldPassword);
+            model.OldPassword = model.OldPassword.Encrypt();
+            var myuser = db.Users.FirstOrDefault(p => p.Username == User.Identity.Name && p.Password == model.OldPassword);
+            if (!ModelState.IsValid)
+                return Json(new
+                {
+                    message = "toastr.error('مقادیر ورودی اشتباه است !')",
+                    success = false
+                });
+
+
             if (myuser == null)
             {
 
                 return Json(new
                 {
-                    js = "document.getElementById('oldPassword').focus();document.querySelector('#oldPassword').value=''",
-                    msg = "رمز عبور شما اشتباه است",
-                    ss = false
+                    message = "toastr.error('رمز عبور شما اشتباه است')",
+                    success = false
                 });
             }
             else
             {
-                if (confirmPassword == newPassword)
+                myuser.Password = model.NewPassword.Encrypt();
+                db.SaveChanges();
+                return Json(new
                 {
-                    myuser.Password = newPassword.Encrypt();
-                    db.SaveChanges();
-                    return Json(new
-                    {
-                        ss = true
-                    });
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        js = "document.getElementById('confirmPassword').focus();document.querySelector('#confirmPassword').value=''",
-                        msg = "تکرار رمز عبور اشتباه است",
-                        ss = false
-                    });
-                }
+                    message = "toastr.success('رمز عبور شما تغیر کرد !') ",
+                    success = true
+                });
             }
         }
         public ActionResult _editPassword()
@@ -175,13 +173,13 @@ namespace LearnBug.Controllers
                 Utility.ConvertBase64toFile.Convert_base64_url_Image(newPicture, filename);
                 user.Image = filename;
                 db.SaveChanges();
-                return JavaScript("alert('عکس پروفایل شما با موفقیت بروزرسانی شد')");
+                return JavaScript("toastr.success('عکس پروفایل شما با موفقیت بروزرسانی شد')");
             }
             else
             {
                 user.Image = null;
                 db.SaveChanges();
-                return JavaScript("alert('عکس پروفایل شما با موفقیت حذف شد')");
+                return JavaScript("toastr.success('عکس پروفایل شما با موفقیت حذف شد')");
             }
         }
         [AllowAnonymous]

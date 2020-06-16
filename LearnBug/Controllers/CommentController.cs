@@ -29,49 +29,50 @@ namespace LearnBug.Controllers
                 db.Comments.Remove(cmnt);
                 if (db.SaveChanges() > 0)
                 {
-                    return "alert('!کامنت شما حذف شد')";
+                    return "toastr.success(''!کامنت شما حذف شد')";
                 }
                 else
                 {
-                    return "alert('!کامنت شما حذف نشد')";
+                    return "toastr.error('!کامنت شما حذف نشد')";
 
                 }
             }
             else
             {
-                return "alert('!کامنت شما حذف نشد')";
+                return "toastr.error('!کامنت شما حذف نشد')";
             }
         }
 
         [Authorize]
-        public ActionResult SendComment(int id, string text)
+        public JsonResult SendComment(int id, string text)
         {
-            var post = db.Posts.Find(id);
-            Comment comment = new Comment()
+            try
             {
-                Text = text,
-                postId = id
-            };
-            comment.Text = text;
-            var me = db.Users.Single(p => p.Username.ToLower() == User.Identity.Name.ToLower());
-            me.Comments.Add(comment);
-            db.SaveChanges();
-            return PartialView("_Comments", post.Id);
+                var post = db.Posts.Find(id);
+                Comment comment = new Comment()
+                {
+                    Text = text,
+                    postId = id
+                };
+                comment.Text = text;
+                var me = db.Users.Single(p => p.Username.ToLower() == User.Identity.Name.ToLower());
+                me.Comments.Add(comment);
+                if (db.SaveChanges() > 0)
+                {
+                    var model = post.Comments;
+                    ViewBag.PostId = post.Id;
 
-
+                    return Json(new {success=true, html = this.RenderPartialToString("_Comments", model), message ="toastr.success('کامنت شما ثبت شد')" });
+                }
+                else
+                {
+                    return Json(new { success = false,html="", message = "toastr.error('کامنت شما ثبت نشد')" });
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false,html="", message = "toastr.error('خطایی رخ داد')" });
+            }
         }
-        //public ActionResult SetparialviewComment(int id)
-        //{
-        //    viewcontentViewModel a = new viewcontentViewModel();
-        //    a.Content = db.Contents.Find(id);
-        //    a.Users = db.Users.ToList();
-        //    a.Group = db.Groups.Find(a.Content.groupId);
-        //    a.Comments = db.Comments.Where(p => p.contentId == id).OrderByDescending(p => p.Id);
-
-        //    return Json(new 
-        //    {
-        //        Html = this.RenderPartialToString("_SeeComments", a),
-        //    });
-        //}
     }
 }

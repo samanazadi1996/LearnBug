@@ -8,7 +8,8 @@
                 <img src="@Model.ImgProfile()" alt="user-img" title="Mat Helme" class="img-thumbnail img-responsive">
             </a>
         </div>
-        <h5><a href="@Url.Action("Profile","User",new {id=Model.Username })">@User.Identity.Name</a> </h5>
+        <h5><a href="@Url.Action("Profile","User",new {id=Model.Username })">@Model.Name</a> </h5>
+        <h5 class="text-success">@Model.Wallet.ToPrice() $</h5>
         <ul class="list-inline">
             <li>
                 <a href="@Url.Action("Edit","User")">
@@ -37,15 +38,24 @@
                     <a href="@Url.Action("Following","Follow",new {id= User.Identity.Name})" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-warning pull-right">@Model.Follower.Count()</span><span> دنبال شده ها </span> </a>
                 </ul>
             </li>
-            <li>
-                <a href="@Url.Action("Index","Post")" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-warning pull-right">@Model.Posts.Count()</span><span> پست های من </span> </a>
-            </li>
-            <li>
-                <a href="@Url.Action("Index","BookMark")" class="waves-effect"><i class="zmdi zmdi-group"></i> <span> نشانه گذاری شده ها </span> </a>
-            </li>
-            <li>
-                <a href="@Url.Action("Index","Factor")" class="waves-effect"><i class="zmdi zmdi-play-for-work"></i> <span> مطالب خریداری شده </span> </a>
-            </li>
+            @if (Model.Posts.Any())
+            {
+                <li>
+                    <a href="@Url.Action("Index", "Post")" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-warning pull-right">@Model.Posts.Count()</span><span> پست های من </span> </a>
+                </li>
+            }
+            @if (Model.Bookmarks.Any())
+            {
+                <li>
+                    <a href="@Url.Action("Index", "BookMark")" class="waves-effect"><i class="zmdi zmdi-group"></i> <span> نشانه گذاری شده ها </span> </a>
+                </li>
+            }
+            @if (Model.Factors.Any())
+            {
+                <li>
+                    <a href="@Url.Action("Index","Factor")" class="waves-effect"><i class="zmdi zmdi-play-for-work"></i> <span> مطالب خریداری شده </span> </a>
+                </li>
+            }
 
         </ul>
     </div>

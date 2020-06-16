@@ -19,7 +19,7 @@
 
                     <div class="form-group col-md-12">
                         <div class="col-md-4"><a class="btn btn-info btn-trans waves-effect btn-block waves-info m-b-5" href="@Url.Action("Following","Follow",new {id=Model.User.Username })">دنبال شده ها <span class="text-success"> @Model.User.Follower.Count() </span></a></div>
-                        <div class="col-md-4"><a class="btn btn-info btn-trans waves-effect btn-block waves-info m-b-5" href="@Url.Action("Followers","Follow",new {id=Model.User.Username })">دنبال کننده ها <span class="text-success"> @Model.Following.Count() </span></a></div>
+                        <div class="col-md-4"><a class="btn btn-info btn-trans waves-effect btn-block waves-info m-b-5" href="@Url.Action("Followers","Follow",new {id=Model.User.Username })">دنبال کننده ها <span class="text-success"> @Model.User.Following.Count() </span></a></div>
                         <div class="col-md-4"><a class="btn btn-info btn-trans waves-effect btn-block waves-info m-b-5" href="#Div_posts">تعداد پست ها <span class="text-success">@Model.User.Posts.Count()</span> </a></div>
                     </div>
                     @if (User.Identity.IsAuthenticated)
@@ -29,8 +29,8 @@
 
                             <div class="col-md-12">
                                 <div class="col-md-12">
-                                    <button class="btn btn-pink btn-trans waves-effect btn-block waves-info m-b-5" id="follow" onclick="follow(@Model.User.Id)">
-                                        @(Model.Following.Any(p => p.Username == User.Identity.Name) ? "Unfollow" : "follow")
+                                    <button class="btn btn-pink btn-trans waves-effect btn-block waves-info m-b-5" id="follow_@Model.User.Id" onclick="follow(@Model.User.Id)">
+                                        @(Model.User.Following.Any(p => p.Follower.Username == User.Identity.Name) ? "Unfollow" : "follow")
                                     </button>
                                 </div>
                             </div>
@@ -96,9 +96,9 @@
                 </ul>
             </div>
 
-            <h4 class="header-title m-t-0 m-b-30"> دوستان </h4>
+            <h4 class="header-title m-t-0 m-b-30">دنبال کننده های مشترک</h4>
             <ul class="list-group m-b-0 user-list">
-                @foreach (var item in Model.Follower)
+                @foreach (var item in Model.mutualFollower)
                 {
                     <li class="list-group-item">
                         <a href="@Url.Action("Profile", "User", new { id = item.Username })" class="user-list-item">

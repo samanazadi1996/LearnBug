@@ -48,16 +48,16 @@ namespace LearnBug.Controllers
                 db.Users.Single(p => p.Username == User.Identity.Name).Sent.Add(message);
                 if (db.SaveChanges() > 0)
                 {
-                    return Json(new {msg= "alert('پیغام ارسال شد')" });
+                    return Json(new {msg= "toastr.success('پیغام ارسال شد')" });
                 }
                 else
                 {
-                    return Json(new { msg="alert('پیغام ارسال نشد')" });
+                    return Json(new { msg= "toastr.error('پیغام ارسال نشد')" });
                 }
             }
             else
             {
-                return Json(new { msg = "alert('مقادیر نامعتبر')" });
+                return Json(new { msg = "toastr.warning('مقادیر نامعتبر')" });
 
             }
         }

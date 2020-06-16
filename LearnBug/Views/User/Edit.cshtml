@@ -15,10 +15,10 @@
                 <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_editPassword", "User")')">تغییر رمز عبور</a>
                 <div class="clear"><hr /></div>
                 <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_Add","Transaction")')">افزایش اعتبار</a><br /><br />
-                <a onclick="renderpage('@Url.Action("_Index","Transaction")')" style="width:100%" class="btn btn-info">تراکنش ها</a><br /><br />
+                <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_Index","Transaction")')">تراکنش ها</a><br /><br />
                 @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
                 {
-                    <a onclick="renderpage('@Url.Action("_SellContent","Factor")')" style="width:100%" class="btn btn-info">گذارش خرید مطالب من</a>
+                    <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_SellPost","Factor")')">گذارش خرید مطالب من</a>
                 }
             </div>
             <div id="bodypartial" class="col-md-10" style="padding:10px;">
@@ -39,19 +39,6 @@
             })
             $('#bodypartial').html('')
         }
-
-        function changeProfilePicture(type) {
-            var img = $("#upload-Preview").attr('src')
-            $.ajax({
-                url: "/User/changeProfilePicture",
-                data: { newPicture: img, type: type },
-                type: "Post"
-            })
-            $('#bodypartial').html('')
-
-
-        }
-
         var fileReader = new FileReader();
         var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
 
@@ -89,40 +76,6 @@
             var uploadFile = document.getElementById("upload-Image").files[0];
 
             fileReader.readAsDataURL(uploadFile);
-        }
-
-        function renderpage(a) {
-            $.ajax({
-                url: a,
-                success: function (data) {
-                    $('#bodypartial').html(data)
-                }
-            })
-
-
-        }
-        function EditPassword() {
-            var oldPassword = $("#oldPassword").val()
-            var newPassword = $("#newPassword").val()
-            var confirmPassword = $("#confirmPassword").val()
-            if (newPassword == confirmPassword) {
-                $.ajax({
-                    url: "/User/ChangePassword",
-                    data: { oldPassword: oldPassword, newPassword: newPassword, confirmPassword: confirmPassword },
-                    type: "Post",
-                    dataType: "Json",
-                    success: function (data) {
-                        if (data.ss) {
-                            alert('رمز عبور شما با موفقیت تغیر کرد')
-                            document.getElementById('bodypartial').innerHTML = ''
-
-                        } else {
-                            eval(data.js)
-                            $("#msg").html(data.msg)
-                        }
-                    }
-                })
-            }
         }
     </script>
 }

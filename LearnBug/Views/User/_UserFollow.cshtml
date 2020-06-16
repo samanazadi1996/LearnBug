@@ -19,7 +19,7 @@
                 @if (User.Identity.IsAuthenticated && Model.Username != User.Identity.Name)
                 {
                     <div class="col-md-6">
-                        <button class="btn btn-pink btn-trans waves-effect btn-sm btn-block waves-info m-b-5" id="follow" onclick="follow(@Model.Id)">@(Model.Following.Any(p => p.Follower.Username == User.Identity.Name) ? "Unfollow" : "follow")</button>
+                        <button class="btn btn-pink btn-trans waves-effect btn-sm btn-block waves-info m-b-5" id="follow_@Model.Id" onclick="follow(@Model.Id)">@(Model.Following.Any(p => p.Follower.Username == User.Identity.Name) ? "Unfollow" : "follow")</button>
                     </div>
                     <div class="col-md-6">
                         <button class="btn btn-success btn-trans waves-effect btn-sm  btn-block waves-info m-b-5" onclick="alert('')">Message</button>

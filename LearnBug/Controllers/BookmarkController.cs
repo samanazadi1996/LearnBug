@@ -22,7 +22,7 @@ namespace LearnBug.Controllers
             {
                 myUser.Bookmarks.Add(new Bookmark { postId = postId });
                 db.SaveChanges();
-                return JavaScript("alert('مطلب نشانه گذاری شد .')");
+                return JavaScript("toastr.success('مطلب نشانه گذاری شد .')");
 
             }
             else
@@ -30,7 +30,7 @@ namespace LearnBug.Controllers
                 var bookmark = myUser.Bookmarks.FirstOrDefault(p => p.postId == postId);
                 db.Bookmarks.Remove(bookmark);
                 db.SaveChanges();
-                return JavaScript("alert('مطلب از لیست نشانه گذاری ها حذف شد .')");
+                return JavaScript("toastr.success('مطلب از لیست نشانه گذاری ها حذف شد .')");
             }
         }
 

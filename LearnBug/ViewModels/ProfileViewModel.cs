@@ -9,8 +9,7 @@ namespace ViewModels
     public class ProfileViewModel
     {
         public User User { get; set; }
-        public IEnumerable<User> Follower { get; set; }
-        public IEnumerable<User> Following { get; set; }
+        public IEnumerable<User> mutualFollower { get; set; }
         public IEnumerable<Post> Posts { get; set; }
     }
 }

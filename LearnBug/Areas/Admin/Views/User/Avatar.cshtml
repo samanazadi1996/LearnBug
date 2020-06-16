@@ -1,27 +1,28 @@
 ﻿
 @model Models.Entities.User
 <!-- User -->
-<div class="user-box">
-    <div class="user-img">
-        <a href="@Url.Action("Profile","User",new {id=Model.Username })">
-            <img src="@Model.ImgProfile()" alt="user-img" title="Mat Helme" class="img-thumbnail img-responsive">
-        </a>
-    </div>
-    <h5><a href="@Url.Action("Profile","User",new {id=Model.Username })">@User.Identity.Name</a> </h5>
-    <ul class="list-inline">
-        <li>
-            <a href="@Url.Action("Edit","User")">
-                <i class="zmdi zmdi-settings"></i>
+    <div class="user-box">
+        <div class="user-img">
+            <a href="/User/Profile/@Model.Username">
+                <img src="@Model.ImgProfile()" alt="user-img" title="Mat Helme" class="img-thumbnail img-responsive">
             </a>
-        </li>
+        </div>
+        <h5><a href="/User/Profile/@Model.Username">@Model.Name</a> </h5>
+        <h5 class="text-success">@Model.Wallet.ToPrice() $</h5>
+        <ul class="list-inline">
+            <li>
+                <a href="/User/Edit")">
+                    <i class="zmdi zmdi-settings"></i>
+                </a>
+            </li>
 
-        <li>
-            <a href="@Url.Action("Logout","Home")" class="text-custom">
-                <i class="zmdi zmdi-power"></i>
-            </a>
-        </li>
-    </ul>
-</div>
+            <li>
+                <a href="/Home/Logout")" class="text-custom">
+                    <i class="zmdi zmdi-power"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
 <!-- End User -->
 <!--- Sidemenu -->
 <div id="sidebar-menu">
