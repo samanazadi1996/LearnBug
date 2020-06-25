@@ -17,7 +17,7 @@
         </div>
     </div>
 }
-@foreach (var item in Model.postId)
+@foreach (var item in Model.PostId)
 {
     @Html.Action("_SinglePost", "Post", new { id = item })
 }

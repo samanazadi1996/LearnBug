@@ -39,7 +39,7 @@ namespace LearnBug.Controllers
             var Posts = db.Users.Single(p => p.Username == User.Identity.Name).Bookmarks.Select(o => o.Post).OrderByDescending(i => i.InsertDateTime);
             PostsViewModel model = new PostsViewModel
             {
-                postId = Posts.Skip((Page - 1) * 12).Take(12).Select(p => p.Id).AsQueryable(),
+                PostId = Posts.Skip((Page - 1) * 12).Take(12).Select(p => p.Id).AsQueryable(),
                 CurrentPage = Page,
                 TotalItemCount = Posts.Count()
             };

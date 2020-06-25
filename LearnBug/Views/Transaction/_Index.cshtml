@@ -2,8 +2,7 @@
 <div>
     <center><b style="font-size:18px;" id="modal-title">تراکنش های من</b></center>
 </div>
-
-<hr />
+<br />
 <table class="table table-hover table-responsive">
     <tr>
         <th>#</th>
@@ -22,3 +21,11 @@
         </tr>
     }
 </table>
+@if (User.IsInRole("Admin") || User.IsInRole("Teacher")){
+<div class="text-center">
+    <a href="#custom-modal" class="btn btn-success waves-effect waves-light m-r-5 m-b-10" data-animation="blur" data-plugin="custommodal"
+       data-overlaySpeed="100" data-overlayColor="#36404a">
+        برداشت از کیف پول
+    </a>
+</div>
+}

@@ -5,7 +5,7 @@
     <div class="user-box">
         <div class="user-img">
             <a href="@Url.Action("Profile","User",new {id=Model.Username })">
-                <img src="@Model.ImgProfile()" alt="user-img" title="Mat Helme" class="img-thumbnail img-responsive">
+                <img src="@Model.ImgProfile()" alt="user-img" title="Mat Helme" class="fa-border img-thumbnail img-responsive">
             </a>
         </div>
         <h5><a href="@Url.Action("Profile","User",new {id=Model.Username })">@Model.Name</a> </h5>
@@ -18,7 +18,7 @@
             </li>
 
             <li>
-                <a href="@Url.Action("Logout","Home")" class="text-custom">
+                <a href="@Url.Action("Logout","Account")" class="text-custom">
                     <i class="zmdi zmdi-power"></i>
                 </a>
             </li>
@@ -34,14 +34,14 @@
             <li class="has_sub">
                 <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-account"></i> <span> کاربران</span> <span class="menu-arrow"></span></a>
                 <ul class="list-unstyled">
-                    <a href="@Url.Action("Followers","Follow",new {id= User.Identity.Name})" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-warning pull-right">@Model.Following.Count()</span><span> دنبال کنندگان </span> </a>
+                    <a href="@Url.Action("Followers","Follow",new {id= User.Identity.Name})" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-info pull-right">@Model.Following.Count()</span><span> دنبال کنندگان </span> </a>
                     <a href="@Url.Action("Following","Follow",new {id= User.Identity.Name})" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-warning pull-right">@Model.Follower.Count()</span><span> دنبال شده ها </span> </a>
                 </ul>
             </li>
             @if (Model.Posts.Any())
             {
                 <li>
-                    <a href="@Url.Action("Index", "Post")" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-warning pull-right">@Model.Posts.Count()</span><span> پست های من </span> </a>
+                    <a href="@Url.Action("Index", "Post")" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-danger pull-right">@Model.Posts.Count()</span><span> پست های من </span> </a>
                 </li>
             }
             @if (Model.Bookmarks.Any())
@@ -66,8 +66,8 @@ else
     <div id="sidebar-menu">
         <ul>
             <li><a href="@Url.Action("Index","Home")" class="waves-effect"><i class="zmdi zmdi-view-dashboard"></i> <span> خانه </span> </a></li>
-            <li><a href="@Url.Action("Login","Home")" class="waves-effect"><i class="zmdi zmdi-sign-in"></i> <span> ورود </span> </a></li>
-            <li><a href="@Url.Action("Register","User")" class="waves-effect"><i class="zmdi zmdi-nature-people"></i> <span> ثبت نام </span> </a></li>
+            <li><a href="@Url.Action("Login","Account")" class="waves-effect"><i class="zmdi zmdi-sign-in"></i> <span> ورود </span> </a></li>
+            <li><a href="@Url.Action("Register","Account")" class="waves-effect"><i class="zmdi zmdi-nature-people"></i> <span> ثبت نام </span> </a></li>
         </ul>
     </div>
 }

@@ -15,36 +15,6 @@ namespace LearnBug.Controllers
         DatabaseContext db = new DatabaseContext();
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        #region login_logout
-        [HttpGet]
-        public ActionResult Login()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Login(string Username, string Password, string Rememberme)
-        {
-            Password = Password.Encrypt();
-            if (db.Users.Any(p => p.Username == Username.ToLower() && p.Password == Password))
-            {
-                logger.Info("Login User => " + Username.ToLower());
-                FormsAuthentication.SetAuthCookie(Username.ToLower(), Convert.ToBoolean(Rememberme));
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                ViewBag.Message = "نام کاربری یا رمز عبور اشتباه است";
-                return View();
-            }
-        }
-        [Authorize]
-        public ActionResult Logout()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index");
-        }
-
-        #endregion      
         public ActionResult About()
         {
             var model = db.Settings.Single(p => p.Name == "About");
@@ -61,9 +31,10 @@ namespace LearnBug.Controllers
             }
             PostsViewModel model = new PostsViewModel
             {
-                postId = contents.OrderByDescending(p => p.InsertDateTime).Skip((Page - 1) * 12).Take(12).Select(p => p.Id),
+                PostId = contents.OrderByDescending(p => p.InsertDateTime).Skip((Page - 1) * 12).Take(12).Select(p => p.Id),
                 CurrentPage = Page,
-                TotalItemCount = contents.Count()
+                TotalItemCount = contents.Count(),
+                Groups=db.Groups    
             };
             return View(model);
         }

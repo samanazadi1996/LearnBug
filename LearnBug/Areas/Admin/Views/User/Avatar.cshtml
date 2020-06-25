@@ -4,7 +4,7 @@
     <div class="user-box">
         <div class="user-img">
             <a href="/User/Profile/@Model.Username">
-                <img src="@Model.ImgProfile()" alt="user-img" title="Mat Helme" class="img-thumbnail img-responsive">
+                <img src="@Model.ImgProfile()" alt="user-img" title="@Model.Username" class="img-thumbnail img-responsive fa-border">
             </a>
         </div>
         <h5><a href="/User/Profile/@Model.Username">@Model.Name</a> </h5>
@@ -17,7 +17,7 @@
             </li>
 
             <li>
-                <a href="/Home/Logout")" class="text-custom">
+                <a href="/Account/Logout")" class="text-custom">
                     <i class="zmdi zmdi-power"></i>
                 </a>
             </li>

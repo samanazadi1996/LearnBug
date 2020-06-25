@@ -29,14 +29,14 @@ namespace LearnBug.Controllers
                      DateTime = p.InsertDateTime,
                      Text = p.Follower.Name + " شما را فالو کرد "
                  });
-            var Comment = db.Comments.Where(p => p.Post.userId == me.Id).OrderByDescending(p => p.InsertDateTime).Take(30).Select(p =>
+            var Comment = db.Comments.Where(p => p.Post.userId == me.Id && p.userId!=me.Id).OrderByDescending(p => p.InsertDateTime).Take(30).Select(p =>
                  new NotificationViewModel
                  {
                      User = p.User,
                      DateTime = p.InsertDateTime,
                      Text = p.User.Name + " برای پست شما کامنت گذاشت "
                  });
-            var buy = db.Comments.Where(p => p.Post.userId == me.Id).OrderByDescending(p => p.InsertDateTime).Take(30).Select(p =>
+            var buy = db.Factors.Where(p => p.Post.userId == me.Id).OrderByDescending(p => p.InsertDateTime).Take(30).Select(p =>
                  new NotificationViewModel
                  {
                      User = p.User,

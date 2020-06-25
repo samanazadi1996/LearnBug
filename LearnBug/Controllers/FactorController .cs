@@ -21,7 +21,7 @@ namespace LearnBug.Controllers
 
             PostsViewModel model = new PostsViewModel
             {
-                postId = factors,
+                PostId = factors,
                 CurrentPage = Page,
                 TotalItemCount = factors.Count()
             };

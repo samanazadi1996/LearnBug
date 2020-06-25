@@ -33,7 +33,7 @@ namespace LearnBug.Controllers
 
             PostsViewModel model = new PostsViewModel
             {
-                postId = posts.Skip((Page - 1) * 12).Take(12).Select(p => p.Id),
+                PostId = posts.Skip((Page - 1) * 12).Take(12).Select(p => p.Id),
                 CurrentPage = Page,
                 TotalItemCount = posts.Count()
             };
@@ -71,9 +71,9 @@ namespace LearnBug.Controllers
         [ValidateInput(false)]
         public ActionResult Create(Post post)
         {
-            string path = Server.MapPath("~") +"Files\\Posts\\";
+            string path = Server.MapPath("~/Files/Posts/");
 
-            var result = Utility.ConvertBase64toFile.Convert_Htmlbase64_url_Image(post.Content, path,"/Files/Posts/");
+            var result = Utility.ConvertBase64toFile.Convert_Htmlbase64_url_Image(post.Content, path, "/Files/Posts/");
 
             var user = db.Users.Single(p => p.Username == User.Identity.Name);
             post.Status = 0;
@@ -131,6 +131,10 @@ namespace LearnBug.Controllers
         [Authorize]
         public ActionResult Edit(Post post)
         {
+            string path = Server.MapPath("~/Files/Posts/");
+
+            var result = Utility.ConvertBase64toFile.Convert_Htmlbase64_url_Image(post.Content, path, "/Files/Posts/");
+
             var cntnt = db.Posts.Find(post.Id);
             if (cntnt.User.Username == User.Identity.Name || User.IsInRole("Admin"))
             {
@@ -139,21 +143,17 @@ namespace LearnBug.Controllers
 
                 cntnt.groupId = post.groupId;
                 cntnt.Subject = post.Subject;
-                cntnt.Content = post.Content;
-            }
+                cntnt.Content = result;
 
-            if (db.SaveChanges() > 0)
-            {
-                return RedirectToAction("ViewPost", "Post", new { id = post.Id });
+                if (db.SaveChanges() > 0)
+                {
+                    return RedirectToAction("ViewPost", "Post", new { id = post.Id });
+                }
             }
-            else
-            {
-                ViewBag.Groups = new SelectList(db.Groups.ToList(), "Id", "Name");
-                ViewBag.message = "ثبت مطلب انجام نشد";
-                ViewBag.style = "red";
-                return View(post);
-            }
-
+            ViewBag.Groups = new SelectList(db.Groups.ToList(), "Id", "Name");
+            ViewBag.message = "ثبت مطلب انجام نشد";
+            ViewBag.style = "red";
+            return View(post);
 
         }
     }

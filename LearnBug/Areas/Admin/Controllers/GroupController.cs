@@ -24,7 +24,6 @@ namespace LearnBug.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AddGroup(string Name ,string Image)
         {
-
             if (!db.Groups.Any(p=>p.Name.ToLower()==Name))
             {
                 var filename = "/Files/GroupPicture/Group_" + (db.Groups.OrderByDescending(p=>p.Id).FirstOrDefault().Id+1).ToString() + ".jpg";

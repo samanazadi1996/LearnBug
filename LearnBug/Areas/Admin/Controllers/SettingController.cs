@@ -49,16 +49,16 @@ namespace LearnBug.Areas.Admin.Controllers
         public JavaScriptResult SetLogo(string name)
         {
             if (settingServices.ChangeLogo(name))
-                return JavaScript("alert('لوگو سایت با موفقیت تغیر کرد')");
-            return JavaScript("alert('خطایی رخ داده است')");
+                return JavaScript("toastr.success('لوگو سایت با موفقیت تغیر کرد')");
+            return JavaScript("toastr.error('خطایی رخ داده است')");
         }
         [HttpPost]
         public JavaScriptResult DeleteLogo(string name)
         {
             if (settingServices.DeleteLogo(name))
-                return JavaScript("alert('لوگو با موفقیت حذف شد !')");
+                return JavaScript("toastr.success('لوگو با موفقیت حذف شد !')");
 
-            return JavaScript("alert('لوگو سایت فعال است و نمیتوان آن را حذف کرد!')");
+            return JavaScript("toastr.error('لوگو سایت فعال است و نمیتوان آن را حذف کرد!')");
 
         }
     }

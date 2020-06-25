@@ -17,31 +17,6 @@ namespace LearnBug.Controllers
         private static Logger logger = LogManager.GetCurrentClassLogger();
         DatabaseContext db = new DatabaseContext();
 
-        [HttpGet]
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult Register(User user)
-        {
-            if (!ModelState.IsValid || db.Users.Any(p => p.Username == user.Username.ToLower().Trim()))
-                return View(user);
-
-            user.Status = 1;
-            user.Roles = "User";
-            user.Wallet = 0;
-            user.Username = user.Username.ToLower().Trim();
-            user.Password = user.Password.Encrypt();
-            user.Dateofbirth = user.Dateofbirth.ToMiladiDate();
-            db.Users.Add(user);
-            if (db.SaveChanges() > 0)
-                return RedirectToAction(actionName: "Login", controllerName: "Home");
-            return View(user);
-
-        }
         [AllowAnonymous]
         public ActionResult Profile(string id)
         {

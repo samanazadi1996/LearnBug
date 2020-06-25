@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="panel-body" id="div-body">
-            @if (Model.Price == null || Model.Factors.Any(p => p.User.Username == User.Identity.Name))
+            @if (Model.Price == null || Model.Factors.Any(p => p.User.Username == User.Identity.Name)||User.IsInRole("Admin")||Model.User.Username==User.Identity.Name)
             {
                 @Html.Raw(Model.Content)
             }

@@ -29,7 +29,7 @@
                     }
 
                     <div style="width:fit-content">
-                        <button class="itemlogo" onclick="document.getElementById('FileUpload').click()">+</button>
+                        <button class="itemlogo" onclick="document.getElementById('FileUpload').click()"><i class="fa fa-plus fa-3x"></i></button>
                         @{
                             foreach (string filename in Directory.GetFiles(Server.MapPath("~") + @"Files\Picture\Logo", "*.*"))
                             {
