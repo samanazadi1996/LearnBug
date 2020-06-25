@@ -7,17 +7,17 @@
                 <img src="@Model.ImgProfile()" alt="user-img" title="@Model.Username" class="img-thumbnail img-responsive fa-border">
             </a>
         </div>
-        <h5><a href="/User/Profile/@Model.Username">@Model.Name</a> </h5>
-        <h5 class="text-success">@Model.Wallet.ToPrice() $</h5>
+        <h5><a href="@Url.Action("Profile","User",new {id=Model.Username })">@Model.Name</a> </h5>
+        <h5 class="text-warning">@Model.Wallet.ToPrice() $</h5>
         <ul class="list-inline">
             <li>
-                <a href="/User/Edit")">
+                <a href="@Url.Action("Edit","User")" class="fa-2x">
                     <i class="zmdi zmdi-settings"></i>
                 </a>
             </li>
 
             <li>
-                <a href="/Account/Logout")" class="text-custom">
+                <a href="@Url.Action("Logout","Account")" class="fa-2x" style="color:red">
                     <i class="zmdi zmdi-power"></i>
                 </a>
             </li>

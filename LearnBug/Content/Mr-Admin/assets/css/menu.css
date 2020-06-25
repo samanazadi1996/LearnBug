@@ -13,8 +13,8 @@ File: Menu
 }
 
     .topbar .topbar-left {
-        background: #ffffff;
-        border-top: 3px solid #71b6f9;
+        background: black;
+        border-top: 3px solid black;
         float: right;
         text-align: center;
         height: 73px;
@@ -60,6 +60,7 @@ File: Menu
     }
 
 .user-box {
+    background-color:black;
     text-align: center;
     padding: 30px 0px 20px 0px;
 }
@@ -104,11 +105,11 @@ File: Menu
         }
 
     .user-box ul li a {
-        color: #98a6ad;
+        color: blue;
     }
 
         .user-box ul li a:hover {
-            color: #71b6f9;
+            color: darkblue;
         }
 
 .notification-box ul {
@@ -219,7 +220,7 @@ File: Menu
     top: 70px;
     width: 250px;
     z-index: 10;
-    background: #ffffff;
+    background: black;
     bottom: 0;
     margin-bottom: 0;
     margin-top: 0;
@@ -257,6 +258,7 @@ File: Menu
     }
 
 .sidebar-inner {
+    background-color:black;
     height: 100%;
 }
 
@@ -275,6 +277,7 @@ File: Menu
 }
 
 #sidebar-menu {
+    
     padding-bottom: 30px;
     width: 100%;
 }
@@ -326,7 +329,7 @@ File: Menu
             }
 
         #sidebar-menu ul ul a {
-            color: #63747c;
+            color: white;
             -webkit-transition: all 0.3s ease-out;
             -moz-transition: all 0.3s ease-out;
             -o-transition: all 0.3s ease-out;
@@ -359,11 +362,11 @@ File: Menu
     }
 
     #sidebar-menu > ul > li > a {
-        color: #435966;
+        color: white;
         display: block;
         padding: 12px 20px;
         margin: 4px 0;
-        background-color: #ffffff;
+        background-color: black;
         border-right: 3px solid transparent;
     }
 
@@ -427,11 +430,11 @@ File: Menu
 }
 
 #wrapper.enlarged #sidebar-menu ul ul {
-    border: 2px solid #f4f8fb;
+    border: 2px solid black;
     margin-top: -5px;
     padding-top: 5px;
     z-index: 9999;
-    background-color: #ffffff;
+    background-color: black;
 }
 
 #wrapper.enlarged .left.side-menu {
@@ -447,15 +450,15 @@ File: Menu
     }
 
         #wrapper.enlarged .left.side-menu #sidebar-menu > ul > li > a:hover {
-            background: #f4f8fb !important;
+            background: black !important;
         }
 
         #wrapper.enlarged .left.side-menu #sidebar-menu > ul > li > a:active {
-            background: #f4f8fb !important;
+            background: black !important;
         }
 
         #wrapper.enlarged .left.side-menu #sidebar-menu > ul > li > a:focus {
-            background: #f4f8fb !important;
+            background: black !important;
         }
 
         #wrapper.enlarged .left.side-menu #sidebar-menu > ul > li > a i {
@@ -481,7 +484,6 @@ File: Menu
         #wrapper.enlarged .left.side-menu #sidebar-menu ul > li:hover > a {
             position: relative;
             width: 260px;
-            background: #f4f8fb;
             color: #71b6f9;
             border-color: #71b6f9;
         }
@@ -494,7 +496,6 @@ File: Menu
         }
 
             #wrapper.enlarged .left.side-menu #sidebar-menu ul > li:hover > ul a {
-                background: #ffffff;
                 box-shadow: none;
                 padding-right: 15px;
                 position: relative;
