@@ -1,4 +1,5 @@
 ﻿@model ViewModels.ProfileViewModel
+@using Common.Utilities;
 @{
     ViewBag.Title = Model.User.Username;
 
@@ -83,7 +84,7 @@
         }
     </div>
     <div class="col-sm-4">
-        @if (User.Identity.IsAuthenticated && Model.User.Username != User.Identity.Name &&Model.mutualFollower.Any())
+        @if (User.Identity.IsAuthenticated && Model.User.Username != User.Identity.Name && Model.mutualFollower.Any())
         {
             <div class="card-box">
                 <div class="dropdown pull-right">
@@ -203,7 +204,7 @@
                         </div>
                         <div class="user-desc">
                             <span class="name">جنسیت</span>
-                            <span class="desc">@Model.User.Gender</span>
+                            <span class="desc">@Model.User.Gender.ToDisplay()</span>
                         </div>
                     </a>
                 </li>
