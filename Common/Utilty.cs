@@ -16,9 +16,9 @@ public static class Utilty
     {
         return new PersianDateTime(dt).ToString(format);
     }
-    public static DateTime ToMiladiDate(this DateTime dt)
+    public static DateTime ToMiladiDate(this string dt)
     {
-        return PersianDateTime.Parse(dt.ToString("yyyy/MM/dd hh:mm:ss")).ToDateTime();
+        return PersianDateTime.Parse(dt).ToDateTime();
     }
     public static string ToPrice(this double dec)
     {
