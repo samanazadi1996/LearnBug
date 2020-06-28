@@ -129,7 +129,7 @@ namespace LearnBug.Controllers
             //myuser.Username = user.Username.ToLower();
             myuser.Name = user.Name;
             myuser.Email = user.Email;
-            myuser.Dateofbirth = user.Dateofbirth.ToMiladiDate();
+            myuser.Dateofbirth = user.PersianDateofbirth.ToMiladiDate();
             myuser.Gender = user.Gender;
             myuser.Biography = user.Biography;
             myuser.Phone = user.Phone;

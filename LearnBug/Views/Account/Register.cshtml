@@ -63,8 +63,8 @@
                     <div class="col-md-6">
                         <div class="col-md-3"><label>تاریخ تولد</label></div>
                         <div class="col-md-9">
-                            @Html.TextBoxFor(model => model.Dateofbirth, new { @class = "form-control", autocomplete = "off" })
-                            @Html.ValidationMessageFor(model => model.Dateofbirth,null, new { @class="text-danger"})
+                            @Html.TextBoxFor(model => model.PersianDateofbirth, new { @class = "form-control", autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.PersianDateofbirth,null, new { @class="text-danger"})
                         </div>
                     </div>
                 </div>
@@ -125,6 +125,7 @@
 @section Scripts {
     <script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
     <script>
+        $(".Date").datepicker();
         function Autenticator(obj) {
             $.ajax({
                 url: "@Url.Action("AutenticatorUseName","User")",

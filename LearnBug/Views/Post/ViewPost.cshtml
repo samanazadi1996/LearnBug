@@ -11,7 +11,7 @@
                 {
                     <a class="btn btn-info btn-trans waves-effect waves-warning m-b-5 sa-left" href="@Url.Action("Edit", "Post", new { id = Model.Id })"><i class="zmdi zmdi-edit"></i></a>
                     <span class="sa-left">&nbsp;</span>
-                    <a class="btn btn-danger btn-trans waves-effect waves-warning m-b-5 sa-left"><i class="zmdi zmdi-delete"></i></a>
+                    <a class="btn btn-danger btn-trans waves-effect waves-warning m-b-5 sa-left" href="@Url.Action("Delete", "Post", new { id = Model.Id })"><i class="zmdi zmdi-delete"></i></a>
                 }
                 else
                 {
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="panel-body" id="div-body">
-            @if (Model.Price == null || Model.Factors.Any(p => p.User.Username == User.Identity.Name)||User.IsInRole("Admin")||Model.User.Username==User.Identity.Name)
+            @if (Model.Price == null || Model.Factors.Any(p => p.User.Username == User.Identity.Name) || User.IsInRole("Admin") || Model.User.Username == User.Identity.Name)
             {
                 @Html.Raw(Model.Content)
             }

@@ -59,7 +59,7 @@
                         <div class="col-md-2">تاریخ تولد : </div>
                         <div class="col-md-4">
 
-                            <input type="text" id="Dateofbirth" name="Dateofbirth" value="@Model.Dateofbirth.ToPersianDate("yyyy/MM/dd")" class="form-control" autocomplete="off" />
+                            <input type="text" id="PersianDateofbirth" name="PersianDateofbirth" value="@Model.Dateofbirth.ToPersianDate("yyyy/MM/dd")" class="form-control" autocomplete="off" />
                         </div>
                         <div class="col-md-2">محل سکونت  : </div>
                         <div class="col-md-4"> @Html.TextBoxFor(model => Model.Location, new { @class = "form-control" })</div>
@@ -198,8 +198,6 @@
     <script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
 
     <script>
-        $("#Dateofbirth").datepicker();
-
         var acc = document.getElementsByClassName("accordion");
         var i;
 

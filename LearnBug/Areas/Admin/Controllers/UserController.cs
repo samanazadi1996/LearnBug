@@ -78,7 +78,7 @@ namespace LearnBug.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult ManagementUser(User user)
         {
-            user.Dateofbirth = user.Dateofbirth.ToMiladiDate();
+            user.Dateofbirth = user.PersianDateofbirth.ToMiladiDate();
             user.Username = user.Username.ToLower().Trim();
             user.Password = user.Password.Encrypt();
             if (ModelState.IsValid)

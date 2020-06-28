@@ -65,7 +65,7 @@ namespace LearnBug.Controllers
             user.Wallet = 0;
             user.Username = user.Username.ToLower().Trim();
             user.Password = user.Password.Encrypt();
-            user.Dateofbirth = user.Dateofbirth.ToMiladiDate();
+            user.Dateofbirth = user.PersianDateofbirth.ToMiladiDate();
             db.Users.Add(user);
             if (db.SaveChanges() > 0)
                 return RedirectToAction(actionName: "Login", controllerName: "Home");

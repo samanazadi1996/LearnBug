@@ -69,6 +69,8 @@ namespace Models.Entities
         [DisplayName("تاریخ تولد")]
         [Required(ErrorMessage = "تاریخ تولد اجباری است")]
         public DateTime Dateofbirth { get; set; }
+        [NotMapped]
+        public string PersianDateofbirth { get; set; }
 
         [Display(Name = "جنسیت")]
         [DisplayName("جنسیت")]

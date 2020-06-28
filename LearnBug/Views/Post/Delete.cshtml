@@ -1,0 +1,91 @@
+﻿@model Models.Entities.Post
+
+@{
+    ViewBag.Title = "حذف مطلب";
+}
+
+<div class="col-lg-12">
+    <div class="card-box">
+        <fieldset>
+            @using (Html.BeginForm())
+            {
+                @Html.HiddenFor(model => model.Id)
+                <div class="col-md-12 form-group">
+                    <div class="col-md-3">
+                        @Html.Label("موضوع : ")
+                    </div>
+                    <div class="col-md-9">
+                        <a href="@Url.Action("ViewPost", "Post", new { id = Model.Id })">
+                            @Html.DisplayFor(model => model.Subject)
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <div class="col-md-3">
+                        @Html.Label("مدرس : ")
+                    </div>
+                    <div class="col-md-9">
+                        <a href="@Url.Action("Profile", "User", new { id = Model.User.Username })">
+                            @Html.DisplayFor(model => model.User.Name)
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <div class="col-md-3">
+                        @Html.Label("دسته بندی : ")
+                    </div>
+                    <div class="col-md-9">
+                        <a href="@Url.Action("Index", "Home", new { search = Model.Group.Name })">
+                            @Html.DisplayFor(model => model.Group.Name)
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <div class="col-md-3">
+                        @Html.Label("نظرات : ")
+                    </div>
+                    <div class="col-md-9">
+                        @Html.DisplayFor(model => model.Comments.Count)
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <div class="col-md-3">
+                        @Html.Label("ساعت و تاریخ : ")
+                    </div>
+                    <div class="col-md-9">
+                        @Model.InsertDateTime.ToPersianDate()
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <div class="col-md-3">
+                        @Html.Label("قیمت : ")
+                    </div>
+                    <div class="col-md-9">
+                        @(Model.Price == null ? "Free" : Model.Price?.ToPrice() + " ریال")
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <div class="col-md-6">
+                        <div class="col-md-3">
+
+                        </div>
+                        <div class="col-md-9">
+                            <div class="col-md-6 form-group">
+                                <input type="submit" class="btn btn-success w-md" value="حذف" />
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <a href="@Url.Action("Index", "Post")" class="btn btn-danger w-md">انصراف</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </fieldset>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+}

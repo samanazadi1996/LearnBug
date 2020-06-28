@@ -13,7 +13,6 @@ namespace LearnBug.Controllers
     {
         DatabaseContext db = new DatabaseContext();
 
-
         public ActionResult _SinglePost(int id)
         {
             var post = db.Posts.Find(id);
@@ -39,28 +38,8 @@ namespace LearnBug.Controllers
             };
             return View(model);
         }
-        [HttpPost]
-        [Authorize]
-        public JavaScriptResult DeleteContent(int id)
-        {
-
-            var cntnt = db.Posts.Find(id);
-            if (cntnt.User.Username == User.Identity.Name || User.IsInRole("Admin"))
-            {
-                foreach (var item in cntnt.Comments) { db.Comments.Remove(item); }
-                foreach (var item in cntnt.Bookmarks) { db.Bookmarks.Remove(item); }
-                db.Posts.Remove(cntnt);
-                db.SaveChanges();
-                return JavaScript("alert('!مطلب شما حذف شد')");
-            }
-            else
-            {
-                return JavaScript("alert('!مطلب شما حذف نشد')");
-            }
-        }
         [HttpGet]
         [Authorize]
-
         public ActionResult Create()
         {
             ViewBag.Groups = new SelectList(db.Groups.ToList(), "Id", "Name");
@@ -156,5 +135,31 @@ namespace LearnBug.Controllers
             return View(post);
 
         }
+        [Authorize]
+        public ActionResult Delete(int id)
+        {
+            var model = db.Posts.Find(id);
+            if (User.IsInRole("Admin") || model.User.Username == User.Identity.Name)
+                return View(model);
+            return HttpNotFound();
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult Delete(Post post)
+        {
+            var model = db.Posts.Find(post.Id);
+
+            if (User.IsInRole("Admin") || model.User.Username == User.Identity.Name && !model.Factors.Any())
+            {
+                foreach (var item in model.Comments) { model.Comments.Remove(item); }
+                foreach (var item in model.Bookmarks) { model.Bookmarks.Remove(item); }
+                db.Posts.Remove(model);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return HttpNotFound();
+
+        }
+
     }
 }

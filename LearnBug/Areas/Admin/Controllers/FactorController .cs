@@ -18,13 +18,13 @@ namespace LearnBug.Areas.Admin.Controllers
 
             if (!string.IsNullOrEmpty(from))
             {
-                DateTime datefrom =Convert.ToDateTime(from).ToMiladiDate();
+                DateTime datefrom =from.ToMiladiDate();
                 model = model.Where(p => p.InsertDateTime >= datefrom);
             }
 
             if (!string.IsNullOrEmpty(to))
             {
-                DateTime dateto = Convert.ToDateTime(to).ToMiladiDate();
+                DateTime dateto = to.ToMiladiDate();
                 model = model.Where(p => p.InsertDateTime <= dateto);
             }
             ViewBag.from = from;
