@@ -67,7 +67,24 @@ namespace LearnBug.Areas.Admin.Controllers
         public ActionResult Avatar()
         {
             var user = db.Users.Single(p => p.Username == User.Identity.Name);
+            if (!user.IsActive)
+                return RedirectToAction(actionName: "Logout", controllerName: "Account");
             return PartialView(user);
+        }
+        public ActionResult Blocked()
+        {
+            var model = db.Users.Where(curent => !curent.IsActive);
+            return View(model);
+        }
+        [HttpPost]
+        public JsonResult UpdateBlock(int id)
+        {
+            var user = db.Users.Single(p => p.Id == id);
+            user.IsActive = !user.IsActive;
+            db.SaveChanges();
+            if (user.IsActive)
+                return Json(new { str = "Block", script = "toastr.warning(' کاربر "+ user.Name+" از لیست انسداد خارج شد ! ')" });
+            return Json(new { str = "UnBlock", script = "toastr.info(' کاربر "+ user.Name+" مسدود شد ! ')" });
         }
 
         public ActionResult ManagementUser(int id)
@@ -86,7 +103,7 @@ namespace LearnBug.Areas.Admin.Controllers
                 db.Entry(user).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
-            return View(db.Users.Single(p=>p.Id==user.Id));
+            return View(db.Users.Single(p => p.Id == user.Id));
         }
     }
 }

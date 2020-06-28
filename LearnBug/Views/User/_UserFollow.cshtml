@@ -1,4 +1,5 @@
 ﻿@model Models.Entities.User
+@using Common.Utilities;
 <div class="followItem">
     <div class="card-box widget-user">
         <fieldset>
@@ -10,7 +11,7 @@
                     <a href="@Url.Action("Profile","User",new {id=Model.Username})">
                         <h4 class="m-t-0 m-b-5 font-600 text-info">@Model.Name</h4>
                     </a>
-                    <p class="text-muted m-b-5 font-13">@Model.Gender</p>
+                    <p class="text-muted m-b-5 font-13">@Model.Gender.ToDisplay()</p>
                     <small class="text-success"><b>@Model.Roles</b></small>
                 </div>
 

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Models.Entities.User>
+@using Common.Utilities;
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "کاربران مسدود";
+}
+
+@foreach (var item in Model)
+{
+
+    <div class="followItem">
+        <div class="card-box widget-user">
+            <fieldset>
+                <div>
+                    <a href="/User/Profile/@item.Username">
+                        <img src="@item.ImgProfile()" class="img-responsive img-circle" alt="user">
+                    </a>
+                    <div class="wid-u-info form-group">
+                        <a href="/User/Profile/@item.Username">
+                            <h4 class="m-t-0 m-b-5 font-600 text-info">@item.Name</h4>
+                        </a>
+                        <p class="text-muted m-b-5 font-13">@item.Gender.ToDisplay()</p>
+                        <small class="text-success"><b>@item.Roles</b></small>
+                    </div>
+
+                </div>
+                <div>
+                    <div class="col-md-12">
+                        <button class="btn btn-pink btn-trans waves-effect btn-sm  btn-block waves-info m-b-5" id="Block_@item.Id" onclick="UpdateBlockUser(@item.Id)">UnBlock</button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+}

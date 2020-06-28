@@ -199,6 +199,7 @@
     <Content Include="Content\BU\Avater.css" />
     <Content Include="Content\BU\Follows.css" />
     <Content Include="Content\BU\MyCssCode.css" />
+    <Content Include="Content\js\Admin.js" />
     <Content Include="Content\js\MyJsCode.js" />
     <Content Include="Content\css\elastislide.css" />
     <Content Include="Content\css\flexslider.css" />
@@ -1853,6 +1854,7 @@
     <Content Include="Areas\Admin\Views\User\Avatar.cshtml" />
     <Content Include="Areas\Admin\Views\Common\Footer.cshtml" />
     <Content Include="Areas\Admin\Views\Common\Notification.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Blocked.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\CkEditor\adapters\jquery.js" />
     <Content Include="Scripts\CkEditor\build-config.js" />

@@ -32,7 +32,7 @@ namespace LearnBug.Controllers
         public ActionResult Login(string Username, string Password, string Rememberme)
         {
             Password = Password.Encrypt();
-            if (db.Users.Any(p => p.Username == Username.ToLower() && p.Password == Password))
+            if (db.Users.Any(p => p.Username == Username.ToLower() && p.Password == Password && p.IsActive))
             {
                 logger.Info("Login User => " + Username.ToLower());
                 FormsAuthentication.SetAuthCookie(Username.ToLower(), Convert.ToBoolean(Rememberme));

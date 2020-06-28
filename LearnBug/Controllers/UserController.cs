@@ -163,6 +163,8 @@ namespace LearnBug.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var user = db.Users.Single(p => p.Username == User.Identity.Name);
+                if (!user.IsActive)
+                    return RedirectToAction(actionName: "Logout",controllerName: "Account");
                 return PartialView(user);
             }
             return PartialView(null);
