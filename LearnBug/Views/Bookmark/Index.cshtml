@@ -3,8 +3,10 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "نشانه گذاری ها";
+    ViewBag.SearchUrl = Url.Action("Index", "Bookmark");
 }
 @section styles{
+
 }
 @if (Model.TotalItemCount > 12)
 {

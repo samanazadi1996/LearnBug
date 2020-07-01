@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Models.Entities
 {
     [Table("Comment")]
-    public class Comment : BaseEntity
+    public class Comment : IEntity
     {
         #region Configuration
         internal class Configuration : EntityTypeConfiguration<Comment>

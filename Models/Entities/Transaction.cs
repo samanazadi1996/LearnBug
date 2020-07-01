@@ -11,7 +11,7 @@ namespace Models.Entities
 {
     [Table("Transaction")]
 
-    public class Transaction : BaseEntity
+    public class Transaction : IEntity
     {
         #region Configuration
         internal class Configuration : EntityTypeConfiguration<Transaction>

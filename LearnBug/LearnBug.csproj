@@ -1671,14 +1671,6 @@
     <Content Include="Files\Picture\P_P_Male.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="logs\app-log.txt" />
-    <Content Include="logs\archives\app-log.0.txt" />
-    <Content Include="logs\archives\app-log.1.txt" />
-    <Content Include="logs\archives\app-log.2.txt" />
-    <Content Include="logs\archives\app-log.3.txt" />
-    <Content Include="logs\archives\app-log.4.txt" />
-    <Content Include="logs\archives\app-log.5.txt" />
-    <Content Include="logs\archives\app-log.6.txt" />
     <Content Include="Scripts\AjaxForm\jquery.form.js" />
     <Content Include="Scripts\AjaxForm\jquery.form.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />

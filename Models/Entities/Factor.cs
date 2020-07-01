@@ -10,7 +10,7 @@ namespace Models.Entities
 {
     [Table("Factor")]
 
-    public class Factor : BaseEntity
+    public class Factor : IEntity
     {
         #region Configuration
         internal class Configuration : EntityTypeConfiguration<Factor>

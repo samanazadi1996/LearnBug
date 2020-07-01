@@ -11,7 +11,7 @@ namespace Models.Entities
 {
     [Table("Setting")]
 
-    public class Setting : BaseEntity
+    public class Setting : IEntity
     {
         #region Configuration
         internal class Configuration : EntityTypeConfiguration<Setting>

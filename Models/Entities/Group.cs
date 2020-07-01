@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Models.Entities
 {
     [Table("Group")]
-    public class Group : BaseEntity
+    public class Group : IEntity
     {
         #region Configuration
         internal class Configuration : EntityTypeConfiguration<Group>

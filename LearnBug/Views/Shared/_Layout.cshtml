@@ -1,4 +1,7 @@
 ﻿<!DOCTYPE html>
+@{
+    string SearchUrl =string.IsNullOrEmpty(ViewBag.SearchUrl) ? Url.Action("Index","Home") : ViewBag.SearchUrl;
+}
 <html lang="en" dir="rtl">
 <head>
     <meta charset="utf-8">
@@ -119,12 +122,12 @@
                             <li>&nbsp;</li>
                         }
                         <li class="hidden-xs">
-                            @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { id = "frm", @class = "app-search" }))
-                            {
+                            <form action="@SearchUrl" class="app-search" id="frm" method="get">
                                 <input type="search" name="search" value="@(ViewBag.Srch ?? ViewBag.Srch)" placeholder="به دنبال چه می گردی ؟؟؟"
                                        class="form-control">
                                 <a style="cursor:pointer" onclick="document.getElementById('frm').submit()" ;><i class="fa fa-search"></i></a>
-                            }
+                            </form>
+
                         </li>
                     </ul>
 

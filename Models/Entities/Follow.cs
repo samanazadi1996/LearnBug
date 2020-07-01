@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Models.Entities
 {
     [Table("Follow")]
-    public class Follow : BaseEntity
+    public class Follow : IEntity
     {
         #region Configuration
         internal class Configuration : EntityTypeConfiguration<Follow>
