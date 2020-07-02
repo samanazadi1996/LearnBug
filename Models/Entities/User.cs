@@ -135,10 +135,10 @@ namespace Models.Entities
     public enum GenderType
     {
         [Display(Name ="نامشخص")]
-        Unknow = 0,
+        Unknow,
         [Display(Name = "مرد")]
-        Mele = 1,
+        Mele,
         [Display(Name = "زن")]
-        Femele = 2
+        Femele
     }
 }
