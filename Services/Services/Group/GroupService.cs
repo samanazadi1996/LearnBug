@@ -10,7 +10,7 @@ using System.Web;
 
 namespace Services
 {
-    public class GroupServices : IGroupServices
+    public class GroupServices : IGroupService
     {
         GroupRepository GroupRepository = null;
 

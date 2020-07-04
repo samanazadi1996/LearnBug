@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Services
 {
-   public interface IGroupServices
+   public interface IGroupService
     {
         bool Create(Group Model);
         bool Edit(Group Model);

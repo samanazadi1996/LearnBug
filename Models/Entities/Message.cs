@@ -11,7 +11,7 @@ namespace Models.Entities
 {
     [Table("Message")]
 
-    public class Message : IEntity
+    public class Message : BaseEntity
     {
         #region Configuration
         internal class Configuration : EntityTypeConfiguration<Message>

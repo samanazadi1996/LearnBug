@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Models.Entities
 {
     [Table("User")]
-    public class User : IEntity
+    public class User : BaseEntity
     {
 
         #region Configuration

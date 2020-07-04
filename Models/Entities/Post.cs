@@ -12,7 +12,7 @@ using System.Web.Mvc;
 namespace Models.Entities
 {
     [Table("Post")]
-    public class Post : IEntity
+    public class Post : BaseEntity
     {
         #region Configuration
         internal class Configuration : EntityTypeConfiguration<Post>

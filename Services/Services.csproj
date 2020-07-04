@@ -54,10 +54,10 @@
     <Compile Include="Formater\Formater.cs" />
     <Compile Include="Services\Common\MailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Group\IGroupServices.cs" />
-    <Compile Include="Services\Group\GroupServices.cs" />
-    <Compile Include="Services\Setting\ISettingServices.cs" />
-    <Compile Include="Services\Setting\SettingServices.cs" />
+    <Compile Include="Services\Group\IGroupService.cs" />
+    <Compile Include="Services\Group\GroupService.cs" />
+    <Compile Include="Services\Setting\ISettingService.cs" />
+    <Compile Include="Services\Setting\SettingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

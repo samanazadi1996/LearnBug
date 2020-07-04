@@ -14,17 +14,18 @@ namespace LearnBug.Areas.Admin.Controllers
     public class SettingController : Controller
     {
         DatabaseContext db = new DatabaseContext();
-        
-        readonly private ISettingServices _settingServices;
+
+        readonly private ISettingService _settingServices;
+        public SettingController(ISettingService settingServices)
+        {
+            _settingServices = settingServices;
+        }
         public ActionResult Index()
         {
             var model = db.Settings.AsQueryable();
             return View(model);
         }
-        public SettingController(ISettingServices settingServices)
-        {
-            _settingServices = settingServices;
-        }
+
         public ActionResult Edit(int id)
         {
             var model = db.Settings.Find(id);
@@ -62,9 +63,7 @@ namespace LearnBug.Areas.Admin.Controllers
         {
             if (_settingServices.DeleteLogo(name))
                 return JavaScript("toastr.success('لوگو با موفقیت حذف شد !')");
-
             return JavaScript("toastr.error('لوگو سایت فعال است و نمیتوان آن را حذف کرد!')");
-
         }
     }
 }

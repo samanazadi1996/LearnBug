@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Models.Entities
 {
     [Table("Bookmark")]
-    public class Bookmark : IEntity
+    public class Bookmark : BaseEntity
     {
         #region Configuration
         internal class Configuration : EntityTypeConfiguration<Bookmark>

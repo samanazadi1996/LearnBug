@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Services
 {
-   public interface ISettingServices
+   public interface ISettingService
     {
         bool Edit(Setting model);
         bool ChangeLogo(string Name);

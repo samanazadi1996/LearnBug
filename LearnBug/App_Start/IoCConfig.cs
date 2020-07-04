@@ -28,8 +28,8 @@ namespace LearnBug
      
 
 
-            builder.RegisterAssemblyTypes(typeof(ISettingServices).Assembly)
-   .Where(t => t.Name.EndsWith("Services"))
+            builder.RegisterAssemblyTypes(typeof(ISettingService).Assembly)
+   .Where(t => t.Name.EndsWith("Service"))
    .AsImplementedInterfaces()
    .InstancePerRequest();
             #endregion
