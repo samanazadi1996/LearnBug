@@ -14,11 +14,16 @@ namespace LearnBug.Areas.Admin.Controllers
     public class SettingController : Controller
     {
         DatabaseContext db = new DatabaseContext();
-        SettingServices settingServices = new SettingServices();
+        
+        readonly private ISettingServices _settingServices;
         public ActionResult Index()
         {
             var model = db.Settings.AsQueryable();
             return View(model);
+        }
+        public SettingController(ISettingServices settingServices)
+        {
+            _settingServices = settingServices;
         }
         public ActionResult Edit(int id)
         {
@@ -42,20 +47,20 @@ namespace LearnBug.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult UploadLogo(HttpPostedFileBase File)
         {
-            settingServices.UploadLogo(File);
+            _settingServices.UploadLogo(File);
             return View();
         }
         [HttpPost]
         public JavaScriptResult SetLogo(string name)
         {
-            if (settingServices.ChangeLogo(name))
+            if (_settingServices.ChangeLogo(name))
                 return JavaScript("toastr.success('لوگو سایت با موفقیت تغیر کرد')");
             return JavaScript("toastr.error('خطایی رخ داده است')");
         }
         [HttpPost]
         public JavaScriptResult DeleteLogo(string name)
         {
-            if (settingServices.DeleteLogo(name))
+            if (_settingServices.DeleteLogo(name))
                 return JavaScript("toastr.success('لوگو با موفقیت حذف شد !')");
 
             return JavaScript("toastr.error('لوگو سایت فعال است و نمیتوان آن را حذف کرد!')");

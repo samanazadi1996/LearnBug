@@ -19,7 +19,7 @@ namespace LearnBug
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
+            IoCConfig.RegisterDependencies();
             //MailSender.SendMail("dsfsdds", "dsfsdfsfgt", "samanazadi1996@gmail.com");
 
         }
@@ -36,6 +36,6 @@ namespace LearnBug
                 }
             }
         }
-
+     
     }
 }
