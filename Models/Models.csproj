@@ -116,6 +116,7 @@
     <Compile Include="Repositories\FactorRepository.cs" />
     <Compile Include="Repositories\FollowRepository.cs" />
     <Compile Include="Repositories\GroupRepository.cs" />
+    <Compile Include="Repositories\ISettingRepository.cs" />
     <Compile Include="Repositories\MessageRepository.cs" />
     <Compile Include="Repositories\SettingRepository.cs" />
     <Compile Include="Repositories\TransactionRepository.cs" />

@@ -12,7 +12,11 @@ namespace Services
 {
     public class SettingService : ISettingService
     {
-        SettingRepository settingRepository = new SettingRepository();
+        private readonly ISettingRepository _settingRepository;
+        public SettingService(ISettingRepository settingRepository)
+        {
+            _settingRepository = settingRepository;
+        }
         public bool ChangeLogo(string Name)
         {
             try
@@ -37,7 +41,7 @@ namespace Services
 
         public bool Edit(Setting model)
         {
-            var result=  settingRepository.Update(model);
+            var result=  _settingRepository.Update(model);
             return result;
         }
 
