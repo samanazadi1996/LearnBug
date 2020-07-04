@@ -12,7 +12,7 @@ namespace Services
 {
     public class SettingService : ISettingService
     {
-        SettingRepository settingRepository = null;
+        SettingRepository settingRepository = new SettingRepository();
         public bool ChangeLogo(string Name)
         {
             try

@@ -13,7 +13,10 @@
                     <center>
 
                         @Html.HiddenFor(mode => Model.Id)
-
+                        @Html.HiddenFor(mode => Model.Name)
+                        @Html.HiddenFor(mode => Model.Type)
+                        @Html.HiddenFor(mode => Model.IsActive)
+                        @Html.HiddenFor(mode => Model.InsertDateTime)
                         @switch (Model.Type)
                         {
                             case "Html":

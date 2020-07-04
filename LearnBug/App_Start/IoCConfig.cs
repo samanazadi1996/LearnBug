@@ -25,13 +25,7 @@ namespace LearnBug
 
             #region Setup a common pattern
             // placed here before RegisterControllers as last one wins
-     
-
-
-            builder.RegisterAssemblyTypes(typeof(ISettingService).Assembly)
-   .Where(t => t.Name.EndsWith("Service"))
-   .AsImplementedInterfaces()
-   .InstancePerRequest();
+                 builder.RegisterAssemblyTypes(typeof(ISettingService).Assembly)   .Where(t => t.Name.EndsWith("Service"))   .AsImplementedInterfaces()   .InstancePerRequest();
             #endregion
 
             #region Register all controllers for the assembly

@@ -35,9 +35,7 @@ namespace LearnBug.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(Setting setting)
         {
-            var model = db.Settings.Find(setting.Id);
-            model.Value = setting.Value;
-            db.SaveChanges();
+            _settingServices.Edit(setting);
             return RedirectToAction("Index");
         }
         [HttpGet]
