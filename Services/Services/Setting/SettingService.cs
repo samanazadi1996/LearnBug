@@ -10,7 +10,7 @@ using System.Web;
 
 namespace Services
 {
-    public class SettingServices : ISettingService
+    public class SettingService : ISettingService
     {
         SettingRepository settingRepository = null;
         public bool ChangeLogo(string Name)
