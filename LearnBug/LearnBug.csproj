@@ -186,10 +186,8 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\FollowController.cs" />
-    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
-    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Models.Repositories
 {
-    public class GroupRepository : IDisposable
+    public class GroupRepository : IDisposable, IGroupRepository
     {
         DatabaseContext db = null;
 

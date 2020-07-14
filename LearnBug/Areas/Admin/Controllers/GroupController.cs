@@ -1,5 +1,6 @@
 ﻿using Models;
 using Models.Entities;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,135 +12,78 @@ namespace LearnBug.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class GroupController : Controller
     {
-        DatabaseContext db = new DatabaseContext();
+        private readonly IGroupService _groupService;
+        public GroupController(IGroupService groupService)
+        {
+            _groupService = groupService;
+        }
         [HttpGet]
         public ActionResult ManagementGroups()
         {
-            return View(db.Groups);
+            return View(_groupService.GetAllGroups());
         }
         public ActionResult _GroupList()
         {
             return PartialView();
         }
         [HttpPost]
-        public ActionResult AddGroup(string Name ,string Image)
+        public ActionResult AddGroup(string Name, string Image)
         {
-            if (!db.Groups.Any(p=>p.Name.ToLower()==Name))
+            if (_groupService.AddGroup(Name, Image))
             {
-                var filename = "/Files/GroupPicture/Group_" + (db.Groups.OrderByDescending(p=>p.Id).FirstOrDefault().Id+1).ToString() + ".jpg";
-                Utility.ConvertBase64toFile.Convert_base64_url_Image(Image, filename);
-
-                Group group = new Group { 
-                    Name = Name ,
-                    Image= filename
-                };
-                db.Groups.Add(group);
-                if (db.SaveChanges() > 0)
+                return Json(new
                 {
-                    return Json(new {
-                        Html = this.RenderPartialToString("_GroupList", db.Groups),
-                        Success = true,
-                        Script = "alert('گروه اضافه شد')"
-                    });
-                }
-                else
-                {
-                    return Json(new {
-                        Html = "",
-                        Success = false,
-                        Script = "alert('گروه اضافه نشد')"
-                    });
-                }
-
-            }
-            else
-            {
-                return Json(new {
-                    Html = "",
-                    Success = false,
-                    Script = "alert('گروه از قبل وجود دارد')"
-
+                    Html = this.RenderPartialToString("_GroupList", _groupService.GetAllGroups()),
+                    Success = true,
+                    Script = "toastr.success('گروه اضافه شد')"
                 });
             }
+            return Json(new
+            {
+                Html = "",
+                Success = false,
+                Script = "toastr.error('گروه از قبل وجود دارد')"
+            });
         }
         [HttpPost]
         public ActionResult DeleteGroup(int Id)
         {
-
-            if (!string.IsNullOrEmpty(Id.ToString()))
+            if (_groupService.DeleteGroup(Id))
             {
-
-                Group group = db.Groups.Find(Id);
-                db.Groups.Remove(group);
-                if (db.SaveChanges() > 0)
+                return Json(new
                 {
-                    return Json(new {
-                        Html = this.RenderPartialToString("_GroupList", db.Groups),
-                        Success = true,
-                        Script = "alert('گروه حذف شد')"
-                    });
-                }
-                else
-                {
-                    return Json(new {
-                        Html = "",
-                        Success = false,
-                        Script = "alert('گروه حذف نشد')"
-                    });
-                }
-
-            }
-            else
-            {
-                return Json(new {
-                    Html = "",
-                    Success = false,
-                    Script = "alert('گروه انتخواب نشده است')"
-
+                    Html = this.RenderPartialToString("_GroupList", _groupService.GetAllGroups()),
+                    Success = true,
+                    Script = "toastr.success('گروه حذف شد')"
                 });
             }
+            return Json(new
+            {
+                Html = "",
+                Success = false,
+                Script = "toastr.error('گروه حذف نشد')"
+            });
         }
         [HttpPost]
-        public ActionResult EditGroup(int Id ,string Name, string Image)
+        public ActionResult EditGroup(int Id, string Name, string Image)
         {
-
-            if (!string.IsNullOrEmpty(Id.ToString()))
+            if (_groupService.EditGroup(Id, Name, Image))
             {
-                var group = db.Groups.Find(Id);
-                var filename = "/Files/GroupPicture/Group_" + group.Id + ".jpg";
-                Utility.ConvertBase64toFile.Convert_base64_url_Image(Image, filename);
-
-                group.Name = Name;
-                group.Image = filename;
-                if (db.SaveChanges() > 0)
+                return Json(new
                 {
-                    return Json(new {
-                        Html = this.RenderPartialToString("_GroupList", db.Groups),
-                        Success = true,
-                        Script = "alert('گروه ویرایش شد')"
-                    });
-                }
-                else
-                {
-                    return Json(new {
-                        Html = "",
-                        Success = false,
-                        Script = "alert('گروه ویرایش نشد')"
-                    });
-                }
-
-            }
-            else
-            {
-                return Json(new {
-                    Html = "",
-                    Success = false,
-                    Script = "alert('گروه انتخواب نشده است')"
-
+                    Html = this.RenderPartialToString("_GroupList", _groupService.GetAllGroups()),
+                    Success = true,
+                    Script = "toastr.success('گروه ویرایش شد')"
                 });
             }
+            return Json(new
+            {
+                Html = "",
+                Success = false,
+                Script = "toastr.error('گروه ویرایش نشد')"
+            });
+
+
         }
-
-
     }
 }

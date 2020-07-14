@@ -14,5 +14,7 @@ namespace Services
         bool ChangeLogo(string Name);
         bool DeleteLogo(string Name);
         bool UploadLogo(HttpPostedFileBase File);
+        Setting GetRowSelectelById(int id);
+        IQueryable<Setting> GetAllSetting();
     }
 }

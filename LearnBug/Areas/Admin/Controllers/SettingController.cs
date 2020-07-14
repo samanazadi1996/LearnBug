@@ -13,30 +13,30 @@ namespace LearnBug.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class SettingController : Controller
     {
-        DatabaseContext db = new DatabaseContext();
-
-        readonly private ISettingService _settingServices;
+        private readonly ISettingService _settingServices;
         public SettingController(ISettingService settingServices)
         {
             _settingServices = settingServices;
         }
         public ActionResult Index()
         {
-            var model = db.Settings.AsQueryable();
+            var model = _settingServices.GetAllSetting();
             return View(model);
         }
-
         public ActionResult Edit(int id)
         {
-            var model = db.Settings.Find(id);
+            var model = _settingServices.GetRowSelectelById(id);
             return View(model);
+            
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Edit(Setting setting)
+        public ActionResult Edit(Setting model)
         {
-            _settingServices.Edit(setting);
-            return RedirectToAction("Index");
+            if (_settingServices.Edit(model))
+                return RedirectToAction("Index");
+            return View(model);
+
         }
         [HttpGet]
         public ActionResult UploadLogo()

@@ -5,13 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Services
 {
-   public interface IGroupService
+    public interface IGroupService
     {
-        bool Create(Group Model);
-        bool Edit(Group Model);
-        bool Delete(int Id);
+        bool AddGroup(string Name, string Image);
+        bool DeleteGroup(int Id);
+        bool EditGroup(int Id, string Name, string Image);
+        IQueryable<Group> GetAllGroups();
+        Group GetRowSelectelById(int id);
+        IQueryable<Group> ManagementGroups();
+
     }
 }

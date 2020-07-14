@@ -38,13 +38,11 @@ namespace Services
             }
 
         }
-
         public bool Edit(Setting model)
         {
-            var result=  _settingRepository.Update(model);
+            var result = _settingRepository.Update(model);
             return result;
         }
-
         public bool DeleteLogo(string Name)
         {
             if (Name == "Logo.png")
@@ -54,7 +52,6 @@ namespace Services
             File.Delete(HttpContext.Current.Server.MapPath("~") + "Files\\Picture\\Logo\\" + Name);
             return true;
         }
-
         public bool UploadLogo(HttpPostedFileBase File)
         {
             try
@@ -69,6 +66,29 @@ namespace Services
             }
 
         }
-
+        public Setting GetRowSelectelById(int id)
+        {
+            try
+            {
+                var Result = _settingRepository.Find(id);
+                return Result;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public IQueryable<Setting> GetAllSetting()
+        {
+            try
+            {
+                var model = _settingRepository.Select();
+                return model;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }
