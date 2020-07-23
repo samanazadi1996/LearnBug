@@ -123,6 +123,8 @@ namespace LearnBug.Controllers
                 cntnt.groupId = post.groupId;
                 cntnt.Subject = post.Subject;
                 cntnt.Content = result;
+                cntnt.KeyWords = post.KeyWords;
+
 
                 if (db.SaveChanges() > 0)
                 {

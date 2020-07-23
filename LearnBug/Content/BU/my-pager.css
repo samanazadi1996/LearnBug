@@ -1,0 +1,18 @@
+﻿.my-pager > * {
+    background-color: white;
+    margin: 2px;
+    padding: 3px 7px 3px 7px;
+    border-radius: 3px;
+    border: 1px solid rgba(100,100,100,0.3);
+    font-weight: bold;
+    color: darkblue;
+}
+
+.my-pager > .current {
+    background-color: darkblue;
+    color: white;
+}
+
+.my-pager > .disabled {
+    background-color: rgba(100,100,100,0.2);
+}

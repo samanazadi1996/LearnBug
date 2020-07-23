@@ -118,6 +118,8 @@
     <Compile Include="Repositories\GroupRepository.cs" />
     <Compile Include="Repositories\IGroupRepository.cs" />
     <Compile Include="Repositories\ISettingRepository.cs" />
+    <Compile Include="Repositories\ITransactionRepository.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\MessageRepository.cs" />
     <Compile Include="Repositories\SettingRepository.cs" />
     <Compile Include="Repositories\TransactionRepository.cs" />

@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-md-9">
                                 @Html.TextBoxFor(model => model.Subject, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Subject,null,new { @class="text-danger"})
+                                @Html.ValidationMessageFor(model => model.Subject, null, new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     @Html.TextBoxFor(model => model.Price, new { @class = "form-control", placeholder = "Free" })
-                                    @Html.ValidationMessageFor(model => model.Price,null,new { @class="text-danger"})
+                                    @Html.ValidationMessageFor(model => model.Price, null, new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-md-9">
                                 @Html.DropDownList("groupId", (IEnumerable<SelectListItem>)ViewBag.Groups, "نا مشخص", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Price,null,new { @class="text-danger"})
+                                @Html.ValidationMessageFor(model => model.Price, null, new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -56,8 +56,8 @@
                                 <h5>برچسب ها</h5>
                             </div>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" />
-                                @Html.ValidationMessageFor(model => model.KeyWords,null,new { @class="text-danger"})
+                                @Html.EditorFor(model => model.KeyWords, new { @class = "form-control", data_role = "tagsinput", placeholder = "افزودن تگ" })
+                                @Html.ValidationMessageFor(model => model.KeyWords, null, new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,12 @@
 
 
 
+@section styles {
+    <link href="~/Content/Mr-Admin/assets/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css" rel="stylesheet" />
+}
+
 @section Scripts {
+    <script src="~/Content/Mr-Admin/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
     @*@Html.CKEditorHeaderScripts()*@
     <script src="~/Scripts/tinymce/tinyMane.js"></script>
     <script src="~/Scripts/tinymce/tinymce.js"></script>

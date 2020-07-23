@@ -12,12 +12,12 @@
             {
                 <div class="form-group col-lg-3">
                     از تاریخ :
-                    <input type="text" id="from" name="from" value="@ViewBag.from" class="form-control" style="width:200px" autocomplete="off" />
+                    <input type="text" id="from" name="from" value="@ViewBag.from" class="form-control date" style="width:200px" autocomplete="off" />
                 </div>
 
                 <div class="form-group col-lg-3">
                     تا تاریخ :
-                    <input type="text" id="to" name="to" value="@ViewBag.to" class="form-control" style="width:200px" autocomplete="off" />
+                    <input type="text" id="to" name="to" value="@ViewBag.to" class="form-control date" style="width:200px" autocomplete="off" />
                 </div>
                 <div class="form-group col-lg-12">
                     <input type="submit" name="name" value="جستجو" class="btn btn-success" />
@@ -64,11 +64,11 @@
     </div>
 </div>
 @section Scripts {
+    <link href="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.css" rel="stylesheet" />
     <script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
     <script>
         $(function () {
-            $("#from").datepicker();
-            $("#to").datepicker();
+            $(".date").datepicker();
         });
     </script>
 }

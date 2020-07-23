@@ -5,19 +5,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Services;
 
 namespace LearnBug.Controllers
 {
     [Authorize]
     public class TransactionController : Controller
     {
-        DatabaseContext db = new DatabaseContext();
+        private readonly ITransactionService _transactionService;
+        private readonly IUserService _userService;
+        public TransactionController(ITransactionService transactionService,IUserService userService)
+        {
+            _transactionService = transactionService;
+            _userService = userService;
+        }
+
         // GET: Transaction
 
         public ActionResult _Index()
         {
-            var transactions = db.Users.Single(p => p.Username == User.Identity.Name).Transactions.OrderByDescending(p => p.InsertDateTime).AsQueryable();
-            return PartialView(transactions);
+            return PartialView(_transactionService.GetAllTransaction());
         }
 
 
@@ -29,16 +36,7 @@ namespace LearnBug.Controllers
         [HttpPost]
         public ActionResult _Add(double price)
         {
-            var user = db.Users.Single(p => p.Username == User.Identity.Name);
-            Transaction transaction = new Transaction
-            {
-                Price = price,
-                Charge = true,
-            };
-
-            user.Transactions.Add(transaction);
-            user.Wallet += price;
-            db.SaveChanges();
+            _userService.AddTransactionByUser(price);
             return View();
         }
 
