@@ -15,9 +15,11 @@ namespace Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _UserRepository;
+        private readonly ISettingRepository _settingRepository;
         private readonly ITransactionRepository _transactionRepository;
-        public UserService(IUserRepository UserRepository, ITransactionRepository transactionRepository)
+        public UserService(IUserRepository UserRepository, ITransactionRepository transactionRepository, ISettingRepository settingRepository)
         {
+            _settingRepository = settingRepository;
             _UserRepository = UserRepository;
             _transactionRepository = transactionRepository;
         }
@@ -94,7 +96,7 @@ namespace Services
                 var filename = "/Files/ProfilePicture/" + user.Username + ".jpg";
                 Utility.ConvertBase64toFile.Convert_base64_url_Image(newPicture, filename);
                 user.Image = filename;
-                 _UserRepository.Update(user);
+                _UserRepository.Update(user);
                 return true;
             }
             else
@@ -180,11 +182,11 @@ namespace Services
                 return null;
             }
         }
-        public double GetWallet()
+        public double GetWallet(string username)
         {
             try
             {
-                var user = _UserRepository.Where(p => p.Username == HttpContext.Current.User.Identity.Name).Single();
+                var user = _UserRepository.Where(p => p.Username == username).Single();
                 var transaction = user.Transactions.Sum(p => p.Price);
                 var factor = user.Factors.Sum(p => p.Price);
                 return transaction - factor;
@@ -198,7 +200,7 @@ namespace Services
         {
             try
             {
-                var model = _UserRepository.Where(p=>!p.IsActive);
+                var model = _UserRepository.Where(p => !p.IsActive);
                 return model;
             }
             catch (Exception)
@@ -220,19 +222,73 @@ namespace Services
                 return null;
             }
         }
-        public User ChangeUserByAdmin(User user)
+        public AvatarViewModel Avatar()
         {
             try
             {
-            user.Dateofbirth = user.PersianDateofbirth.ToMiladiDate();
-            user.Username = user.Username.ToLower().Trim();
-            user.Password = user.Password.Encrypt();
-            _UserRepository.Update(user);
-            return GetRowSelectelById(user.Id);
+                var me = GetCurrentUser();
+                var image = GetImgProfileByUsername(me.Username);
+                var wallet = GetWallet(me.Username);
+                var model = new AvatarViewModel()
+                {
+                    Id = me.Id,
+                    Username = me.Username,
+                    Name = me.Name,
+                    CountOfFollowing = me.Following.Count(),
+                    CountOfFollower = me.Follower.Count(),
+                    HasBookmark = me.Bookmarks.Any(),
+                    HasPost = me.Posts.Any(),
+                    HasFactor = me.Factors.Any(),
+                    Wallet = wallet,
+                    IsActive = me.IsActive,
+                    CountOfPosts = me.Posts.Count(),
+                    Image = image
+                };
+                return model;
             }
             catch (Exception)
             {
                 return null;
+            }
+        }
+        public User ChangeUserByAdmin(User user)
+        {
+            try
+            {
+                user.Dateofbirth = user.PersianDateofbirth.ToMiladiDate();
+                user.Username = user.Username.ToLower().Trim();
+                user.Password = user.Password.Encrypt();
+                _UserRepository.Update(user);
+                return GetRowSelectelById(user.Id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public string GetImgProfileByUsername(string username)
+        {
+            var user = _UserRepository.Where(p => p.Username == username).Single();
+            if (user is null)
+            {
+                if (user.Gender == GenderType.Mele)
+                {
+                    return _settingRepository.Where(p => p.Name == "DefultProfilePictureMale").FirstOrDefault().Value;
+
+                }
+                else if (user.Gender == GenderType.Femele)
+                {
+                    return _settingRepository.Where(p => p.Name == "DefultProfilePictureFemale").FirstOrDefault().Value;
+                }
+                else
+                {
+                    return _settingRepository.Where(p => p.Name == "DefultProfilePicture").FirstOrDefault().Value;
+                }
+
+            }
+            else
+            {
+                return user.Image;
             }
         }
     }

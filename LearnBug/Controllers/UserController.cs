@@ -114,17 +114,17 @@ namespace LearnBug.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var user = _userService.GetCurrentUser();
-                if (!user.IsActive)
-                    return RedirectToAction(actionName: "Logout", controllerName: "Account");
-                return PartialView(user);
+                var user = _userService.Avatar();
+                if (user.IsActive)
+                    return PartialView(user);
+                return RedirectToAction(actionName: "Logout", controllerName: "Account");
             }
             return PartialView(null);
         }
         [AllowAnonymous]
         public ActionResult _UserFollow(int id)
         {
-            var user = _userService.GetCurrentUser();
+            var user = _userService.GetRowSelectelById(id);
             return PartialView(user);
         }
         [AllowAnonymous]
@@ -133,5 +133,6 @@ namespace LearnBug.Controllers
         {
             return Json(_userService.AutenticatorUseName(Username));
         }
+
     }
 }

@@ -1,11 +1,11 @@
-﻿@model Models.Entities.User
+﻿@model ViewModels.AvatarViewModel
 @if (User.Identity.IsAuthenticated)
 {
     <!-- User -->
     <div class="user-box">
         <div class="user-img">
             <a href="@Url.Action("Profile","User",new {id=Model.Username })">
-                <img src="@Model.ImgProfile()" alt="user-img" title="Mat Helme" class="fa-border img-thumbnail img-responsive">
+                <img src="@Model.Image" alt="user-img" title="Mat Helme" class="fa-border img-thumbnail img-responsive">
             </a>
         </div>
         <h5><a href="@Url.Action("Profile","User",new {id=Model.Username })">@Model.Name</a> </h5>
@@ -34,23 +34,23 @@
             <li class="has_sub">
                 <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-account"></i> <span> کاربران</span> <span class="menu-arrow"></span></a>
                 <ul class="list-unstyled">
-                    <a href="@Url.Action("Followers","Follow",new {id= User.Identity.Name})" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-info pull-right">@Model.Following.Count()</span><span> دنبال کنندگان </span> </a>
-                    <a href="@Url.Action("Following","Follow",new {id= User.Identity.Name})" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-warning pull-right">@Model.Follower.Count()</span><span> دنبال شده ها </span> </a>
+                    <a href="@Url.Action("Followers","Follow",new {id= User.Identity.Name})" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-info pull-right">@Model.CountOfFollowing</span><span> دنبال کنندگان </span> </a>
+                    <a href="@Url.Action("Following","Follow",new {id= User.Identity.Name})" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-warning pull-right">@Model.CountOfFollower</span><span> دنبال شده ها </span> </a>
                 </ul>
             </li>
-            @if (Model.Posts.Any())
+            @if (Model.HasPost)
             {
                 <li>
-                    <a href="@Url.Action("Index", "Post")" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-danger pull-right">@Model.Posts.Count()</span><span> پست های من </span> </a>
+                    <a href="@Url.Action("Index", "Post")" class="waves-effect"><i class="zmdi zmdi-collection-text"></i><span class="label label-danger pull-right">@Model.CountOfPosts</span><span> پست های من </span> </a>
                 </li>
             }
-            @if (Model.Bookmarks.Any())
+            @if (Model.HasBookmark)
             {
                 <li>
                     <a href="@Url.Action("Index", "BookMark")" class="waves-effect"><i class="zmdi zmdi-group"></i> <span> نشانه گذاری شده ها </span> </a>
                 </li>
             }
-            @if (Model.Factors.Any())
+            @if (Model.HasFactor)
             {
                 <li>
                     <a href="@Url.Action("Index","Factor")" class="waves-effect"><i class="zmdi zmdi-play-for-work"></i> <span> مطالب خریداری شده </span> </a>

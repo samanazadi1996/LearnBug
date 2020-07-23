@@ -5,20 +5,20 @@ using System.Web;
 
 namespace Models.Repositories
 {
-    public class FactorRepository : IDisposable, IFactorRepository
+    public class PostRepository : IDisposable, IPostRepository
     {
         DatabaseContext db = null;
 
-        public FactorRepository()
+        public PostRepository()
         {
             db = new DatabaseContext();
         }
 
-        public bool Add(Factor entity, bool autoSave = true)
+        public bool Add(Post entity, bool autoSave = true)
         {
             try
             {
-                db.Factors.Add(entity);
+                db.Posts.Add(entity);
                 if (autoSave)
                     return Convert.ToBoolean(db.SaveChanges());
                 else
@@ -30,7 +30,7 @@ namespace Models.Repositories
             }
         }
 
-        public bool Update(Factor entity, bool autoSave = true)
+        public bool Update(Post entity, bool autoSave = true)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace Models.Repositories
             }
         }
 
-        public bool Delete(Factor entity, bool autoSave = true)
+        public bool Delete(Post entity, bool autoSave = true)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace Models.Repositories
         {
             try
             {
-                var entity = db.Factors.Find(id);
+                var entity = db.Posts.Find(id);
                 db.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
                 if (autoSave)
                 {
@@ -83,11 +83,11 @@ namespace Models.Repositories
             }
         }
 
-        public Factor Find(int id)
+        public Post Find(int id)
         {
             try
             {
-                return db.Factors.Find(id);
+                return db.Posts.Find(id);
             }
             catch
             {
@@ -95,11 +95,11 @@ namespace Models.Repositories
             }
         }
 
-        public IQueryable<Factor> Where(System.Linq.Expressions.Expression<Func<Factor, bool>> predicate)
+        public IQueryable<Post> Where(System.Linq.Expressions.Expression<Func<Post, bool>> predicate)
         {
             try
             {
-                return db.Factors.Where(predicate);
+                return db.Posts.Where(predicate);
             }
             catch
             {
@@ -107,11 +107,11 @@ namespace Models.Repositories
             }
         }
 
-        public IQueryable<Factor> Select()
+        public IQueryable<Post> Select()
         {
             try
             {
-                return db.Factors.AsQueryable();
+                return db.Posts.AsQueryable();
             }
             catch
             {
@@ -119,11 +119,11 @@ namespace Models.Repositories
             }
         }
 
-        public IQueryable<TResult> Select<TResult>(System.Linq.Expressions.Expression<Func<Factor, TResult>> selector)
+        public IQueryable<TResult> Select<TResult>(System.Linq.Expressions.Expression<Func<Post, TResult>> selector)
         {
             try
             {
-                return db.Factors.Select(selector);
+                return db.Posts.Select(selector);
             }
             catch
             {
@@ -135,8 +135,8 @@ namespace Models.Repositories
         {
             try
             {
-                if (db.Factors.Any())
-                    return db.Factors.OrderByDescending(p => p.Id).First().Id;
+                if (db.Posts.Any())
+                    return db.Posts.OrderByDescending(p => p.Id).First().Id;
                 else
                     return 0;
             }
@@ -176,7 +176,7 @@ namespace Models.Repositories
             }
         }
 
-        ~FactorRepository()
+        ~PostRepository()
         {
             Dispose(false);
         }

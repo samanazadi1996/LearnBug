@@ -9,16 +9,18 @@ namespace Services
         bool AddTransactionByUser(double price);
         IQueryable<User> AllUsers(string name = null, string username = null, string role = "نقش", string email = null);
         bool AutenticatorUseName(string Username);
+        AvatarViewModel Avatar();
         bool ChangePassword(ChangePasswordViewModel model);
         bool ChangeProfilePicture(string newPicture, string type);
+        User ChangeUserByAdmin(User user);
+        bool EditProfile(User user);
         IQueryable<User> GetAllUser();
         IQueryable<User> GetBlockedUser();
         User GetCurrentUser();
-        User UpdateBlockUser(int id);
+        string GetImgProfileByUsername(string username);
         User GetRowSelectelById(int id);
-        User ChangeUserByAdmin(User user);
-        double GetWallet();
+        double GetWallet(string username);
         ProfileViewModel Profile(string username);
-        bool EditProfile(User user);
+        User UpdateBlockUser(int id);
     }
 }

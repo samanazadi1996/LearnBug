@@ -45,7 +45,7 @@ namespace LearnBug.Areas.Admin.Controllers
         }
         public ActionResult Avatar()
         {
-            var user = _userService.GetCurrentUser();
+            var user = _userService.Avatar();
             if (!user.IsActive)
                 return RedirectToAction(actionName: "Logout", controllerName: "Account");
             return PartialView(user);

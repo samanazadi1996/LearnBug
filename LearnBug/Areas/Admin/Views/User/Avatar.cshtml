@@ -1,10 +1,10 @@
 ﻿
-@model Models.Entities.User
+@model ViewModels.AvatarViewModel
 <!-- User -->
     <div class="user-box">
         <div class="user-img">
             <a href="/User/Profile/@Model.Username">
-                <img src="@Model.ImgProfile()" alt="user-img" title="@Model.Username" class="img-thumbnail img-responsive fa-border">
+                <img src="@Model.Image" alt="user-img" title="@Model.Username" class="img-thumbnail img-responsive fa-border">
             </a>
         </div>
         <h5><a href="@Url.Action("Profile","User",new {id=Model.Username })">@Model.Name</a> </h5>
