@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Models.Repositories
 {
-    public class MessageRepository : IDisposable
+    public class MessageRepository : IDisposable, IMessageRepository
     {
         DatabaseContext db = null;
 

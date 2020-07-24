@@ -1,4 +1,5 @@
 ﻿using Models.Entities;
+using System.Collections.Generic;
 using System.Linq;
 using ViewModels;
 
@@ -7,15 +8,15 @@ namespace Services
     public interface IUserService
     {
         bool AddTransactionByUser(double price);
-        IQueryable<User> AllUsers(string name = null, string username = null, string role = "نقش", string email = null);
+        IEnumerable<User> AllUsers(string name = null, string username = null, string role = "نقش", string email = null);
         bool AutenticatorUseName(string Username);
         AvatarViewModel Avatar();
         bool ChangePassword(ChangePasswordViewModel model);
         bool ChangeProfilePicture(string newPicture, string type);
         User ChangeUserByAdmin(User user);
         bool EditProfile(User user);
-        IQueryable<User> GetAllUser();
-        IQueryable<User> GetBlockedUser();
+        IEnumerable<User> GetAllUser();
+        IEnumerable<User> GetBlockedUser();
         User GetCurrentUser();
         string GetImgProfileByUsername(string username);
         User GetRowSelectelById(int id);

@@ -112,7 +112,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BookmarkRepository.cs" />
     <Compile Include="Repositories\CommentRepository.cs" />
-    <Compile Include="Repositories\ContentRepository.cs" />
+    <Compile Include="Repositories\IBookmarkRepository.cs" />
+    <Compile Include="Repositories\ICommentRepository.cs" />
+    <Compile Include="Repositories\IFollowRepository.cs" />
+    <Compile Include="Repositories\IMessageRepository.cs" />
     <Compile Include="Repositories\IPostRepository.cs" />
     <Compile Include="Repositories\PostRepository.cs" />
     <Compile Include="Repositories\FactorRepository.cs" />

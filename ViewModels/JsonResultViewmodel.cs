@@ -10,6 +10,6 @@ namespace ViewModels
     {
         public bool Success { get; set; }
         public string Html { get; set; }
-        public string Scripts { get; set; }
+        public string Script { get; set; }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using Models.Entities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Services
 {
     public interface ITransactionService
     {
-        IQueryable<Transaction> GetAllTransaction();
+        IEnumerable<Transaction> GetAllTransaction();
     }
 }

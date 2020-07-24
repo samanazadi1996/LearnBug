@@ -47,7 +47,7 @@ namespace Services
             }
 
         }
-        public IQueryable<User> AllUsers(string name = null, string username = null, string role = "نقش", string email = null)
+        public IEnumerable<User> AllUsers(string name = null, string username = null, string role = "نقش", string email = null)
         {
             var model = _UserRepository.Select().AsQueryable();
 
@@ -62,7 +62,7 @@ namespace Services
 
             if (role != "نقش")
                 model = model.Where(p => p.Roles == role);
-            return model;
+            return model.ToList();
         }
         public bool ChangePassword(ChangePasswordViewModel model)
         {
@@ -170,11 +170,11 @@ namespace Services
                 return null;
             }
         }
-        public IQueryable<User> GetAllUser()
+        public IEnumerable<User> GetAllUser()
         {
             try
             {
-                var model = _UserRepository.Select();
+                var model = _UserRepository.Select().ToList();
                 return model;
             }
             catch (Exception)
@@ -196,11 +196,11 @@ namespace Services
                 return 0;
             }
         }
-        public IQueryable<User> GetBlockedUser()
+        public IEnumerable<User> GetBlockedUser()
         {
             try
             {
-                var model = _UserRepository.Where(p => !p.IsActive);
+                var model = _UserRepository.Where(p => !p.IsActive).ToList();
                 return model;
             }
             catch (Exception)

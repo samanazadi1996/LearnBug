@@ -78,11 +78,11 @@ namespace Services
                 return null;
             }
         }
-        public IQueryable<Setting> GetAllSetting()
+        public IEnumerable<Setting> GetAllSetting()
         {
             try
             {
-                var model = _settingRepository.Select();
+                var model = _settingRepository.Select().ToList();
                 return model;
             }
             catch (Exception)

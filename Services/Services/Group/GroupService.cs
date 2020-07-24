@@ -17,11 +17,11 @@ namespace Services
         {
             _groupRepository = groupRepository;
         }
-        public IQueryable<Group> ManagementGroups()
+        public IEnumerable<Group> ManagementGroups()
         {
             try
             {
-                return _groupRepository.Select();
+                return _groupRepository.Select().ToList();
             }
             catch (Exception)
             {
@@ -90,7 +90,7 @@ namespace Services
                 return null;
             }
         }
-        public IQueryable<Group> GetAllGroups()
+        public IEnumerable<Group> GetAllGroups()
         {
             try
             {

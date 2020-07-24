@@ -6,86 +6,37 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ViewModels;
+using Services;
 
 namespace LearnBug.Controllers
 {
     [Authorize]
     public class MessageController : Controller
     {
-        DatabaseContext db = new DatabaseContext();
+        private readonly IMessageService _messageService;
+        public MessageController(IMessageService messageService)
+        {
+            _messageService = messageService;
+        }   
         public ActionResult Index()
         {
-            var myUserName = User.Identity.Name;
-            var message = db.Messages.Where(p => p.sender.Username == myUserName || p.Reciver.Username == myUserName);
-            var model = message.Select(p => new MessageViewModel {
-                User =(p.Reciver.Username== myUserName ? p.sender:p.Reciver)
-                });
-            return View(model.Distinct());
+            var result = _messageService.GetAllMessages();
+                return View(result);
         }
         public ActionResult _Inbox()
         {
-            var me = db.Users.Single(p => p.Username == User.Identity.Name);
-            var model = me.Inbox.OrderByDescending(p=>p.InsertDateTime);
-            return PartialView(model);
+            var result = _messageService.Inbox();
+            return PartialView(result.ToList());
         }
         public ActionResult _Sent()
         {
-            var me = db.Users.Single(p => p.Username == User.Identity.Name);
-            var model = me.Sent.OrderByDescending(p => p.InsertDateTime);
-            return PartialView(model);
+            var result = _messageService.Sent();
+            return PartialView(result.ToList());
         }
         public JsonResult SendMessage(string text, int to)
         {
-            var message = new Message
-            {
-                Text = text,
-                reciverId = to,
-                Status = 0
-
-            };
-            if (ModelState.IsValid)
-            {
-                db.Users.Single(p => p.Username == User.Identity.Name).Sent.Add(message);
-                if (db.SaveChanges() > 0)
-                {
-                    return Json(new {msg= "toastr.success('پیغام ارسال شد')" });
-                }
-                else
-                {
-                    return Json(new { msg= "toastr.error('پیغام ارسال نشد')" });
-                }
-            }
-            else
-            {
-                return Json(new { msg = "toastr.warning('مقادیر نامعتبر')" });
-
-            }
+            var result = _messageService.SendMessage(text,to);
+            return Json(new { msg = result });
         }
-        public JsonResult Viewmessage(int id)
-        {
-            var msg = db.Messages.Find(id);
-            int user = db.Users.Single(p => p.Username == User.Identity.Name).Id;
-            if (msg.reciverId == user || msg.senderId == user)
-            {
-                if (msg.Status < 2 && msg.reciverId == user)
-                {
-                    msg.Status = 2;
-                    db.SaveChanges();
-                }
-                return Json(new
-                {
-                    success = true,
-                    text = msg.Text,
-                    username = User.Identity.Name,
-                });
-
-            }
-            else
-            {
-                return Json(new { success = false });
-            }
-
-        }
-
     }
 }

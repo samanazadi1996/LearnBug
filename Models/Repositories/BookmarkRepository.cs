@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Models.Repositories
 {
-    public class BookmarkRepository : IDisposable
+    public class BookmarkRepository : IDisposable, IBookmarkRepository
     {
         DatabaseContext db = null;
 

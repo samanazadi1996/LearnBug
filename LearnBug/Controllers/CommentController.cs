@@ -5,42 +5,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Services;
 
 namespace LearnBug.Controllers
 {
     public class CommentController : Controller
     {
-        DatabaseContext db = new DatabaseContext();
+        private readonly ICommentService _commentService;
+
+        public CommentController(ICommentService commentService)
+        {
+            _commentService = commentService;
+        }
+
         public ActionResult _Comments(int Id)
         {
-            var post = db.Posts.Find(Id);
-            var model = post.Comments;
-            ViewBag.PostId = post.Id;
-            return PartialView(model);
+            var result = _commentService.GetAllCommentsByPost(Id);
+            ViewBag.PostId = Id;
+            return PartialView(result);
         }
         [HttpPost]
         [Authorize]
         public string deleteComment(int id)
         {
-            var cmnt = db.Comments.Find(id);
-            var user = db.Users.Single(p => p.Username.ToLower() == User.Identity.Name.ToLower());
-            if (cmnt.userId == user.Id || cmnt.Post.userId == user.Id || User.IsInRole("Admin"))
-            {
-                db.Comments.Remove(cmnt);
-                if (db.SaveChanges() > 0)
-                {
-                    return "toastr.success(''!کامنت شما حذف شد')";
-                }
-                else
-                {
-                    return "toastr.error('!کامنت شما حذف نشد')";
-
-                }
-            }
-            else
-            {
-                return "toastr.error('!کامنت شما حذف نشد')";
-            }
+            var result = _commentService.Delete(id);
+            return result;
         }
 
         [Authorize]
@@ -48,30 +37,14 @@ namespace LearnBug.Controllers
         {
             try
             {
-                var post = db.Posts.Find(id);
-                Comment comment = new Comment()
-                {
-                    Text = text,
-                    postId = id
-                };
-                comment.Text = text;
-                var me = db.Users.Single(p => p.Username.ToLower() == User.Identity.Name.ToLower());
-                me.Comments.Add(comment);
-                if (db.SaveChanges() > 0)
-                {
-                    var model = post.Comments;
-                    ViewBag.PostId = post.Id;
-
-                    return Json(new {success=true, html = this.RenderPartialToString("_Comments", model), message ="toastr.success('کامنت شما ثبت شد')" });
-                }
-                else
-                {
-                    return Json(new { success = false,html="", message = "toastr.error('کامنت شما ثبت نشد')" });
-                }
+                var result = _commentService.Create(id, text);
+                if (result.Any())
+                    return Json(new { success = true, html = this.RenderPartialToString("_Comments", result), message = "toastr.success('کامنت شما ثبت شد')" });
+                return Json(new { success = false, html = "", message = "toastr.error('کامنت شما ثبت نشد')" });
             }
             catch (Exception)
             {
-                return Json(new { success = false,html="", message = "toastr.error('خطایی رخ داد')" });
+                return Json(new { success = false, html = "", message = "toastr.error('خطایی رخ داد')" });
             }
         }
     }

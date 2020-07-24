@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Models.Repositories
 {
-    public class CommentRepository : IDisposable
+    public class CommentRepository : IDisposable, ICommentRepository
     {
         DatabaseContext db = null;
 

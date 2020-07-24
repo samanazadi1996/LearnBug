@@ -6,43 +6,43 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ViewModels;
+using Services;
 
 namespace LearnBug.Controllers
 {
     public class PostController : Controller
     {
-        DatabaseContext db = new DatabaseContext();
+        private readonly IPostService _postService;
+        private readonly IGroupService _groupService;
 
+        public PostController(IPostService postService,IGroupService groupService)
+        {
+            _postService = postService;
+            _groupService = groupService;
+        }
         public ActionResult _SinglePost(int id)
         {
-            var post = db.Posts.Find(id);
+            var post = _postService.GetRowById(id);
             return PartialView(post);
         }
 
         public ActionResult ViewPost(int id)
         {
-            var Content = db.Posts.Find(id);
+            var Content = _postService.GetRowById(id);
             return View(Content);
         }
 
         [Authorize]
         public ActionResult Index(int Page = 1)
         {
-            var posts = db.Posts.Where(p => p.User.Username == User.Identity.Name).OrderByDescending(o => o.InsertDateTime);
-
-            PostsViewModel model = new PostsViewModel
-            {
-                PostId = posts.Skip((Page - 1) * 12).Take(12).Select(p => p.Id),
-                CurrentPage = Page,
-                TotalItemCount = posts.Count()
-            };
+            var model = _postService.GetMyPosts(Page);
             return View(model);
         }
         [HttpGet]
         [Authorize]
         public ActionResult Create()
         {
-            ViewBag.Groups = new SelectList(db.Groups.ToList(), "Id", "Name");
+            ViewBag.Groups = new SelectList(_groupService.GetAllGroups(), "Id", "Name");
             return View();
         }
         [HttpPost]
@@ -50,24 +50,14 @@ namespace LearnBug.Controllers
         [ValidateInput(false)]
         public ActionResult Create(Post post)
         {
-            string path = Server.MapPath("~/Files/Posts/");
-
-            var result = Utility.ConvertBase64toFile.Convert_Htmlbase64_url_Image(post.Content, path, "/Files/Posts/");
-
-            var user = db.Users.Single(p => p.Username == User.Identity.Name);
-            post.Status = 0;
-            if (User.IsInRole("User"))
-                post.Price = null;
-            post.Content = result.ToString();
-            user.Posts.Add(post);
-            if (db.SaveChanges() > 0)
+            if (_postService.Create(post))
             {
-                return RedirectToAction("ViewPost", "Post", new { id = user.Posts.LastOrDefault().Id });
+                return RedirectToAction("ViewPost", "Post", new { id = _postService.GetLastPost() });
 
             }
             else
             {
-                ViewBag.Groups = new SelectList(db.Groups.ToList(), "Id", "Name");
+                ViewBag.Groups = new SelectList(_groupService.GetAllGroups(), "Id", "Name");
                 ViewBag.message = "ثبت مطلب انجام نشد";
                 ViewBag.style = "red";
                 return View(post);
@@ -75,32 +65,14 @@ namespace LearnBug.Controllers
 
 
         }
-
-        //[Authorize]
-
-        //public ActionResult ContentOfFollowing(int Page = 1)
-        //{
-        //    var user = db.Users.Single(p => p.Username == User.Identity.Name);
-        //    var contents = user.Following.SelectMany(p => p.Following.Posts).OrderByDescending(O => O.Datetime).AsQueryable();
-        //    ContentViewModel model = new ContentViewModel
-        //    {
-        //        posts = contents.Skip((Page - 1) * 12).Take(12),
-        //        CurrentPage = Page,
-        //        TotalItemCount = contents.Count()
-        //    };
-
-
-        //    return View(model);
-        //}
-
         [Authorize]
         public ActionResult Edit(int id)
         {
-            var model = db.Posts.Find(id);
+            var model = _postService.GetRowById(id);
 
             if (User.IsInRole("Admin") || model.User.Username == User.Identity.Name)
             {
-                ViewBag.Groups = new SelectList(db.Groups.ToList(), "Id", "Name");
+                ViewBag.Groups = new SelectList(_groupService.GetAllGroups(), "Id", "Name");
                 return View(model);
             }
             return View("AddContent");
@@ -110,28 +82,14 @@ namespace LearnBug.Controllers
         [Authorize]
         public ActionResult Edit(Post post)
         {
-            string path = Server.MapPath("~/Files/Posts/");
-
-            var result = Utility.ConvertBase64toFile.Convert_Htmlbase64_url_Image(post.Content, path, "/Files/Posts/");
-
-            var cntnt = db.Posts.Find(post.Id);
-            if (cntnt.User.Username == User.Identity.Name || User.IsInRole("Admin"))
+            if (_postService.IsMainPost(post.Id))
             {
-                if (!User.IsInRole("User"))
-                    cntnt.Price = post.Price;
-
-                cntnt.groupId = post.groupId;
-                cntnt.Subject = post.Subject;
-                cntnt.Content = result;
-                cntnt.KeyWords = post.KeyWords;
-
-
-                if (db.SaveChanges() > 0)
+                if (_postService.Edit(post))
                 {
                     return RedirectToAction("ViewPost", "Post", new { id = post.Id });
                 }
             }
-            ViewBag.Groups = new SelectList(db.Groups.ToList(), "Id", "Name");
+            ViewBag.Groups = new SelectList(_groupService.GetAllGroups(), "Id", "Name");
             ViewBag.message = "ثبت مطلب انجام نشد";
             ViewBag.style = "red";
             return View(post);
@@ -140,8 +98,8 @@ namespace LearnBug.Controllers
         [Authorize]
         public ActionResult Delete(int id)
         {
-            var model = db.Posts.Find(id);
-            if (User.IsInRole("Admin") || model.User.Username == User.Identity.Name)
+            var model = _postService.GetRowById(id);
+            if (_postService.IsMainPost(id))
                 return View(model);
             return HttpNotFound();
         }
@@ -149,18 +107,8 @@ namespace LearnBug.Controllers
         [HttpPost]
         public ActionResult Delete(Post post)
         {
-            var model = db.Posts.Find(post.Id);
-
-            if (User.IsInRole("Admin") || model.User.Username == User.Identity.Name && !model.Factors.Any())
-            {
-                foreach (var item in model.Comments) { model.Comments.Remove(item); }
-                foreach (var item in model.Bookmarks) { model.Bookmarks.Remove(item); }
-                db.Posts.Remove(model);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            _postService.Delete(post);
             return HttpNotFound();
-
         }
 
     }

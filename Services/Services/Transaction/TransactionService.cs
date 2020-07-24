@@ -17,9 +17,9 @@ namespace Services
         {
             _TransactionRepository = transactionRepository;
         }
-        public IQueryable<Transaction> GetAllTransaction()
+        public IEnumerable<Transaction> GetAllTransaction()
         {
-            var transactions = _TransactionRepository.Where(p => p.User.Username == HttpContext.Current.User.Identity.Name).OrderByDescending(p => p.InsertDateTime).AsQueryable();
+            var transactions = _TransactionRepository.Where(p => p.User.Username == HttpContext.Current.User.Identity.Name).OrderByDescending(p => p.InsertDateTime).ToList();
             return transactions;
         }
     }

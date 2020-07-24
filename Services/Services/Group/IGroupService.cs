@@ -14,9 +14,9 @@ namespace Services
         bool AddGroup(string Name, string Image);
         bool DeleteGroup(int Id);
         bool EditGroup(int Id, string Name, string Image);
-        IQueryable<Group> GetAllGroups();
+        IEnumerable<Group> GetAllGroups();
         Group GetRowSelectelById(int id);
-        IQueryable<Group> ManagementGroups();
+        IEnumerable<Group> ManagementGroups();
 
     }
 }
