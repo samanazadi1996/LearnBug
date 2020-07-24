@@ -1,6 +1,7 @@
 ﻿using Models;
 using Models.Entities;
 using NLog;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,16 @@ namespace LearnBug.Controllers
 {
     public class AccountController : Controller
     {
-        DatabaseContext db = new DatabaseContext();
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private readonly IAccountService _accountService;
 
+        public AccountController(IAccountService accountService)
+        {
+            _accountService = accountService;
+        }
         [Authorize]
         public ActionResult Logout()
         {
-            FormsAuthentication.SignOut();
+            _accountService.Logout();
             return RedirectToAction("Index", "Home");
         }
 
@@ -31,18 +35,13 @@ namespace LearnBug.Controllers
         [HttpPost]
         public ActionResult Login(string Username, string Password, string Rememberme)
         {
-            Password = Password.Encrypt();
-            if (db.Users.Any(p => p.Username == Username.ToLower() && p.Password == Password && p.IsActive))
-            {
-                logger.Info("Login User => " + Username.ToLower());
-                FormsAuthentication.SetAuthCookie(Username.ToLower(), Convert.ToBoolean(Rememberme));
-                return RedirectToAction("Index","Home");
-            }
-            else
-            {
-                ViewBag.Message = "نام کاربری یا رمز عبور اشتباه است";
-                return View();
-            }
+            var result = _accountService.Login(Username, Password, Rememberme);
+
+            if (result)
+                return RedirectToAction("Index", "Home");
+
+            ViewBag.Message = "نام کاربری یا رمز عبور اشتباه است";
+            return View();
         }
 
         #endregion
@@ -57,17 +56,10 @@ namespace LearnBug.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(User user)
         {
-            if (!ModelState.IsValid || db.Users.Any(p => p.Username == user.Username.ToLower().Trim()))
+            if (!ModelState.IsValid)
                 return View(user);
 
-            user.Status = 1;
-            user.Roles = "User";
-            user.Wallet = 0;
-            user.Username = user.Username.ToLower().Trim();
-            user.Password = user.Password.Encrypt();
-            user.Dateofbirth = user.PersianDateofbirth.ToMiladiDate();
-            db.Users.Add(user);
-            if (db.SaveChanges() > 0)
+            if (_accountService.Register(user))
                 return RedirectToAction(actionName: "Login", controllerName: "Home");
             return View(user);
         }

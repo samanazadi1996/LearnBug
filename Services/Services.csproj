@@ -76,6 +76,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\Account\IAccountService.cs" />
+    <Compile Include="Services\Account\AccountService.cs" />
     <Compile Include="Services\Home\IHomeService.cs" />
     <Compile Include="Services\Follow\IFollowService.cs" />
     <Compile Include="Services\Follow\FollowService.cs" />
