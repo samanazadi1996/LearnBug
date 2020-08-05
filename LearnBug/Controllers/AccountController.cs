@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Common.ReCaptcha;
+using Models;
 using Models.Entities;
 using NLog;
 using Services;
@@ -54,13 +55,14 @@ namespace LearnBug.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        //[ReCaptcha]
         public ActionResult Register(User user)
         {
             if (!ModelState.IsValid)
                 return View(user);
 
             if (_accountService.Register(user))
-                return RedirectToAction(actionName: "Login", controllerName: "Home");
+                return RedirectToAction(actionName: "Login", controllerName: "Account");
             return View(user);
         }
 

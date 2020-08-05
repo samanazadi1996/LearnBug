@@ -43,7 +43,7 @@ namespace Services
 
         public bool Register(User user)
         {
-            if (_userRepository.Select(p => p.Username == user.Username.ToLower().Trim()).Any())
+            if (!_userRepository.Select(p => p.Username == user.Username.ToLower().Trim()).Any())
                 return false;
 
             user.Status = 1;

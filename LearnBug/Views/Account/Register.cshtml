@@ -1,126 +1,116 @@
 ﻿@model Models.Entities.User
+@using Common.ReCaptcha
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Account.cshtml";
     ViewBag.Title = "ثبت نام";
 }
 @section styles{
     <link href="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.css" rel="stylesheet" />
 }
+<div class="account-pages"></div>
+<div class="clearfix"></div>
 <div class="col-md-12">
-    <div class="card-box">
-        <fieldset>
-            <!-- -->
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true)
-                <div class="col-md-12 form-group">
-                    <div class="col-md-6">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="m-t-40 card-box">
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    <script src="https://www.google.com/recaptcha/api.js?render=6Lf6k_YUAAAAAH-9T16N81aV7IWhj6FezimFQ2n2"></script>
+                    @Html.GenerateCaptcha(Theme.White)
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <div class="col-md-12 form-group">
                         <div class="col-md-3"><label>نام کاربری</label></div>
                         <div class="col-md-9">
                             @Html.TextBoxFor(model => model.Username, new { @class = "form-control", autocomplete = "off", onkeyup = "Autenticator(this)" })
-                            @Html.ValidationMessageFor(model => model.Username,null, new { @class="text-danger"})
+                            @Html.ValidationMessageFor(model => model.Username, null, new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12 form-group">
-                    <div class="col-md-6">
+                    <div class="col-md-12 form-group">
                         <div class="col-md-3"><label>نام</label></div>
                         <div class="col-md-9">
                             @Html.TextBoxFor(model => model.Name, new { @class = "form-control", autocomplete = "off" })
-                            @Html.ValidationMessageFor(model => model.Name,null, new { @class="text-danger"})
+                            @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12 form-group">
-                    <div class="col-md-6">
+                    <div class="col-md-12 form-group">
                         <div class="col-md-3">ایمیل</div>
                         <div class="col-md-9">
                             @Html.TextBoxFor(model => model.Email, new { @class = "form-control", autocomplete = "off" })
-                            @Html.ValidationMessageFor(model => model.Email,null, new { @class="text-danger"})
+                            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12 form-group">
-                    <div class="col-md-6">
+                    <div class="col-md-12 form-group">
                         <div class="col-md-3"><label>رمز عبور</label></div>
                         <div class="col-md-9">
                             @Html.TextBoxFor(model => model.Password, new { @class = "form-control", type = "password" })
-                            @Html.ValidationMessageFor(model => model.Password,null, new { @class="text-danger"})
+                            @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>               
-                @*<div class="col-md-12 form-group">
-                    <div class="col-md-6">
-                        <div class="col-md-3"><label>تکرار رمز عبور</label></div>
-                        <div class="col-md-9">
-                            @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control", type = "password" })
-                            @Html.ValidationMessageFor(model => model.ConfirmPassword,null, new { @class="text-danger"})
-                        </div>
-                    </div>
-                </div>*@
-                <div class="col-md-12 form-group">
-                    <div class="col-md-6">
+                    @*<div class="col-md-12 form-group">
+                            <div class="col-md-6">
+                                <div class="col-md-3"><label>تکرار رمز عبور</label></div>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control", type = "password" })
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword,null, new { @class="text-danger"})
+                                </div>
+                            </div>
+                        </div>*@
+                    <div class="col-md-12 form-group">
                         <div class="col-md-3"><label>تاریخ تولد</label></div>
                         <div class="col-md-9">
-                            @Html.TextBoxFor(model => model.PersianDateofbirth, new { @class = "form-control", autocomplete = "off" })
-                            @Html.ValidationMessageFor(model => model.PersianDateofbirth,null, new { @class="text-danger"})
+                            @Html.TextBoxFor(model => model.PersianDateofbirth, new { @class = "form-control Date", autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.PersianDateofbirth, null, new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>
-
-                <div class="col-md-12 form-group">
-                    <div class="col-md-6">
+                    <div class="col-md-12 form-group">
                         <div class="col-md-3"><label>جنسیت</label></div>
                         <div class="col-md-9">
                             @Html.EnumDropDownListFor(model => model.Gender, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Gender,null, new { @class="text-danger"})
+                            @Html.ValidationMessageFor(model => model.Gender, null, new { @class = "text-danger" })
 
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12 form-group">
-                    <div class="col-md-6">
+                    <div class="col-md-12 form-group">
                         <div class="col-md-3"><label>شماره تلفن</label></div>
                         <div class="col-md-9">
                             @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", autocomplete = "off" })
-                            @Html.ValidationMessageFor(model => model.Phone,null, new { @class="text-danger"})
+                            @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12 form-group">
-                    <div class="col-md-6">
+                    <div class="col-md-12 form-group">
                         <div class="col-md-3"><label>محل سکونت</label></div>
                         <div class="col-md-9">
                             <select id="loc" name="Location" class="form-control">
                                 <option value="value">text</option>
                             </select>
-                            @Html.ValidationMessageFor(model => model.Location,null, new { @class="text-danger"})
+                            @Html.ValidationMessageFor(model => model.Location, null, new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12 form-group">
-                    <div class="col-md-6">
+                    <div class="col-md-12 form-group">
                         <div class="col-md-3"><label>بیوگرافی</label></div>
                         <div class="col-md-9">
                             @Html.TextAreaFor(model => model.Biography, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Biography,null, new { @class="text-danger"})
+                            @Html.ValidationMessageFor(model => model.Biography, null, new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>
+                    <div class="col-md-12 form-group">
+                        <div class="col-md-3 form-group"></div>
+                        <div class="col-md-3 form-group">
+                            <button class="btn btn-success btn-block"> ثبت نام </button>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <a class="btn btn-info btn-block" href="@Url.Action("Login","Account")"> صفحه ورود </a>
+                        </div>
+                    </div>
+                }
 
-                <div class="col-md-12 form-group">
-                    <div class="col-md-6">
-                        <div class="col-md-3"><label></label></div>
-                        <div class="col-md-9">
-                            <button class="btn btn-success w-md"> ثبت نام </button>
-                        </div>
-                    </div>
-                </div>
-            }
-            <!-- -->
-        </fieldset>
+            </div>
+        </div>
     </div>
+    <div class="col-md-3"></div>
+
 </div>
 @section Scripts {
     <script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
@@ -132,7 +122,6 @@
                 data: {Username:obj.value},
                 type: "Post",
                 success: function (result) {
-                    console.log(result)
                     if (result) {
                         obj.style.backgroundColor='rgba(0, 255, 0, 0.5)'
                     } else {
@@ -146,7 +135,6 @@
             })
         }
         $(function () {
-            $("#Dateofbirth").datepicker();
             $.ajax({
                 url: "https://api.yarbox.co/api/vv2/provinces",
                 type: "GET",
@@ -161,4 +149,5 @@
             });
         });
     </script>
+    @Scripts.Render("~/bundles/jqueryval")
 }
