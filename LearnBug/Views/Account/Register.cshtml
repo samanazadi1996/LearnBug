@@ -16,8 +16,7 @@
             <div class="panel-body">
                 @using (Html.BeginForm())
                 {
-                    <script src="https://www.google.com/recaptcha/api.js?render=6Lf6k_YUAAAAAH-9T16N81aV7IWhj6FezimFQ2n2"></script>
-                    @Html.GenerateCaptcha(Theme.White)
+                    @Html.GenerateCaptcha()
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
                     <div class="col-md-12 form-group">

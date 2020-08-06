@@ -7,7 +7,7 @@
     <div class="clearfix"></div>
     <div class="wrapper-page">
         <div class="text-center">
-            <a href="index.html" class="logo"><span class="text-primary">Learn<span class="text-danger">Bug</span></span></a>
+            <a href="/" class="logo"><span class="text-primary">Learn<span class="text-danger">Bug</span></span></a>
             <h5 class="text-muted m-t-0 font-600">
                 <b style="color:red;">@ViewBag.Message</b>
 
@@ -20,8 +20,7 @@
             <div class="panel-body">
                 @using (Html.BeginForm())
                 {
-                    <script src="https://www.google.com/recaptcha/api.js?render=6Lf6k_YUAAAAAH-9T16N81aV7IWhj6FezimFQ2n2"></script>
-                    @Html.GenerateCaptcha(Theme.White)
+                    @Html.GenerateCaptcha()
 
                     <div class="form-group col-md-12">
                         <div class="col-xs-12">

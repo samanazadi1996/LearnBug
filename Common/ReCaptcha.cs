@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Configuration;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Web;
+using System.Net.Http;
 using System.Web.Mvc;
 
 namespace Common.ReCaptcha
 {
-    public enum Theme { Red, White, BlackGlass, Clean }
-
     [Serializable]
     public class InvalidKeyException : ApplicationException
     {
@@ -24,65 +19,44 @@ namespace Common.ReCaptcha
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var userIP = filterContext.RequestContext.HttpContext.Request.UserHostAddress;
+            var privateKey = System.Configuration.ConfigurationManager.AppSettings["ReCaptcha.PrivateKey"];
+            object gRecaptchaResponse = filterContext.ActionParameters["foo"];
+            HttpClient httpClient = new HttpClient();
+            var res = httpClient.GetAsync($"https://www.google.com/recaptcha/api/siteverify?secret={privateKey}&response={gRecaptchaResponse}").Result;
+            if (res.StatusCode != HttpStatusCode.OK)
+                filterContext.Result = new HttpNotFoundResult();
 
-            var privateKey = ConfigurationManager.AppSettings["ReCaptcha.PrivateKey"];
+            string JSONres = res.Content.ReadAsStringAsync().Result;
+            dynamic JSONdata = JObject.Parse(JSONres);
 
-            if (string.IsNullOrWhiteSpace(privateKey))
-                throw new InvalidKeyException("ReCaptcha.PrivateKey missing from appSettings");
+            if (JSONdata.success != "true")
+                filterContext.Result = new HttpNotFoundResult();
 
-            var postData = string.Format("&privatekey={0}&remoteip={1}&challenge={2}&response={3}",
-                                         privateKey,
-                                         userIP,
-                                         filterContext.RequestContext.HttpContext.Request.Form["recaptcha_challenge_field"],
-                                         filterContext.RequestContext.HttpContext.Request.Form["recaptcha_response_field"]);
-
-            var postDataAsBytes = Encoding.UTF8.GetBytes(postData);
-
-            // Create web request
-            var request = WebRequest.Create("http://www.google.com/recaptcha/api/verify");
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = postDataAsBytes.Length;
-            var dataStream = request.GetRequestStream();
-            dataStream.Write(postDataAsBytes, 0, postDataAsBytes.Length);
-            dataStream.Close();
-
-            // Get the response.
-            var response = request.GetResponse();
-
-            using (dataStream = response.GetResponseStream())
-            {
-                using (var reader = new StreamReader(dataStream))
-                {
-                    var responseFromServer = reader.ReadToEnd();
-
-                    if (!responseFromServer.StartsWith("true"))
-                        filterContext.Result = new HttpNotFoundResult();
-                            }
-            }
+            base.OnActionExecuting(filterContext);
         }
     }
-
     public static class HtmlHelperExtensions
     {
-        public static MvcHtmlString GenerateCaptcha(this HtmlHelper helper, Theme theme, string callBack = null)
+        public static MvcHtmlString GenerateCaptcha(this HtmlHelper helper)
         {
-            const string htmlInjectString = @"<div id=""recaptcha_div""></div>
-<script type=""text/javascript"">
-    Recaptcha.create(""{0}"", ""recaptcha_div"", {{ theme: ""{1}"" {2}}});
-</script>";
-
             var publicKey = ConfigurationManager.AppSettings["ReCaptcha.PublicKey"];
+            string htmlInjectString = @"<input type='hidden' id='foo' name='foo' />
+     <script src = 'https://www.google.com/recaptcha/api.js?render=" + publicKey + @"'></script>
+    <script>
+         grecaptcha.ready(function() {
+                grecaptcha.execute('" + publicKey + @"', { action: 'ReCaptcha' }).then(function(token) {
+                    document.getElementById('foo').value = token;
+                });
+            });
+     </script>   
+
+";
 
             if (string.IsNullOrWhiteSpace(publicKey))
                 throw new InvalidKeyException("ReCaptcha.PublicKey missing from appSettings");
 
-            if (!string.IsNullOrWhiteSpace(callBack))
-                callBack = string.Concat(", callback: ", callBack);
 
-            var html = string.Format(htmlInjectString, publicKey, theme.ToString().ToLower(), callBack);
-            return MvcHtmlString.Create(html);
+            return MvcHtmlString.Create(htmlInjectString);
         }
     }
 }

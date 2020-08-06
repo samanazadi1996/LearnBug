@@ -34,7 +34,8 @@ namespace LearnBug.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(string Username, string Password, string Rememberme)
+        [ReCaptcha]
+        public ActionResult Login(string Username, string Password, string Rememberme,string foo)
         {
             var result = _accountService.Login(Username, Password, Rememberme);
 
@@ -55,8 +56,8 @@ namespace LearnBug.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        //[ReCaptcha]
-        public ActionResult Register(User user)
+        [ReCaptcha]
+        public ActionResult Register(User user,string foo)
         {
             if (!ModelState.IsValid)
                 return View(user);
