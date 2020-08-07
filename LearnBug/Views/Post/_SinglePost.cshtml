@@ -65,23 +65,23 @@
 
                 </div>
             </div>
-            @if (!string.IsNullOrEmpty(Model.KeyWords))
-            {
-                <div class="col-md-12 form-group">
-                    <div class="col-md-5">
-                        @Html.Label("کلمات کلیدی : ")
-                    </div>
-                    <div class="col-md-7">
-                        @{
+            <div class="col-md-12 form-group">
+                <div class="col-md-5">
+                    @Html.Label("کلمات کلیدی : ")
+                </div>
+                <div class="col-md-7">
+                    @{
+                        if (!string.IsNullOrEmpty(Model.KeyWords))
+                        {
                             var keys = Model.KeyWords.Split(',');
                             foreach (var item in keys)
                             {
                                 <a href="@Url.Action("Index", "Home", new { search = item })"> #@item &nbsp;</a>
                             }
                         }
-                    </div>
+                    }
                 </div>
-            }
+            </div>
             <div class="col-md-12 form-group">
                 <div class="col-md-6 form-group">
                     <a href="/Post/ViewPost/@Model.Id" class="btn btn-success btn-block"> مشاهده</a>
