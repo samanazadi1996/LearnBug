@@ -32,9 +32,12 @@ namespace LearnBug.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+               return RedirectToAction("Index","Home");
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ReCaptcha]
         public ActionResult Login(LoginUserViewModel model,string foo)
         {
@@ -46,7 +49,8 @@ namespace LearnBug.Controllers
             if (result)
                 return RedirectToAction("Index", "Home");
 
-            ViewBag.Message = "نام کاربری یا رمز عبور اشتباه است";
+            ModelState.AddModelError("Message", "نام کاربری یا رمز عبور اشتباه است");
+
             return View();
         }
 
@@ -55,10 +59,12 @@ namespace LearnBug.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+
             return View();
         }
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [ReCaptcha]
         public ActionResult Register(User user, string foo)

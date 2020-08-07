@@ -118,6 +118,17 @@ namespace Models.Repositories
                 return null;
             }
         }
+        public bool Exist(string username,string password,bool isActive=true)
+        {
+            try
+            {
+                return !(db.Users.FirstOrDefault(p=>p.Username==username && p.Password==password && p.IsActive==isActive) is null);
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         public IQueryable<TResult> Select<TResult>(System.Linq.Expressions.Expression<Func<User, TResult>> selector)
         {

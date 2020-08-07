@@ -30,7 +30,7 @@ namespace Services
         public bool Login(LoginUserViewModel loginUser)
         {
             loginUser.Password = loginUser.Password.Encrypt();
-            if (_userRepository.Select(p => p.Username == loginUser.Username.ToLower() && p.Password == loginUser.Password && p.IsActive).Any())
+            if (_userRepository.Exist(loginUser.Username.ToLower() ,loginUser.Password))
             {
                 FormsAuthentication.SetAuthCookie(loginUser.Username.ToLower(), loginUser.Rememberme);
                 return true;

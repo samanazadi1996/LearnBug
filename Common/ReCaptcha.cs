@@ -26,20 +26,20 @@ namespace Common.ReCaptcha
                 HttpClient httpClient = new HttpClient();
                 var res = httpClient.GetAsync($"https://www.google.com/recaptcha/api/siteverify?secret={privateKey}&response={gRecaptchaResponse}").Result;
                 if (res.StatusCode != HttpStatusCode.OK)
-                    ((Controller)filterContext.Controller).ModelState.AddModelError("ReCaptcha", "Captcha words typed incorrectly");
+                    ((Controller)filterContext.Controller).ModelState.AddModelError("Message", "Captcha words typed incorrectly");
 
                 string JSONres = res.Content.ReadAsStringAsync().Result;
                 dynamic JSONdata = JObject.Parse(JSONres);
 
                 if (JSONdata.success != "true")
-                    ((Controller)filterContext.Controller).ModelState.AddModelError("ReCaptcha", "Captcha words typed incorrectly");
+                    ((Controller)filterContext.Controller).ModelState.AddModelError("Message", "Captcha words typed incorrectly");
 
                 base.OnActionExecuting(filterContext);
 
             }
             catch (Exception)
             {
-                ((Controller)filterContext.Controller).ModelState.AddModelError("ReCaptcha", "Errore reCaptcha");
+                ((Controller)filterContext.Controller).ModelState.AddModelError("Message", "Errore reCaptcha");
             }
         }
     }

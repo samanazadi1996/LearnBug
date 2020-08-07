@@ -18,5 +18,7 @@ namespace Models.Repositories
         IQueryable<TResult> Select<TResult>(Expression<Func<User, TResult>> selector);
         bool Update(User entity, bool autoSave = true);
         IQueryable<User> Where(Expression<Func<User, bool>> predicate);
+        bool Exist(string username, string password, bool isActive = true);
+
     }
 }
