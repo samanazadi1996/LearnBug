@@ -27,12 +27,12 @@ namespace Services
             FormsAuthentication.SignOut();
         }
 
-        public bool Login(string Username, string Password, string Rememberme)
+        public bool Login(LoginUserViewModel loginUser)
         {
-            Password = Password.Encrypt();
-            if (_userRepository.Select(p => p.Username == Username.ToLower() && p.Password == Password && p.IsActive).Any())
+            loginUser.Password = loginUser.Password.Encrypt();
+            if (_userRepository.Select(p => p.Username == loginUser.Username.ToLower() && p.Password == loginUser.Password && p.IsActive).Any())
             {
-                FormsAuthentication.SetAuthCookie(Username.ToLower(), Convert.ToBoolean(Rememberme));
+                FormsAuthentication.SetAuthCookie(loginUser.Username.ToLower(), loginUser.Rememberme);
                 return true;
             }
             else

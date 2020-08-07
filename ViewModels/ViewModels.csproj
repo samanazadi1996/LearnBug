@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChangePasswordViewModel.cs" />
+    <Compile Include="LoginUserViewModel.cs" />
     <Compile Include="MessageViewModel.cs" />
     <Compile Include="NotificationViewModel.cs" />
     <Compile Include="PostsViewModel.cs" />

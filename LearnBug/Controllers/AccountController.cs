@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using ViewModels;
 
 namespace LearnBug.Controllers
 {
@@ -35,9 +36,12 @@ namespace LearnBug.Controllers
         }
         [HttpPost]
         [ReCaptcha]
-        public ActionResult Login(string Username, string Password, string Rememberme,string foo)
+        public ActionResult Login(LoginUserViewModel model,string foo)
         {
-            var result = _accountService.Login(Username, Password, Rememberme);
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var result = _accountService.Login(model);
 
             if (result)
                 return RedirectToAction("Index", "Home");
@@ -57,7 +61,7 @@ namespace LearnBug.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [ReCaptcha]
-        public ActionResult Register(User user,string foo)
+        public ActionResult Register(User user, string foo)
         {
             if (!ModelState.IsValid)
                 return View(user);
