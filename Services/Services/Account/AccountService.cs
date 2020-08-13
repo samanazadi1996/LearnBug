@@ -2,6 +2,8 @@
 using Models.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Spatial;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,7 +32,7 @@ namespace Services
         public bool Login(LoginUserViewModel loginUser)
         {
             loginUser.Password = loginUser.Password.Encrypt();
-            if (_userRepository.Exist(loginUser.Username.ToLower() ,loginUser.Password))
+            if (_userRepository.Exist(loginUser.Username.ToLower(), loginUser.Password))
             {
                 FormsAuthentication.SetAuthCookie(loginUser.Username.ToLower(), loginUser.Rememberme);
                 return true;
@@ -41,24 +43,45 @@ namespace Services
             }
         }
 
-        public bool Register(User user)
+        public bool Register(RegisterVeiwModel register)
         {
-            if (!_userRepository.Select(p => p.Username == user.Username.ToLower().Trim()).Any())
+            if (!_userRepository.Select(p => p.Username == register.Username.ToLower().Trim()).Any())
                 return false;
-
-            user.Status = 1;
-            user.Roles = "User";
-            user.Wallet = 0;
-            user.Username = user.Username.ToLower().Trim();
-            user.Password = user.Password.Encrypt();
-            user.Dateofbirth = user.PersianDateofbirth.ToMiladiDate();
-
+            var user = FillUserByViewModel(register);
             if (_userRepository.Add(user))
                 return true;
 
             return false;
         }
-
+        private User FillUserByViewModel(RegisterVeiwModel register)
+        {
+            var user = new User()
+            {
+                Status = 1,
+                Roles = "User",
+                Wallet = 0,
+                Username = register.Username.ToLower().Trim(),
+                Password = register.Password.Encrypt(),
+                Dateofbirth = register.PersianDateofbirth.ToMiladiDate(),
+                Biography = register.Biography,
+                Email = register.Email,
+                Gender = register.Gender,
+                Location = register.Location,
+                Name = register.Name,
+                Phone = register.Phone,
+                PersianDateofbirth=register.PersianDateofbirth
+            };
+            if (register.leafletViewwModel.Lat != null && register.leafletViewwModel.Lng != null)
+            {
+                string strPointWellKnownText =
+                 string.Format(CultureInfo.InvariantCulture.NumberFormat, "POINT({0} {1})", register.leafletViewwModel.Lng, register.leafletViewwModel.Lat);
+                DbGeography oDbGeography =
+                    DbGeography.PointFromText
+                    (pointWellKnownText: strPointWellKnownText, coordinateSystemId: 4326);
+                user.GeoLocation = oDbGeography;
+            }
+            return user;
+        }
 
     }
 }

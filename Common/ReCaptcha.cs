@@ -50,12 +50,17 @@ namespace Common.ReCaptcha
             var publicKey = ConfigurationManager.AppSettings["ReCaptcha.PublicKey"];
             string htmlInjectString = @"<input type='hidden' id='foo' name='foo' />
      <script src = 'https://www.google.com/recaptcha/api.js?render=" + publicKey + @"'></script>
-    <script>
+     <script>  
          grecaptcha.ready(function() {
+            $('#form').submit(function (e) {
+                debugger
+                e.preventDefault()
                 grecaptcha.execute('" + publicKey + @"', { action: 'ReCaptcha' }).then(function(token) {
                     document.getElementById('foo').value = token;
+                    this.form.submit()
                 });
             });
+         });
      </script>   
 
 ";

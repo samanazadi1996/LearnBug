@@ -23,5 +23,6 @@ namespace Services
         double GetWallet(string username);
         ProfileViewModel Profile(string username);
         User UpdateBlockUser(int id);
+        bool UserExist(LoginUserViewModel user);
     }
 }

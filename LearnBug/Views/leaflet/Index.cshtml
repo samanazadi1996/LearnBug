@@ -1,0 +1,42 @@
+﻿<style>
+    #map {
+        min-height: 350px;
+        height: 100%;
+        width: 100%;
+        z-index: 0;
+        overflow: hidden;
+    }
+</style>
+@Html.Hidden("Lat")
+@Html.Hidden("Lng")
+<div>
+    <div id="map"></div>
+</div>
+<script src="~/Content/leaflet/leaflet.js"></script>
+<link href="~/Content/leaflet/leaflet.css" rel="stylesheet" />
+<script>
+    var Lat = 35.7164130173296;
+    var Lng = 51.321773529052734;
+    var map = L.map('map').setView([Lat, Lng], 12);
+
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        //attribution: '&copy; <a href="http://osm.org/copyright">مشاهده کامل نقشه</a> contributors'
+    }).addTo(map);
+
+    //var circle = L.circle([Lat, Lng], {
+    //    color: 'green',
+    //    fillColor: 'green',
+    //    fillOpacity: 0.8,
+    //    radius: 40
+    //}).addTo(map).bindPopup("سلام");
+    var marker;
+
+    map.on('click', function (e) {
+        if (marker)
+            map.removeLayer(marker);
+        document.getElementById('Lat').value =e.latlng.lat
+        document.getElementById('Lng').value =e.latlng.lng
+        marker = L.marker(e.latlng).addTo(map);
+    });
+</script>

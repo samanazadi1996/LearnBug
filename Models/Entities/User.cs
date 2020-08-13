@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,13 +58,7 @@ namespace Models.Entities
         [Display(Name = "رمز عبور")]
         [DisplayName("رمز عبور")]
         [Required(ErrorMessage = "رمز عبور اجباری است")]
-
         public string Password { get; set; }
-        //[Display(Name = "تکرار رمز عبور")]
-        //[DisplayName("تکرار رمز عبور")]
-        //[NotMapped]
-        //[Compare("Password", ErrorMessage = "تکرار رمز عبور اشتباه است")]
-        //public string ConfirmPassword { get; set; }
 
         [Display(Name = "تاریخ تولد")]
         [DisplayName("تاریخ تولد")]
@@ -92,6 +87,9 @@ namespace Models.Entities
         [Display(Name = "محلس سکونت")]
         [DisplayName("محل سکونت")]
         public string Location { get; set; }
+        [Display(Name = "مکان")]
+        [DisplayName("مکان")]
+        public DbGeography GeoLocation { get; set; }
 
         [Display(Name = "نوع دستریس")]
         [DisplayName("نوع دسترسی")]

@@ -7,6 +7,6 @@ namespace Services
     {
         bool Login(LoginUserViewModel loginUser);
         void Logout();
-        bool Register(User user);
+        bool Register(RegisterVeiwModel user);
     }
 }

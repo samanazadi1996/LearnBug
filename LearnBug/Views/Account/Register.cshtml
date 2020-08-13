@@ -1,4 +1,4 @@
-﻿@model Models.Entities.User
+﻿@model ViewModels.RegisterVeiwModel
 @using Common.ReCaptcha
 @{
     Layout = "~/Views/Shared/_Account.cshtml";
@@ -14,7 +14,7 @@
     <div class="col-md-6">
         <div class="m-t-40 card-box">
             <div class="panel-body">
-                @using (Html.BeginForm())
+                @using (Html.BeginForm("Register","Account",FormMethod.Post,new { id="form"}))
                 {
                     @Html.GenerateCaptcha()
                     @Html.AntiForgeryToken()
@@ -47,15 +47,13 @@
                             @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })
                         </div>
                     </div>
-                    @*<div class="col-md-12 form-group">
-                            <div class="col-md-6">
-                                <div class="col-md-3"><label>تکرار رمز عبور</label></div>
-                                <div class="col-md-9">
-                                    @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control", type = "password" })
-                                    @Html.ValidationMessageFor(model => model.ConfirmPassword,null, new { @class="text-danger"})
-                                </div>
-                            </div>
-                        </div>*@
+                    <div class="col-md-12 form-group">
+                        <div class="col-md-3"><label>تکرار رمز عبور</label></div>
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control", type = "password" })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
                     <div class="col-md-12 form-group">
                         <div class="col-md-3"><label>تاریخ تولد</label></div>
                         <div class="col-md-9">
@@ -88,6 +86,20 @@
                         </div>
                     </div>
                     <div class="col-md-12 form-group">
+                        <div class="col-md-3"><label>مکان</label></div>
+                        <div class="col-md-9">
+                            @Html.HiddenFor(model => model.leafletViewwModel.Lat)
+                            @Html.HiddenFor(model => model.leafletViewwModel.Lng)
+                            <a class="btn btn-info" data-toggle="modal" data-target="#myModal">
+                                <i class="zmdi zmdi-my-location"></i>
+                            </a>
+                            <a class="btn btn-danger" style="display:none" onclick="RemoveLocation()" id="btnRemove">
+                                <i class="zmdi zmdi-delete"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 form-group">
                         <div class="col-md-3"><label>بیوگرافی</label></div>
                         <div class="col-md-9">
                             @Html.TextAreaFor(model => model.Biography, new { @class = "form-control" })
@@ -111,9 +123,38 @@
     <div class="col-md-3"></div>
 
 </div>
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">مکان خود را انتخاب کنید</h4>
+            </div>
+            <div class="modal-body" id="divLocation">
+                @Html.Action("Index", "leaflet")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" onclick="SetLocation()">ذخیره</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 @section Scripts {
     <script src="~/Scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
     <script>
+        function RemoveLocation() {
+            document.getElementById("leafletViewwModel_Lat").value = ""
+            document.getElementById("leafletViewwModel_Lng").value = ""
+            document.getElementById("btnRemove").style.display="none"
+        }
+        function SetLocation() {
+            document.getElementById("leafletViewwModel_Lat").value = document.getElementById("Lat").value
+            document.getElementById("leafletViewwModel_Lng").value = document.getElementById("Lng").value
+            document.getElementById("btnRemove").style.display = ""
+
+        }
         $(".Date").datepicker();
         function Autenticator(obj) {
             $.ajax({

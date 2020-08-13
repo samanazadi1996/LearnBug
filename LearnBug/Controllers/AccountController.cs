@@ -66,8 +66,8 @@ namespace LearnBug.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ReCaptcha]
-        public ActionResult Register(User user, string foo)
+        //[ReCaptcha]
+        public ActionResult Register(RegisterVeiwModel user, string foo)
         {
             if (!ModelState.IsValid)
                 return View(user);

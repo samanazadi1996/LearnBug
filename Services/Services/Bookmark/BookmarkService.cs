@@ -53,7 +53,7 @@ namespace Services
             };
             return model;
         }
-        public Bookmark GetBookmarkById(int id)
+        public async Task<Bookmark> GetBookmarkById(int id)
         {
             try
             {

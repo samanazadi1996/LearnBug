@@ -291,5 +291,19 @@ namespace Services
                 return user.Image;
             }
         }
+        public bool UserExist(LoginUserViewModel user)
+        {
+            try
+            {
+                var password = user.Password.Encrypt();
+                var person = _UserRepository.Where(p => p.Username == user.Username.Trim() && p.Password == password && p.IsActive).FirstOrDefault();
+                return !(person is null);
+            }
+            catch (Exception)
+            {
+
+                return false;
+            } 
+        }
     }
 }
