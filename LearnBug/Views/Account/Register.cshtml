@@ -14,7 +14,7 @@
     <div class="col-md-6">
         <div class="m-t-40 card-box">
             <div class="panel-body">
-                @using (Html.BeginForm("Register","Account",FormMethod.Post,new { id="form"}))
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id = "form" }))
                 {
                     @Html.GenerateCaptcha()
                     @Html.AntiForgeryToken()
@@ -131,7 +131,7 @@
                 <h4 class="modal-title" id="myModalLabel">مکان خود را انتخاب کنید</h4>
             </div>
             <div class="modal-body" id="divLocation">
-                @Html.Action("Index", "leaflet")
+                @Html.Action("Create", "leaflet")
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>

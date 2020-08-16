@@ -16,5 +16,8 @@ namespace ViewModels
         [Display(Name = "طول جغرافیایی")]
         [DisplayName("طول جغرافیایی")]
         public double Lng { get; set; }
+        [Display(Name = "آدرس")]
+        [DisplayName("آدرس")]
+        public String Address { get; set; }
     }
 }

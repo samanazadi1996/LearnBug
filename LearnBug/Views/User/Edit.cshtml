@@ -18,8 +18,10 @@
                 <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_Index","Transaction")')">تراکنش ها</a><br /><br />
                 @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
                 {
-                    <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_SellPost","Factor")')">گذارش خرید مطالب من</a>
+                    <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("_SellPost","Factor")')">گذارش خرید مطالب من</a><br /><br />
                 }
+                <a class="btn btn-info" style="width:100%" onclick="renderpage('@Url.Action("Edit","Leaflet")')">مکان</a><br /><br />
+
             </div>
             <div id="bodypartial" class="col-md-10" style="padding:10px;">
             </div>

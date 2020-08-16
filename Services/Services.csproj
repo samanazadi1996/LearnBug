@@ -101,6 +101,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\Leaflet\ILeafletService.cs" />
     <Compile Include="Services\Jwt\IJwtService.cs" />
     <Compile Include="Services\Account\IAccountService.cs" />
     <Compile Include="Services\Account\AccountService.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Services\Follow\FollowService.cs" />
     <Compile Include="Services\Home\HomeService.cs" />
     <Compile Include="Services\Jwt\JwtService.cs" />
+    <Compile Include="Services\Leaflet\LeafletService.cs" />
     <Compile Include="Services\Message\IMessageService.cs" />
     <Compile Include="Services\Comment\ICommentService.cs" />
     <Compile Include="Services\Bookmark\IBookmarkService.cs" />

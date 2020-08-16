@@ -1,0 +1,71 @@
+﻿@model ViewModels.LeafletViewModel
+<style>
+    #map {
+        min-height: 350px;
+        height: 100%;
+        width: 100%;
+        z-index: 0;
+        overflow: hidden;
+    }
+</style>
+@using (Html.BeginForm("","",FormMethod.Post,new { id="form"}))
+{
+    @Html.HiddenFor(Model => Model.Lat)
+    @Html.HiddenFor(Model => Model.Lng)
+    <div class="col-md-12 form-group">
+        <div id="map"></div>
+    </div>
+    <div class="col-md-12 form-group">
+        @Html.TextBoxFor(Model => Model.Address, null, new { @class = "form-control" })
+    </div>
+    <div class="col-md-12 form-group">
+        <button class="btn btn-success w-md">ذخیره</button>
+    </div>
+}
+<script src="~/Content/leaflet/leaflet.js"></script>
+<link href="~/Content/leaflet/leaflet.css" rel="stylesheet" />
+<script>
+    $('#form').submit(function (e) {
+        e.preventDefault()
+        $.ajax({
+            url: "/Leaflet/Edit",
+            data: $(this).serialize(),
+            type: 'Post',
+            datatype: 'Json',
+            success: function (data) {
+                alert(data)
+            }
+        })
+    })
+    var lastLat = document.getElementById('Lat').value
+    var lastLng = document.getElementById('Lng').value
+    var Address = document.getElementById('Address').value
+    var Lat = 35.7164130173296;
+    var Lng = 51.321773529052734;
+    if (lastLat != 0) {
+        var Lat = lastLat;
+        var Lng = lastLng;
+    }
+    var map = L.map('map').setView([Lat, Lng], 16);
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        //attribution: '&copy; <a href="http://osm.org/copyright">مشاهده کامل نقشه</a> contributors'
+    }).addTo(map);
+    if (lastLng != 0 && lastLng != null) {
+        var circle = L.circle([Lat, Lng], {
+            color: 'Blue',
+            fillColor: 'Blue',
+            fillOpacity: 0.5,
+            radius: 40,
+        }).addTo(map).bindPopup(Address);
+        var marker;
+    }
+
+    map.on('click', function (e) {
+        if (marker)
+            map.removeLayer(marker);
+        document.getElementById('Lat').value = e.latlng.lat
+        document.getElementById('Lng').value = e.latlng.lng
+        marker = L.marker(e.latlng).addTo(map);
+    });
+</script>

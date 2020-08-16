@@ -2758,7 +2758,8 @@
     <Content Include="Views\Factor\_SellPost.cshtml" />
     <Content Include="Views\Post\Delete.cshtml" />
     <Content Include="Views\Shared\_Account.cshtml" />
-    <Content Include="Views\leaflet\Index.cshtml" />
+    <Content Include="Views\leaflet\Create.cshtml" />
+    <Content Include="Views\leaflet\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
