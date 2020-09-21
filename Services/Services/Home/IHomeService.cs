@@ -1,4 +1,5 @@
 ﻿using Models.Entities;
+using System.Collections.Generic;
 using ViewModels;
 
 namespace Services
@@ -6,6 +7,6 @@ namespace Services
     public interface IHomeService
     {
         Setting About();
-        PostsViewModel Index(string search, int Page);
+        IEnumerable<int> Index(string search);
     }
 }

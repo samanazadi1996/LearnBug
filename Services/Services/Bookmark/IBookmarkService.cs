@@ -1,4 +1,5 @@
 ﻿using Models.Entities;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ViewModels;
@@ -9,6 +10,6 @@ namespace Services
     {
         string CreateOrDeleteBookmark(int postId);
         Task<Bookmark> GetBookmarkById(int id);
-        PostsViewModel GetAllBookmarks(int Page = 1, string search = null);
+        IEnumerable<int> GetAllBookmarks(string search = null);
     }
 }

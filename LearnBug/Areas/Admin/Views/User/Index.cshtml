@@ -1,6 +1,6 @@
-﻿@model IEnumerable<Models.Entities.User>
-
-@{
+﻿@model IPagedList<Models.Entities.User>
+@using PagedList.Mvc; //import this so we get our HTML Helper
+@using PagedList; //import this so we can cast our list to IPagedList (only necessary because ViewBag is dynamic@{
     ViewBag.Title = "کاربران سایت";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 
@@ -36,30 +36,41 @@
                 </div>
             }
             <!-- -->
-            <table class="table table-hover table-striped">
-                <tr>
-                    <th> عکس</th>
-                    <th> نام کاربری</th>
-                    <th>نام</th>
-                    <th>کیف پول</th>
-                    <th>کمیسیون</th>
-                    <th>دسترسی</th>
-                    <th></th>
-                </tr>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td><img style="width:30px;height:30px;border-radius:100%;" src="@item.ImgProfile()"></td>
-                        <td><a href="/User/Profile/@item.Username">@item.Username</a></td>
-                        <td>@item.Name</td>
-                        <td>@item.Wallet.ToPrice() $</td>
-                        <td>@item.Commission %</td>
-                        <td>@item.Roles</td>
-                        <td><a href="@Url.Action("ManagementUser","User",new { item.Id})" class="btn btn-primary"><i class="zmdi zmdi-edit"></i></a></td>
-                    </tr>
-                }
-            </table>
+            <div class="col-md-12">
 
+                <table class="table table-hover table-striped">
+                    <tr>
+                        <th> عکس</th>
+                        <th> نام کاربری</th>
+                        <th>نام</th>
+                        <th>کیف پول</th>
+                        <th>کمیسیون</th>
+                        <th>دسترسی</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><img style="width:30px;height:30px;border-radius:100%;" src="@item.ImgProfile()"></td>
+                            <td><a href="/User/Profile/@item.Username">@item.Username</a></td>
+                            <td>@item.Name</td>
+                            <td>@item.Wallet.ToPrice() $</td>
+                            <td>@item.Commission %</td>
+                            <td>@item.Roles</td>
+                            <td><a href="@Url.Action("ManagementUser","User",new { item.Id})" class="btn btn-primary"><i class="zmdi zmdi-edit"></i></a></td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="col-md-12 text-center">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new {
+                page = page,
+                role=ViewBag.role,
+                name=@ViewBag.name ,
+                username=ViewBag.username,
+                email=ViewBag.email
+                }))
+            </div>
             <!-- -->
         </fieldset>
     </div>

@@ -1,42 +1,40 @@
-﻿@model ViewModels.PostsViewModel
-@using MvcPager
+﻿@model IPagedList<int>
+@using PagedList.Mvc;
+@using PagedList;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "خانه";
 }
 @section styles{
-    <link href="~/Content/BU/my-pager.css" rel="stylesheet" />
 }
-@if (Model.Groups != null)
-{
-    <div class="col-lg-12">
-        <div class="card-box">
-            <fieldset class="text-center">
-                @foreach (var item in Model.Groups)
-                {
-                    <div style=" width:fit-content;padding:10px; float:right">
-                        <a href="@Url.Action("Index","Home",new { search=item.Name})">
-                            <img class="fa-border" src="@item.Image" alt="@item.Name" title="@item.Name" style="width:50px" />
-                        
-                        </a>
-                    </div>
-                }
-            </fieldset>
-        </div>
-    </div>
+@*@if (Model.Groups != null)
+    {
+        <div class="col-lg-12">
+            <div class="card-box">
+                <fieldset class="text-center">
 
-}
-@if (Model.TotalItemCount > 12)
-{
-    <div class="col-lg-12">
-        <div class="card-box">
-            <fieldset class="text-center my-pager">
-                @Html.Pager(12, Model.CurrentPage, Model.TotalItemCount, new { search = ViewBag.Srch })
-            </fieldset>
+                    @foreach (var item in Model.Groups)
+                    {
+                        <div style=" width:fit-content;padding:10px; float:right">
+                            <a href="@Url.Action("Index","Home",new { search=item.Name})">
+                                <img class="fa-border" src="@item.Image" alt="@item.Name" title="@item.Name" style="width:50px" />
+
+                            </a>
+                        </div>
+                    }
+                </fieldset>
+            </div>
         </div>
+
+    }*@
+<div class="col-lg-12">
+    <div class="card-box">
+        <fieldset class="text-center">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, search = ViewBag.Srch }))
+        </fieldset>
     </div>
-}
-@foreach (var item in Model.PostId)
+</div>
+@foreach (var item in Model)
 {
     @Html.Action("_SinglePost", "Post", new { id = item })
 }

@@ -134,8 +134,9 @@
                 @Html.Action("Create", "leaflet")
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
-                <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" onclick="SetLocation()">ذخیره</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light" onclick="getLocation()"><i class="zmdi zmdi-my-location"></i></button>
+                <button type="button" class="btn btn-success waves-effect waves-light" data-dismiss="modal" onclick="SetLocation()">ذخیره</button>
+                <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">بستن</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

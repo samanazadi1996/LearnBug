@@ -1,6 +1,6 @@
-﻿
-@model ViewModels.PostsViewModel
-@using MvcPager
+﻿@model PagedList.IPagedList<int>
+@using PagedList;
+@using PagedList.Mvc;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "مطالب من";
@@ -9,15 +9,16 @@
 }
 @if (Model.TotalItemCount > 12)
 {
+
     <div class="col-lg-12">
         <div class="card-box">
-            <fieldset>
-                @Html.Pager(12, Model.CurrentPage, Model.TotalItemCount, new { search = ViewBag.Srch })
+            <fieldset class="text-center">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, search = ViewBag.Srch }))
             </fieldset>
         </div>
     </div>
 }
-@foreach (var item in Model.PostId)
+@foreach (var item in Model)
 {
     @Html.Action("_SinglePost", "Post", new { id = item })
 }

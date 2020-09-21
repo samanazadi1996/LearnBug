@@ -1,4 +1,4 @@
-﻿@model Models.Entities.Post
+﻿@model ViewModels.PostViewModel
 <div class="col-lg-4">
     <div class="panel panel-border panel-info">
         <div class="panel-heading">
@@ -10,8 +10,8 @@
                     @Html.Label("مدرس : ")
                 </div>
                 <div class="col-md-7">
-                    <a href="@Url.Action("Profile", "User", new { id = Model.User.Username })">
-                        @Html.DisplayFor(model => model.User.Name)
+                    <a href="@Url.Action("Profile", "User", new { id = Model.UserName })">
+                        @Html.DisplayFor(model => model.UserName)
                     </a>
                 </div>
             </div>
@@ -20,8 +20,8 @@
                     @Html.Label("دسته بندی : ")
                 </div>
                 <div class="col-md-7">
-                    <a href="@Url.Action("Index", "Home", new { search = Model.Group.Name })">
-                        @Html.DisplayFor(model => model.Group.Name)
+                    <a href="@Url.Action("Index", "Home", new { search = Model.GroupName })">
+                        @Html.DisplayFor(model => model.GroupName)
                     </a>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     @Html.Label("نظرات : ")
                 </div>
                 <div class="col-md-7">
-                    @Html.DisplayFor(model => model.Comments.Count)
+                    @Html.DisplayFor(model => model.CommentsCount)
                 </div>
             </div>
             <div class="col-md-12 form-group">
@@ -53,7 +53,7 @@
                     }
                     else
                     {
-                        if (Model.Factors.Any(p => p.User.Username == User.Identity.Name))
+                        if (Model.IBuyedPost)
                         {
                             <del class="text-pink">@(Model.Price?.ToPrice()) ریال</del>
                         }
@@ -88,7 +88,7 @@
                 </div>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    if (Model.User.Username == User.Identity.Name)
+                    if (Model.IsMainPost)
                     {
                         <div class=" col-md-6 form-group">
                             <a class="btn btn-info btn-trans waves-effect waves-warning m-b-5 sa-left" href="@Url.Action("Edit", "Post", new { id = Model.Id })"><i class="zmdi zmdi-edit"></i></a>

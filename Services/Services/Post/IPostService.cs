@@ -11,8 +11,9 @@ namespace Services
         bool Delete(Post post);
         bool Edit(Post post);
         IEnumerable<Post> GetAllPosts();
-        PostsViewModel GetMyPosts(int Page = 1);
+        IEnumerable<int> GetMyPosts();
         Post GetRowById(int id);
+        PostViewModel GetSinglePostById(int id);
         bool IsMainPost(int id);
         Post GetLastPost();
     }

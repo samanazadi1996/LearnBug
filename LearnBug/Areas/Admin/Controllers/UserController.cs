@@ -1,6 +1,7 @@
 ﻿using Models;
 using Models.Entities;
 using NLog;
+using PagedList;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,12 @@ namespace LearnBug.Areas.Admin.Controllers
             _userService = userService;
         }
 
-        public ActionResult Index(string name = null, string username = null, string role = "نقش", string email = null)
+        public ActionResult Index(int? page,string name = null, string username = null, string role = "نقش", string email = null)
         {
-            var model = _userService.AllUsers(name, username, role, email);
+
+            var pageNumber = page ?? 1; // if no page was specified in the querystring, default to the first page (1)
+            var result = _userService.AllUsers(name, username, role, email);
+            var model = result.ToPagedList(pageNumber, 5);
             ViewBag.name = name;
             ViewBag.username = username;
             ViewBag.email = email;

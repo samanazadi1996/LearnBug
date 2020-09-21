@@ -38,7 +38,7 @@ namespace LearnBug.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ReCaptcha]
+        //[ReCaptcha]
         public ActionResult Login(LoginUserViewModel model,string foo)
         {
             if (!ModelState.IsValid)

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using ViewModels;
 using Services;
+using PagedList;
 
 namespace LearnBug.Controllers
 {
@@ -27,9 +28,11 @@ namespace LearnBug.Controllers
             return JavaScript(result);
         }
 
-        public ActionResult Index(int Page = 1, string search = null)
+        public ActionResult Index(int? page, string search = "")
         {
-            var model = _bookmarkService.GetAllBookmarks(Page, search);
+            var result = _bookmarkService.GetAllBookmarks(search);
+            var pageNumber = page ?? 1; 
+            var model = result.ToPagedList(pageNumber, 12);
             if (!string.IsNullOrEmpty(search))
                 ViewBag.Srch = search.Trim();
             return View(model);

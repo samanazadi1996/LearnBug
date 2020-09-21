@@ -40,29 +40,29 @@ namespace Services
                          User = p.sender,
                          DateTime = p.InsertDateTime,
                          Text = " Msg : " + p.Text.Substring(0, 20)
-                     });
+                     }).ToList();
             var Follow = _followRepository.Where(p => p.followingId == me.Id).OrderByDescending(p => p.InsertDateTime).Take(30).Select(p =>
                  new NotificationViewModel
                  {
                      User = p.Follower,
                      DateTime = p.InsertDateTime,
                      Text = p.Follower.Name + " شما را فالو کرد "
-                 });
+                 }).ToList();
             var Comment = _commentRepository.Where(p => p.Post.userId == me.Id).OrderByDescending(p => p.InsertDateTime).Take(30).Select(p =>
                  new NotificationViewModel
                  {
                      User = p.User,
                      DateTime = p.InsertDateTime,
                      Text = p.User.Name + " برای پست شما کامنت گذاشت "
-                 });
+                 }).ToList();
             var buy = _factorRepository.Where(p => p.Post.userId == me.Id).OrderByDescending(p => p.InsertDateTime).Take(30).Select(p =>
                  new NotificationViewModel
                  {
                      User = p.User,
                      DateTime = p.InsertDateTime,
                      Text = p.User.Name + " مطلب شما را خریداری کرد "
-                 });
-            var model = Follow/*.Concat(Message).Concat(Comment).Concat(buy)*/;
+                 }).ToList();
+            var model = Follow.Concat(Message).Concat(Comment).Concat(buy);
             model = model.OrderByDescending(p => p.DateTime).Take(30);
             return model;
         }

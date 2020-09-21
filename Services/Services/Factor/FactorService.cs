@@ -24,18 +24,12 @@ namespace Services
             _userRepository = userRepository;
         }
 
-        public PostsViewModel GetMyBoughtPosts(int Page)
+        public List<int> GetMyBoughtPosts()
         {
             try
             {
-                var factors = _factorRepository.Where(p => p.User.Username == HttpContext.Current.User.Identity.Name).OrderByDescending(p => p.InsertDateTime).Select(p => p.postId);
-                PostsViewModel model = new PostsViewModel
-                {
-                    PostId = factors,
-                    CurrentPage = Page,
-                    TotalItemCount = factors.Count()
-                };
-                return model;
+                var result = _factorRepository.Where(p => p.User.Username == HttpContext.Current.User.Identity.Name).OrderByDescending(p => p.InsertDateTime).Select(p => p.postId).ToList();
+                return result;
             }
             catch (Exception)
             {

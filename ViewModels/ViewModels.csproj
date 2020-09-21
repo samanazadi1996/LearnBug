@@ -63,7 +63,7 @@
     <Compile Include="LoginUserViewModel.cs" />
     <Compile Include="MessageViewModel.cs" />
     <Compile Include="NotificationViewModel.cs" />
-    <Compile Include="PostsViewModel.cs" />
+    <Compile Include="PostViewModel.cs" />
     <Compile Include="JsonResultViewmodel.cs" />
     <Compile Include="AvatarViewModel.cs" />
     <Compile Include="ProfileViewModel.cs" />

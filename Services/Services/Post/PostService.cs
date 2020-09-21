@@ -2,12 +2,8 @@
 using Models.Repositories;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
 using ViewModels;
 
 namespace Services
@@ -31,16 +27,11 @@ namespace Services
             _followRepository = followRepository;
             _commentRepository = commentRepository;
         }
-        public PostsViewModel GetMyPosts(int Page = 1)
+        public IEnumerable<int> GetMyPosts()
         {
             var posts = _postRepository.Where(p => p.User.Username == HttpContext.Current.User.Identity.Name).OrderByDescending(o => o.InsertDateTime);
 
-            PostsViewModel model = new PostsViewModel
-            {
-                PostId = posts.Skip((Page - 1) * 12).Take(12).Select(p => p.Id).ToList(),
-                CurrentPage = Page,
-                TotalItemCount = posts.Count()
-            };
+            var model = posts.Select(p => p.Id).ToList();
             return model;
         }
         public bool Create(Post post)
@@ -107,6 +98,30 @@ namespace Services
             {
                 var Result = _postRepository.Find(id);
                 return Result;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public PostViewModel GetSinglePostById(int id)
+        {
+            try
+            {
+                var post = _postRepository.Find(id);
+                var model = new PostViewModel() { 
+                    Id=post.Id,
+                    Subject=post.Subject,
+                    UserName=post.User.Name,
+                    GroupName=post.Group.Name,
+                    CommentsCount=post.Comments.Count(),
+                    InsertDateTime=post.InsertDateTime,
+                    Price=post.Price,
+                    KeyWords=post.KeyWords,
+                    IsMainPost=post.User.Username ==HttpContext.Current.User.Identity.Name,
+                    IBuyedPost=post.Factors.Any(p => p.User.Username ==HttpContext.Current.User.Identity.Name),
+                };
+                return model;
             }
             catch (Exception)
             {

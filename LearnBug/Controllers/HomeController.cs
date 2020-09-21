@@ -8,6 +8,8 @@ using NLog;
 using Models;
 using ViewModels;
 using Services;
+using System.Web.UI;
+using PagedList;
 
 namespace LearnBug.Controllers
 {
@@ -23,11 +25,13 @@ namespace LearnBug.Controllers
             var model = _homeService.About();
             return View(model);
         }
-        public ActionResult Index(string search = null, int Page = 1)
+        public ActionResult Index(int? page, string search = "")
         {
-            var model = _homeService.Index(search, Page);
+            var result = _homeService.Index(search);
             if (!string.IsNullOrEmpty(search))
                 ViewBag.Srch = search.Trim();
+            var pageNumber = page ?? 1; // if no page was specified in the querystring, default to the first page (1)
+            var model = result.ToPagedList(pageNumber, 12);
             return View(model);
         }
     }

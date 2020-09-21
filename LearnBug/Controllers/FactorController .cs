@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using ViewModels;
 using Services;
+using PagedList;
 
 namespace LearnBug.Controllers
 {
@@ -20,8 +21,10 @@ namespace LearnBug.Controllers
             _factorService = factorService;
         }
        public ActionResult Index(int Page = 1)
-        {
-            var model = _factorService.GetMyBoughtPosts(Page);
+        {          
+            var result = _factorService.GetMyBoughtPosts();
+            var model = result.ToPagedList(Page, 12);
+
             return View(model);
         }
 

@@ -11,6 +11,6 @@ namespace Services
         IEnumerable<Factor> GetAllFactors(string from = null, string to = null);
         IEnumerable<Factor> GetMySoldPosts();
         Factor GetRowSelectelById(int id);
-        PostsViewModel GetMyBoughtPosts(int Page);
+        List<int> GetMyBoughtPosts();
     }
 }

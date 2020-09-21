@@ -1,12 +1,12 @@
 ﻿using Models.Entities;
 using Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ViewModels;
 using Services;
+using PagedList;
 
 namespace LearnBug.Controllers
 {
@@ -22,7 +22,7 @@ namespace LearnBug.Controllers
         }
         public ActionResult _SinglePost(int id)
         {
-            var post = _postService.GetRowById(id);
+            var post = _postService.GetSinglePostById(id);
             return PartialView(post);
         }
 
@@ -33,9 +33,12 @@ namespace LearnBug.Controllers
         }
 
         [Authorize]
-        public ActionResult Index(int Page = 1)
+        public ActionResult Index(int? page)
         {
-            var model = _postService.GetMyPosts(Page);
+            var result = _postService.GetMyPosts();
+            var pageNumber = page ?? 1;
+            var model = result.ToPagedList(pageNumber, 12);
+
             return View(model);
         }
         [HttpGet]

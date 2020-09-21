@@ -28,21 +28,11 @@ namespace Services
             var model = _settingRepository.Where(p => p.Name == "About").Single();
             return model;
         }
-        public PostsViewModel Index(string search, int Page)
+        public IEnumerable<int> Index(string search)
         {
             var contents = _postRepository.Select().AsQueryable();
 
-            if (!string.IsNullOrEmpty(search))
-            {
-                contents = contents.Where(p => p.Subject.Contains(search) || p.Group.Name.Contains(search) || p.User.Name.Contains(search) || p.User.Username.Contains(search) || p.Price.ToString().Contains(search) || p.KeyWords.Contains(search));
-            }
-            PostsViewModel model = new PostsViewModel
-            {
-                PostId = contents.OrderByDescending(p => p.InsertDateTime).Skip((Page - 1) * 12).Take(12).Select(p => p.Id).ToList(),
-                CurrentPage = Page,
-                TotalItemCount = contents.Count(),
-                Groups = _groupRepository.Select().ToList()
-            };
+            var model = contents.Where(p => p.Subject.Contains(search) || p.Group.Name.Contains(search) || p.User.Name.Contains(search) || p.User.Username.Contains(search) || p.Price.ToString().Contains(search) || p.KeyWords.Contains(search)).OrderByDescending(p => p.InsertDateTime).Select(p => p.Id);
             return model;
         }
 

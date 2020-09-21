@@ -11,7 +11,6 @@ namespace LearnBug.Controllers
     public class leafletController : Controller
     {
         private readonly ILeafletService _leafletService;
-
         public leafletController(ILeafletService leafletService)
         {
             _leafletService = leafletService;

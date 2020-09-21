@@ -37,20 +37,12 @@ namespace Services
                 return "toastr.success('مطلب از لیست نشانه گذاری ها حذف شد .')";
             }
         }
-        public PostsViewModel GetAllBookmarks(int Page = 1, string search = null)
+        public IEnumerable<int> GetAllBookmarks(string search = null)
         {
             var Posts = _userRepository.Where(p => p.Username == HttpContext.Current.User.Identity.Name).Single().Bookmarks.Select(o => o.Post).AsQueryable();
-            if (!string.IsNullOrEmpty(search))
-            {
-                Posts = Posts.Where(p => p.Subject.Contains(search) || p.Group.Name.Contains(search) || p.User.Name.Contains(search) || p.User.Username.Contains(search) || p.Price.ToString().Contains(search) || p.KeyWords.Contains(search));
-            }
+            Posts = Posts.Where(p => p.Subject.Contains(search) || p.Group.Name.Contains(search) || p.User.Name.Contains(search) || p.User.Username.Contains(search) || p.Price.ToString().Contains(search) || p.KeyWords.Contains(search));
 
-            PostsViewModel model = new PostsViewModel
-            {
-                PostId = Posts.OrderByDescending(i => i.InsertDateTime).Skip((Page - 1) * 12).Take(12).Select(p => p.Id),
-                CurrentPage = Page,
-                TotalItemCount = Posts.Count()
-            };
+            var model = Posts.OrderByDescending(i => i.InsertDateTime).Select(p => p.Id);
             return model;
         }
         public async Task<Bookmark> GetBookmarkById(int id)
