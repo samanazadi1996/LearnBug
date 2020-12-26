@@ -221,9 +221,10 @@
     <Compile Include="Infrastracture\Utility\ConvertBase64toFile.cs" />
     <Compile Include="Infrastracture\Utility\Utilty.cs" />
     <Compile Include="Infrastracture\Utility\ViewHelper.cs" />
-    <Compile Include="App_Start\IoCConfig.cs" />
+    <Compile Include="Model\Configurations\AutofacConfigurationExtensions.cs" />
+    <Compile Include="Model\Configurations\HanfireConfigurationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2777,7 +2778,6 @@
     <Folder Include="Files\GroupPicture\" />
     <Folder Include="Files\Posts\" />
     <Folder Include="Files\ProfilePicture\" />
-    <Folder Include="Model\Ioc\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -2807,10 +2807,6 @@
     <ProjectReference Include="..\ViewModels\ViewModels.csproj">
       <Project>{d5b27cb5-1aa2-4dbb-ab91-ba11ac6a7fa9}</Project>
       <Name>ViewModels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebFramework\WebFramework.csproj">
-      <Project>{32cf4cb2-1cc3-49d1-aac2-a2cca7ddab1f}</Project>
-      <Name>WebFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

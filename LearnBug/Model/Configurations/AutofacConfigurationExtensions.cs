@@ -2,16 +2,13 @@
 using Autofac.Integration.Mvc;
 using Models.Repositories;
 using Services;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 
-namespace LearnBug
+namespace LearnBug.Model.Configurations
 {
-    public class IoCConfig
+    public class AutofacConfigurationExtensions
     {
         public static void RegisterDependencies()
         {
@@ -71,6 +68,5 @@ namespace LearnBug
             #endregion
 
         }
-
     }
 }

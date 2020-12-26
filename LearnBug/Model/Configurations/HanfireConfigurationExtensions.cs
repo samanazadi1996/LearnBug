@@ -2,20 +2,16 @@
 using Hangfire.Dashboard;
 using Microsoft.Owin;
 using Owin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WebFramework.Configurations
+namespace LearnBug.Model.Configurations
 {
 
 
     public static class HanfireConfigurationExtensions
     {
-        public static void AddHangfireServices(this IAppBuilder app)
+        public static void AddHangfireServices(IAppBuilder app)
         {
+            GlobalConfiguration.Configuration.UseSqlServerStorage(@"data source=.;initial catalog=LearnBugDatabase;integrated security=True;");
             app.UseHangfireDashboard("/hangfire", new DashboardOptions
             {
                 Authorization = new[] { new MyAuthorizationFilter() }

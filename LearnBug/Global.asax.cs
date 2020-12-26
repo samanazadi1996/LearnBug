@@ -10,6 +10,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using System.Web.Http;
 using System.Web.Routing;
+using LearnBug.Model.Configurations;
 
 namespace LearnBug
 {
@@ -22,8 +23,6 @@ namespace LearnBug
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            IoCConfig.RegisterDependencies();
-            //MailSender.SendMail("dsfsdds", "dsfsdfsfgt", "samanazadi1996@gmail.com");
 
         }
         protected void FormsAuthentication_OnAuthenticate(Object sender, FormsAuthenticationEventArgs e)
