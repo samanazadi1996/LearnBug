@@ -15,8 +15,10 @@ namespace LearnBug
 
         public void Configuration(IAppBuilder app)
         {
+            var connectionStringName = System.Configuration.ConfigurationManager.ConnectionStrings["DatabaseContext"].ConnectionString;
+
             AutofacConfigurationExtensions.RegisterDependencies();
-            HanfireConfigurationExtensions.AddHangfireServices(app);
+            HanfireConfigurationExtensions.AddHangfireServices(app, connectionStringName);
         }
     }
 }

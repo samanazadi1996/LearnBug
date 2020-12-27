@@ -9,9 +9,9 @@ namespace LearnBug.Model.Configurations
 
     public static class HanfireConfigurationExtensions
     {
-        public static void AddHangfireServices(IAppBuilder app)
+        public static void AddHangfireServices(IAppBuilder app,string connectionStringName)
         {
-            GlobalConfiguration.Configuration.UseSqlServerStorage(@"data source=.;initial catalog=LearnBugDatabase;integrated security=True;");
+            GlobalConfiguration.Configuration.UseSqlServerStorage(connectionStringName);
             app.UseHangfireDashboard("/hangfire", new DashboardOptions
             {
                 Authorization = new[] { new MyAuthorizationFilter() }
