@@ -121,6 +121,10 @@
     <Compile Include="Migrations\202008122015481_AddGeoLovation.designer.cs">
       <DependentUpon>202008122015481_AddGeoLovation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012271541035_DeleteDescriptionInBaseEntity.cs" />
+    <Compile Include="Migrations\202012271541035_DeleteDescriptionInBaseEntity.designer.cs">
+      <DependentUpon>202012271541035_DeleteDescriptionInBaseEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BookmarkRepository.cs" />
@@ -170,6 +174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008122015481_AddGeoLovation.resx">
       <DependentUpon>202008122015481_AddGeoLovation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012271541035_DeleteDescriptionInBaseEntity.resx">
+      <DependentUpon>202012271541035_DeleteDescriptionInBaseEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

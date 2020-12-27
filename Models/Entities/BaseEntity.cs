@@ -26,7 +26,6 @@ namespace Models.Entities
         public bool IsDeleted { get; set; }
         public DateTime InsertDateTime { get; set; }
         public DateTime? DeleteDateTime { get; set; }
-        public string Description { get; set; }
 
     }
 
